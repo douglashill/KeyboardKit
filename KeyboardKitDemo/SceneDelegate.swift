@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = [
             UINavigationController(rootViewController: SimpleListViewController()),
             UINavigationController(rootViewController: CirclesScrollViewController()),
+            UINavigationController(rootViewController: PagingScrollViewController()),
         ]
 
         let window = UIWindow(windowScene: windowScene)

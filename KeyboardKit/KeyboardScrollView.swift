@@ -5,7 +5,6 @@ import UIKit
 /// A scroll view that allows scrolling using a hardware keyboard like `NSScrollView`.
 /// Supports arrow keys, option + arrow keys, command + arrow keys, space bar, page up, page down, home and end.
 /// Limitations:
-/// - Paging scroll views (isPagingEnabled = true) are not supported yet.
 /// - The scroll view must become its own delegate so setting the delegate is not supported yet.
 /// - Does not consider zooming. This has not been tested at all.
 public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
@@ -49,16 +48,23 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
 
     // MARK: - Allowing animations to be redirected
 
-    /// The content offset the scroll view is heading towards in an animation, or nil if no animation is happening.
-    private var currentAnimationTargetContentOffset: CGPoint?
+    /// The content offsets the scroll view is heading towards in animations.
+    ///
+    /// When no animation is happening, this array will be empty.
+    /// When an animation is in-flight, there will be one offset in this array.
+    ///
+    /// At the point when an animation is being added while an existing animation is in progress,
+    /// there will briefly be two offsets in this array. The first offset is for the animation
+    /// that is ending (early) and the second offset is the new animation being started.
+    private var currentAnimationsTargetContentOffsets: [CGPoint] = []
 
     /// The content offset that should be used as a base when starting an animation to account for in-flight animations.
     private var startingContentOffsetForAnimation: CGPoint {
-        return currentAnimationTargetContentOffset ?? contentOffset
+        return currentAnimationsTargetContentOffsets.last ?? contentOffset
     }
 
     public override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        currentAnimationTargetContentOffset = contentOffset
+        currentAnimationsTargetContentOffsets.append(contentOffset)
         super.setContentOffset(contentOffset, animated: animated)
     }
 
@@ -74,6 +80,7 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         sharedInit()
     }
 
+    /// Initialisation common to both designated initialisers.
     private func sharedInit() {
         super.delegate = self
     }
@@ -93,7 +100,7 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
             return
         }
 
-        currentAnimationTargetContentOffset = nil
+        currentAnimationsTargetContentOffsets.removeFirst()
     }
 
     // MARK: - Determining where to scroll to
@@ -111,8 +118,9 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         return offset
     }
 
+    /// Returns the vector by which to change the content offset due to input from a key command. This does not consider the content offset limits.
     private func contentOffsetDiffFromKeyCommand(_ keyCommand: UIKeyCommand) -> CGVector {
-        guard let direction = directionFromKeyCommand(keyCommand), let step = scrollStepFromKeyCommand(keyCommand) else {
+        guard let direction = directionFromKeyCommand(keyCommand), let step = scrollStepFromKeyCommand(keyCommand, isPaging: isPagingEnabled) else {
             return .zero
         }
 
@@ -135,6 +143,11 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         case (.viewport, .left):  return CGVector(dx: -viewportScrollSize.width, dy: 0)
         case (.viewport, .right): return CGVector(dx: +viewportScrollSize.width, dy: 0)
 
+        case (.page, .up):        return CGVector(dx: 0, dy: -bounds.height)
+        case (.page, .down):      return CGVector(dx: 0, dy: +bounds.height)
+        case (.page, .left):      return CGVector(dx: -bounds.width, dy: 0)
+        case (.page, .right):     return CGVector(dx: +bounds.width, dy: 0)
+
         case (.end, .up):         return CGVector(dx: 0, dy: -limit)
         case (.end, .down):       return CGVector(dx: 0, dy: +limit)
         case (.end, .left):       return CGVector(dx: -limit, dy: 0)
@@ -152,11 +165,15 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         nudgeDistance
     }
 
+    /// Whether scrolling is horizontal or vertical.
     private enum ScrollAxis {
+        /// Scrolling left and right.
         case horizontal
+        /// Scrolling up and down.
         case vertical
     }
 
+    /// The direction the user is mostly likely to consider the main scrolling direction.
     private var primaryScrollAxis: ScrollAxis {
         // TODO: Consider zooming.
         if contentSize.width > bounds.width && contentSize.height <= bounds.height {
@@ -175,6 +192,7 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         case right
     }
 
+    /// Returns a concrete direction in which scrolling can take place from a scrolling direction that may be semantic.
     private func resolvedDirectionFromDirection(_ direction: Direction) -> ResolvedDirection {
         switch direction {
 
@@ -218,6 +236,7 @@ private enum Direction {
     case forwards
 }
 
+/// Returns the direction in which to scroll due to input from a key command.
 private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
     switch keyCommand.input {
 
@@ -237,23 +256,27 @@ private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
     }
 }
 
+/// A distance to scroll.
 private enum ScrollStep {
     /// Scroll by a few lines of text.
     case nudge
     /// Scroll by the width or height of the visible region minus a bit of overlap for context.
     case viewport
+    /// Scroll by the exact width or height of the scroll view. Used when paging is enabled.
+    case page
     /// Scroll all the way to the top, bottom, left or right.
     case end
 }
 
-private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand) -> ScrollStep? {
+/// Returns the distance to scroll due to input from a key command.
+private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand, isPaging: Bool) -> ScrollStep? {
     switch keyCommand.input {
 
     case UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow:
-        return scrollStepForArrowKeyWithModifierFlags(keyCommand.modifierFlags)
+        return scrollStepForArrowKeyWithModifierFlags(keyCommand.modifierFlags, isPaging: isPaging)
 
     case " ", keyInputPageUp, keyInputPageDown:
-        return .viewport
+        return isPaging ? .page : .viewport
 
     case keyInputHome, keyInputEnd:
         return .end
@@ -262,9 +285,13 @@ private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand) -> ScrollStep?
     }
 }
 
-private func scrollStepForArrowKeyWithModifierFlags(_ modifierFlags: UIKeyModifierFlags) -> ScrollStep {
+/// Returns the distance to scroll due to input from an arrow key.
+private func scrollStepForArrowKeyWithModifierFlags(_ modifierFlags: UIKeyModifierFlags, isPaging: Bool) -> ScrollStep {
     if modifierFlags.contains(.command) {
         return .end
+    }
+    if isPaging {
+        return .page
     }
     if modifierFlags.contains(.alternate) {
         return .viewport

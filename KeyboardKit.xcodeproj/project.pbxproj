@@ -17,6 +17,7 @@
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
 		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
 		A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */; };
+		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
 		A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
+		A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingScrollViewController.swift; sourceTree = "<group>"; };
 		A5D20F3D23787DA80057A8EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
+				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
 				A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */,
 				A53ADFFA2375AA1700B07957 /* Info.plist */,
@@ -241,6 +244,7 @@
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
+				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
