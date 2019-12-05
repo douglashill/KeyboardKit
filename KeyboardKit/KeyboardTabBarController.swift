@@ -10,7 +10,7 @@ public class KeyboardTabBarController: UITabBarController {
         var commands = super.keyCommands ?? []
 
         if let items = tabBar.items {
-            commands += items.enumerated().map { index, tabBarItem in
+            commands += items.prefix(9).enumerated().map { index, tabBarItem in
                 UIKeyCommand(maybeTitle: tabBarItem.title, action: #selector(scrollToNumberedTab), input: String(index + 1), modifierFlags: .command)
             }
         }
