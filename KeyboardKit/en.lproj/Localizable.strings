@@ -1,3 +1,6 @@
 // Douglas Hill, December 2019
 
-"placeholder" = "Needs at least one entry to compile.";
+"app_newWindow" = "New Window";
+"app_settings" = "Settings";
+"window_close" = "Close Window";
+"window_cycle" = "Cycle Focused Window";
