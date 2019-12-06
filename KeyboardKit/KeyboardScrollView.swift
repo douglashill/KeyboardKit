@@ -90,8 +90,14 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
             super.delegate
         }
         set {
-            // TODO: Support setting the delegate.
-            fatalError("Setting the delegate is not supported. Needs a bunch of code forwarding methods. Contributions to fix this are welcome.")
+
+            if newValue == nil {
+                // This happens during deallocation so don’t assert in this case.
+                super.delegate = newValue
+            } else {
+                // TODO: Support setting the delegate.
+                fatalError("Setting the delegate is not supported. Needs a bunch of code forwarding methods. Contributions to fix this are welcome.")
+            }
         }
     }
 
