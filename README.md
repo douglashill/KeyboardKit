@@ -10,9 +10,9 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 This project is in its early stages, and is under active development. So far these components are available:
 
-- `KeyboardTableView`: A `UITableView` subclass that allows navigation and selection using arrow keys and space or return.
-- `KeyboardScrollView`: A `UIScrollView` subclass that allow scrolling using arrow keys, option + arrow keys, command + arrow keys, space, page up, page down, home and end
-- `KeyboardTabBarController`: A `UITabBarController` subclass that allows navigating between tabs using cmd + number on a hardware keyboard.
+- `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return.
+- `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, option + arrow keys, command + arrow keys, space, page up, page down, home and end
+- `KeyboardTabBarController`: A `UITabBarController` subclass that supports navigating between tabs using cmd + number on a hardware keyboard.
 - `KeyboardApplication` and `KeyboardWindowScene`: `UIApplication` and `UIWindowScene` subclasses that support making new windows (cmd + N), closing windows (cmd + W), cycling keyboard focus between visible windows (cmd + \`), and showing app settings in the Settings app (cmd + ,).
 
 ## Requirements

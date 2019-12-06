@@ -2,7 +2,7 @@
 
 import UIKit
 
-/// A tab bar controller that allows navigating between tabs using cmd+number on a hardware keyboard.
+/// A tab bar controller that supports navigating between tabs using cmd+number on a hardware keyboard.
 /// So cmd+1 for the first tab, cmd+2 for the second tab etc.
 public class KeyboardTabBarController: UITabBarController {
 

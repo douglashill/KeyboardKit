@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// A table view that allows navigation and selection using a hardware keyboard.
+/// A table view that supports navigation and selection using a hardware keyboard.
 public class KeyboardTableView: UITableView {
     // These properties may be set or overridden to provide discoverability titles for key commands.
     public var selectAboveDiscoverabilityTitle: String?

@@ -2,7 +2,7 @@
 
 import UIKit
 
-/// A scroll view that allows scrolling using a hardware keyboard like `NSScrollView`.
+/// A scroll view that supports scrolling using a hardware keyboard like `NSScrollView`.
 /// Supports arrow keys, option + arrow keys, command + arrow keys, space bar, page up, page down, home and end.
 /// Limitations:
 /// - The scroll view must become its own delegate so setting the delegate is not supported yet.
