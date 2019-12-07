@@ -2,5 +2,9 @@
 
 "app_newWindow" = "New Window";
 "app_settings" = "Settings";
+"find_jump" = "Jump to Selection";
+"find_next" = "Find Next";
+"find_previous" = "Find Previous";
+"find_useSelection" = "Use Selection for Find";
 "window_close" = "Close Window";
 "window_cycle" = "Cycle Focused Window";

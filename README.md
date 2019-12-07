@@ -12,6 +12,7 @@ This project is in its early stages, and is under active development. So far the
 
 - `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return.
 - `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, option + arrow keys, command + arrow keys, space, page up, page down, home and end.
+- `KeyboardTextView`: A `UITextView` subclass that supports find next (cmd + G), find previous (cmd + shift + G), use selection for find (cmd + E), and jump to selection (cmd + J).
 - `KeyboardTabBarController`: A `UITabBarController` subclass that supports navigating between tabs using cmd + 1, cmd + 2 etc.
 - `KeyboardApplication` and `KeyboardWindowScene`: `UIApplication` and `UIWindowScene` subclasses that support making new windows (cmd + N), closing windows (cmd + W), cycling keyboard focus between visible windows (cmd + \`), and showing app settings in the Settings app (cmd + ,).
 

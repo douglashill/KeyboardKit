@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UINavigationController(rootViewController: SimpleListViewController()),
             UINavigationController(rootViewController: CirclesScrollViewController()),
             UINavigationController(rootViewController: PagingScrollViewController()),
+            UINavigationController(rootViewController: TextViewController()),
         ]
 
         let window = UIWindow(windowScene: windowScene)
