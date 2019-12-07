@@ -90,7 +90,6 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
             super.delegate
         }
         set {
-
             if newValue == nil {
                 // This happens during deallocation so don’t assert in this case.
                 super.delegate = newValue

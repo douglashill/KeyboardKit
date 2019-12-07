@@ -213,7 +213,7 @@
 					};
 					A53AE0042375AAAE00B07957 = {
 						CreatedOnToolsVersion = 11.1;
-						LastSwiftMigration = 1110;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
