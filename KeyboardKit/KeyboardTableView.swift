@@ -28,6 +28,8 @@ public class KeyboardTableView: UITableView {
         return commands
     }
 
+    /// Selects the first highlightable row above the current selection, or selects the bottom highlightable row if there is no
+    /// current selection or if the current selection is the top highlightable row. Scrolls so new selected row is visible.
     @objc private func selectAbove() {
         if let oldSelection = indexPathForSelectedRow, let target = selectableIndexPathBeforeIndexPath(oldSelection) {
             selectAndShowRowAtIndexPath(target)
@@ -36,6 +38,8 @@ public class KeyboardTableView: UITableView {
         }
     }
 
+    /// Selects the first highlightable row below the current selection, or selects the top highlightable row if there is no
+    /// current selection or if the current selection is the bottom highlightable row. Scrolls so new selected row is visible.
     @objc private func selectBelow() {
         if let oldSelection = indexPathForSelectedRow, let target = selectableIndexPathAfterIndexPath(oldSelection) {
             selectAndShowRowAtIndexPath(target)
@@ -44,12 +48,14 @@ public class KeyboardTableView: UITableView {
         }
     }
 
+    /// Selects the top highlightable row if there is one. Scrolls so new selected row is visible.
     @objc private func selectTop() {
         if let indexPath = firstSelectableIndexPath {
             selectAndShowRowAtIndexPath(indexPath)
         }
     }
 
+    /// Selects the bottom highlightable row if there is one. Scrolls so new selected row is visible.
     @objc private func selectBottom() {
         if let indexPath = lastSelectableIndexPath {
             selectAndShowRowAtIndexPath(indexPath)
@@ -173,8 +179,8 @@ public class KeyboardTableView: UITableView {
         return nil
     }
 
-    /// Tries to select and scroll to the row at the given index path.
-    /// The index path is expected to be in-bounds.
+    /// Selects the row at the given index path and scrolls if needed so that row is visible.
+    /// The index path must be in-bounds or an assertion will fail.
     private func selectAndShowRowAtIndexPath(_ indexPath: IndexPath) {
         checkIndexPathIsInValidRange(indexPath)
 
