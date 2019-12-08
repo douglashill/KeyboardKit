@@ -75,6 +75,7 @@ public class KeyboardTextView: UITextView {
     }
 
     /// Scrolls so the current selected text or the insertion point is visible.
+    /// Does not scroll with animation to keep the interaction fast and match AppKit.
     private func jumpToSelection() {
         // scrollRangeToVisible(selectedRange) does not consider insets so use different API.
         
@@ -82,7 +83,9 @@ public class KeyboardTextView: UITextView {
             return
         }
 
-        scrollRectToVisible(firstRect(for: selectedTextRange), animated: true)
+        // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
+        let targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: 0, bottom: -10, right: 0))
+        scrollRectToVisible(targetRectangle, animated: false)
     }
 }
 
