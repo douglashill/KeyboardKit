@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class PagingScrollViewController: UIViewController {
+class PagingScrollViewController: FirstResponderViewController {
     override var title: String? {
         get { "Paging" }
         set {}

@@ -13,6 +13,10 @@ public class KeyboardTableView: UITableView {
     public var clearSelectionDiscoverabilityTitle: String?
     public var activateSelectionDiscoverabilityTitle: String?
 
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 

@@ -9,6 +9,10 @@ import UIKit
 /// - Does not consider zooming. This has not been tested at all.
 public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
 
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     // MARK: - Key commands
 
     public override var keyCommands: [UIKeyCommand]? {

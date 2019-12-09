@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class SimpleListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SimpleListViewController: FirstResponderViewController, UITableViewDataSource, UITableViewDelegate {
     override var title: String? {
         get { "Simple List" }
         set {}

@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class TextViewController: UIViewController {
+class TextViewController: FirstResponderViewController {
     override var title: String? {
         get { "Text View" }
         set {}

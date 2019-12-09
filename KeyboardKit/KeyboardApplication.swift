@@ -6,6 +6,10 @@ import UIKit
 /// Subclasses of UIApplication can be passed into UIApplicationMain.
 public class KeyboardApplication: UIApplication {
 
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     /// Set this to true to add a key command that opens the settings app.
     /// Don’t do this if the app does not have any settings or permissions it asks for.
     /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.

@@ -6,6 +6,10 @@ import UIKit
 /// So cmd+1 for the first tab, cmd+2 for the second tab etc.
 public class KeyboardTabBarController: UITabBarController {
 
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 

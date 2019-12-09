@@ -16,6 +16,7 @@
 		A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */; };
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
 		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
+		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
 		A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */; };
 		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
@@ -65,6 +66,7 @@
 		A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTabBarController.swift; path = KeyboardKit/KeyboardTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
+		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				A5D20F3D23787DA80057A8EE /* main.swift */,
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
+				A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */,
 				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
@@ -294,6 +297,7 @@
 				A5D20F3E23787DA80057A8EE /* main.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
+				A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */,
 				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,

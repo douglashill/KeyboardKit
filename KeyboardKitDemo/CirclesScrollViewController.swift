@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class CirclesScrollViewController: UIViewController {
+class CirclesScrollViewController: FirstResponderViewController {
     override var title: String? {
         get { "Scroll View" }
         set {}
