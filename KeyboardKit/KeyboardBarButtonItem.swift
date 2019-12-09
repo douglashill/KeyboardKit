@@ -25,8 +25,8 @@ public class KeyboardBarButtonItem: KBDBarButtonItem {
             return nil
         }
 
-        // TODO: This will not find the text for system items.
-         let title = self.title ?? self.accessibilityLabel
+        // Neither the title nor the accessibilityLabel is set on the item for system items, so we need to fall back to the view.
+        let title = self.title ?? accessibilityLabel ?? (kbd_value(forKey: "view") as? NSObject)?.accessibilityLabel
 
         return UIKeyCommand(maybeTitle: title, action: action, input: keyEquivalent.input, modifierFlags: keyEquivalent.modifierFlags)
     }
