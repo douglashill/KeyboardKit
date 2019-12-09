@@ -24,6 +24,11 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
+        testItem.keyEquivalentInput = "t"
+        testItem.keyEquivalentModifierFlags = .command
+        navigationItem.rightBarButtonItem = testItem
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -48,6 +53,12 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.pushViewController(SimpleListViewController(), animated: true)
+    }
+
+    @objc private func testAction(_ sender: Any?) {
+        let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + T.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
     }
 }

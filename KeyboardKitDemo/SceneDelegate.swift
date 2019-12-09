@@ -11,10 +11,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let tabBarController = KeyboardTabBarController()
         tabBarController.viewControllers = [
-            UINavigationController(rootViewController: SimpleListViewController()),
-            UINavigationController(rootViewController: CirclesScrollViewController()),
-            UINavigationController(rootViewController: PagingScrollViewController()),
-            UINavigationController(rootViewController: TextViewController()),
+            KeyboardNavigationController(rootViewController: SimpleListViewController()),
+            KeyboardNavigationController(rootViewController: CirclesScrollViewController()),
+            KeyboardNavigationController(rootViewController: PagingScrollViewController()),
+            KeyboardNavigationController(rootViewController: TextViewController()),
         ]
 
         let window = UIWindow(windowScene: windowScene)

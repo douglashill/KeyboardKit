@@ -17,6 +17,8 @@
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
 		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
 		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
+		A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD522398718100E13773 /* KeyboardNavigationController.swift */; };
+		A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */; };
 		A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */; };
 		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
@@ -67,6 +69,8 @@
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
+		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
+		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
+				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
+				A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */,
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
 				A53AE01223786CD000B07957 /* UIKeyCommandExtension.swift */,
@@ -308,12 +314,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
 				A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
 				A53AE01723786CD000B07957 /* UIKeyCommandExtension.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
 				A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */,
+				A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */,
 				A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */,
 				A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */,
 				A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */,

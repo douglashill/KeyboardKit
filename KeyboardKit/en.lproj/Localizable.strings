@@ -6,5 +6,6 @@
 "find_next" = "Find Next";
 "find_previous" = "Find Previous";
 "find_useSelection" = "Use Selection for Find";
+"navigationController_back" = "Back";
 "window_close" = "Close Window";
 "window_cycle" = "Cycle Focused Window";
