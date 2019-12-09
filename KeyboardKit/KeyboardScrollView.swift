@@ -4,10 +4,15 @@ import UIKit
 
 /// A scroll view that supports scrolling using a hardware keyboard like `NSScrollView`.
 /// Supports arrow keys, option + arrow keys, command + arrow keys, space bar, page up, page down, home and end.
+///
+/// This subclass replaces the implementation of `setContentOffset:animated:` with a custom implementation
+/// that ensures the velocity transitions smoothly when an animation is replaced with another animation
+/// before finishing. This is important for keyboard input because it’s common to tap a key multiple times
+/// in quick succession. The custom implementation is also required for `KeyboardScrollView` to work correctly.
+///
 /// Limitations:
-/// - The scroll view must become its own delegate so setting the delegate is not supported yet.
 /// - Does not consider zooming. This has not been tested at all.
-public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
+public class KeyboardScrollView: UIScrollView {
 
     public override var canBecomeFirstResponder: Bool {
         true
@@ -41,6 +46,10 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
     }
 
     @objc private func scrollFromKeyCommand(_ keyCommand: UIKeyCommand) {
+        if isTracking {
+            return
+        }
+
         let diff = contentOffsetDiffFromKeyCommand(keyCommand)
         let target = boundedContentOffsetFromProposedContentOffset(startingContentOffsetForAnimation + diff)
 
@@ -50,66 +59,57 @@ public class KeyboardScrollView: UIScrollView, UIScrollViewDelegate {
         }
     }
 
-    // MARK: - Allowing animations to be redirected
+    // MARK: - Animations
 
-    /// The content offsets the scroll view is heading towards in animations.
-    ///
-    /// When no animation is happening, this array will be empty.
-    /// When an animation is in-flight, there will be one offset in this array.
-    ///
-    /// At the point when an animation is being added while an existing animation is in progress,
-    /// there will briefly be two offsets in this array. The first offset is for the animation
-    /// that is ending (early) and the second offset is the new animation being started.
-    private var currentAnimationsTargetContentOffsets: [CGPoint] = []
-
-    /// The content offset that should be used as a base when starting an animation to account for in-flight animations.
-    private var startingContentOffsetForAnimation: CGPoint {
-        return currentAnimationsTargetContentOffsets.last ?? contentOffset
-    }
-
-    public override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        currentAnimationsTargetContentOffsets.append(contentOffset)
-        super.setContentOffset(contentOffset, animated: animated)
-    }
-
-    // MARK: - Delegate handling
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        sharedInit()
-    }
-
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        sharedInit()
-    }
-
-    /// Initialisation common to both designated initialisers.
-    private func sharedInit() {
-        super.delegate = self
-    }
-
-    public override var delegate: UIScrollViewDelegate? {
-        get {
-            super.delegate
+    /// Need to create `contentOffsetAnimator` after self is initialised so use this technique.
+    private var _contentOffsetAnimatorStorage: PointAnimator?
+    private var contentOffsetAnimator: PointAnimator {
+        if let stored = _contentOffsetAnimatorStorage {
+            return stored
         }
-        set {
-            if newValue == nil {
-                // This happens during deallocation so don’t assert in this case.
-                super.delegate = newValue
+
+        let animator = PointAnimator()
+        _contentOffsetAnimatorStorage = animator
+
+        animator.stepCallback = { [weak self] point in
+            guard let self = self else { return }
+            if self.isTracking {
+                self.contentOffsetAnimator.cancelAnimation()
             } else {
-                // TODO: Support setting the delegate.
-                fatalError("Setting the delegate is not supported. Needs a bunch of code forwarding methods. Contributions to fix this are welcome.")
+                self.contentOffset = point
             }
         }
+
+        animator.endCallback = { [weak self] isFinished in
+            guard let self = self else { return }
+            self.delegate?.scrollViewDidEndScrollingAnimation?(self)
+        }
+
+        return animator
     }
 
-    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard scrollView === self else {
+    /// The content offset that should be used as a base when starting an animation to account for active animations.
+    private var startingContentOffsetForAnimation: CGPoint {
+        return contentOffsetAnimator.targetPoint ?? contentOffset
+    }
+
+    /// Custom implementation of animated scrolling to:
+    /// - Track the destination of the current animation without needing to be our own delegate to know when to unset this if we stored it.
+    /// - Maintain a continuous velocity if a new animation is started while an existing animation is in progress.
+    /// - Interact better with finger scrolling with an animation is in progress.
+    public override func setContentOffset(_ targetContentOffset: CGPoint, animated: Bool) {
+        guard animated else {
+            super.setContentOffset(targetContentOffset, animated: false)
             return
         }
 
-        currentAnimationsTargetContentOffsets.removeFirst()
+        if isDecelerating {
+            // UIKit’s animator would fight with our own on each frame (and it would win) so kill any active deceleration animations.
+            // This deliberately passed the current content offset rather than the target.
+            super.setContentOffset(contentOffset, animated: false)
+        }
+
+        contentOffsetAnimator.startAnimation(fromPoint: contentOffset, toPoint: targetContentOffset)
     }
 
     // MARK: - Determining where to scroll to
@@ -308,8 +308,10 @@ private func scrollStepForArrowKeyWithModifierFlags(_ modifierFlags: UIKeyModifi
     return .nudge
 }
 
+// MARK: -
+
 private func + (lhs: CGPoint, rhs: CGVector) -> CGPoint {
-    return CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
+    CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
 }
 
 // These were found in the open source WebKit.
