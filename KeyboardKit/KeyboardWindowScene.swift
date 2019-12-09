@@ -9,7 +9,9 @@ public class KeyboardWindowScene: UIWindowScene {
         var commands = super.keyCommands ?? []
 
         if UIApplication.shared.supportsMultipleScenes {
-            commands.append(UIKeyCommand(title: localisedString(.window_cycle), action: #selector(cycleFocusBetweenVisibleWindowScenes), input: "`", modifierFlags: .command))
+            if UIApplication.shared.foregroundWindowScenes.count > 1 {
+                commands.append(UIKeyCommand(title: localisedString(.window_cycle), action: #selector(cycleFocusBetweenVisibleWindowScenes), input: "`", modifierFlags: .command))
+            }
             commands.append(UIKeyCommand(title: localisedString(.window_close), action: #selector(closeWindowScene(sender:)), input: "W", modifierFlags: .command))
         }
 
@@ -24,14 +26,7 @@ public class KeyboardWindowScene: UIWindowScene {
 
         // This method is not as efficient as it could be, but it probably doesn’t matter much.
 
-        let foregroundWindowScenes = UIApplication.shared.connectedScenes.filter {
-            switch $0.activationState {
-            case .foregroundActive, .foregroundInactive: return true
-            case .background, .unattached: fallthrough @unknown default: return false
-            }
-        }.compactMap {
-            $0 as? UIWindowScene
-        }.sorted { scene1, scene2 in
+        let foregroundWindowScenes = UIApplication.shared.foregroundWindowScenes.sorted { scene1, scene2 in
             // Use a consistent order, which we can get from the object memory addresses.
             // TODO: This ‘consistent’ order seems to sometimes change.
             // Can’t debug now because the Xcode console has stopped working.
@@ -55,5 +50,18 @@ public class KeyboardWindowScene: UIWindowScene {
 
     @objc private func closeWindowScene(sender: UIKeyCommand) {
         UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
+    }
+}
+
+private extension UIApplication {
+    var foregroundWindowScenes: [UIWindowScene] {
+        connectedScenes.filter {
+            switch $0.activationState {
+            case .foregroundActive, .foregroundInactive: return true
+            case .background, .unattached: fallthrough @unknown default: return false
+            }
+        }.compactMap {
+            $0 as? UIWindowScene
+        }
     }
 }
