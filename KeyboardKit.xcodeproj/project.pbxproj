@@ -19,6 +19,9 @@
 		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
 		A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD522398718100E13773 /* KeyboardNavigationController.swift */; };
 		A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */; };
+		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
+		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */; };
 		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
@@ -71,6 +74,9 @@
 		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
+		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
+		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarButtonItem.m; sourceTree = "<group>"; };
+		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -153,6 +159,9 @@
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
 				A53AE01223786CD000B07957 /* UIKeyCommandExtension.swift */,
+				A56FFD5A2398778400E13773 /* KeyboardKit.h */,
+				A56FFD562398776C00E13773 /* BarButtonItem.h */,
+				A56FFD572398776C00E13773 /* BarButtonItem.m */,
 				A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */,
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
 				A5E538A1239B0387004A2EE2 /* Localizable.strings */,
@@ -169,6 +178,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */,
+				A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +230,7 @@
 		A53ADFE12375AA1600B07957 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = KBD;
 				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Douglas Hill";
@@ -315,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
+				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,

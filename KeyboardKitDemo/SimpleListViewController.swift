@@ -25,8 +25,7 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         super.viewDidLoad()
 
         let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
-        testItem.keyEquivalentInput = "t"
-        testItem.keyEquivalentModifierFlags = .command
+        testItem.keyEquivalent = (.command, "t")
         navigationItem.rightBarButtonItem = testItem
 
         tableView.dataSource = self
