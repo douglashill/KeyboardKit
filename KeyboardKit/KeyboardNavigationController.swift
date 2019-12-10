@@ -24,7 +24,9 @@ public class KeyboardNavigationController: UINavigationController {
 
         let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
         if (canGoBack) {
-            commands.append(UIKeyCommand(title: localisedString(.navigationController_back), action: #selector(goBackFromKeyCommand), input: backInput, modifierFlags: .command))
+            let (primaryInput, secondaryInput) = backInputs
+            commands.append(UIKeyCommand(title: localisedString(.navigationController_back), action: #selector(goBackFromKeyCommand), input: primaryInput, modifierFlags: .command))
+            commands.append(UIKeyCommand(input: secondaryInput, modifierFlags: .command, action: #selector(goBackFromKeyCommand)))
         }
 
         let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
@@ -38,10 +40,10 @@ public class KeyboardNavigationController: UINavigationController {
         return commands
     }
 
-    private var backInput: String {
+    private var backInputs: (primary: String, secondary: String) {
         switch view.effectiveUserInterfaceLayoutDirection {
-        case .rightToLeft: return UIKeyCommand.inputRightArrow
-        case .leftToRight: fallthrough @unknown default: return UIKeyCommand.inputLeftArrow
+        case .rightToLeft: return (UIKeyCommand.inputRightArrow, "]")
+        case .leftToRight: fallthrough @unknown default: return (UIKeyCommand.inputLeftArrow, "[")
         }
     }
 
