@@ -28,6 +28,9 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         testItem.keyEquivalent = (.command, "t")
         navigationItem.rightBarButtonItem = testItem
 
+        navigationItem.leftItemsSupplementBackButton = true
+        navigationItem.leftBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .reply, target: nil, action: #selector(reply))
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -57,6 +60,12 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
 
     @objc private func testAction(_ sender: Any?) {
         let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + T.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+
+    @objc private func reply(_ sender: Any?) {
+        let alert = UIAlertController(title: "Reply", message: "You can show this alert either by tapping the bar button or by pressing command + R. KeyboardKit provides default key equivalents for most system bar button items.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
