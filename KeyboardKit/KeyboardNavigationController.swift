@@ -6,7 +6,7 @@ import UIKit
 /// (or right for right-to-left layout) and triggering the actions of the bar button items in the navigation
 /// bar and toolbar. Bar button items must be instances of KeyboardBarButtonItem to support this.
 ///
-/// The concept for this class was originally developed for PSPDFKit: https://pspdfkit.com
+/// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
 public class KeyboardNavigationController: UINavigationController {
 
     public override var canBecomeFirstResponder: Bool {
@@ -34,7 +34,7 @@ public class KeyboardNavigationController: UINavigationController {
         }
 
         commands += navigationItem.nnLeadingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
-        commands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
+        commands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
         commands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
 
         return commands
