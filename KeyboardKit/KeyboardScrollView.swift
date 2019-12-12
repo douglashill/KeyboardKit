@@ -42,6 +42,24 @@ public class KeyboardScrollView: UIScrollView {
             UIKeyCommand(keyInputEnd, action: #selector(scrollFromKeyCommand)),
         ]
 
+        if isZoomingEnabled {
+            commands += [
+                // This is to show up as + in the UI. Don’t expect users to press this one because it needs shift.
+                UIKeyCommand((.command, "+"), action: #selector(zoomIn), title: localisedString(.scrollView_zoomIn)),
+                // This is the one users are expected to press. We don’t want to show = in the UI.
+                UIKeyCommand((.command, "="), action: #selector(zoomIn)),
+
+                // This is a minus sign, not a hyphen, to align nicely in the UI.
+                UIKeyCommand((.command, "−"), action: #selector(zoomOut), title: localisedString(.scrollView_zoomOut)),
+                // This is the one users are expected to press. This is a hyphen.
+                UIKeyCommand((.command, "-"), action: #selector(zoomOut)),
+                // You can hold shift and press the =/+ key and it still zooms in, so match that for zooming out with the -/_ key.
+                UIKeyCommand((.command, "_"), action: #selector(zoomOut)),
+
+                UIKeyCommand((.command, "0"), action: #selector(resetZoom), title: localisedString(.scrollView_zoomReset)),
+            ]
+        }
+
         return commands
     }
 
@@ -57,6 +75,68 @@ public class KeyboardScrollView: UIScrollView {
             setContentOffset(target, animated: true)
             flashScrollIndicators()
         }
+    }
+
+    // MARK: - Zooming
+
+    private var isZoomingEnabled: Bool {
+        // As documented in UIScrollView.h.
+        pinchGestureRecognizer != nil
+    }
+
+    @objc private func resetZoom(_ keyCommand: UIKeyCommand) {
+        setZoomScale(1, animated: true)
+    }
+
+    @objc private func zoomIn(_ keyCommand: UIKeyCommand) {
+        zoom(isZoomingIn: true)
+    }
+
+    @objc private func zoomOut(_ keyCommand: UIKeyCommand) {
+        zoom(isZoomingIn: false)
+    }
+
+    /// Zooms in or out by one step with animation. Snaps to an even logarithmic scale over the zoom range. Also snaps to a scale of 1.
+    private func zoom(isZoomingIn: Bool) {
+        guard minimumZoomScale < maximumZoomScale else {
+            // UIScrollView doesn’t crash in this case so let’s not either.
+            return
+        }
+
+        // It’s nice if zooming exactly hits a scale of 1. Therefore when the zoom range spans 1 we work only in the range greater than or less than 1.
+        let minScale: CGFloat
+        let maxScale: CGFloat
+        if minimumZoomScale >= 1 || maximumZoomScale <= 1 {
+            // Don’t need to worry about hitting a scale of exactly 1.
+            minScale = minimumZoomScale
+            maxScale = maximumZoomScale
+        } else if zoomScale < 1 || zoomScale == 1 && !isZoomingIn {
+            minScale = minimumZoomScale
+            maxScale = 1
+        } else if zoomScale > 1 || zoomScale == 1 && isZoomingIn {
+            minScale = 1
+            maxScale = maximumZoomScale
+        } else {
+            fatalError("Numbers are broken.")
+        }
+
+        // Zooming should use a logarithmic scale. The base of the logarithmic scale is the zoomStepMultiple.
+
+        // Multiplying or dividing the zoom scale by the golden ratio feels about right. The exact base will be adjusted so there are an integer number of steps in the zoom range.
+        let approxZoomStepMultiple: CGFloat = 1.618
+        // Find the number of steps.
+        let maxPower = round(log(maxScale / minScale) / log(approxZoomStepMultiple))
+        // Divide the zoom range up evenly on the logarithmic scale.
+        let zoomStepMultiple = pow(exp(1), (log(maxScale / minScale) / maxPower))
+
+        // Convert the current zoom scale to the logarithmic scale.
+        let currentPower = log(zoomScale / minScale) / log(zoomStepMultiple)
+        // Increment or decrement on the logarithmic scale. If we’re nearly at a step, go to the next step instead of zooming a tiny little bit.
+        let targetPower = round(currentPower + (isZoomingIn ? 0.75 : -0.75))
+        // Convert back from the logarithmic scale.
+        let targetZoomScale = minScale * pow(zoomStepMultiple, targetPower)
+
+        setZoomScale(targetZoomScale, animated: true)
     }
 
     // MARK: - Animations

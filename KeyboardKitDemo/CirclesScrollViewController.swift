@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class CirclesScrollViewController: FirstResponderViewController {
+class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDelegate {
     override var title: String? {
         get { "Scroll View" }
         set {}
@@ -22,7 +22,19 @@ class CirclesScrollViewController: FirstResponderViewController {
         contentView.backgroundColor = .white
 
         scrollView.addSubview(contentView)
+
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 5
+        scrollView.minimumZoomScale = 0.5
         scrollView.contentSize = contentView.bounds.size
+    }
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        contentView
+    }
+
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        // In a real app you’d probably want to re-render. This is fine for a demo app though.
     }
 }
 
