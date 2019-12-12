@@ -20,14 +20,16 @@ public class KeyboardTableView: UITableView {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands.append(UIKeyCommand(maybeTitle: selectAboveDiscoverabilityTitle, action: #selector(selectAbove), input: UIKeyCommand.inputUpArrow, modifierFlags: []))
-        commands.append(UIKeyCommand(maybeTitle: selectBelowDiscoverabilityTitle, action: #selector(selectBelow), input: UIKeyCommand.inputDownArrow, modifierFlags: []))
-        commands.append(UIKeyCommand(maybeTitle: selectTopDiscoverabilityTitle, action: #selector(selectTop), input: UIKeyCommand.inputUpArrow, modifierFlags: .command))
-        commands.append(UIKeyCommand(maybeTitle: selectBottomDiscoverabilityTitle, action: #selector(selectBottom), input: UIKeyCommand.inputDownArrow, modifierFlags: .command))
-        commands.append(UIKeyCommand(maybeTitle: clearSelectionDiscoverabilityTitle, action: #selector(clearSelection), input: UIKeyCommand.inputEscape, modifierFlags: []))
+        commands += [
+            UIKeyCommand(UIKeyCommand.inputUpArrow, action: #selector(selectAbove), title: selectAboveDiscoverabilityTitle),
+            UIKeyCommand(UIKeyCommand.inputDownArrow, action: #selector(selectBelow), title: selectBelowDiscoverabilityTitle),
+            UIKeyCommand((.command, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
+            UIKeyCommand((.command, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
 
-        commands.append(UIKeyCommand(maybeTitle: nil, action: #selector(activateSelection), input: " ", modifierFlags: []))
-        commands.append(UIKeyCommand(maybeTitle: activateSelectionDiscoverabilityTitle, action: #selector(activateSelection), input: "\r", modifierFlags: []))
+            UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection), title: clearSelectionDiscoverabilityTitle),
+            UIKeyCommand(" ", action: #selector(activateSelection)),
+            UIKeyCommand("\r", action: #selector(activateSelection), title: activateSelectionDiscoverabilityTitle),
+        ]
 
         return commands
     }

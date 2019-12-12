@@ -34,12 +34,12 @@ public class KeyboardScrollView: UIScrollView {
         }
 
         commands += [
-            UIKeyCommand(input: " ", modifierFlags: [], action: #selector(scrollFromKeyCommand)),
-            UIKeyCommand(input: " ", modifierFlags: .shift, action: #selector(scrollFromKeyCommand)),
-            UIKeyCommand(input: keyInputPageUp, modifierFlags: [], action: #selector(scrollFromKeyCommand)),
-            UIKeyCommand(input: keyInputPageDown, modifierFlags: [], action: #selector(scrollFromKeyCommand)),
-            UIKeyCommand(input: keyInputHome, modifierFlags: [], action: #selector(scrollFromKeyCommand)),
-            UIKeyCommand(input: keyInputEnd, modifierFlags: [], action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand(" ", action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand((.shift, " "), action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand(keyInputPageUp, action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand(keyInputPageDown, action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand(keyInputHome, action: #selector(scrollFromKeyCommand)),
+            UIKeyCommand(keyInputEnd, action: #selector(scrollFromKeyCommand)),
         ]
 
         return commands
