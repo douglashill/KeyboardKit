@@ -9,9 +9,6 @@ import UIKit
 /// that ensures the velocity transitions smoothly when an animation is replaced with another animation
 /// before finishing. This is important for keyboard input because it’s common to tap a key multiple times
 /// in quick succession. The custom implementation is also required for `KeyboardScrollView` to work correctly.
-///
-/// Limitations:
-/// - Does not consider zooming. This has not been tested at all.
 public class KeyboardScrollView: UIScrollView {
 
     public override var canBecomeFirstResponder: Bool {
@@ -215,7 +212,6 @@ public class KeyboardScrollView: UIScrollView {
 
         let resolvedDirection = resolvedDirectionFromDirection(direction)
 
-        // TODO: Have not considered zooming yet.
         let viewportScrollSize = bounds.inset(by: adjustedContentInset).insetBy(dx: 0.5 * viewportScrollingOverlapDistance, dy: 0.5 * viewportScrollingOverlapDistance).size
 
         // Easier to deal with than CGFloat.greatestFiniteMagnitude to avoid overflow.
@@ -264,7 +260,6 @@ public class KeyboardScrollView: UIScrollView {
 
     /// The direction the user is mostly likely to consider the main scrolling direction.
     private var primaryScrollAxis: ScrollAxis {
-        // TODO: Consider zooming.
         if contentSize.width > bounds.width && contentSize.height <= bounds.height {
             return .horizontal
         }
