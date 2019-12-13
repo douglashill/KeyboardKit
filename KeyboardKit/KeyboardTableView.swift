@@ -4,7 +4,7 @@
 import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
-public class KeyboardTableView: UITableView {
+public class KeyboardTableView: UITableView, ResponderChainInjection {
     // These properties may be set or overridden to provide discoverability titles for key commands.
     public var selectAboveDiscoverabilityTitle: String?
     public var selectBelowDiscoverabilityTitle: String?
@@ -12,6 +12,8 @@ public class KeyboardTableView: UITableView {
     public var selectBottomDiscoverabilityTitle: String?
     public var clearSelectionDiscoverabilityTitle: String?
     public var activateSelectionDiscoverabilityTitle: String?
+
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var canBecomeFirstResponder: Bool {
         true
@@ -31,8 +33,12 @@ public class KeyboardTableView: UITableView {
             UIKeyCommand("\r", action: #selector(activateSelection), title: activateSelectionDiscoverabilityTitle),
         ]
 
+        commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
+
         return commands
     }
+
+    // MARK: - Arrow key selection
 
     /// Selects the first highlightable row above the current selection, or selects the bottom highlightable row if there is no
     /// current selection or if the current selection is the top highlightable row. Scrolls so new selected row is visible.
@@ -215,6 +221,8 @@ public class KeyboardTableView: UITableView {
         return .notFullyVisible(position)
     }
 
+    // MARK: - Using the selection
+
     @objc private func clearSelection() {
         selectRow(at: nil, animated: false, scrollPosition: .none)
     }
@@ -224,5 +232,15 @@ public class KeyboardTableView: UITableView {
             return
         }
         delegate?.tableView?(self, didSelectRowAt: indexPathForSelectedRow)
+    }
+
+    // MARK: - Responder chain
+
+    public override var next: UIResponder? {
+        scrollViewKeyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        super.next
     }
 }

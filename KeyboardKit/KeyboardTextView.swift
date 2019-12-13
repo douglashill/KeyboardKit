@@ -3,7 +3,9 @@
 import UIKit
 
 /// A text view that supports hardware keyboard commands to use the selection for find, find previous/next, and jump to the selection.
-public class KeyboardTextView: UITextView {
+public class KeyboardTextView: UITextView, ResponderChainInjection {
+
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -18,6 +20,8 @@ public class KeyboardTextView: UITextView {
             UIKeyCommand(title: localisedString(.find_useSelection), action: #selector(useSelectionForFind(_:)), input: "e", modifierFlags: .command),
             UIKeyCommand(title: localisedString(.find_jump), action: #selector(jumpToSelection(_:)), input: "j", modifierFlags: .command),
         ]
+
+        commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
 
         return commands
     }
@@ -86,6 +90,16 @@ public class KeyboardTextView: UITextView {
         // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
         let targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: 0, bottom: -10, right: 0))
         scrollRectToVisible(targetRectangle, animated: false)
+    }
+
+    // MARK: - Responder chain
+
+    public override var next: UIResponder? {
+        scrollViewKeyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        super.next
     }
 }
 
