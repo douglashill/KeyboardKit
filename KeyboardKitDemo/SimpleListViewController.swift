@@ -21,16 +21,16 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         view = tableView
     }
 
-    var replyBarButtonItem: KeyboardBarButtonItem?
+    var bookmarksBarButtonItem: KeyboardBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        replyBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .reply, target: nil, action: #selector(reply))
+        bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
 
         let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
         testItem.keyEquivalent = (.command, "t")
-        navigationItem.rightBarButtonItems = [testItem, replyBarButtonItem!]
+        navigationItem.rightBarButtonItems = [testItem, bookmarksBarButtonItem!]
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -65,30 +65,30 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         present(alert, animated: true)
     }
 
-    @objc private func reply(_ sender: Any?) {
-        let replyViewController = ReplyViewController()
-        let navigationController = KeyboardNavigationController(rootViewController: replyViewController)
+    @objc private func showBookmarks(_ sender: Any?) {
+        let bookmarksViewController = BookmarksViewController()
+        let navigationController = KeyboardNavigationController(rootViewController: bookmarksViewController)
         navigationController.modalPresentationStyle = .popover
-        navigationController.popoverPresentationController?.barButtonItem = replyBarButtonItem
+        navigationController.popoverPresentationController?.barButtonItem = bookmarksBarButtonItem
         present(navigationController, animated: true)
     }
 }
 
-class ReplyViewController: FirstResponderViewController {
+class BookmarksViewController: FirstResponderViewController {
     override var title: String? {
-        get { "Reply" }
+        get { "Bookmarks" }
         set {}
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveReply))
+        navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
 
         view.backgroundColor = .systemBackground
     }
 
-    @objc private func saveReply(_ sender: Any?) {
+    @objc private func saveBookmarks(_ sender: Any?) {
         presentingViewController?.dismiss(animated: true)
     }
 }
