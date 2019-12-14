@@ -9,7 +9,7 @@ class TextViewController: FirstResponderViewController {
         set {}
     }
 
-    lazy private var textView = KeyboardTextView()
+    private lazy var textView = KeyboardTextView()
 
     override func loadView() {
         view = textView

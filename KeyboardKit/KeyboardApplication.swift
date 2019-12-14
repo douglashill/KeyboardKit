@@ -15,25 +15,31 @@ open class KeyboardApplication: UIApplication {
     /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.
     public var canOpenSettings = false
 
+    private lazy var newWindowKeyCommand = UIKeyCommand((.command, "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
+    private lazy var openSettingsKeyCommand = UIKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if supportsMultipleScenes {
-            commands.append(UIKeyCommand((.command, "N"), action: #selector(createNewWindowScene), title: localisedString(.app_newWindow)))
+            commands.append(newWindowKeyCommand)
         }
 
         if canOpenSettings {
-            commands.append(UIKeyCommand((.command, ","), action: #selector(openSettings), title: localisedString(.app_settings)))
+            commands.append(openSettingsKeyCommand)
         }
 
         return commands
     }
+}
 
-    @objc private func createNewWindowScene(sender: UIKeyCommand) {
+private extension UIApplication {
+
+    @objc func kbd_createNewWindowScene(_ sender: UIKeyCommand) {
         requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
     }
 
-    @objc private func openSettings(sender: UIKeyCommand) {
+    @objc func kbd_openSettings(_ sender: UIKeyCommand) {
         open(URL(string: UIApplication.openSettingsURLString)!)
     }
 }

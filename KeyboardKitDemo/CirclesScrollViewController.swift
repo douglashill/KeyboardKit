@@ -9,8 +9,8 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
         set {}
     }
 
-    lazy private var scrollView = KeyboardScrollView()
-    lazy private var contentView = CirclesView(frame: CGRect(x: 0, y: 0, width: 3000, height: 3000))
+    private lazy var scrollView = KeyboardScrollView()
+    private lazy var contentView = CirclesView(frame: CGRect(x: 0, y: 0, width: 3000, height: 3000))
 
     override func loadView() {
         view = scrollView

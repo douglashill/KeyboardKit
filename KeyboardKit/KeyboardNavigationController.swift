@@ -13,41 +13,50 @@ open class KeyboardNavigationController: UINavigationController {
         true
     }
 
+    private lazy var leftToRightBackKeyCommands = [
+        UIKeyCommand((.command, UIKeyCommand.inputLeftArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigationController_back)),
+        UIKeyCommand((.command, "["), action: #selector(kbd_goBackFromKeyCommand)),
+    ]
+
+    private lazy var rightToLeftBackKeyCommands = [
+        UIKeyCommand((.command, UIKeyCommand.inputRightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigationController_back)),
+        UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand)),
+    ]
+
+    private var backKeyCommands: [UIKeyCommand] {
+        switch view.effectiveUserInterfaceLayoutDirection {
+        case .rightToLeft: return rightToLeftBackKeyCommands
+        case .leftToRight: fallthrough @unknown default: return leftToRightBackKeyCommands
+        }
+    }
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        guard let topViewController = topViewController else {
-            return commands
+        if let topViewController = topViewController {
+            let navigationItem = topViewController.navigationItem
+
+            let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
+            if (canGoBack) {
+                commands += backKeyCommands
+            }
+
+            let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
+                $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
+            }
+
+            commands += navigationItem.nnLeadingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
+            commands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
+            commands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
         }
-
-        let navigationItem = topViewController.navigationItem
-
-        let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
-        if (canGoBack) {
-            let (primaryInput, secondaryInput) = backInputs
-            commands.append(UIKeyCommand((.command, primaryInput), action: #selector(goBackFromKeyCommand), title: localisedString(.navigationController_back)))
-            commands.append(UIKeyCommand((.command, secondaryInput), action: #selector(goBackFromKeyCommand)))
-        }
-
-        let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
-            $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
-        }
-
-        commands += navigationItem.nnLeadingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
-        commands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
-        commands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
 
         return commands
     }
+}
 
-    private var backInputs: (primary: String, secondary: String) {
-        switch view.effectiveUserInterfaceLayoutDirection {
-        case .rightToLeft: return (UIKeyCommand.inputRightArrow, "]")
-        case .leftToRight: fallthrough @unknown default: return (UIKeyCommand.inputLeftArrow, "[")
-        }
-    }
+private extension UINavigationController {
 
-    @objc private func goBackFromKeyCommand(_ keyCommand: UIKeyCommand) {
+    @objc func kbd_goBackFromKeyCommand(_ keyCommand: UIKeyCommand) {
         let allowsPop = navigationBar.delegate?.navigationBar?(navigationBar, shouldPop: topViewController!.navigationItem) ?? true
         guard allowsPop else {
             return

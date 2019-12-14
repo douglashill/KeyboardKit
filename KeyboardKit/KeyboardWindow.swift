@@ -10,15 +10,20 @@ open class KeyboardWindow: UIWindow {
         true
     }
 
+    private lazy var dismissKeyCommand = UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(kbd_dismissTopmostModalViewIfPossible))
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands.append(UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(dismissTopmostModalViewIfPossible)))
+        commands.append(dismissKeyCommand)
 
         return commands
     }
+}
 
-    @objc private func dismissTopmostModalViewIfPossible(_ sender: Any?) {
+private extension UIWindow {
+
+    @objc func kbd_dismissTopmostModalViewIfPossible(_ sender: Any?) {
         guard
             let topmost = topmostViewController,
             topmost.isBeingPresented == false && topmost.isBeingDismissed == false,

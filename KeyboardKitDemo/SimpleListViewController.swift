@@ -20,7 +20,7 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         formatter.numberStyle = .currency
         return formatter
     }()
-    lazy private var tableView = KeyboardTableView()
+    private lazy var tableView = KeyboardTableView()
 
     var numberFormatter: NumberFormatter!
 

@@ -10,22 +10,28 @@ open class KeyboardWindowScene: UIWindowScene {
         true
     }
 
+    private lazy var cycleWindowsCommand = UIKeyCommand((.command, "`"), action: #selector(kbd_cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle))
+    private lazy var closeCommand = UIKeyCommand((.command, "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if UIApplication.shared.supportsMultipleScenes {
             if UIApplication.shared.foregroundWindowScenes.count > 1 {
-                commands.append(UIKeyCommand((.command, "`"), action: #selector(cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle)))
+                commands.append(cycleWindowsCommand)
             }
-            commands.append(UIKeyCommand((.command, "W"), action: #selector(closeWindowScene(sender:)), title: localisedString(.window_close)))
+            commands.append(closeCommand)
         }
 
         return commands
     }
+}
+
+private extension UIWindowScene {
 
     /// Cycles the key window through the visible window scenes. Expects there to be one window per window scene.
     /// Does nothing if the windows can’t be looked up.
-    @objc private func cycleFocusBetweenVisibleWindowScenes(sender: UIKeyCommand) {
+    @objc func kbd_cycleFocusBetweenVisibleWindowScenes(_ sender: UIKeyCommand) {
         // It would be good if this method worked across all sessions, not just visible window scenes.
         // However requestSceneSessionActivation is not appropriate because is breaks the app spaces the user has set up.
 
@@ -53,7 +59,7 @@ open class KeyboardWindowScene: UIWindowScene {
         foregroundWindowScenes[nextKeyWindowIndex].windows.first?.makeKey()
     }
 
-    @objc private func closeWindowScene(sender: UIKeyCommand) {
+    @objc func kbd_closeWindowScene(_ sender: UIKeyCommand) {
         UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
     }
 }

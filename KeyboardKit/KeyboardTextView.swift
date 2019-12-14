@@ -5,21 +5,21 @@ import UIKit
 /// A text view that supports hardware keyboard commands to use the selection for find, find previous/next, and jump to the selection.
 open class KeyboardTextView: UITextView, ResponderChainInjection {
 
+    private lazy var findKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand((.command, "g"), action: #selector(kbd_findNext), title: localisedString(.find_next)),
+        UIKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous)),
+        UIKeyCommand((.command, "e"), action: #selector(kbd_useSelectionForFind), title: localisedString(.find_useSelection)),
+        UIKeyCommand((.command, "j"), action: #selector(kbd_jumpToSelection), title: localisedString(.find_jump)),
+    ]
+
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        guard isSelectable else {
-            return commands
+        if isSelectable {
+            commands += findKeyCommands
         }
-
-        commands += [
-            UIKeyCommand(title: localisedString(.find_next), action: #selector(findNext(_:)), input: "g", modifierFlags: .command),
-            UIKeyCommand(title: localisedString(.find_previous), action: #selector(findPrevious(_:)), input: "g", modifierFlags: [.command, .shift]),
-            UIKeyCommand(title: localisedString(.find_useSelection), action: #selector(useSelectionForFind(_:)), input: "e", modifierFlags: .command),
-            UIKeyCommand(title: localisedString(.find_jump), action: #selector(jumpToSelection(_:)), input: "j", modifierFlags: .command),
-        ]
 
         commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
         commands += scrollViewKeyHandler.refreshingCommands
@@ -27,15 +27,26 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         return commands
     }
 
+    public override var next: UIResponder? {
+        scrollViewKeyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        super.next
+    }
+}
+
+private extension UITextView {
+
     /// Selects the next instance of the text that was previously searched for, starting from the current selection
     /// or insertion point. Wraps to search from the start if needed. Scrolls to make the selection visible.
-    @objc private func findNext(_ sender: UIKeyCommand) {
+    @objc func kbd_findNext(_ sender: UIKeyCommand) {
         findNext(isBackwards: false)
     }
 
     /// Selects the previous instance of the text that was previously searched for, starting from the current
     /// selection or insertion point. Wraps to search from the end if needed. Scrolls to make the selection visible.
-    @objc private func findPrevious(_ sender: UIKeyCommand) {
+    @objc func kbd_findPrevious(_ sender: UIKeyCommand) {
         findNext(isBackwards: true)
     }
 
@@ -66,7 +77,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     }
 
     /// If there is selected text, it is marked as being used for find/search.
-    @objc private func useSelectionForFind(_ sender: UIKeyCommand) {
+    @objc func kbd_useSelectionForFind(_ sender: UIKeyCommand) {
         guard let selectedTextRange = selectedTextRange, let selectedText = text(in: selectedTextRange), selectedText.isEmpty == false else {
             return
         }
@@ -75,7 +86,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     }
 
     /// Scrolls so the current selected text or the insertion point is visible.
-    @objc private func jumpToSelection(_ sender: UIKeyCommand) {
+    @objc func kbd_jumpToSelection(_ sender: UIKeyCommand) {
         jumpToSelection()
     }
 
@@ -91,16 +102,6 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
         let targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: 0, bottom: -10, right: 0))
         scrollRectToVisible(targetRectangle, animated: false)
-    }
-
-    // MARK: - Responder chain
-
-    public override var next: UIResponder? {
-        scrollViewKeyHandler
-    }
-
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
-        super.next
     }
 }
 
