@@ -11,7 +11,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 This project is in its early stages, and is under active development. So far these components are available:
 
 - `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return.
-- `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, option + arrow keys, cmd + arrow keys, space, page up, page down, home and end. It also supports zooming using cmd + 0/−/+.
+- `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, opt + arrow keys, cmd + arrow keys, space, page up, page down, home and end. It also supports zooming using cmd + 0/−/+.
 - `KeyboardTextView`: A `UITextView` subclass that supports find next (cmd + G), find previous (cmd + shift + G), use selection for find (cmd + E), and jump to selection (cmd + J).
 - `KeyboardNavigationController`: a `UINavigationController` subclass that supports going back (cmd + left) and triggering the actions of the bar button items in the navigation bar and toolbar if they are instances of `KeyboardBarButtonItem`. Default key equivalents are provided for most system bar button items.
 - `KeyboardTabBarController`: A `UITabBarController` subclass that supports navigating between tabs using cmd + 1, cmd + 2 etc.

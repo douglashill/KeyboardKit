@@ -25,8 +25,8 @@ open class KeyboardNavigationController: UINavigationController {
         let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
         if (canGoBack) {
             let (primaryInput, secondaryInput) = backInputs
-            commands.append(UIKeyCommand(title: localisedString(.navigationController_back), action: #selector(goBackFromKeyCommand), input: primaryInput, modifierFlags: .command))
-            commands.append(UIKeyCommand(input: secondaryInput, modifierFlags: .command, action: #selector(goBackFromKeyCommand)))
+            commands.append(UIKeyCommand((.command, primaryInput), action: #selector(goBackFromKeyCommand), title: localisedString(.navigationController_back)))
+            commands.append(UIKeyCommand((.command, secondaryInput), action: #selector(goBackFromKeyCommand)))
         }
 
         let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {

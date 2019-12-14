@@ -3,7 +3,7 @@
 import UIKit
 
 /// A window scene that supports closing windows and cycling keyboard focus between visible windows using commands from a hardware keyboard.
-/// Subclasses of UIWindowScene can be specified statically in the Application Scene Manifest in the Info.plist.
+/// Subclasses of `UIWindowScene` can be specified statically in the Application Scene Manifest in the Info.plist.
 open class KeyboardWindowScene: UIWindowScene {
 
     public override var canBecomeFirstResponder: Bool {
@@ -15,9 +15,9 @@ open class KeyboardWindowScene: UIWindowScene {
 
         if UIApplication.shared.supportsMultipleScenes {
             if UIApplication.shared.foregroundWindowScenes.count > 1 {
-                commands.append(UIKeyCommand(title: localisedString(.window_cycle), action: #selector(cycleFocusBetweenVisibleWindowScenes), input: "`", modifierFlags: .command))
+                commands.append(UIKeyCommand((.command, "`"), action: #selector(cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle)))
             }
-            commands.append(UIKeyCommand(title: localisedString(.window_close), action: #selector(closeWindowScene(sender:)), input: "W", modifierFlags: .command))
+            commands.append(UIKeyCommand((.command, "W"), action: #selector(closeWindowScene(sender:)), title: localisedString(.window_close)))
         }
 
         return commands

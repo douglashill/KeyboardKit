@@ -19,11 +19,11 @@ open class KeyboardApplication: UIApplication {
         var commands = super.keyCommands ?? []
 
         if supportsMultipleScenes {
-            commands.append(UIKeyCommand(title: localisedString(.app_newWindow), action: #selector(createNewWindowScene), input: "N", modifierFlags: .command))
+            commands.append(UIKeyCommand((.command, "N"), action: #selector(createNewWindowScene), title: localisedString(.app_newWindow)))
         }
 
         if canOpenSettings {
-            commands.append(UIKeyCommand(title: localisedString(.app_settings), action: #selector(openSettings), input: ",", modifierFlags: .command))
+            commands.append(UIKeyCommand((.command, ","), action: #selector(openSettings), title: localisedString(.app_settings)))
         }
 
         return commands
