@@ -29,6 +29,7 @@
 		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
 		A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */; };
+		A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */; };
 		A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */; };
 		A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */; };
 		A5E5389F239B0387004A2EE2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* Localizable.strings */; };
@@ -88,6 +89,7 @@
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5D20F3D23787DA80057A8EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollView.swift; sourceTree = "<group>"; };
+		A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWindow.swift; sourceTree = "<group>"; };
 		A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStrings.swift; sourceTree = "<group>"; };
 		A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStringKeys.swift; sourceTree = "<group>"; };
 		A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalisedStringKeys.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
 				A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */,
+				A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */,
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
 				A542D89B23A01DC8007E68C3 /* PointAnimator.swift */,
@@ -340,6 +343,7 @@
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */,
 				A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */,
+				A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53EA62F239F1C4D0065C8EB /* KeyValueCoding.m in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,

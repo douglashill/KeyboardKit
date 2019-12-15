@@ -4,7 +4,7 @@ import UIKit
 import KeyboardKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var window: UIWindow?
+    var window: KeyboardWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let windowScene = scene as! UIWindowScene
@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             KeyboardNavigationController(rootViewController: TextViewController()),
         ]
 
-        let window = UIWindow(windowScene: windowScene)
+        let window = KeyboardWindow(windowScene: windowScene)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         self.window = window

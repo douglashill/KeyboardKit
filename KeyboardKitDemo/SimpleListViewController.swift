@@ -21,15 +21,16 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         view = tableView
     }
 
+    var replyBarButtonItem: KeyboardBarButtonItem?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        replyBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .reply, target: nil, action: #selector(reply))
+
         let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
         testItem.keyEquivalent = (.command, "t")
-        navigationItem.rightBarButtonItem = testItem
-
-        navigationItem.leftItemsSupplementBackButton = true
-        navigationItem.leftBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .reply, target: nil, action: #selector(reply))
+        navigationItem.rightBarButtonItems = [testItem, replyBarButtonItem!]
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -65,8 +66,29 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     @objc private func reply(_ sender: Any?) {
-        let alert = UIAlertController(title: "Reply", message: "You can show this alert either by tapping the bar button or by pressing command + R. KeyboardKit provides default key equivalents for most system bar button items.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
+        let replyViewController = ReplyViewController()
+        let navigationController = KeyboardNavigationController(rootViewController: replyViewController)
+        navigationController.modalPresentationStyle = .popover
+        navigationController.popoverPresentationController?.barButtonItem = replyBarButtonItem
+        present(navigationController, animated: true)
+    }
+}
+
+class ReplyViewController: FirstResponderViewController {
+    override var title: String? {
+        get { "Reply" }
+        set {}
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveReply))
+
+        view.backgroundColor = .systemBackground
+    }
+
+    @objc private func saveReply(_ sender: Any?) {
+        presentingViewController?.dismiss(animated: true)
     }
 }
