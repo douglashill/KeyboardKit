@@ -23,8 +23,8 @@ public class KeyboardTableView: UITableView {
         commands += [
             UIKeyCommand(UIKeyCommand.inputUpArrow, action: #selector(selectAbove), title: selectAboveDiscoverabilityTitle),
             UIKeyCommand(UIKeyCommand.inputDownArrow, action: #selector(selectBelow), title: selectBelowDiscoverabilityTitle),
-            UIKeyCommand((.command, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
-            UIKeyCommand((.command, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
+            UIKeyCommand((.alternate, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
+            UIKeyCommand((.alternate, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
 
             UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection), title: clearSelectionDiscoverabilityTitle),
             UIKeyCommand(" ", action: #selector(activateSelection)),
