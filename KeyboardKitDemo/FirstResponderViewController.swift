@@ -8,13 +8,21 @@ import UIKit
 /// views visible at once (such as with a split view) but this technique is easy and good enough for now.
 class FirstResponderViewController: UIViewController {
 
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.becomeFirstResponder()
+        makeViewOrControllerFirstResponder()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.becomeFirstResponder()
+        makeViewOrControllerFirstResponder()
+    }
+
+    private func makeViewOrControllerFirstResponder() {
+        (view.canBecomeFirstResponder ? view : self).becomeFirstResponder()
     }
 }
