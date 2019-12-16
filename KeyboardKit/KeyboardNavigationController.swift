@@ -7,7 +7,7 @@ import UIKit
 /// bar and toolbar. Bar button items must be instances of KeyboardBarButtonItem to support this.
 ///
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
-public class KeyboardNavigationController: UINavigationController {
+open class KeyboardNavigationController: UINavigationController {
 
     public override var canBecomeFirstResponder: Bool {
         true

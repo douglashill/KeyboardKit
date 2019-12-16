@@ -4,7 +4,7 @@ import UIKit
 
 /// An application that supports creating new windows and showing settings using commands from a hardware keyboard.
 /// Subclasses of UIApplication can be passed into UIApplicationMain.
-public class KeyboardApplication: UIApplication {
+open class KeyboardApplication: UIApplication {
 
     public override var canBecomeFirstResponder: Bool {
         true

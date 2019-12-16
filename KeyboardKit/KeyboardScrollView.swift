@@ -8,7 +8,7 @@ import UIKit
 ///
 /// The scroll view’s delegate will receive `scrollViewDidEndScrollingAnimation:` after a keyboard-driven
 /// scrolling animation finishes or is interrupted by a new keyboard-driven scrolling animation.
-public class KeyboardScrollView: UIScrollView, ResponderChainInjection {
+open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
 
     private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self)
 

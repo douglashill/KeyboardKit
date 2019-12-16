@@ -14,7 +14,7 @@ import UIKit
 /// the bar button item uses an explicit target.
 ///
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
-public class KeyboardBarButtonItem: KBDBarButtonItem {
+open class KeyboardBarButtonItem: KBDBarButtonItem {
 
     /// The character and the modifier flags corresponding to the keys that must be pressed to trigger this bar button item’s action from a keyboard.
     public var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?

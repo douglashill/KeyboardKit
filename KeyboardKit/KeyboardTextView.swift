@@ -3,7 +3,7 @@
 import UIKit
 
 /// A text view that supports hardware keyboard commands to use the selection for find, find previous/next, and jump to the selection.
-public class KeyboardTextView: UITextView, ResponderChainInjection {
+open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 

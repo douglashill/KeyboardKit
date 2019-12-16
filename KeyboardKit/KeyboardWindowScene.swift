@@ -4,7 +4,7 @@ import UIKit
 
 /// A window scene that supports closing windows and cycling keyboard focus between visible windows using commands from a hardware keyboard.
 /// Subclasses of UIWindowScene can be specified statically in the Application Scene Manifest in the Info.plist.
-public class KeyboardWindowScene: UIWindowScene {
+open class KeyboardWindowScene: UIWindowScene {
 
     public override var canBecomeFirstResponder: Bool {
         true

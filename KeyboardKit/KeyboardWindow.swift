@@ -4,7 +4,7 @@ import UIKit
 
 /// A window that supports using escape on a hardware keyboard to dismiss any topmost modal sheet or popover.
 /// Calls the presentation controller delegate like for any other user-driven dismissal.
-public class KeyboardWindow: UIWindow {
+open class KeyboardWindow: UIWindow {
 
     public override var canBecomeFirstResponder: Bool {
         true

@@ -4,7 +4,7 @@
 import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
-public class KeyboardTableView: UITableView, ResponderChainInjection {
+open class KeyboardTableView: UITableView, ResponderChainInjection {
     // These properties may be set or overridden to provide discoverability titles for key commands.
     public var selectAboveDiscoverabilityTitle: String?
     public var selectBelowDiscoverabilityTitle: String?
