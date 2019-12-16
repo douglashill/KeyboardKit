@@ -16,7 +16,7 @@ This project is in its early stages, and is under active development. So far the
 - `KeyboardNavigationController`: a `UINavigationController` subclass that supports going back (cmd + left) and triggering the actions of the bar button items in the navigation bar and toolbar if they are instances of `KeyboardBarButtonItem`. Default key equivalents are provided for most system bar button items.
 - `KeyboardTabBarController`: A `UITabBarController` subclass that supports navigating between tabs using cmd + 1, cmd + 2 etc.
 - `KeyboardWindow`: A `UIWindow` subclass that supports using escape on a hardware keyboard to dismiss any topmost modal sheet or popover. Escape is available as cmd + . on Apple Smart Keyboards.
-- `KeyboardApplication` and `KeyboardWindowScene`: `UIApplication` and `UIWindowScene` subclasses that support making new windows (cmd + N), closing windows (cmd + W), cycling keyboard focus between visible windows (cmd + \`), and showing app settings in the Settings app (cmd + ,).
+- `KeyboardApplication` and `KeyboardWindowScene`: `UIApplication` and `UIWindowScene` subclasses that support making new windows (cmd + opt + N), closing windows (cmd + shift + W), cycling keyboard focus between visible windows (cmd + \`), and showing app settings in the Settings app (cmd + ,).
 
 User facing text is currently only localised in English.
 

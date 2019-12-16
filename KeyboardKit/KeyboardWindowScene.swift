@@ -11,7 +11,8 @@ open class KeyboardWindowScene: UIWindowScene {
     }
 
     private lazy var cycleWindowsCommand = UIKeyCommand((.command, "`"), action: #selector(kbd_cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle))
-    private lazy var closeCommand = UIKeyCommand((.command, "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
+    // Leave cmd + W for closing a tab or modal within a window. Mac uses cmd + shift + W for close window when there are tabs.
+    private lazy var closeCommand = UIKeyCommand(([.command, .shift], "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
 
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []

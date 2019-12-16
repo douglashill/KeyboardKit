@@ -15,7 +15,8 @@ open class KeyboardApplication: UIApplication {
     /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.
     public var canOpenSettings = false
 
-    private lazy var newWindowKeyCommand = UIKeyCommand((.command, "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
+    // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
+    private lazy var newWindowKeyCommand = UIKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
     private lazy var openSettingsKeyCommand = UIKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
 
     public override var keyCommands: [UIKeyCommand]? {
