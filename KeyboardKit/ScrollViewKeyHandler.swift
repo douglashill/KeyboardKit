@@ -67,10 +67,15 @@ class ScrollViewKeyHandler: InjectableResponder {
         UIKeyCommand((.command, "0"), action: #selector(UIScrollView.kbd_resetZoom), title: localisedString(.scrollView_zoomReset)),
     ]
 
+    private lazy var _refreshingCommands = [
+        UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.scrollView_refresh))
+    ]
+
     var arrowKeyScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _arrowKeyScrollingCommands : [] }
     var spaceBarScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _spaceBarScrollingCommands : [] }
     var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _pageUpDownHomeEndScrollingCommands : [] }
     var zoomingCommands: [UIKeyCommand] { scrollView.isZoomingEnabled ? _zoomingCommands : [] }
+    var refreshingCommands: [UIKeyCommand] { scrollView.canRefresh ? _refreshingCommands : [] }
 
     // MARK: - Scrolling
 
@@ -395,6 +400,24 @@ private extension UIScrollView {
         let targetZoomScale = minScale * pow(zoomStepMultiple, targetPower)
 
         setZoomScale(targetZoomScale, animated: true)
+    }
+}
+
+// MARK: - Refreshing
+
+private extension UIScrollView {
+
+    var canRefresh: Bool {
+        refreshControl?.allControlEvents.contains(.valueChanged) ?? false
+    }
+
+    @objc func kbd_refresh(_ keyCommand: UIKeyCommand) {
+        guard let refreshControl = refreshControl, refreshControl.isRefreshing == false else {
+            return
+        }
+
+        refreshControl.beginRefreshing()
+        refreshControl.sendActions(for: .valueChanged)
     }
 }
 

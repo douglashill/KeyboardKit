@@ -22,6 +22,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         ]
 
         commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
+        commands += scrollViewKeyHandler.refreshingCommands
 
         return commands
     }

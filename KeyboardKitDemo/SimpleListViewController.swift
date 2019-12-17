@@ -10,12 +10,19 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     private let cellReuseIdentifier = "a"
-    private let numberFormatter: NumberFormatter = {
+    private let numberFormatter1: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
         return formatter
     }()
+    private let numberFormatter2: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
     lazy private var tableView = KeyboardTableView()
+
+    var numberFormatter: NumberFormatter!
 
     override func loadView() {
         view = tableView
@@ -26,6 +33,8 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        numberFormatter = numberFormatter1
+
         bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
 
         let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
@@ -35,6 +44,10 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -71,6 +84,14 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
         navigationController.modalPresentationStyle = .popover
         navigationController.popoverPresentationController?.barButtonItem = bookmarksBarButtonItem
         present(navigationController, animated: true)
+    }
+
+    @objc private func refresh(_ sender: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.numberFormatter = (self.numberFormatter === self.numberFormatter1) ? self.numberFormatter2 : self.numberFormatter1
+            self.tableView.reloadData()
+            sender.endRefreshing()
+        }
     }
 }
 

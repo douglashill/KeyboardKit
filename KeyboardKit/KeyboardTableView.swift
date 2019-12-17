@@ -34,6 +34,7 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         ]
 
         commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
+        commands += scrollViewKeyHandler.refreshingCommands
 
         return commands
     }

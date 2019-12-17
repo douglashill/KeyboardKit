@@ -23,11 +23,10 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
         commands += keyHandler.spaceBarScrollingCommands
         commands += keyHandler.pageUpDownHomeEndScrollingCommands
         commands += keyHandler.zoomingCommands
+        commands += keyHandler.refreshingCommands
 
         return commands
     }
-
-    // MARK: - Responder chain
 
     public override var next: UIResponder? {
         keyHandler

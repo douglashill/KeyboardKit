@@ -7,6 +7,7 @@
 "find_previous" = "Find Previous";
 "find_useSelection" = "Use Selection for Find";
 "navigationController_back" = "Back";
+"scrollView_refresh" = "Refresh";
 "scrollView_zoomIn" = "Zoom In";
 "scrollView_zoomOut" = "Zoom Out";
 "scrollView_zoomReset" = "Actual Size";
