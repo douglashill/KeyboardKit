@@ -35,19 +35,26 @@ open class KeyboardNavigationController: UINavigationController {
 
         if let topViewController = topViewController {
             let navigationItem = topViewController.navigationItem
+            var additionalCommands: [UIKeyCommand] = []
 
             let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
             if (canGoBack) {
-                commands += backKeyCommands
+                additionalCommands += backKeyCommands
             }
 
             let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
                 $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
             }
 
-            commands += navigationItem.nnLeadingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
-            commands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
-            commands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
+            additionalCommands += navigationItem.nnLeadingBarButtonItems.compactMap(keyCommandFromBarButtonItem)
+            additionalCommands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
+            additionalCommands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
+
+            if UIResponder.isTextInputActive {
+                additionalCommands = additionalCommands.filter { $0.isAllowedWhileTextInputIsActive }
+            }
+
+            commands += additionalCommands
         }
 
         return commands

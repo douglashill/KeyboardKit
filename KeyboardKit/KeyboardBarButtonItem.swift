@@ -20,6 +20,7 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     public var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
 
     /// Creates a key command that can be used to trigger this bar button item’s action.
+    /// This will return a key command even if it would override text input.
     public var keyCommand: UIKeyCommand? {
         guard isEnabled, let keyEquivalent = keyEquivalent, let action = action else {
             return nil

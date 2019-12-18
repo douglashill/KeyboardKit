@@ -71,8 +71,8 @@ class ScrollViewKeyHandler: InjectableResponder {
         UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.scrollView_refresh))
     ]
 
-    var arrowKeyScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _arrowKeyScrollingCommands : [] }
-    var spaceBarScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _spaceBarScrollingCommands : [] }
+    var arrowKeyScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled && UIResponder.isTextInputActive == false ? _arrowKeyScrollingCommands : [] }
+    var spaceBarScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled && UIResponder.isTextInputActive == false ? _spaceBarScrollingCommands : [] }
     var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _pageUpDownHomeEndScrollingCommands : [] }
     var zoomingCommands: [UIKeyCommand] { scrollView.isZoomingEnabled ? _zoomingCommands : [] }
     var refreshingCommands: [UIKeyCommand] { scrollView.canRefresh ? _refreshingCommands : [] }

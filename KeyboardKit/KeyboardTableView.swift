@@ -22,16 +22,18 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands += [
-            UIKeyCommand(UIKeyCommand.inputUpArrow, action: #selector(selectAbove), title: selectAboveDiscoverabilityTitle),
-            UIKeyCommand(UIKeyCommand.inputDownArrow, action: #selector(selectBelow), title: selectBelowDiscoverabilityTitle),
-            UIKeyCommand((.alternate, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
-            UIKeyCommand((.alternate, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
+        if UIResponder.isTextInputActive == false {
+            commands += [
+                UIKeyCommand(UIKeyCommand.inputUpArrow, action: #selector(selectAbove), title: selectAboveDiscoverabilityTitle),
+                UIKeyCommand(UIKeyCommand.inputDownArrow, action: #selector(selectBelow), title: selectBelowDiscoverabilityTitle),
+                UIKeyCommand((.alternate, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
+                UIKeyCommand((.alternate, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
 
-            UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection), title: clearSelectionDiscoverabilityTitle),
-            UIKeyCommand(" ", action: #selector(activateSelection)),
-            UIKeyCommand("\r", action: #selector(activateSelection), title: activateSelectionDiscoverabilityTitle),
-        ]
+                UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection), title: clearSelectionDiscoverabilityTitle),
+                UIKeyCommand(" ", action: #selector(activateSelection)),
+                UIKeyCommand("\r", action: #selector(activateSelection), title: activateSelectionDiscoverabilityTitle),
+            ]
+        }
 
         commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
         commands += scrollViewKeyHandler.refreshingCommands
