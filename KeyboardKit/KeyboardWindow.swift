@@ -36,15 +36,15 @@ private extension UIWindow {
 
         guard
             topmost.isModal == false,
-            presentationController.delegate?.presentationControllerShouldDismiss?(presentationController) ?? true
+            delegateSaysPresentationControllerShouldDismiss(presentationController)
         else {
-            presentationController.delegate?.presentationControllerDidAttemptToDismiss?(presentationController)
+            tellDelegatePresentationControllerDidAttemptToDismiss(presentationController)
             return
         }
 
-        presentationController.delegate?.presentationControllerWillDismiss?(presentationController)
+        tellDelegatePresentationControllerWillDismiss(presentationController)
         topmost.presentingViewController!.dismiss(animated: true) {
-            presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+            tellDelegatePresentationControllerDidDismiss(presentationController)
         }
     }
 
@@ -56,6 +56,47 @@ private extension UIWindow {
             viewController = presentedViewController
         }
         return viewController
+    }
+}
+
+private func delegateSaysPresentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    // TODO: Verify this matches what UIKit does. Not yet documented so should find by experimentation.
+
+    if #available(iOS 13, *), let should = presentationController.delegate?.presentationControllerShouldDismiss?(presentationController) {
+        return should
+    }
+
+    if
+        let popoverPresentationController = presentationController as? UIPopoverPresentationController,
+        let should = popoverPresentationController.delegate?.popoverPresentationControllerShouldDismissPopover?(popoverPresentationController)
+    {
+        return should
+    }
+
+    return true
+}
+
+private func tellDelegatePresentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+    if #available(iOS 13, *) {
+        presentationController.delegate?.presentationControllerDidAttemptToDismiss?(presentationController)
+    }
+}
+
+private func tellDelegatePresentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    if #available(iOS 13, *) {
+        presentationController.delegate?.presentationControllerWillDismiss?(presentationController)
+    }
+}
+
+private func tellDelegatePresentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    // TODO: Verify whether UIKit calls both if both are implemented or whether it stops after the first one is implemented.
+
+    if #available(iOS 13, *) {
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
+    }
+
+    if let popoverPresentationController = presentationController as? UIPopoverPresentationController {
+        popoverPresentationController.delegate?.popoverPresentationControllerDidDismissPopover?(popoverPresentationController)
     }
 }
 
