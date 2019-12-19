@@ -26,6 +26,27 @@ At this early stage the project has only been tested on iOS 13 and Xcode 11.2.1.
 
 KeyboardKit is written in Swift.
 
+## Installation
+
+### CocoaPods
+
+1. Add the following line to your `podfile`:
+
+```swift
+pod 'Keyboard-Kit'
+```
+2. Run the following command in terminal:
+
+```swift
+pod install
+```
+3. Import the framework
+
+```swift
+import KeyboardKit
+```
+
+
 ## Usage
 
 Instead of creating or subclassing a UIKit class directly, use the subclasses from KeyboardKit instead.
