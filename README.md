@@ -8,7 +8,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Status
 
-This project is in its early stages, and is under active development. So far these components are available:
+This project is in its early stages, and is under active development. API stability is not guaranteed. So far these components are available:
 
 - `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return.
 - `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, opt + arrow keys, cmd + arrow keys, space, page up, page down, home and end. It also supports zooming using cmd + 0/−/+.
