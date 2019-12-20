@@ -86,9 +86,8 @@ extension UICollectionView: SelectableCollectionKeyHandlerDelegate {
         // TODO: step is ignored. Just dealing with closest for now.
 
         // Search some small distance along.
-        let rectangleToSearch: CGRect
         let distanceToSearch:  CGFloat = 500
-
+        let rectangleToSearch: CGRect
         switch direction {
         case .up:
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
@@ -100,11 +99,7 @@ extension UICollectionView: SelectableCollectionKeyHandlerDelegate {
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         }
 
-        guard let attributesArray = collectionViewLayout.layoutAttributesForElements(in: rectangleToSearch), attributesArray.isEmpty == false else {
-            // TODO: Search further if finding nothing.
-            // TODO: Wrapping so it goes to the previous or next index path when reaching the end of a line with flow layout.
-            return nil
-        }
+        let attributesArray = collectionViewLayout.layoutAttributesForElements(in: rectangleToSearch) ?? []
 
         var closestAttributes: UICollectionViewLayoutAttributes?
         var smallestDistance = CGFloat.greatestFiniteMagnitude
@@ -128,6 +123,9 @@ extension UICollectionView: SelectableCollectionKeyHandlerDelegate {
                 smallestDistance = distance
             }
         }
+
+        // TODO: Search further if finding nothing.
+        // TODO: Wrapping so it goes to the previous or next index path when reaching the end of a line with flow layout.
 
         return closestAttributes?.indexPath
     }
