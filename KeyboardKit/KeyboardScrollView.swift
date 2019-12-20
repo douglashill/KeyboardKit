@@ -3,8 +3,8 @@
 import UIKit
 
 /// A scroll view that supports scrolling and zooming using a hardware keyboard. Behaviour is modelled
-/// after `NSScrollView`. Supports arrow keys, option + arrow keys, command + arrow keys, space bar,
-/// page up, page down, home and end.
+/// after `NSScrollView`. Supports arrow keys, ⌥ + arrow keys, ⌘ + arrow keys, space bar, page up, 
+/// page down, home and end.
 ///
 /// The scroll view’s delegate will receive `scrollViewDidEndScrollingAnimation:` after a keyboard-driven
 /// scrolling animation finishes or is interrupted by a new keyboard-driven scrolling animation.
