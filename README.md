@@ -10,8 +10,9 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 This project is in its early stages, and is under active development. API stability is not guaranteed. So far these components are available:
 
-- `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return.
-- `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, space, page up, page down, home and end. It also supports zooming using ⌘0, ⌘−, and ⌘+.
+- `KeyboardTableView`: A `UITableView` subclass that supports navigation and selection using arrow keys and space or return, including wrapping back to the top/bottom and selecting the top/bottom item by holding option. It also supports refreshing (⌘R) and scrolling with page up, page down, home and end. Does not support multiple selection except for selecting all rows (⌘A). 
+- `KeyboardCollectionView`: A `UICollectionView` subclass that supports navigation and selection using arrow keys and space or return. It supports refreshing (⌘R) and scrolling with page up, page down, home and end. Does not support multiple selection except for selecting all rows (⌘A). Does not support wrapping or selecting to the end by holding option.
+- `KeyboardScrollView`: A `UIScrollView` subclass that supports scrolling using arrow keys, space, page up, page down, home and end. It also supports zooming (⌘0, ⌘−, ⌘+).
 - `KeyboardTextView`: A `UITextView` subclass that supports find next (⌘G), find previous (⇧⌘G), use selection for find (⌘E), and jump to selection (⌘J).
 - `KeyboardNavigationController`: a `UINavigationController` subclass that supports going back (⌘←) and triggering the actions of the bar button items in the navigation bar and toolbar if they are instances of `KeyboardBarButtonItem`. Default key equivalents are provided for most system bar button items.
 - `KeyboardTabBarController`: A `UITabBarController` subclass that supports navigating between tabs using ⌘1, ⌘2 etc.

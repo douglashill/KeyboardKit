@@ -14,8 +14,10 @@
 		A53AE00D2375AAAE00B07957 /* KeyboardKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53AE0052375AAAE00B07957 /* KeyboardKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01223786CD000B07957 /* KeyCommandCreation.swift */; };
 		A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */; };
+		A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */; };
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
 		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
+		A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */; };
 		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
 		A53EA62E239F1C4D0065C8EB /* KeyValueCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A53EA62F239F1C4D0065C8EB /* KeyValueCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */; };
@@ -26,6 +28,7 @@
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
 		A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */; };
 		A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */; };
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
@@ -76,8 +79,10 @@
 		A53AE0082375AAAE00B07957 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A53AE01223786CD000B07957 /* KeyCommandCreation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyCommandCreation.swift; path = KeyboardKit/KeyCommandCreation.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTabBarController.swift; path = KeyboardKit/KeyboardTabBarController.swift; sourceTree = SOURCE_ROOT; };
+		A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardCollectionView.swift; path = KeyboardKit/KeyboardCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
+		A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayoutViewController.swift; path = KeyboardKitDemo/FlowLayoutViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
 		A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueCoding.h; sourceTree = "<group>"; };
 		A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueCoding.m; sourceTree = "<group>"; };
@@ -88,6 +93,7 @@
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
 		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
+		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingScrollViewController.swift; sourceTree = "<group>"; };
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */,
 				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
+				A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */,
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
@@ -165,7 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				A53AE01623786CD000B07957 /* KeyboardTableView.swift */,
+				A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */,
+				A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */,
 				A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */,
+				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
@@ -173,7 +183,6 @@
 				A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */,
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
-				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */,
 				A542D89B23A01DC8007E68C3 /* PointAnimator.swift */,
 				A53AE01223786CD000B07957 /* KeyCommandCreation.swift */,
@@ -334,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */,
 				A5D20F3E23787DA80057A8EE /* main.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
@@ -350,6 +360,7 @@
 			files = (
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
+				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,
 				A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */,
 				A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */,
@@ -362,6 +373,7 @@
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
 				A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */,
+				A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */,
 				A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */,
 				A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */,
 				A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */,

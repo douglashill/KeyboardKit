@@ -5,14 +5,8 @@ import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
-    // These properties may be set or overridden to provide discoverability titles for key commands.
-    public var selectAboveDiscoverabilityTitle: String?
-    public var selectBelowDiscoverabilityTitle: String?
-    public var selectTopDiscoverabilityTitle: String?
-    public var selectBottomDiscoverabilityTitle: String?
-    public var clearSelectionDiscoverabilityTitle: String?
-    public var activateSelectionDiscoverabilityTitle: String?
 
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(delegate: self, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var canBecomeFirstResponder: Bool {
@@ -22,228 +16,124 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if UIResponder.isTextInputActive == false {
-            commands += [
-                UIKeyCommand(UIKeyCommand.inputUpArrow, action: #selector(selectAbove), title: selectAboveDiscoverabilityTitle),
-                UIKeyCommand(UIKeyCommand.inputDownArrow, action: #selector(selectBelow), title: selectBelowDiscoverabilityTitle),
-                UIKeyCommand((.alternate, UIKeyCommand.inputUpArrow), action: #selector(selectTop), title: selectTopDiscoverabilityTitle),
-                UIKeyCommand((.alternate, UIKeyCommand.inputDownArrow), action: #selector(selectBottom), title: selectBottomDiscoverabilityTitle),
-
-                UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection), title: clearSelectionDiscoverabilityTitle),
-                UIKeyCommand(" ", action: #selector(activateSelection)),
-                UIKeyCommand("\r", action: #selector(activateSelection), title: activateSelectionDiscoverabilityTitle),
-            ]
-        }
-
         commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
         commands += scrollViewKeyHandler.refreshingCommands
 
         return commands
     }
 
-    // MARK: - Arrow key selection
-
-    /// Selects the first highlightable row above the current selection, or selects the bottom highlightable row if there is no
-    /// current selection or if the current selection is the top highlightable row. Scrolls so new selected row is visible.
-    @objc private func selectAbove() {
-        if let oldSelection = indexPathForSelectedRow, let target = selectableIndexPathBeforeIndexPath(oldSelection) {
-            selectAndShowRowAtIndexPath(target)
-        } else {
-            selectBottom()
-        }
-    }
-
-    /// Selects the first highlightable row below the current selection, or selects the top highlightable row if there is no
-    /// current selection or if the current selection is the bottom highlightable row. Scrolls so new selected row is visible.
-    @objc private func selectBelow() {
-        if let oldSelection = indexPathForSelectedRow, let target = selectableIndexPathAfterIndexPath(oldSelection) {
-            selectAndShowRowAtIndexPath(target)
-        } else {
-            selectTop()
-        }
-    }
-
-    /// Selects the top highlightable row if there is one. Scrolls so new selected row is visible.
-    @objc private func selectTop() {
-        if let indexPath = firstSelectableIndexPath {
-            selectAndShowRowAtIndexPath(indexPath)
-        }
-    }
-
-    /// Selects the bottom highlightable row if there is one. Scrolls so new selected row is visible.
-    @objc private func selectBottom() {
-        if let indexPath = lastSelectableIndexPath {
-            selectAndShowRowAtIndexPath(indexPath)
-        }
-    }
-
-    private var delegateRespondsToShouldHighlightRow: Bool {
-        delegate?.responds(to: #selector(UITableViewDelegate.tableView(_:shouldHighlightRowAt:))) ?? false
-    }
-
-    private func uncheckedShouldHighlightRowAtIndexPath(_ indexPath: IndexPath) -> Bool {
-        delegate!.tableView!(self, shouldHighlightRowAt: indexPath)
-    }
-
-    private func checkIndexPathIsInValidRange(_ indexPath: IndexPath) {
-        precondition(indexPath.section >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.section < numberOfSections, "Index path is out-of-bounds.")
-        precondition(indexPath.row >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.row < numberOfRows(inSection: indexPath.section), "Index path is out-of-bounds.")
-    }
-
-    /// Returns the index path to select before (above) a given index path or nil if there is no such index path.
-    private func selectableIndexPathBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
-        checkIndexPathIsInValidRange(indexPath)
-        let responds = delegateRespondsToShouldHighlightRow
-
-        var section = indexPath.section
-        while section >= 0 {
-            let numberOfRows_ = numberOfRows(inSection: section)
-            // For the first section we look in, we want to just check the row above in the same section.
-            // When the section changes, we need to start from the last row.
-            var row = section == indexPath.section ? indexPath.row - 1 : numberOfRows_ - 1
-
-            while row >= 0 {
-                let targetIndexPath = IndexPath(row: row, section: section)
-                if responds == false || uncheckedShouldHighlightRowAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                row -= 1
-            }
-
-            section -= 1
-        }
-
-        return nil
-    }
-
-    /// Returns the index path to select after (below) a given index path or nil if there is no such index path.
-    private func selectableIndexPathAfterIndexPath(_ indexPath: IndexPath) -> IndexPath? {
-        checkIndexPathIsInValidRange(indexPath)
-        let responds = delegateRespondsToShouldHighlightRow
-
-        var section = indexPath.section
-        while section < numberOfSections {
-            let numberOfRows_ = numberOfRows(inSection: section)
-            // For the first section we look in, we want to just check the row below in the same section.
-            // When the section changes, we need to start from the first row.
-            var row = section == indexPath.section ? indexPath.row + 1 : 0
-
-            while row < numberOfRows_ {
-                let targetIndexPath = IndexPath(row: row, section: section)
-                if responds == false || uncheckedShouldHighlightRowAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                row += 1
-            }
-
-            section += 1
-        }
-
-        return nil
-    }
-
-    private var firstSelectableIndexPath: IndexPath? {
-        let responds = delegateRespondsToShouldHighlightRow
-
-        // Select the first highlightable row.
-        var section = 0
-        while section < numberOfSections {
-            let numberOfRows_ = numberOfRows(inSection: section)
-
-            var row = 0
-            while row < numberOfRows_ {
-                let targetIndexPath = IndexPath(row: row, section: section)
-                if responds == false || uncheckedShouldHighlightRowAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                row += 1
-            }
-
-            section += 1
-        }
-
-        return nil
-    }
-
-    private var lastSelectableIndexPath: IndexPath? {
-        let responds = delegateRespondsToShouldHighlightRow
-
-        // Select the last highlightable row.
-        var section = numberOfSections - 1
-        while section >= 0 {
-            let numberOfRows_ = numberOfRows(inSection: section)
-
-            var row = numberOfRows_ - 1
-            while row >= 0 {
-                let targetIndexPath = IndexPath(row: row, section:section)
-                if responds == false || uncheckedShouldHighlightRowAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                row -= 1
-            }
-
-            section -= 1
-        }
-
-        return nil
-    }
-
-    /// Selects the row at the given index path and scrolls if needed so that row is visible.
-    /// The index path must be in-bounds or an assertion will fail.
-    private func selectAndShowRowAtIndexPath(_ indexPath: IndexPath) {
-        checkIndexPathIsInValidRange(indexPath)
-
-        switch cellVisibility(atIndexPath: indexPath) {
-        case .fullyVisible:
-            selectRow(at: indexPath, animated: false, scrollPosition: .none)
-        case .notFullyVisible(let scrollPosition):
-            // Looks better and feel more responsive if the selection updates without animation.
-            selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            scrollToRow(at: indexPath, at: scrollPosition, animated: true)
-            flashScrollIndicators()
-        }
-    }
-
-    /// Whether a row is fully visible, or if not if it’s above or below the viewport.
-    private enum CellVisibility { case fullyVisible; case notFullyVisible(ScrollPosition); }
-
-    /// Whether the given row is fully visible, or if not if it’s above or below the viewport.
-    private func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility {
-        let rowRect = rectForRow(at: indexPath)
-        if bounds.inset(by: adjustedContentInset).contains(rowRect) {
-            return .fullyVisible
-        }
-
-        let position: ScrollPosition = rowRect.midY < bounds.midY ? .top : .bottom
-        return .notFullyVisible(position)
-    }
-
-    // MARK: - Using the selection
-
-    @objc private func clearSelection() {
-        selectRow(at: nil, animated: false, scrollPosition: .none)
-    }
-
-    @objc private func activateSelection() {
-        guard let indexPathForSelectedRow = indexPathForSelectedRow else {
-            return
-        }
-        delegate?.tableView?(self, didSelectRowAt: indexPathForSelectedRow)
-    }
-
-    // MARK: - Responder chain
-
     public override var next: UIResponder? {
-        scrollViewKeyHandler
+        selectableCollectionKeyHandler
     }
 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
-        super.next
+        if responder === selectableCollectionKeyHandler {
+            return scrollViewKeyHandler
+        } else if responder == scrollViewKeyHandler {
+            return super.next
+        } else {
+            fatalError()
+        }
+    }
+}
+
+extension UITableView: SelectableCollectionKeyHandlerDelegate {
+
+    func numberOfItems(inSection section: Int) -> Int {
+        numberOfRows(inSection: section)
+    }
+
+    var shouldAllowSelection: Bool {
+        isEditing ? allowsSelectionDuringEditing : allowsSelection
+    }
+
+    var shouldAllowMultipleSelection: Bool {
+        isEditing ? allowsMultipleSelectionDuringEditing : allowsMultipleSelection
+    }
+
+    func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
+        delegate?.tableView?(self, shouldHighlightRowAt: indexPath) ?? true
+    }
+
+    var indexPathsForSelectedItems: [IndexPath]? {
+        indexPathsForSelectedRows
+    }
+
+    func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
+        selectRow(at: indexPath, animated: animated, scrollPosition: .init(scrollPosition))
+    }
+
+    func activateSelection(at indexPath: IndexPath) {
+        delegate?.tableView?(self, didSelectRowAt: indexPath)
+    }
+
+    func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+        scrollToRow(at: indexPath, at: .init(scrollPosition), animated: animated)
+    }
+
+    func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility {
+        let rowFrame = rectForRow(at: indexPath)
+        if bounds.inset(by: adjustedContentInset).contains(rowFrame) {
+            return .fullyVisible
+        }
+
+        let position: UICollectionView.ScrollPosition = rowFrame.midY < bounds.midY ? .top : .bottom
+        return .notFullyVisible(position)
+    }
+
+    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+            switch (direction, step) {
+            case (.up, .closest):
+                // Select the first highlightable item before the current selection, or select the last highlightable
+                // item if there is no current selection or if the current selection is the first highlightable item.
+                if let indexPath = indexPath, let target = keyHandler.selectableIndexPathBeforeIndexPath(indexPath) {
+                    return target
+                } else {
+                    return keyHandler.lastSelectableIndexPath
+                }
+
+            case (.up, .end):
+                return keyHandler.firstSelectableIndexPath
+
+            case (.down, .closest):
+                // Select the first highlightable item after the current selection, or select the first highlightable
+                // item if there is no current selection or if the current selection is the last highlightable item.
+                if let oldSelection = indexPath, let target = keyHandler.selectableIndexPathAfterIndexPath(oldSelection) {
+                    return target
+                } else {
+                    return keyHandler.firstSelectableIndexPath
+                }
+
+            case (.down, .end):
+                return keyHandler.lastSelectableIndexPath
+
+            case (.left, _), (.right, _):
+                return nil
+        }
+    }
+}
+
+private extension UITableView.ScrollPosition {
+    init(_ position: UICollectionView.ScrollPosition) {
+        if position.contains( .top) {
+            self = .top
+        } else if position.contains(.bottom) {
+            self = .bottom
+        } else if position.contains(.centeredVertically) {
+            self = .middle
+        } else {
+            self = .none
+        }
+    }
+}
+
+private extension UICollectionView.ScrollPosition {
+    init(_ position: UITableView.ScrollPosition) {
+        switch position {
+        case .top: self = .top
+        case .bottom: self = .bottom
+        case .middle: self = .centeredVertically
+        case .none: fallthrough @unknown default: self = []
+        }
     }
 }

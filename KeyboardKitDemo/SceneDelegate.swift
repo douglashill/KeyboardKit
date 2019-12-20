@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = KeyboardTabBarController()
         tabBarController.viewControllers = [
             KeyboardNavigationController(rootViewController: SimpleListViewController()),
+            KeyboardNavigationController(rootViewController: FlowLayoutViewController()),
             KeyboardNavigationController(rootViewController: CirclesScrollViewController()),
             KeyboardNavigationController(rootViewController: PagingScrollViewController()),
             KeyboardNavigationController(rootViewController: TextViewController()),
