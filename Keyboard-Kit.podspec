@@ -25,7 +25,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
       'KeyboardKit/KeyValueCoding.h'
     ]
     spec.exclude_files = [
-      'KeyboardKit/info.plist',
+      'KeyboardKit/Info.plist',
       'KeyboardKit/UpdateLocalisedStringKeys.swift'
     ]
 
