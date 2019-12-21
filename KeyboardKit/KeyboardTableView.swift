@@ -6,21 +6,12 @@ import UIKit
 /// A table view that supports navigation and selection using a hardware keyboard.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
 
-    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(delegate: self, owner: self)
-    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
-
     public override var canBecomeFirstResponder: Bool {
         true
     }
 
-    public override var keyCommands: [UIKeyCommand]? {
-        var commands = super.keyCommands ?? []
-
-        commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
-        commands += scrollViewKeyHandler.refreshingCommands
-
-        return commands
-    }
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(delegate: self, owner: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var next: UIResponder? {
         selectableCollectionKeyHandler
@@ -34,6 +25,16 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         } else {
             fatalError()
         }
+    }
+}
+
+extension UITableView {
+    override var kbd_isArrowKeyScrollingEnabled: Bool {
+        shouldAllowSelection == false
+    }
+
+    override var kbd_isSpaceBarScrollingEnabled: Bool {
+        shouldAllowSelection == false
     }
 }
 

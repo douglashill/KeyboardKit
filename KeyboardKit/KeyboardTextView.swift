@@ -21,9 +21,6 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
             commands += findKeyCommands
         }
 
-        commands += scrollViewKeyHandler.pageUpDownHomeEndScrollingCommands
-        commands += scrollViewKeyHandler.refreshingCommands
-
         return commands
     }
 
@@ -33,6 +30,16 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         super.next
+    }
+}
+
+extension UITextView {
+    override var kbd_isArrowKeyScrollingEnabled: Bool {
+        isEditable == false
+    }
+
+    override var kbd_isSpaceBarScrollingEnabled: Bool {
+        isEditable == false
     }
 }
 

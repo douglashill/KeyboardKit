@@ -33,25 +33,25 @@ class ScrollViewKeyHandler: InjectableResponder {
 
     private let scrollAction = #selector(scrollFromKeyCommand)
 
-    private lazy var _arrowKeyScrollingCommands: [UIKeyCommand] = [UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .command].map { modifierFlags in
             UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
         }
     }
 
-    private lazy var _spaceBarScrollingCommands: [UIKeyCommand] = [
+    private lazy var spaceBarScrollingCommands: [UIKeyCommand] = [
         UIKeyCommand(" ", action: scrollAction),
         UIKeyCommand((.shift, " "), action: scrollAction),
     ]
 
-    private lazy var _pageUpDownHomeEndScrollingCommands: [UIKeyCommand] = [
+    private lazy var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] = [
         UIKeyCommand(keyInputPageUp, action: scrollAction),
         UIKeyCommand(keyInputPageDown, action: scrollAction),
         UIKeyCommand(keyInputHome, action: scrollAction),
         UIKeyCommand(keyInputEnd, action: scrollAction),
     ]
 
-    private lazy var _zoomingCommands: [UIKeyCommand] = [
+    private lazy var zoomingCommands: [UIKeyCommand] = [
         // This is to show up as + in the UI. Don’t expect users to press this one because it needs shift.
         UIKeyCommand((.command, "+"), action: #selector(UIScrollView.kbd_zoomIn), title: localisedString(.scrollView_zoomIn)),
         // This is the one users are expected to press. We don’t want to show = in the UI.
@@ -67,15 +67,38 @@ class ScrollViewKeyHandler: InjectableResponder {
         UIKeyCommand((.command, "0"), action: #selector(UIScrollView.kbd_resetZoom), title: localisedString(.scrollView_zoomReset)),
     ]
 
-    private lazy var _refreshingCommands = [
+    private lazy var refreshingCommands = [
         UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.scrollView_refresh))
     ]
 
-    var arrowKeyScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled && UIResponder.isTextInputActive == false ? _arrowKeyScrollingCommands : [] }
-    var spaceBarScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled && UIResponder.isTextInputActive == false ? _spaceBarScrollingCommands : [] }
-    var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] { scrollView.isScrollEnabled ? _pageUpDownHomeEndScrollingCommands : [] }
-    var zoomingCommands: [UIKeyCommand] { scrollView.isZoomingEnabled ? _zoomingCommands : [] }
-    var refreshingCommands: [UIKeyCommand] { scrollView.canRefresh ? _refreshingCommands : [] }
+    public override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        if scrollView.isScrollEnabled {
+
+            if UIResponder.isTextInputActive == false {
+                if scrollView.kbd_isArrowKeyScrollingEnabled {
+                    commands += arrowKeyScrollingCommands
+                }
+
+                if scrollView.kbd_isSpaceBarScrollingEnabled {
+                    commands += spaceBarScrollingCommands
+                }
+            }
+
+            commands += pageUpDownHomeEndScrollingCommands
+        }
+
+        if scrollView.isZoomingEnabled {
+            commands += zoomingCommands
+        }
+
+        if scrollView.canRefresh {
+            commands += refreshingCommands
+        }
+
+        return commands
+    }
 
     // MARK: - Scrolling
 
@@ -139,6 +162,19 @@ class ScrollViewKeyHandler: InjectableResponder {
         }
 
         contentOffsetAnimator.startAnimation(fromPoint: scrollView.contentOffset, toPoint: targetContentOffset)
+    }
+}
+
+// MARK: - Key command availability
+
+// Internal access and @objc (AKA dynamic dispatch) so these can be overridden in subclasses.
+extension UIScrollView {
+    @objc var kbd_isArrowKeyScrollingEnabled: Bool {
+        true
+    }
+
+    @objc var kbd_isSpaceBarScrollingEnabled: Bool {
+        true
     }
 }
 

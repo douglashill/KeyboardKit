@@ -10,23 +10,11 @@ import UIKit
 /// scrolling animation finishes or is interrupted by a new keyboard-driven scrolling animation.
 open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
 
-    private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self)
-
     public override var canBecomeFirstResponder: Bool {
         true
     }
 
-    public override var keyCommands: [UIKeyCommand]? {
-        var commands = super.keyCommands ?? []
-
-        commands += keyHandler.arrowKeyScrollingCommands
-        commands += keyHandler.spaceBarScrollingCommands
-        commands += keyHandler.pageUpDownHomeEndScrollingCommands
-        commands += keyHandler.zoomingCommands
-        commands += keyHandler.refreshingCommands
-
-        return commands
-    }
+    private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self)
 
     public override var next: UIResponder? {
         keyHandler
