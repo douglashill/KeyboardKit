@@ -9,7 +9,15 @@ extension UIResponder {
 
     /// Whether the first responder accepts text input.
     static var isTextInputActive: Bool {
-        firstResponder is UITextInput
+        guard let view = firstResponder as? UIView else {
+            return false
+        }
+
+        if let textView = view as? UITextView {
+            return textView.isEditable
+        }
+
+        return view.isUserInteractionEnabled && view is UITextInput
     }
 
     /// The first responder or nil if there is no first responder.
