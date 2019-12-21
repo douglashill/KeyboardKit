@@ -19,7 +19,7 @@ enum NavigationStep {
     case end
 }
 
-protocol SelectableCollectionKeyHandlerDelegate: NSObjectProtocol {
+protocol SelectableCollection: NSObjectProtocol {
 
     var numberOfSections: Int { get }
     func numberOfItems(inSection: Int) -> Int
@@ -44,12 +44,10 @@ protocol SelectableCollectionKeyHandlerDelegate: NSObjectProtocol {
 
 class SelectableCollectionKeyHandler: InjectableResponder {
 
-    // MARK: - Delegate
+    private unowned var collection: SelectableCollection
 
-    private unowned var delegate: SelectableCollectionKeyHandlerDelegate
-
-    init(delegate: SelectableCollectionKeyHandlerDelegate, owner: ResponderChainInjection) {
-        self.delegate = delegate
+    init(selectableCollection: SelectableCollection, owner: ResponderChainInjection) {
+        collection = selectableCollection
         super.init(owner: owner)
     }
 
@@ -68,7 +66,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if delegate.shouldAllowSelection && UIResponder.isTextInputActive == false {
+        if collection.shouldAllowSelection && UIResponder.isTextInputActive == false {
             commands += selectionKeyCommands
         }
 
@@ -91,16 +89,16 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     private func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
-        let existingSelection = delegate.indexPathsForSelectedItems?.first
+        let existingSelection = collection.indexPathsForSelectedItems?.first
 
-        return delegate.indexPathFromIndexPath(existingSelection, inDirection: direction, step: step, forKeyHandler: self)
+        return collection.indexPathFromIndexPath(existingSelection, inDirection: direction, step: step, forKeyHandler: self)
     }
 
     private func checkIndexPathIsInValidRange(_ indexPath: IndexPath) {
         precondition(indexPath.section >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.section < delegate.numberOfSections, "Index path is out-of-bounds.")
+        precondition(indexPath.section < collection.numberOfSections, "Index path is out-of-bounds.")
         precondition(indexPath.item >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.item < delegate.numberOfItems(inSection: indexPath.section), "Index path is out-of-bounds.")
+        precondition(indexPath.item < collection.numberOfItems(inSection: indexPath.section), "Index path is out-of-bounds.")
     }
 
     /// Selects the item at the given index path and scrolls if needed so that the item is visible.
@@ -114,16 +112,16 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         // Looks better and feel more responsive if the selection updates without animation.
         // The scrolling will have animation if the target is not fully visible.
 
-        delegate.selectItem(at: nil, animated: false, scrollPosition: [])
+        collection.selectItem(at: nil, animated: false, scrollPosition: [])
 
-        delegate.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        collection.selectItem(at: indexPath, animated: false, scrollPosition: [])
 
-        switch delegate.cellVisibility(atIndexPath: indexPath) {
+        switch collection.cellVisibility(atIndexPath: indexPath) {
         case .fullyVisible:
             break
         case .notFullyVisible(let scrollPosition):
-            delegate.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
-            delegate.flashScrollIndicators()
+            collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+            collection.flashScrollIndicators()
         }
     }
 
@@ -135,14 +133,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
         var section = indexPath.section
         while section >= 0 {
-            let numberOfItems = delegate.numberOfItems(inSection: section)
+            let numberOfItems = collection.numberOfItems(inSection: section)
             // For the first section we look in, we want to just check the item before in the same section.
             // When the section changes, we need to start from the last item.
             var item = section == indexPath.section ? indexPath.item - 1 : numberOfItems - 1
 
             while item >= 0 {
                 let targetIndexPath = IndexPath(item: item, section: section)
-                if delegate.shouldSelectItemAtIndexPath(targetIndexPath) {
+                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
                     return targetIndexPath
                 }
 
@@ -160,15 +158,15 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         checkIndexPathIsInValidRange(indexPath)
 
         var section = indexPath.section
-        while section < delegate.numberOfSections {
-            let numberOfItems = delegate.numberOfItems(inSection: section)
+        while section < collection.numberOfSections {
+            let numberOfItems = collection.numberOfItems(inSection: section)
             // For the first section we look in, we want to just check the item after in the same section.
             // When the section changes, we need to start from the first item.
             var item = section == indexPath.section ? indexPath.item + 1 : 0
 
             while item < numberOfItems {
                 let targetIndexPath = IndexPath(item: item, section: section)
-                if delegate.shouldSelectItemAtIndexPath(targetIndexPath) {
+                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
                     return targetIndexPath
                 }
 
@@ -184,13 +182,13 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     var firstSelectableIndexPath: IndexPath? {
         // Select the first highlightable item.
         var section = 0
-        while section < delegate.numberOfSections {
-            let numberOfItems = delegate.numberOfItems(inSection: section)
+        while section < collection.numberOfSections {
+            let numberOfItems = collection.numberOfItems(inSection: section)
 
             var item = 0
             while item < numberOfItems {
                 let targetIndexPath = IndexPath(item: item, section: section)
-                if delegate.shouldSelectItemAtIndexPath(targetIndexPath) {
+                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
                     return targetIndexPath
                 }
 
@@ -205,14 +203,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
     var lastSelectableIndexPath: IndexPath? {
         // Select the last highlightable item.
-        var section = delegate.numberOfSections - 1
+        var section = collection.numberOfSections - 1
         while section >= 0 {
-            let numberOfItems = delegate.numberOfItems(inSection: section)
+            let numberOfItems = collection.numberOfItems(inSection: section)
 
             var item = numberOfItems - 1
             while item >= 0 {
                 let targetIndexPath = IndexPath(item: item, section:section)
-                if delegate.shouldSelectItemAtIndexPath(targetIndexPath) {
+                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
                     return targetIndexPath
                 }
 
@@ -231,20 +229,20 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         var canPerform = super.canPerformAction(action, withSender: sender)
 
         if action == #selector(selectAll(_:)) {
-            canPerform = canPerform || delegate.shouldAllowMultipleSelection
+            canPerform = canPerform || collection.shouldAllowMultipleSelection
         }
 
         return canPerform
     }
 
     public override func selectAll(_ sender: Any?) {
-        guard delegate.shouldAllowMultipleSelection else {
+        guard collection.shouldAllowMultipleSelection else {
             return
         }
 
-        for section in 0 ..< delegate.numberOfSections {
-            for item in  0 ..< delegate.numberOfItems(inSection: section) {
-                delegate.selectItem(at: IndexPath(item: item, section: section), animated: false, scrollPosition: [])
+        for section in 0 ..< collection.numberOfSections {
+            for item in  0 ..< collection.numberOfItems(inSection: section) {
+                collection.selectItem(at: IndexPath(item: item, section: section), animated: false, scrollPosition: [])
             }
         }
     }
@@ -252,14 +250,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     // MARK: - Using the selection
 
     @objc private func clearSelection(_ sender: UIKeyCommand) {
-        delegate.selectItem(at: nil, animated: false, scrollPosition: [])
+        collection.selectItem(at: nil, animated: false, scrollPosition: [])
     }
 
     @objc private func activateSelection(_ sender: UIKeyCommand) {
-        guard let indexPathForSingleSelectedItem = delegate.indexPathsForSelectedItems?.single else {
+        guard let indexPathForSingleSelectedItem = collection.indexPathsForSelectedItems?.single else {
             return
         }
-        delegate.activateSelection(at: indexPathForSingleSelectedItem)
+        collection.activateSelection(at: indexPathForSingleSelectedItem)
     }
 }
 

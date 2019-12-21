@@ -12,7 +12,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         UIKeyCommand((.command, "j"), action: #selector(kbd_jumpToSelection), title: localisedString(.find_jump)),
     ]
 
-    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []

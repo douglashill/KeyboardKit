@@ -9,8 +9,8 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
         true
     }
 
-    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(delegate: self, owner: self)
-    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: self, owner: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
     public override var next: UIResponder? {
         selectableCollectionKeyHandler
@@ -37,7 +37,7 @@ extension UICollectionView {
     }
 }
 
-extension UICollectionView: SelectableCollectionKeyHandlerDelegate {
+extension UICollectionView: SelectableCollection {
 
     var shouldAllowSelection: Bool {
         allowsSelection

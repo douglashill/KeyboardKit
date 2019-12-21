@@ -14,7 +14,7 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
         true
     }
 
-    private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self)
+    private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
     public override var next: UIResponder? {
         keyHandler

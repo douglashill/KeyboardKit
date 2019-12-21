@@ -21,12 +21,13 @@ class ScrollViewKeyHandler: InjectableResponder {
 
     private unowned var scrollView: UIScrollView
 
-    /// Creates a new scroller.
+    /// Creates a new scroll view key handler.
     /// - Parameters:
     ///   - scrollView: The owning scroll view. The scroller is not valid to use if the scroll view deallocates.
-    init(scrollView: UIScrollView & ResponderChainInjection) {
+    ///   - owner: The object that owns the key handler and can provide it with a next responder.
+    init(scrollView: UIScrollView, owner: ResponderChainInjection) {
         self.scrollView = scrollView
-        super.init(owner: scrollView)
+        super.init(owner: owner)
     }
 
     // MARK: - Key commands

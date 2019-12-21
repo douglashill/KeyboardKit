@@ -10,8 +10,8 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         true
     }
 
-    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(delegate: self, owner: self)
-    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self)
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: self, owner: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
     public override var next: UIResponder? {
         selectableCollectionKeyHandler
@@ -38,7 +38,7 @@ extension UITableView {
     }
 }
 
-extension UITableView: SelectableCollectionKeyHandlerDelegate {
+extension UITableView: SelectableCollection {
 
     func numberOfItems(inSection section: Int) -> Int {
         numberOfRows(inSection: section)
