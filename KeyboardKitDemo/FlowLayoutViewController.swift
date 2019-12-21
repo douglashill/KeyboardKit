@@ -1,41 +1,35 @@
 // Douglas Hill, May 2019
 
-import UIKit
 import KeyboardKit
 
-class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    override var title: String? {
-        get { "Flow Layout" }
-        set {}
-    }
-
-    private let cellReuseIdentifier = "a"
-    private var collectionView: KeyboardCollectionView?
-
-    override func loadView() {
+class FlowLayoutViewController: KeyboardCollectionViewController {
+    init() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 150, height: 150)
         flowLayout.minimumInteritemSpacing = 20
         flowLayout.minimumLineSpacing = 20
-        collectionView = KeyboardCollectionView(frame: CGRect(x: 0, y: 0, width: 320, height: 480), collectionViewLayout: flowLayout)
-        view = collectionView
+        super.init(collectionViewLayout: flowLayout)
+        title = "Flow Layout"
     }
+
+    @available(*, unavailable) required init?(coder: NSCoder) { fatalError() }
+
+    private let cellReuseIdentifier = "a"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView!.dataSource = self
         collectionView!.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView!.backgroundColor = .systemGroupedBackground
     }
 
     private let numberOfItems = 47
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfItems
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
     }
 

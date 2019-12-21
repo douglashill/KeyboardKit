@@ -28,6 +28,31 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     }
 }
 
+/// A table view controller that supports navigation and selection using a hardware keyboard.
+open class KeyboardTableViewController: UITableViewController, ResponderChainInjection {
+
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: tableView, owner: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
+
+    public override var next: UIResponder? {
+        selectableCollectionKeyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        if responder === selectableCollectionKeyHandler {
+            return scrollViewKeyHandler
+        } else if responder == scrollViewKeyHandler {
+            return super.next
+        } else {
+            fatalError()
+        }
+    }
+}
+
 extension UITableView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
         shouldAllowSelection == false

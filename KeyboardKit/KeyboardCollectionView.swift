@@ -27,6 +27,31 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     }
 }
 
+/// A collection view controller that supports navigation and selection using a hardware keyboard.
+open class KeyboardCollectionViewController: UICollectionViewController, ResponderChainInjection {
+
+    public override var canBecomeFirstResponder: Bool {
+        true
+    }
+
+    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: collectionView, owner: self)
+    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: collectionView, owner: self)
+
+    public override var next: UIResponder? {
+        selectableCollectionKeyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        if responder === selectableCollectionKeyHandler {
+            return scrollViewKeyHandler
+        } else if responder == scrollViewKeyHandler {
+            return super.next
+        } else {
+            fatalError()
+        }
+    }
+}
+
 extension UICollectionView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
         shouldAllowSelection == false
