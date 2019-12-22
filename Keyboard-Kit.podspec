@@ -17,7 +17,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
     spec.source = { :git => 'https://github.com/douglashill/KeyboardKit.git', :tag => spec.version.to_s }
     spec.swift_version = '5.0'
-    spec.ios.deployment_target  = '13.0'
+    spec.ios.deployment_target  = '11.0'
     spec.source_files = 'KeyboardKit/*.{h,m,swift}'
     spec.public_header_files = [
       'KeyboardKit/KeyboardKit.h',
