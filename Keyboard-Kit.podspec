@@ -5,10 +5,10 @@ Pod::Spec.new do |spec|
     spec.license = { :type => 'MIT', :file => 'License.txt' }
     spec.homepage = 'https://github.com/douglashill/KeyboardKit'
     spec.authors = { 'Douglas Hill' => 'https://twitter.com/qdoug' }
-    spec.summary = 'A framework to help iOS and Mac Catalyst apps support being controlled using a hardware keyboard.'
+    spec.summary = 'A framework that makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.'
 
     spec.description = <<-DESC
-KeyboardKit is a framework to help iOS and Mac Catalyst apps support being controlled using a hardware keyboard.
+KeyboardKit makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.
 
 Keyboard control is a standard expectation of Mac apps. It’s important on iOS too because a hardware keyboard improves speed and ergonomics, which makes an iPad an even more powerful productivity machine.
 
