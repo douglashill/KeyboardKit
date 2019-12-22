@@ -23,7 +23,7 @@ let enumCases = keys.sorted().map { "    case \($0)" }.joined(separator: "\n")
 let contents = """
 // This file was automatically generated from \((#file as NSString).lastPathComponent).
 
-public enum LocalisedStringKey: String {
+enum LocalisedStringKey: String {
 \(enumCases)
 }
 
