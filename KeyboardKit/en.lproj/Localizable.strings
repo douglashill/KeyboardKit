@@ -2,6 +2,7 @@
 
 "app_newWindow" = "New Window";
 "app_settings" = "Settings";
+"delete" = "Delete";
 "find_jump" = "Jump to Selection";
 "find_next" = "Find Next";
 "find_previous" = "Find Previous";

@@ -3,6 +3,7 @@
 enum LocalisedStringKey: String {
     case app_newWindow
     case app_settings
+    case delete
     case find_jump
     case find_next
     case find_previous

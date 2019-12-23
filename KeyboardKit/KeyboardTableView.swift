@@ -58,6 +58,19 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: tableView, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
 
+    // TODO: See if the `delete:` action from UIResponderStandardEditActions can be leveraged.
+    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(UITableView.kbd_deleteSelectedRows), title: localisedString(.delete))
+
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        if tableView.canDeleteSelectedRows {
+            commands.append(deleteCommand)
+        }
+
+        return commands
+    }
+
     override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
@@ -158,6 +171,61 @@ extension UITableView: SelectableCollection {
         }
     }
 }
+
+// MARK: - Deletion
+
+private extension UITableView {
+
+    var canDeleteSelectedRows: Bool {
+        // TODO: Maybe don’t check so thoroughly here and just allow the key command to be there and do nothing if there is nothing to delete.
+
+        guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
+            // You could say you can delete all zero selected rows but makes more sense to say no selected rows means no deletion.
+            return false
+        }
+
+        // Implementing this method enables swipe to delete.
+        guard let dataSource = dataSource, dataSource.responds(to: #selector(UITableViewDataSource.tableView(_:commit:forRowAt:))) else {
+            return false
+        }
+
+        guard let delegate = delegate, delegate.responds(to: #selector(UITableViewDelegate.tableView(_:editingStyleForRowAt:))) else {
+            // Default is UITableViewCellEditingStyleDelete.
+            return true
+        }
+
+        for indexPath in indexPathsForSelectedRows {
+            if delegate.tableView!(self, editingStyleForRowAt: indexPath) != .delete {
+                return false
+            }
+        }
+
+        // All selected index paths have the delete editing style.
+        return true
+    }
+
+    @objc func kbd_deleteSelectedRows(_ keyCommand: UIKeyCommand) {
+        guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
+            return
+        }
+
+        let indexPathsToDelete = indexPathsForSelectedRows
+
+        let newSelectedIndexPath = selectableIndexPathAfterIndexPath(indexPathsForSelectedRows.first!)
+        // TODO: End up selecting the last index path if deleting the bottom row.
+        selectRow(at: newSelectedIndexPath, animated: false, scrollPosition: .none)
+
+        for indexPath in indexPathsToDelete {
+            guard delegate?.tableView?(self, editingStyleForRowAt: indexPath) ?? .delete == .delete else {
+                continue
+            }
+
+            dataSource!.tableView!(self, commit: .delete, forRowAt: indexPath)
+        }
+    }
+}
+
+// MARK: - ScrollPosition type conversion
 
 private extension UITableView.ScrollPosition {
     init(_ position: UICollectionView.ScrollPosition) {
