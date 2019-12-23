@@ -126,8 +126,8 @@ private extension UICollectionViewLayout {
             let oldIndexPath = indexPath,
             let attributesOfOldSelection = layoutAttributesForItem(at: oldIndexPath)
         else {
-                // It’s very layout-dependent what would make sense here. Important to return something though otherwise it would be impossible to get started with arrow key navigation.
-                return keyHandler.firstSelectableIndexPath
+            // It’s very layout-dependent what would make sense here. Important to return something though otherwise it would be impossible to get started with arrow key navigation.
+            return keyHandler.firstSelectableIndexPath
         }
 
         let rectangleOfOldSelection = attributesOfOldSelection.frame
@@ -135,52 +135,58 @@ private extension UICollectionViewLayout {
 
         // TODO: step is ignored. Just dealing with closest for now.
 
-        // Search some small distance along.
-        let distanceToSearch:  CGFloat = 500
-        let rectangleToSearch: CGRect
-        switch direction {
-        case .up:
-            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
-        case .down:
-            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY, width: rectangleOfOldSelection.width, height: distanceToSearch)
-        case .left:
-            rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-        case .right:
-            rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-        }
-
-        let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
-
-        var closestAttributes: UICollectionViewLayoutAttributes?
-        var smallestDistance = CGFloat.greatestFiniteMagnitude
-
-        for attributes in attributesArray {
-            if attributes.isHidden {
-                continue
-            }
-
-            let distance: CGFloat
-
+        func indexPathBySearchingWithOffset(_ offset: CGFloat, distance distanceToSearch: CGFloat) -> IndexPath? {
+            let rectangleToSearch: CGRect
             switch direction {
             case .up:
-                distance = centreOfOldSelection.y - attributes.center.y
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
             case .down:
-                distance = attributes.center.y - centreOfOldSelection.y
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
             case .left:
-                distance = centreOfOldSelection.x - attributes.center.x
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
             case .right:
-                distance = attributes.center.x - centreOfOldSelection.x
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
             }
 
-            if distance > 0 && distance < smallestDistance {
-                closestAttributes = attributes
-                smallestDistance = distance
+            let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
+
+            var closestAttributes: UICollectionViewLayoutAttributes?
+            var smallestDistance = CGFloat.greatestFiniteMagnitude
+
+            for attributes in attributesArray {
+                if attributes.isHidden {
+                    continue
+                }
+
+                let distance: CGFloat
+
+                switch direction {
+                case .up:
+                    distance = centreOfOldSelection.y - attributes.center.y
+                case .down:
+                    distance = attributes.center.y - centreOfOldSelection.y
+                case .left:
+                    distance = centreOfOldSelection.x - attributes.center.x
+                case .right:
+                    distance = attributes.center.x - centreOfOldSelection.x
+                }
+
+                if distance > 0 && distance < smallestDistance {
+                    closestAttributes = attributes
+                    smallestDistance = distance
+                }
             }
+
+            return closestAttributes?.indexPath
         }
 
-        // TODO: Search further if finding nothing.
+        // First search some small distance along. Likely to find something. Feels like it might be faster than searching a long way from the start. Haven’t tested the performance; it depends so much on the layout anyway.
+        if let newIndexPath = indexPathBySearchingWithOffset(0, distance: 500) {
+            return newIndexPath
+        }
 
-        return closestAttributes?.indexPath
+        // Search further if finding nothing. Give up if the next item is further than 3000 points away.
+        return indexPathBySearchingWithOffset(500, distance: 2500)
     }
 }
 
