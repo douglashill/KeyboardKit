@@ -53,14 +53,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
     // MARK: -
 
-    private lazy var selectionKeyCommands: [UIKeyCommand] = [UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .shift, [.alternate, .shift]].map { modifierFlags in
             UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
         UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection)),
-        UIKeyCommand(" ", action: #selector(activateSelection)),
-        UIKeyCommand("\r", action: #selector(activateSelection)),
+        UIKeyCommand(.space, action: #selector(activateSelection)),
+        UIKeyCommand(.return, action: #selector(activateSelection)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -270,11 +270,11 @@ private extension Collection {
 
 private extension UIKeyCommand {
     var navigationDirection: NavigationDirection {
-        switch input {
-        case UIKeyCommand.inputUpArrow: return .up
-        case UIKeyCommand.inputDownArrow: return .down
-        case UIKeyCommand.inputLeftArrow: return .left
-        case UIKeyCommand.inputRightArrow: return .right
+        switch input! {
+        case .upArrow: return .up
+        case .downArrow: return .down
+        case .leftArrow: return .left
+        case .rightArrow: return .right
         default: fatalError()
         }
     }

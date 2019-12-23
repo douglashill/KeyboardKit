@@ -34,22 +34,22 @@ class ScrollViewKeyHandler: InjectableResponder {
 
     private let scrollAction = #selector(scrollFromKeyCommand)
 
-    private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .command].map { modifierFlags in
             UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
         }
     }
 
     private lazy var spaceBarScrollingCommands: [UIKeyCommand] = [
-        UIKeyCommand(" ", action: scrollAction),
-        UIKeyCommand((.shift, " "), action: scrollAction),
+        UIKeyCommand(.space, action: scrollAction),
+        UIKeyCommand((.shift, .space), action: scrollAction),
     ]
 
     private lazy var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] = [
-        UIKeyCommand(keyInputPageUp, action: scrollAction),
-        UIKeyCommand(keyInputPageDown, action: scrollAction),
-        UIKeyCommand(keyInputHome, action: scrollAction),
-        UIKeyCommand(keyInputEnd, action: scrollAction),
+        UIKeyCommand(.pageUp, action: scrollAction),
+        UIKeyCommand(.pageDown, action: scrollAction),
+        UIKeyCommand(.home, action: scrollAction),
+        UIKeyCommand(.end, action: scrollAction),
     ]
 
     private lazy var zoomingCommands: [UIKeyCommand] = [
@@ -314,19 +314,19 @@ private enum Direction {
 
 /// Returns the direction in which to scroll due to input from a key command.
 private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
-    switch keyCommand.input {
+    switch keyCommand.input ?? "" {
 
-    case UIKeyCommand.inputUpArrow: return .up
-    case UIKeyCommand.inputDownArrow: return .down
-    case UIKeyCommand.inputLeftArrow: return .left
-    case UIKeyCommand.inputRightArrow: return .right
+    case .upArrow: return .up
+    case .downArrow: return .down
+    case .leftArrow: return .left
+    case .rightArrow: return .right
 
-    case " ": return keyCommand.modifierFlags.contains(.shift) ? .backwards : .forwards
+    case .space: return keyCommand.modifierFlags.contains(.shift) ? .backwards : .forwards
 
-    case keyInputPageUp: return .up
-    case keyInputPageDown: return .down
-    case keyInputHome: return .backwards
-    case keyInputEnd: return .forwards
+    case .pageUp: return .up
+    case .pageDown: return .down
+    case .home: return .backwards
+    case .end: return .forwards
 
     default: return nil
     }
@@ -346,15 +346,15 @@ private enum ScrollStep {
 
 /// Returns the distance to scroll due to input from a key command.
 private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand, isPaging: Bool) -> ScrollStep? {
-    switch keyCommand.input {
+    switch keyCommand.input ?? "" {
 
-    case UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow:
+    case .upArrow, .downArrow, .leftArrow, .rightArrow:
         return scrollStepForArrowKeyWithModifierFlags(keyCommand.modifierFlags, isPaging: isPaging)
 
-    case " ", keyInputPageUp, keyInputPageDown:
+    case .space, .pageUp, .pageDown:
         return isPaging ? .page : .viewport
 
-    case keyInputHome, keyInputEnd:
+    case .home, .end:
         return .end
 
     default: return nil
@@ -463,10 +463,3 @@ private extension UIScrollView {
 private func + (lhs: CGPoint, rhs: CGVector) -> CGPoint {
     CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
 }
-
-// These were found in the open source WebKit.
-private let keyInputPageUp = "UIKeyInputPageUp"
-private let keyInputPageDown = "UIKeyInputPageDown"
-// These were found by guessing.
-private let keyInputHome = "UIKeyInputHome"
-private let keyInputEnd = "UIKeyInputEnd"

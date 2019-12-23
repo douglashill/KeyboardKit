@@ -44,7 +44,7 @@ extension UIKeyCommand {
         }
 
         // These inputs are used for text input with command so can’t be allowed. The thing with 8 is delete.
-        enum __ { static let inputsThatConflict: Set<String> = ["\u{8}", UIKeyCommand.inputUpArrow, UIKeyCommand.inputDownArrow, UIKeyCommand.inputLeftArrow, UIKeyCommand.inputRightArrow] }
+        enum __ { static let inputsThatConflict: Set<String> = [.delete, .upArrow, .downArrow, .leftArrow, .rightArrow] }
         if __.inputsThatConflict.contains(input) {
             return false
         }
