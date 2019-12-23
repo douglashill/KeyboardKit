@@ -41,7 +41,7 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
 private extension UIBarButtonItem.SystemItem {
     var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)? {
         switch self {
-        case .cancel:      return ([], UIKeyCommand.inputEscape)
+        case .cancel:      return ([], .escape)
         case .close:       return (.command, "w")
         // Apparently "\u{3}" might work for enter (not return) but not quite. Shows up in the HUD with no key and I couldn’t get it to trigger. For now use cmd + return instead.
         // Sources: https://forums.developer.apple.com/thread/119584 and https://stackoverflow.com/questions/56963348/uikeycommand-for-the-enter-key-on-mac-keyboards-numeric-keypad.

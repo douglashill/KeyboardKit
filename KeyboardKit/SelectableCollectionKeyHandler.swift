@@ -58,7 +58,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
-        UIKeyCommand(UIKeyCommand.inputEscape, action: #selector(clearSelection)),
+        UIKeyCommand(.escape, action: #selector(clearSelection)),
         UIKeyCommand(.space, action: #selector(activateSelection)),
         UIKeyCommand(.return, action: #selector(activateSelection)),
     ]

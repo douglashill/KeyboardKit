@@ -7,6 +7,7 @@ extension String {
     static let delete = "\u{8}"
     static let `return` = "\r"
     static let space = " "
+    static let escape = UIKeyCommand.inputEscape
 
     static let upArrow = UIKeyCommand.inputUpArrow
     static let downArrow = UIKeyCommand.inputDownArrow
