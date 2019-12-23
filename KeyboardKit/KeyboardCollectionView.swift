@@ -121,6 +121,7 @@ private extension UICollectionViewLayout {
     /// - Returns: The adjusted index path or nil if no appropriate index path exists.
     @objc func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
         let direction = NavigationDirection(rawValue: rawDirection)!
+        let step = NavigationStep(rawValue: rawStep)!
 
         guard
             let oldIndexPath = indexPath,
@@ -132,20 +133,31 @@ private extension UICollectionViewLayout {
 
         let rectangleOfOldSelection = attributesOfOldSelection.frame
         let centreOfOldSelection = attributesOfOldSelection.center
-
-        // TODO: step is ignored. Just dealing with closest for now.
+        let contentSize = collectionViewContentSize
 
         func indexPathBySearchingWithOffset(_ offset: CGFloat, distance distanceToSearch: CGFloat) -> IndexPath? {
             let rectangleToSearch: CGRect
-            switch direction {
-            case .up:
+            switch (direction, step) {
+
+            case (.up, .closest):
                 rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
-            case .down:
+            case (.down, .end):
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: contentSize.height - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
+
+            case (.down, .closest):
                 rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
-            case .left:
+            case (.up, .end):
+                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: 0 + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
+
+            case (.left, .closest):
                 rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-            case .right:
+            case (.right, .end):
+                rectangleToSearch = CGRect(x: contentSize.width - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+
+            case (.right, .closest):
                 rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+            case (.left, .end):
+                rectangleToSearch = CGRect(x: 0 + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
             }
 
             let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
@@ -160,15 +172,26 @@ private extension UICollectionViewLayout {
 
                 let distance: CGFloat
 
-                switch direction {
-                case .up:
+                switch (direction, step) {
+                case (.up, .closest):
                     distance = centreOfOldSelection.y - attributes.center.y
-                case .down:
+                case (.down , .end):
+                    distance = contentSize.height - attributes.center.y
+
+                case (.down, .closest):
                     distance = attributes.center.y - centreOfOldSelection.y
-                case .left:
+                case (.up , .end):
+                    distance = attributes.center.y - 0
+
+                case (.left, .closest):
                     distance = centreOfOldSelection.x - attributes.center.x
-                case .right:
+                case (.right , .end):
+                    distance = contentSize.width - attributes.center.x
+
+                case (.right, .closest):
                     distance = attributes.center.x - centreOfOldSelection.x
+                case (.left , .end):
+                    distance = attributes.center.x
                 }
 
                 if distance > 0 && distance < smallestDistance {
