@@ -194,7 +194,8 @@ private extension UICollectionViewLayout {
                     distance = attributes.center.x
                 }
 
-                if distance > 0 && distance < smallestDistance {
+                // The index path is a deterministic tie-breaker.
+                if distance > 0 && (distance < smallestDistance || distance == smallestDistance && attributes.indexPath < closestAttributes!.indexPath) {
                     closestAttributes = attributes
                     smallestDistance = distance
                 }
