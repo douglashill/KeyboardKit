@@ -98,12 +98,34 @@ extension UICollectionView: SelectableCollection {
     }
 
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+        collectionViewLayout.kbd_indexPathFromIndexPath(indexPath, inDirection: direction.rawValue, step: step.rawValue, forKeyHandler: keyHandler)
+    }
+}
+
+private extension UICollectionViewLayout {
+
+    /// Maps from an old selected index path to a new selected index path by moving by the given step in the given direction.
+    ///
+    /// `UICollectionViewLayout` implements this method in a spatial manner. Subclasses may override this to provide better handling. Calling super is not necessary.
+    ///
+    /// This needs to use Objective-C to get dynamic dispatch. However this means that Swift enums can’t be used as parameters. Therefore pass around integers. Bridging at its best!
+    ///
+    /// - Parameters:
+    ///   - indexPath: The existing selected index path if there is one.
+    ///   - rawDirection: The direction in which to move the selection. The value is the raw representation of a `NavigationDirection`.
+    ///   - rawStep: The step by which to move the selection. The value is the raw representation of a `NavigationStep`.
+    ///   - keyHandler: The key handler. Provided to do index path operations like finding the first selectable index path.
+    ///
+    /// - Returns: The adjusted index path or nil if no appropriate index path exists.
+    @objc func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+        let direction = NavigationDirection(rawValue: rawDirection)!
+
         guard
             let oldIndexPath = indexPath,
-            let attributesOfOldSelection = collectionViewLayout.layoutAttributesForItem(at: oldIndexPath)
+            let attributesOfOldSelection = layoutAttributesForItem(at: oldIndexPath)
         else {
-            // TODO: Something better such as looking at all items along an edge and picking one if the index path is the first or last index path.
-            return keyHandler.firstSelectableIndexPath
+                // It’s very layout-dependent what would make sense here. Important to return something though otherwise it would be impossible to get started with arrow key navigation.
+                return keyHandler.firstSelectableIndexPath
         }
 
         let rectangleOfOldSelection = attributesOfOldSelection.frame
@@ -125,12 +147,16 @@ extension UICollectionView: SelectableCollection {
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         }
 
-        let attributesArray = collectionViewLayout.layoutAttributesForElements(in: rectangleToSearch) ?? []
+        let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
 
         var closestAttributes: UICollectionViewLayoutAttributes?
         var smallestDistance = CGFloat.greatestFiniteMagnitude
 
         for attributes in attributesArray {
+            if attributes.isHidden {
+                continue
+            }
+
             let distance: CGFloat
 
             switch direction {
@@ -151,8 +177,17 @@ extension UICollectionView: SelectableCollection {
         }
 
         // TODO: Search further if finding nothing.
-        // TODO: Wrapping so it goes to the previous or next index path when reaching the end of a line with flow layout.
 
         return closestAttributes?.indexPath
+    }
+}
+
+private extension UICollectionViewFlowLayout {
+
+    override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+
+        // TODO: Wrapping so it goes to the previous or next index path when reaching the end of a line with flow layout.
+
+        return super.indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep, forKeyHandler: keyHandler)
     }
 }

@@ -5,14 +5,14 @@ import UIKit
 /// Whether an item is fully visible, or if not if it’s above or below, or right or left of, the viewport.
 enum CellVisibility { case fullyVisible; case notFullyVisible(UICollectionView.ScrollPosition); }
 
-enum NavigationDirection {
+enum NavigationDirection: Int {
     case up
     case down
     case left
     case right
 }
 
-enum NavigationStep {
+enum NavigationStep: Int {
     /// Step to the next closest item in the specified direction.
     case closest
     /// Step to the far end in the specified direction, such as the very top or bottom.
