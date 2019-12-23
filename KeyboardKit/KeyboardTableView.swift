@@ -10,21 +10,14 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         true
     }
 
-    private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: self, owner: self)
-    private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
+    private lazy var keyHandler = TableViewKeyHandler(tableView: self, owner: self)
 
     public override var next: UIResponder? {
-        selectableCollectionKeyHandler
+        keyHandler
     }
 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
-        if responder === selectableCollectionKeyHandler {
-            return scrollViewKeyHandler
-        } else if responder == scrollViewKeyHandler {
-            return super.next
-        } else {
-            fatalError()
-        }
+        return super.next
     }
 }
 
@@ -35,10 +28,37 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
         true
     }
 
+    private lazy var keyHandler = TableViewKeyHandler(tableView: tableView, owner: self)
+
+    public override var next: UIResponder? {
+        keyHandler
+    }
+
+    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+        return super.next
+    }
+}
+
+/// Provides key commands for a table view and implements the actions of those key commands.
+/// In order to receive those actions the object must be added to the responder chain
+/// by the owner overriding `nextResponder`. Then implement `nextResponderForResponder`
+/// to put the responder chain back on its regular path.
+///
+/// This class is tightly coupled with `UITableView`. It’s a separate class so it can be used
+/// with both `KeyboardTableView` and `KeyboardTableViewController`.
+private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection {
+
+    private unowned var tableView: UITableView
+
+    init(tableView: UITableView, owner: ResponderChainInjection) {
+        self.tableView = tableView
+        super.init(owner: owner)
+    }
+
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: tableView, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
 
-    public override var next: UIResponder? {
+    override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
 
