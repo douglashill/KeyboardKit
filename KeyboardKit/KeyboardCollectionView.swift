@@ -3,6 +3,8 @@
 import UIKit
 
 /// A collection view that supports navigation and selection using a hardware keyboard.
+/// Wrapping the selection on reaching the end of a row or column is only supported with `UICollectionViewFlowLayout`.
+/// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
     public override var canBecomeFirstResponder: Bool {
@@ -185,9 +187,54 @@ private extension UICollectionViewLayout {
 private extension UICollectionViewFlowLayout {
 
     override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+        let direction = NavigationDirection(rawValue: rawDirection)!
 
-        // TODO: Wrapping so it goes to the previous or next index path when reaching the end of a line with flow layout.
+        enum UpdateBehaviour {
+            case spatial
+            case forwards
+            case backwards
+        }
 
-        return super.indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep, forKeyHandler: keyHandler)
+        var updateBehaviour: UpdateBehaviour {
+            switch (scrollDirection, direction) {
+            case (.horizontal, .up):
+                return .backwards
+            case (.horizontal, .down):
+                return .forwards
+            case (.vertical, .left):
+                return collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft ? .forwards : .backwards
+            case (.vertical, .right):
+                return collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft ? .backwards : .forwards
+            case (.vertical, .up), (.vertical, .down), (.horizontal, .left), (.horizontal, .right):
+                return .spatial
+            case (_, _):
+                // This is the unknown default if a new scroll direction is added!? Whatever. Let’s go with spatial.
+                return .spatial
+            }
+        }
+
+        switch (updateBehaviour, NavigationStep(rawValue: rawStep)!) {
+
+        case (.spatial, _), (_, .end):
+            return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep, forKeyHandler: keyHandler)
+
+        case (.backwards, .closest):
+            // Select the first highlightable item before the current selection, or select the last highlightable
+            // item if there is no current selection or if the current selection is the first highlightable item.
+            if let indexPath = indexPath, let target = keyHandler.selectableIndexPathBeforeIndexPath(indexPath) {
+                return target
+            } else {
+                return keyHandler.lastSelectableIndexPath
+            }
+
+        case (.forwards, .closest):
+            // Select the first highlightable item after the current selection, or select the first highlightable
+            // item if there is no current selection or if the current selection is the last highlightable item.
+            if let oldSelection = indexPath, let target = keyHandler.selectableIndexPathAfterIndexPath(oldSelection) {
+                return target
+            } else {
+                return keyHandler.firstSelectableIndexPath
+            }
+        }
     }
 }
