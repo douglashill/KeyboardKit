@@ -127,31 +127,31 @@ extension UITableView: SelectableCollection {
         return .notFullyVisible(position)
     }
 
-    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
             switch (direction, step) {
             case (.up, .closest):
                 // Select the first highlightable item before the current selection, or select the last highlightable
                 // item if there is no current selection or if the current selection is the first highlightable item.
-                if let indexPath = indexPath, let target = keyHandler.selectableIndexPathBeforeIndexPath(indexPath) {
+                if let indexPath = indexPath, let target = selectableIndexPathBeforeIndexPath(indexPath) {
                     return target
                 } else {
-                    return keyHandler.lastSelectableIndexPath
+                    return lastSelectableIndexPath
                 }
 
             case (.up, .end):
-                return keyHandler.firstSelectableIndexPath
+                return firstSelectableIndexPath
 
             case (.down, .closest):
                 // Select the first highlightable item after the current selection, or select the first highlightable
                 // item if there is no current selection or if the current selection is the last highlightable item.
-                if let oldSelection = indexPath, let target = keyHandler.selectableIndexPathAfterIndexPath(oldSelection) {
+                if let oldSelection = indexPath, let target = selectableIndexPathAfterIndexPath(oldSelection) {
                     return target
                 } else {
-                    return keyHandler.firstSelectableIndexPath
+                    return firstSelectableIndexPath
                 }
 
             case (.down, .end):
-                return keyHandler.lastSelectableIndexPath
+                return lastSelectableIndexPath
 
             case (.left, _), (.right, _):
                 return nil

@@ -39,8 +39,10 @@ protocol SelectableCollection: NSObjectProtocol {
     /// Whether the given item is fully visible, or if not if it’s above or below, or right or left of, the viewport.
     func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility
 
-    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath?
+    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
 }
+
+// MARK: -
 
 class SelectableCollectionKeyHandler: InjectableResponder {
 
@@ -50,8 +52,6 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         collection = selectableCollection
         super.init(owner: owner)
     }
-
-    // MARK: -
 
     private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .shift, [.alternate, .shift]].map { modifierFlags in
@@ -73,154 +73,17 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         return commands
     }
 
-    // MARK: - Arrow key selection
-
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
         let direction = sender.navigationDirection
         let step = sender.navigationStep
 
         // TODO: something for multiple selection like extension/contraction of the selected range
 
-        guard let indexPath = indexPathInDirection(direction, step: step) else {
+        guard let indexPath = collection.indexPathInDirection(direction, step: step) else {
             return
         }
 
-        selectAndShowItemAtIndexPath(indexPath, extendSelection: false)
-    }
-
-    private func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
-        let existingSelection = collection.indexPathsForSelectedItems?.first
-
-        return collection.indexPathFromIndexPath(existingSelection, inDirection: direction, step: step, forKeyHandler: self)
-    }
-
-    private func checkIndexPathIsInValidRange(_ indexPath: IndexPath) {
-        precondition(indexPath.section >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.section < collection.numberOfSections, "Index path is out-of-bounds.")
-        precondition(indexPath.item >= 0, "Index path is out-of-bounds.")
-        precondition(indexPath.item < collection.numberOfItems(inSection: indexPath.section), "Index path is out-of-bounds.")
-    }
-
-    /// Selects the item at the given index path and scrolls if needed so that the item is visible.
-    ///
-    /// - Parameters:
-    ///   - indexPath: The index path to select. This must be in-bounds or an assertion will fail.
-    ///   - isExtendingSelection: If true, add the index path to the selected cells. If false, clear any existing selection to select only the passed index path.
-    private func selectAndShowItemAtIndexPath(_ indexPath: IndexPath, extendSelection isExtendingSelection: Bool) {
-        checkIndexPathIsInValidRange(indexPath)
-
-        // Looks better and feel more responsive if the selection updates without animation.
-        // The scrolling will have animation if the target is not fully visible.
-
-        collection.selectItem(at: nil, animated: false, scrollPosition: [])
-
-        collection.selectItem(at: indexPath, animated: false, scrollPosition: [])
-
-        switch collection.cellVisibility(atIndexPath: indexPath) {
-        case .fullyVisible:
-            break
-        case .notFullyVisible(let scrollPosition):
-            collection.scrollToItem(at: indexPath, at: scrollPosition, animated: true)
-            collection.flashScrollIndicators()
-        }
-    }
-
-    // MARK: - Sequential index path changes
-
-    /// Returns the index path to select before a given index path or nil if there is no such index path.
-    func selectableIndexPathBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
-        checkIndexPathIsInValidRange(indexPath)
-
-        var section = indexPath.section
-        while section >= 0 {
-            let numberOfItems = collection.numberOfItems(inSection: section)
-            // For the first section we look in, we want to just check the item before in the same section.
-            // When the section changes, we need to start from the last item.
-            var item = section == indexPath.section ? indexPath.item - 1 : numberOfItems - 1
-
-            while item >= 0 {
-                let targetIndexPath = IndexPath(item: item, section: section)
-                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                item -= 1
-            }
-
-            section -= 1
-        }
-
-        return nil
-    }
-
-    /// Returns the index path to select after a given index path or nil if there is no such index path.
-    func selectableIndexPathAfterIndexPath(_ indexPath: IndexPath) -> IndexPath? {
-        checkIndexPathIsInValidRange(indexPath)
-
-        var section = indexPath.section
-        while section < collection.numberOfSections {
-            let numberOfItems = collection.numberOfItems(inSection: section)
-            // For the first section we look in, we want to just check the item after in the same section.
-            // When the section changes, we need to start from the first item.
-            var item = section == indexPath.section ? indexPath.item + 1 : 0
-
-            while item < numberOfItems {
-                let targetIndexPath = IndexPath(item: item, section: section)
-                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                item += 1
-            }
-
-            section += 1
-        }
-
-        return nil
-    }
-
-    var firstSelectableIndexPath: IndexPath? {
-        // Select the first highlightable item.
-        var section = 0
-        while section < collection.numberOfSections {
-            let numberOfItems = collection.numberOfItems(inSection: section)
-
-            var item = 0
-            while item < numberOfItems {
-                let targetIndexPath = IndexPath(item: item, section: section)
-                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                item += 1
-            }
-
-            section += 1
-        }
-
-        return nil
-    }
-
-    var lastSelectableIndexPath: IndexPath? {
-        // Select the last highlightable item.
-        var section = collection.numberOfSections - 1
-        while section >= 0 {
-            let numberOfItems = collection.numberOfItems(inSection: section)
-
-            var item = numberOfItems - 1
-            while item >= 0 {
-                let targetIndexPath = IndexPath(item: item, section:section)
-                if collection.shouldSelectItemAtIndexPath(targetIndexPath) {
-                    return targetIndexPath
-                }
-
-                item -= 1
-            }
-
-            section -= 1
-        }
-
-        return nil
+        collection.selectAndShowItemAtIndexPath(indexPath, extendSelection: false)
     }
 
     // MARK: - Select all
@@ -258,6 +121,151 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return
         }
         collection.activateSelection(at: indexPathForSingleSelectedItem)
+    }
+}
+
+// MARK: -
+
+private extension SelectableCollection {
+
+    // MARK: - Arrow key selection
+
+    func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
+        let existingSelection = indexPathsForSelectedItems?.first
+
+        return indexPathFromIndexPath(existingSelection, inDirection: direction, step: step)
+    }
+
+    private func checkIndexPathIsInValidRange(_ indexPath: IndexPath) {
+        precondition(indexPath.section >= 0, "Index path is out-of-bounds.")
+        precondition(indexPath.section < numberOfSections, "Index path is out-of-bounds.")
+        precondition(indexPath.item >= 0, "Index path is out-of-bounds.")
+        precondition(indexPath.item < numberOfItems(inSection: indexPath.section), "Index path is out-of-bounds.")
+    }
+
+    /// Selects the item at the given index path and scrolls if needed so that the item is visible.
+    ///
+    /// - Parameters:
+    ///   - indexPath: The index path to select. This must be in-bounds or an assertion will fail.
+    ///   - isExtendingSelection: If true, add the index path to the selected cells. If false, clear any existing selection to select only the passed index path.
+    func selectAndShowItemAtIndexPath(_ indexPath: IndexPath, extendSelection isExtendingSelection: Bool) {
+        checkIndexPathIsInValidRange(indexPath)
+
+        // Looks better and feel more responsive if the selection updates without animation.
+        // The scrolling will have animation if the target is not fully visible.
+
+        selectItem(at: nil, animated: false, scrollPosition: [])
+
+        selectItem(at: indexPath, animated: false, scrollPosition: [])
+
+        switch cellVisibility(atIndexPath: indexPath) {
+        case .fullyVisible:
+            break
+        case .notFullyVisible(let scrollPosition):
+            scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+            flashScrollIndicators()
+        }
+    }
+}
+
+extension SelectableCollection {
+
+    // MARK: - Sequential index path changes
+
+    /// Returns the index path to select before a given index path or nil if there is no such index path.
+    func selectableIndexPathBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        var section = indexPath.section
+        while section >= 0 {
+            let numberOfItems = self.numberOfItems(inSection: section)
+            // For the first section we look in, we want to just check the item before in the same section.
+            // When the section changes, we need to start from the last item.
+            var item = section == indexPath.section ? indexPath.item - 1 : numberOfItems - 1
+
+            while item >= 0 {
+                let targetIndexPath = IndexPath(item: item, section: section)
+                if shouldSelectItemAtIndexPath(targetIndexPath) {
+                    return targetIndexPath
+                }
+
+                item -= 1
+            }
+
+            section -= 1
+        }
+
+        return nil
+    }
+
+    /// Returns the index path to select after a given index path or nil if there is no such index path.
+    func selectableIndexPathAfterIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        var section = indexPath.section
+        while section < numberOfSections {
+            let numberOfItems = self.numberOfItems(inSection: section)
+            // For the first section we look in, we want to just check the item after in the same section.
+            // When the section changes, we need to start from the first item.
+            var item = section == indexPath.section ? indexPath.item + 1 : 0
+
+            while item < numberOfItems {
+                let targetIndexPath = IndexPath(item: item, section: section)
+                if shouldSelectItemAtIndexPath(targetIndexPath) {
+                    return targetIndexPath
+                }
+
+                item += 1
+            }
+
+            section += 1
+        }
+
+        return nil
+    }
+
+    var firstSelectableIndexPath: IndexPath? {
+        // Select the first highlightable item.
+        var section = 0
+        while section < numberOfSections {
+            let numberOfItems = self.numberOfItems(inSection: section)
+
+            var item = 0
+            while item < numberOfItems {
+                let targetIndexPath = IndexPath(item: item, section: section)
+                if shouldSelectItemAtIndexPath(targetIndexPath) {
+                    return targetIndexPath
+                }
+
+                item += 1
+            }
+
+            section += 1
+        }
+
+        return nil
+    }
+
+    var lastSelectableIndexPath: IndexPath? {
+        // Select the last highlightable item.
+        var section = numberOfSections - 1
+        while section >= 0 {
+            let numberOfItems = self.numberOfItems(inSection: section)
+
+            var item = numberOfItems - 1
+            while item >= 0 {
+                let targetIndexPath = IndexPath(item: item, section:section)
+                if shouldSelectItemAtIndexPath(targetIndexPath) {
+                    return targetIndexPath
+                }
+
+                item -= 1
+            }
+
+            section -= 1
+        }
+
+        return nil
     }
 }
 

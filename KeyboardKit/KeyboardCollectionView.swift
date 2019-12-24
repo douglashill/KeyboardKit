@@ -99,8 +99,8 @@ extension UICollectionView: SelectableCollection {
         return .notFullyVisible(position)
     }
 
-    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
-        collectionViewLayout.kbd_indexPathFromIndexPath(indexPath, inDirection: direction.rawValue, step: step.rawValue, forKeyHandler: keyHandler)
+    func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
+        collectionViewLayout.kbd_indexPathFromIndexPath(indexPath, inDirection: direction.rawValue, step: step.rawValue)
     }
 }
 
@@ -119,7 +119,7 @@ private extension UICollectionViewLayout {
     ///   - keyHandler: The key handler. Provided to do index path operations like finding the first selectable index path.
     ///
     /// - Returns: The adjusted index path or nil if no appropriate index path exists.
-    @objc func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+    @objc func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int) -> IndexPath? {
         let direction = NavigationDirection(rawValue: rawDirection)!
         let step = NavigationStep(rawValue: rawStep)!
 
@@ -128,7 +128,7 @@ private extension UICollectionViewLayout {
             let attributesOfOldSelection = layoutAttributesForItem(at: oldIndexPath)
         else {
             // It’s very layout-dependent what would make sense here. Important to return something though otherwise it would be impossible to get started with arrow key navigation.
-            return keyHandler.firstSelectableIndexPath
+            return collectionView!.firstSelectableIndexPath
         }
 
         let rectangleOfOldSelection = attributesOfOldSelection.frame
@@ -216,7 +216,7 @@ private extension UICollectionViewLayout {
 
 private extension UICollectionViewFlowLayout {
 
-    override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int, forKeyHandler keyHandler: SelectableCollectionKeyHandler) -> IndexPath? {
+    override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int) -> IndexPath? {
         let direction = NavigationDirection(rawValue: rawDirection)!
 
         enum UpdateBehaviour {
@@ -246,24 +246,24 @@ private extension UICollectionViewFlowLayout {
         switch (updateBehaviour, NavigationStep(rawValue: rawStep)!) {
 
         case (.spatial, _), (_, .end):
-            return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep, forKeyHandler: keyHandler)
+            return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep)
 
         case (.backwards, .closest):
             // Select the first highlightable item before the current selection, or select the last highlightable
             // item if there is no current selection or if the current selection is the first highlightable item.
-            if let indexPath = indexPath, let target = keyHandler.selectableIndexPathBeforeIndexPath(indexPath) {
+            if let indexPath = indexPath, let target = collectionView!.selectableIndexPathBeforeIndexPath(indexPath) {
                 return target
             } else {
-                return keyHandler.lastSelectableIndexPath
+                return collectionView!.lastSelectableIndexPath
             }
 
         case (.forwards, .closest):
             // Select the first highlightable item after the current selection, or select the first highlightable
             // item if there is no current selection or if the current selection is the last highlightable item.
-            if let oldSelection = indexPath, let target = keyHandler.selectableIndexPathAfterIndexPath(oldSelection) {
+            if let oldSelection = indexPath, let target = collectionView!.selectableIndexPathAfterIndexPath(oldSelection) {
                 return target
             } else {
-                return keyHandler.firstSelectableIndexPath
+                return collectionView!.firstSelectableIndexPath
             }
         }
     }
