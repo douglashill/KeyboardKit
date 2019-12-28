@@ -101,20 +101,45 @@ class ScrollViewKeyHandler: InjectableResponder {
         return commands
     }
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+
+        case scrollAction:
+            if let keyCommand = sender as? UIKeyCommand {
+                return targetContentOffsetForKeyCommand(keyCommand) != nil
+            } else {
+                return false
+            }
+
+        default:
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+
     // MARK: - Scrolling
 
-    @objc private func scrollFromKeyCommand(_ keyCommand: UIKeyCommand) {
+    private func targetContentOffsetForKeyCommand(_ keyCommand: UIKeyCommand) -> CGPoint? {
         if scrollView.isTracking {
-            return
+            return nil
         }
 
         let diff = scrollView.contentOffsetDiffFromKeyCommand(keyCommand)
         let target = scrollView.boundedContentOffsetFromProposedContentOffset(startingContentOffsetForAnimation + diff)
 
-        if target != startingContentOffsetForAnimation {
-            animateToContentOffset(target)
-            scrollView.flashScrollIndicators()
+        if target == startingContentOffsetForAnimation {
+            return nil
+        } else {
+            return target
         }
+    }
+
+    @objc private func scrollFromKeyCommand(_ keyCommand: UIKeyCommand) {
+        guard let target = targetContentOffsetForKeyCommand(keyCommand) else {
+            return
+        }
+
+        animateToContentOffset(target)
+        scrollView.flashScrollIndicators()
     }
 
     // MARK: - Scrolling animations
