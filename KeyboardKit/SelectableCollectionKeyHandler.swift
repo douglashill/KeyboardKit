@@ -73,6 +73,16 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         return commands
     }
 
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        var canPerform = super.canPerformAction(action, withSender: sender)
+
+        if action == #selector(selectAll(_:)) {
+            canPerform = canPerform || collection.shouldAllowMultipleSelection
+        }
+
+        return canPerform
+    }
+
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
         let direction = sender.navigationDirection
         let step = sender.navigationStep
@@ -84,18 +94,6 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         }
 
         collection.selectAndShowItemAtIndexPath(indexPath, extendSelection: false)
-    }
-
-    // MARK: - Select all
-
-    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        var canPerform = super.canPerformAction(action, withSender: sender)
-
-        if action == #selector(selectAll(_:)) {
-            canPerform = canPerform || collection.shouldAllowMultipleSelection
-        }
-
-        return canPerform
     }
 
     public override func selectAll(_ sender: Any?) {
@@ -110,8 +108,6 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         }
     }
 
-    // MARK: - Using the selection
-
     @objc private func clearSelection(_ sender: UIKeyCommand) {
         collection.selectItem(at: nil, animated: false, scrollPosition: [])
     }
@@ -124,11 +120,9 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 }
 
-// MARK: -
+// MARK: - Arrow key selection
 
 private extension SelectableCollection {
-
-    // MARK: - Arrow key selection
 
     func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
         let existingSelection = indexPathsForSelectedItems?.first
@@ -168,9 +162,9 @@ private extension SelectableCollection {
     }
 }
 
-extension SelectableCollection {
+// MARK: - Sequential index path changes
 
-    // MARK: - Sequential index path changes
+extension SelectableCollection {
 
     /// Returns the index path to select before a given index path or nil if there is no such index path.
     func selectableIndexPathBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
