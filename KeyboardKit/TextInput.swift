@@ -22,11 +22,11 @@ extension UIResponder {
 
     /// The first responder or nil if there is no first responder.
     private static var firstResponder: UIResponder? {
-        UIApplication.shared.sendAction(#selector(UIResponder.findFirstResponder), to: nil, from: nil, for: nil)
+        UIApplication.shared.sendAction(#selector(UIResponder.kbd_findFirstResponder), to: nil, from: nil, for: nil)
         return foundFirstResponder
     }
 
-    @objc private func findFirstResponder(sender: Any?) {
+    @objc private func kbd_findFirstResponder(sender: Any?) {
         foundFirstResponder = self
     }
 }
