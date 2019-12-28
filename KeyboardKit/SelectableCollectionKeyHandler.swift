@@ -74,22 +74,40 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        var canPerform = super.canPerformAction(action, withSender: sender)
+        switch action {
 
-        if action == #selector(selectAll(_:)) {
-            canPerform = canPerform || collection.shouldAllowMultipleSelection
+        case #selector(updateSelectionFromKeyCommand(_:)):
+            if let keyCommand = sender as? UIKeyCommand {
+                return targetSelectedIndexPathForKeyCommand(keyCommand) != nil
+            } else {
+                return false
+            }
+
+        case #selector(selectAll(_:)):
+            return collection.shouldAllowMultipleSelection
+
+        case #selector(clearSelection(_:)):
+            return (collection.indexPathsForSelectedItems ?? []).isEmpty == false
+
+        case #selector(activateSelection(_:)):
+            return collection.indexPathsForSelectedItems?.count == 1
+
+        default:
+            return super.canPerformAction(action, withSender: sender)
         }
-
-        return canPerform
     }
 
-    @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
+    private func targetSelectedIndexPathForKeyCommand(_ sender: UIKeyCommand) -> IndexPath? {
         let direction = sender.navigationDirection
         let step = sender.navigationStep
 
         // TODO: something for multiple selection like extension/contraction of the selected range
 
-        guard let indexPath = collection.indexPathInDirection(direction, step: step) else {
+        return collection.indexPathInDirection(direction, step: step)
+    }
+
+    @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
+        guard let indexPath = targetSelectedIndexPathForKeyCommand(sender) else {
             return
         }
 
