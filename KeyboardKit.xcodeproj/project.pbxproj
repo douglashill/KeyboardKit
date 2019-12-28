@@ -88,6 +88,7 @@
 		A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueCoding.h; sourceTree = "<group>"; };
 		A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueCoding.m; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
+		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResponderChainDebugging.m; sourceTree = "<group>"; };
 		A54EFB0F23AADEB8001776A2 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
@@ -195,6 +196,7 @@
 				A56FFD572398776C00E13773 /* BarButtonItem.m */,
 				A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */,
 				A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */,
+				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
 				A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */,
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
 				A5E538A1239B0387004A2EE2 /* Localizable.strings */,
