@@ -4,7 +4,7 @@ import UIKit
 
 /// Convenience strings for the `input` of a `UIKeyCommand`.
 extension String {
-    static let delete = "\u{8}"
+    static let delete = "\u{8}" // This is the backspace ASCII control character, which is known as the delete key on Apple platforms.
     static let `return` = "\r"
     static let space = " "
     static let escape = UIKeyCommand.inputEscape

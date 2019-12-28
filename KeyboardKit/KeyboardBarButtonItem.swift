@@ -55,7 +55,7 @@ private extension UIBarButtonItem.SystemItem {
         case .refresh:     return (.command, "r")
         case .bookmarks:   return (.command, "b") // opt + cmd + B or shift + cmd + B might be better to be more like Safari.
         case .search:      return (.command, "f")
-        case .trash:       return (.command, .delete) // This is the backspace ASCII control character, which is known as the delete key on Apple platforms.
+        case .trash:       return (.command, .delete)
         case .rewind:      return (.command, .leftArrow)
         case .fastForward: return (.command, .rightArrow)
         // More obscure items that are hard to pick a standard key equivalent for.
