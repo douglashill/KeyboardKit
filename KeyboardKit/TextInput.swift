@@ -33,28 +33,29 @@ extension UIResponder {
 
 extension UIKeyCommand {
 
-    /// Whether the key command should be allowed to be active while text input is taking place. This is false if the key command would override text input.
+    /// Whether the key command would conflict with text input if text input is active. If this is false the key command can
+    /// safely be active while text input is taking place.
     ///
     /// `UIKeyCommands` from further along the responder chain take priority over the first responder being used for text input.
     /// Overriding keys used for text input is a bad user experience and can easily lead to data loss.
-    var isAllowedWhileTextInputIsActive: Bool {
+    var doesConflictWithTextInput: Bool {
         guard let input = input else {
             // No input means no conflicts. But no way to press the key either.
-            return true
+            return false
         }
 
         // These inputs are used for text input with command so can’t be allowed. The thing with 8 is delete.
         enum __ { static let inputsThatConflict: Set<String> = [.delete, .upArrow, .downArrow, .leftArrow, .rightArrow] }
         if __.inputsThatConflict.contains(input) {
-            return false
+            return true
         }
 
         // Command is not used for text input (except for the cases above). Other modifiers are used for text input. Yes, even control.
         if modifierFlags.contains(.command) {
-            return true
+            return false
         }
 
         // Assume everything else is for text input. Might have forgotten something.
-        return false
+        return true
     }
 }
