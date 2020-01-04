@@ -4,7 +4,8 @@ import UIKit
 
 /// A navigation controller that supports using a hardware keyboard to navigate back using command + left
 /// (or right for right-to-left layout) and triggering the actions of the bar button items in the navigation
-/// bar and toolbar. Bar button items must be instances of KeyboardBarButtonItem to support this.
+/// bar and toolbar. Bar button items must be instances of `KeyboardBarButtonItem` to support this, even for
+/// system items (because otherwise there is no way to know the system item after initialisation).
 ///
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
 open class KeyboardNavigationController: UINavigationController {
