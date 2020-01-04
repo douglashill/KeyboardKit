@@ -52,7 +52,7 @@ open class KeyboardNavigationController: UINavigationController {
             additionalCommands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
 
             if UIResponder.isTextInputActive {
-                additionalCommands = additionalCommands.filter { $0.isAllowedWhileTextInputIsActive }
+                additionalCommands = additionalCommands.filter { $0.doesConflictWithTextInput == false }
             }
 
             commands += additionalCommands
