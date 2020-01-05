@@ -34,6 +34,27 @@ class KeyboardKitTests: XCTestCase {
 
         XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate, .command], "a").doesConflictWithTextInput)
 
+        // Same but with a capital A as the input. The system ignore the case.
+
+        XCTAssertTrue(UIKeyCommand([], "A").doesConflictWithTextInput)
+
+        XCTAssertTrue(UIKeyCommand(.shift, "A").doesConflictWithTextInput)
+        XCTAssertTrue(UIKeyCommand(.alternate, "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand(.command, "A").doesConflictWithTextInput)
+
+        XCTAssertTrue(UIKeyCommand([.shift, .alternate], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .command], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.control, .alternate], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.control, .command], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.alternate, .command], "A").doesConflictWithTextInput)
+
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .command], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .alternate, .command], "A").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.control, .alternate, .command], "A").doesConflictWithTextInput)
+
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate, .command], "A").doesConflictWithTextInput)
+
         // Control and shift control with letters, numbers, punctuation and symbols. These differ with the input string.
 
         // Technically these do all insert the number so conflict, but they don’t seem useful.
@@ -62,6 +83,8 @@ class KeyboardKitTests: XCTestCase {
         XCTAssertFalse(UIKeyCommand([.shift, .command], "7").doesConflictWithTextInput)
         XCTAssertFalse(UIKeyCommand([.control, .alternate], "7").doesConflictWithTextInput)
 
+        XCTAssertTrue(UIKeyCommand(.control, "A").doesConflictWithTextInput)
+        XCTAssertTrue(UIKeyCommand([.shift, .control], "A").doesConflictWithTextInput)
         XCTAssertTrue(UIKeyCommand(.control, "a").doesConflictWithTextInput)
         XCTAssertTrue(UIKeyCommand([.shift, .control], "a").doesConflictWithTextInput)
         XCTAssertTrue(UIKeyCommand(.control, "b").doesConflictWithTextInput)
