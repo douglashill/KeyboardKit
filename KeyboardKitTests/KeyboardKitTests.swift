@@ -115,9 +115,9 @@ class KeyboardKitTests: XCTestCase {
         XCTAssertFalse(UIKeyCommand(.control, "z").doesConflictWithTextInput)
         XCTAssertFalse(UIKeyCommand([.shift, .control], "z").doesConflictWithTextInput)
 
-        // These type a backtick (`) for some reason.
-        XCTAssertTrue(UIKeyCommand(.control, "§").doesConflictWithTextInput)
-        XCTAssertTrue(UIKeyCommand([.shift, .control], "§").doesConflictWithTextInput)
+        // These type a backtick (`) for some reason so technically do conflict but this doesn’t seem useful.
+        XCTAssertFalse(UIKeyCommand(.control, "§").doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .control], "§").doesConflictWithTextInput)
 
         // These all type nothing.
         XCTAssertFalse(UIKeyCommand(.control, "-").doesConflictWithTextInput)
