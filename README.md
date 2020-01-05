@@ -101,6 +101,8 @@ KeyboardKit uses the undocumented strings `UIKeyInputPageUp`, `UIKeyInputPageDow
 
 `KeyboardBarButtonItem` safely calls the private `view` property on `UIBarButtonItem` to obtain the accessibility label of system bar button items, so that associated key equivalents can be shown to the user in the discoverability overlay on iPad. This could be removed if KeyboardKit provided its own localised text for system bar button items, but that’s not ideal given the system already has this text in a large number of languages.
 
+At least one app using KeyboardKit has been approved by app review and is live on the App Store. Please let me know if your app has been accepted too. 
+
 ## Licence
 
 MIT license — see License.txt
