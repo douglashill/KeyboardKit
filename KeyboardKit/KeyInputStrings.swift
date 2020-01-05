@@ -7,6 +7,7 @@ extension String {
     static let delete = "\u{8}" // This is the backspace ASCII control character, which is known as the delete key on Apple platforms.
     static let `return` = "\r"
     static let space = " "
+    static let tab = "\t"
     static let escape = UIKeyCommand.inputEscape
 
     static let upArrow = UIKeyCommand.inputUpArrow
