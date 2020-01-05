@@ -34,7 +34,9 @@ extension UIResponder {
 extension UIKeyCommand {
 
     /// Whether the key command would conflict with text input if text input is active. If this is false the key command can
-    /// safely be active while text input is taking place.
+    /// safely be active while text input is taking place. This will allow some key combinations that are used for text input
+    /// but don’t do anything unique. For example, shift + control + option + tab types a tab character and this can also be
+    /// done by pressing tab with no modifiers, so this is not considered a conflict.
     ///
     /// `UIKeyCommands` from further along the responder chain take priority over the first responder being used for text input.
     /// Overriding keys used for text input is a bad user experience and can easily lead to data loss.
@@ -44,18 +46,37 @@ extension UIKeyCommand {
             return false
         }
 
-        // These inputs are used for text input with command so can’t be allowed. The thing with 8 is delete.
-        enum __ { static let inputsThatConflict: Set<String> = [.delete, .upArrow, .downArrow, .leftArrow, .rightArrow] }
-        if __.inputsThatConflict.contains(input) {
-            return true
-        }
-
-        // Command is not used for text input (except for the cases above). Other modifiers are used for text input. Yes, even control.
-        if modifierFlags.contains(.command) {
+        switch (input) {
+        case .delete, .upArrow, .downArrow, .leftArrow, .rightArrow:
+            switch modifierFlags {
+            case [], .shift, .control, .alternate, .command, [.shift, .control], [.shift, .alternate], [.shift, .command]:
+                return true
+            default:
+                return false
+            }
+        case .space:
+            // Option + space type a non-breaking space. Shift might be held while typing all caps.
+            switch modifierFlags {
+            case [], .shift, .alternate, [.shift, .alternate]:
+                return true
+            default:
+                return false
+            }
+        case .return, .tab, .escape:
+            // With modifiers these either do nothing or do the same as with no modifiers.
+            return modifierFlags.isEmpty
+        case .pageUp, .pageDown, .home, .end:
+            // These are never used for text input.
             return false
+        case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "c", "g", "l", "q", "r", "s", "u", "v", "w", "x", "y", "z", "-", "[", "]", "\\", ";", "'", "=", "`", ",", ".", "/":
+            // These don’t do anything with the control key.
+            let notUsedForTextInput = modifierFlags.contains(.command) || modifierFlags.contains(.control)
+            return notUsedForTextInput == false
+        default:
+            // Command or control + option are not used for text input (except for the cases above).
+            // Everything else is for text input.
+            let notUsedForTextInput = modifierFlags.contains(.command) || modifierFlags.contains(.control) && modifierFlags.contains(.alternate)
+            return notUsedForTextInput == false
         }
-
-        // Assume everything else is for text input. Might have forgotten something.
-        return true
     }
 }
