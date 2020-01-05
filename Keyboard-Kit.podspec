@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     spec.name = 'Keyboard-Kit'
     spec.module_name = 'KeyboardKit'
-    spec.version = '1.0.1'
+    spec.version = '1.0.2'
     spec.license = { :type => 'MIT', :file => 'License.txt' }
     spec.homepage = 'https://github.com/douglashill/KeyboardKit'
     spec.authors = { 'Douglas Hill' => 'https://twitter.com/qdoug' }
