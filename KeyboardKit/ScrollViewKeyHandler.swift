@@ -219,8 +219,8 @@ private extension UIScrollView {
 
         offset.x = max(offset.x, -insets.left)
         offset.y = max(offset.y, -insets.top)
-        offset.x = min(offset.x, insets.right + contentSize.width - bounds.width)
-        offset.y = min(offset.y, insets.bottom + contentSize.height - bounds.height)
+        offset.x = min(offset.x, insets.right + max(0, contentSize.width - bounds.width))
+        offset.y = min(offset.y, insets.bottom + max(0, contentSize.height - bounds.height))
 
         return offset
     }
