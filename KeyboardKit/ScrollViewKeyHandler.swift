@@ -352,10 +352,8 @@ private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
 
     case .space: return keyCommand.modifierFlags.contains(.shift) ? .backwards : .forwards
 
-    case .pageUp: return .up
-    case .pageDown: return .down
-    case .home: return .backwards
-    case .end: return .forwards
+    case .pageUp, .home: return .backwards
+    case .pageDown, .end: return .forwards
 
     default: return nil
     }
