@@ -295,7 +295,7 @@ private extension UIKeyCommand {
         case .downArrow: return .down
         case .leftArrow: return .left
         case .rightArrow: return .right
-        default: fatalError()
+        default: preconditionFailure()
         }
     }
 

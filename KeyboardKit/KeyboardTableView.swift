@@ -81,7 +81,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         } else if responder == scrollViewKeyHandler {
             return super.next
         } else {
-            fatalError()
+            preconditionFailure()
         }
     }
 }

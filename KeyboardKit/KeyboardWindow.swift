@@ -105,7 +105,7 @@ private extension UIModalPresentationStyle {
     var isDismissibleWithoutConfirmation: Bool {
         switch self {
         case .automatic:
-            fatalError("UIKit should have resolved automatic to a concrete style.")
+            preconditionFailure("UIKit should have resolved automatic to a concrete style.")
         case .popover:
             return true
         case .pageSheet, .formSheet:

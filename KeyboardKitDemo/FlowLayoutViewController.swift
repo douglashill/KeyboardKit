@@ -12,7 +12,7 @@ class FlowLayoutViewController: KeyboardCollectionViewController {
         title = "Flow Layout"
     }
 
-    @available(*, unavailable) required init?(coder: NSCoder) { fatalError() }
+    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
     private let cellReuseIdentifier = "a"
 
@@ -43,7 +43,7 @@ class FlowLayoutViewController: KeyboardCollectionViewController {
             contentView.backgroundColor = .secondarySystemGroupedBackground
         }
 
-        required init?(coder decoder: NSCoder) { fatalError() }
+        required init?(coder decoder: NSCoder) { preconditionFailure() }
 
         override var isSelected: Bool {
             didSet {

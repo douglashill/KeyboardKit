@@ -24,7 +24,7 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
         } else if responder == scrollViewKeyHandler {
             return super.next
         } else {
-            fatalError()
+            preconditionFailure()
         }
     }
 }
@@ -49,7 +49,7 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
         } else if responder == scrollViewKeyHandler {
             return super.next
         } else {
-            fatalError()
+            preconditionFailure()
         }
     }
 }

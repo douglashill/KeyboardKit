@@ -442,7 +442,7 @@ private extension UIScrollView {
             minScale = 1
             maxScale = maximumZoomScale
         } else {
-            fatalError("Numbers are broken.")
+            preconditionFailure("Numbers are broken.")
         }
 
         // Zooming should use a logarithmic scale. The base of the logarithmic scale is the zoomStepMultiple.
