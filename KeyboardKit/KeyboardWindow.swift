@@ -10,12 +10,15 @@ open class KeyboardWindow: UIWindow {
         true
     }
 
-    private lazy var dismissKeyCommand = UIKeyCommand(.escape, action: #selector(kbd_dismissTopmostModalViewIfPossible))
+    private lazy var dismissKeyCommands = [
+        UIKeyCommand(.escape, action: #selector(kbd_dismissTopmostModalViewIfPossible)),
+        UIKeyCommand((.command, "W"), action: #selector(kbd_dismissTopmostModalViewIfPossible)),
+    ]
 
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands.append(dismissKeyCommand)
+        commands += dismissKeyCommands
 
         return commands
     }
