@@ -127,6 +127,10 @@ You can see more in the KeyboardKitDemo app.
 
 KeyboardKit is a project from [Douglas Hill](https://douglashill.co/). Some concepts were originally developed for [PSPDFKit](https://pspdfkit.com/) and reimplemented in Swift for KeyboardKit. I use KeyboardKit in my [reading app](https://douglashill.co/reading-app/).
 
+## Learn more
+
+[See my talk *Keyboard control in UIKit apps* from iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933).
+
 ## Contributing
 
 I’d love to have help on this project. For small changes please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls), for larger changes please [open an issue](https://github.com/douglashill/KeyboardKit/issues) first to discuss what you’d like to see.
