@@ -1,16 +1,16 @@
 // Douglas Hill, December 2019
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
+"app_newWindow" = "Neues Fenster";
+"app_settings" = "Einstellungen";
 "delete" = "Delete";
-"find_jump" = "Jump to Selection";
+"find_jump" = "Auswahl anzeigen";
 "find_next" = "Find Next";
-"find_previous" = "Find Previous";
+"find_previous" = "Weitersuchen (rückwärts)";
 "find_useSelection" = "Use Selection for Find";
 "navigationController_back" = "Back";
 "scrollView_refresh" = "Refresh";
 "scrollView_zoomIn" = "Zoom In";
 "scrollView_zoomOut" = "Zoom Out";
 "scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
+"window_close" = "Fenster schließen";
 "window_cycle" = "Cycle Focused Window";
