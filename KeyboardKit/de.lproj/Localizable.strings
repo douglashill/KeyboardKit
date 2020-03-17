@@ -1,4 +1,4 @@
-// Douglas Hill, March 2020
+// This file was generated from Apple localisation glossaries.
 
 "app_newWindow" = "Neues Fenster";
 "app_settings" = "Einstellungen";
@@ -11,6 +11,6 @@
 "scrollView_refresh" = "Aktualisieren";
 "scrollView_zoomIn" = "Vergrößern";
 "scrollView_zoomOut" = "Verkleinern";
-"scrollView_zoomReset" = "Tatsächliche Größe";
+"scrollView_zoomReset" = "Originalgröße";
 "window_close" = "Fenster schließen";
 "window_cycle" = "Nächstes Fenster";
