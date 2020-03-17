@@ -109,6 +109,7 @@
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
 		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
+		A57A9A7D242186B0005425F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesScrollViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +344,7 @@
 				en,
 				Base,
 				de,
+				fr,
 			);
 			mainGroup = A53ADFE02375AA1600B07957;
 			productRefGroup = A53ADFEA2375AA1600B07957 /* Products */;
@@ -488,6 +490,7 @@
 			children = (
 				A5E538A0239B0387004A2EE2 /* en */,
 				A5671D5F2420CD1E0061B9DC /* de */,
+				A57A9A7D242186B0005425F9 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

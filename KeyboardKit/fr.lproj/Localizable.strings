@@ -1,0 +1,16 @@
+// This file was generated from Apple localisation glossaries.
+
+"app_newWindow" = "Nouvelle fenêtre";
+"app_settings" = "Réglages";
+"delete" = "Supprimer";
+"find_jump" = "Aller à la sélection";
+"find_next" = "Rechercher le suivant";
+"find_previous" = "Rechercher le précédent";
+"find_useSelection" = "Rechercher la sélection";
+"navigationController_back" = "Retour";
+"scrollView_refresh" = "Actualiser";
+"scrollView_zoomIn" = "Zoom avant";
+"scrollView_zoomOut" = "Zoom arrière";
+"scrollView_zoomReset" = "Taille réelle";
+"window_close" = "Fermer la fenêtre";
+"window_cycle" = "Faire défiler les fenêtres";
