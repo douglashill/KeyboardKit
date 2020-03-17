@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Нове вікно";
+"app_settings" = "Параметри";
+"delete" = "Видалити";
+"find_jump" = "Перейти до виділеного";
+"find_next" = "Знайти наступне";
+"find_previous" = "Знайти попереднє";
+"find_useSelection" = "Використати виділене для пошуку";
+"navigationController_back" = "Назад";
+"scrollView_refresh" = "Оновити";
+"scrollView_zoomIn" = "Наблизити";
+"scrollView_zoomOut" = "Віддалити";
+"scrollView_zoomReset" = "Справжній розмір";
+"window_close" = "Закрити вікно";
+"window_cycle" = "Наступне вікно";

@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "หน้าต่างใหม่";
+"app_settings" = "การตั้งค่า";
+"delete" = "ลบ";
+"find_jump" = "ข้ามไปยังการเลือก";
+"find_next" = "ค้นหาถัดไป";
+"find_previous" = "ค้นหาก่อนหน้า";
+"find_useSelection" = "ใช้การเลือกสำหรับค้นหา";
+"navigationController_back" = "ย้อนกลับ";
+"scrollView_refresh" = "ดึงข้อมูลใหม่";
+"scrollView_zoomIn" = "ซูมเข้า";
+"scrollView_zoomOut" = "ซูมออก";
+"scrollView_zoomReset" = "ขนาดจริง";
+"window_close" = "ปิดหน้าต่าง";
+"window_cycle" = "วนดูหน้าต่าง";

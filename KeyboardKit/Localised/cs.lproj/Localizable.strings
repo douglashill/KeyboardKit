@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Nové okno";
+"app_settings" = "Nastavení";
+"delete" = "Smazat";
+"find_jump" = "Zobrazit výběr";
+"find_next" = "Hledat další";
+"find_previous" = "Hledat předchozí";
+"find_useSelection" = "Hledat výběr";
+"navigationController_back" = "Zpět";
+"scrollView_refresh" = "Aktualizovat";
+"scrollView_zoomIn" = "Zvětšit";
+"scrollView_zoomOut" = "Zmenšit";
+"scrollView_zoomReset" = "Skutečná velikost";
+"window_close" = "Zavřít okno";
+"window_cycle" = "Procházet okny";

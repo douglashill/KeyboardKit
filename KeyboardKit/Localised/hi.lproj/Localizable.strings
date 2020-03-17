@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "नई विंडो";
+"app_settings" = "सेटिंग्ज़";
+"delete" = "डिलीट करें";
+"find_jump" = "चयन पर जाएँ";
+"find_next" = "अगला ढूँढें";
+"find_previous" = "पिछला ढूँढें";
+"find_useSelection" = "ढूँढने के लिए चयन का उपयोग करें";
+"navigationController_back" = "वापस";
+"scrollView_refresh" = "रीफ़्रेश करें";
+"scrollView_zoomIn" = "ज़ूम इन करें";
+"scrollView_zoomOut" = "ज़ूम आउट करें";
+"scrollView_zoomReset" = "वास्तविक आकार";
+"window_close" = "विंडो बंद करें";
+"window_cycle" = "विंडो के बीच ब्राउज़ करें";

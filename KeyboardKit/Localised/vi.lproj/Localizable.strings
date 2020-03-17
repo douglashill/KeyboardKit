@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Cửa sổ mới";
+"app_settings" = "Cài đặt";
+"delete" = "Xóa";
+"find_jump" = "Chuyển đến Lựa chọn";
+"find_next" = "Tìm mục tiếp theo";
+"find_previous" = "Tìm mục trước";
+"find_useSelection" = "Sử dụng lựa chọn để tìm";
+"navigationController_back" = "Quay lại";
+"scrollView_refresh" = "Làm mới";
+"scrollView_zoomIn" = "Phóng to";
+"scrollView_zoomOut" = "Thu nhỏ";
+"scrollView_zoomReset" = "Kích cỡ thực";
+"window_close" = "Đóng Cửa sổ";
+"window_cycle" = "Luân chuyển qua các Cửa sổ";

@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Új ablak";
+"app_settings" = "Beállítások";
+"delete" = "Törlés";
+"find_jump" = "Ugrás a kijelölésre";
+"find_next" = "Következő keresése";
+"find_previous" = "Előző keresése";
+"find_useSelection" = "A kijelölés használata kereséshez";
+"navigationController_back" = "Vissza";
+"scrollView_refresh" = "Frissítés";
+"scrollView_zoomIn" = "Nagyítás";
+"scrollView_zoomOut" = "Kicsinyítés";
+"scrollView_zoomReset" = "Tényleges méret";
+"window_close" = "Ablak bezárása";
+"window_cycle" = "Lépkedés az ablakok között";

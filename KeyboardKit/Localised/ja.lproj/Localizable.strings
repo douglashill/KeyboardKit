@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "新規ウインドウ";
+"app_settings" = "設定";
+"delete" = "削除";
+"find_jump" = "選択部分へジャンプ";
+"find_next" = "次を検索";
+"find_previous" = "前を検索";
+"find_useSelection" = "選択部分を検索に使用";
+"navigationController_back" = "戻る";
+"scrollView_refresh" = "更新";
+"scrollView_zoomIn" = "拡大";
+"scrollView_zoomOut" = "縮小";
+"scrollView_zoomReset" = "実際のサイズ";
+"window_close" = "ウインドウを閉じる";
+"window_cycle" = "ウインドウを巡回";

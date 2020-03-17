@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Jendela Baru";
+"app_settings" = "Pengaturan";
+"delete" = "Hapus";
+"find_jump" = "Lompat ke Pilihan";
+"find_next" = "Temukan Berikutnya";
+"find_previous" = "Temukan Sebelumnya";
+"find_useSelection" = "Gunakan Pilihan untuk Temukan";
+"navigationController_back" = "Kembali";
+"scrollView_refresh" = "Segarkan";
+"scrollView_zoomIn" = "Perbesar";
+"scrollView_zoomOut" = "Perkecil";
+"scrollView_zoomReset" = "Ukuran Asli";
+"window_close" = "Tutup Jendela";
+"window_cycle" = "Beralih Antarjendela";

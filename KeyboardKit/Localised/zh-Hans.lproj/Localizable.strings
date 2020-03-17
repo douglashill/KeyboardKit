@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "新建窗口";
+"app_settings" = "设置";
+"delete" = "删除";
+"find_jump" = "跳到所选内容";
+"find_next" = "查找下一个";
+"find_previous" = "查找上一个";
+"find_useSelection" = "查找所选内容";
+"navigationController_back" = "返回";
+"scrollView_refresh" = "刷新";
+"scrollView_zoomIn" = "放大";
+"scrollView_zoomOut" = "缩小";
+"scrollView_zoomReset" = "实际大小";
+"window_close" = "关闭窗口";
+"window_cycle" = "循环显示窗口";

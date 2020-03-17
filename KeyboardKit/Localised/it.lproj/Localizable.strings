@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Nuova finestra";
+"app_settings" = "Impostazioni";
+"delete" = "Elimina";
+"find_jump" = "Vai alla selezione";
+"find_next" = "Cerca successivo";
+"find_previous" = "Cerca precedente";
+"find_useSelection" = "Usa selezione per cercare";
+"navigationController_back" = "Indietro";
+"scrollView_refresh" = "Aggiorna";
+"scrollView_zoomIn" = "Ingrandisci";
+"scrollView_zoomOut" = "Riduci";
+"scrollView_zoomReset" = "Dimensioni reali";
+"window_close" = "Chiudi finestra";
+"window_cycle" = "Scorri tra le finestre";

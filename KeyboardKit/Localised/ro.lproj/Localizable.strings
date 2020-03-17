@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Fereastră nouă";
+"app_settings" = "Configurări";
+"delete" = "Șterge";
+"find_jump" = "Salt la selecție";
+"find_next" = "Găsește următorul";
+"find_previous" = "Găsește anteriorul";
+"find_useSelection" = "Găsește selecția";
+"navigationController_back" = "Înapoi";
+"scrollView_refresh" = "Actualizează";
+"scrollView_zoomIn" = "Zoom înainte";
+"scrollView_zoomOut" = "Zoom înapoi";
+"scrollView_zoomReset" = "Dimensiune reală";
+"window_close" = "Închide fereastra";
+"window_cycle" = "Circulă între ferestre";

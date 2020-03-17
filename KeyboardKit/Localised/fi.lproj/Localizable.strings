@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Uusi ikkuna";
+"app_settings" = "Asetukset";
+"delete" = "Poista";
+"find_jump" = "Siirry valintaan";
+"find_next" = "Etsi seuraava";
+"find_previous" = "Etsi edellinen";
+"find_useSelection" = "Käytä valintaa etsinnässä";
+"navigationController_back" = "Edellinen";
+"scrollView_refresh" = "Päivitä";
+"scrollView_zoomIn" = "Lähennä";
+"scrollView_zoomOut" = "Loitonna";
+"scrollView_zoomReset" = "Todellinen koko";
+"window_close" = "Sulje ikkuna";
+"window_cycle" = "Käy ikkunoita läpi";

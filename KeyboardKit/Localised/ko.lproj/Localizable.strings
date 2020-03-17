@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "새로운 윈도우";
+"app_settings" = "설정";
+"delete" = "삭제";
+"find_jump" = "선택 부분으로 이동";
+"find_next" = "다음 찾기";
+"find_previous" = "이전 찾기";
+"find_useSelection" = "선택 부분으로 찾기";
+"navigationController_back" = "뒤로";
+"scrollView_refresh" = "새로 고침";
+"scrollView_zoomIn" = "확대";
+"scrollView_zoomOut" = "축소";
+"scrollView_zoomReset" = "실제 크기";
+"window_close" = "윈도우 닫기";
+"window_cycle" = "윈도우 순환";

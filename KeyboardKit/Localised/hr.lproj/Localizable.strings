@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Novi prozor";
+"app_settings" = "Postavke";
+"delete" = "Obriši";
+"find_jump" = "Idi na odabir";
+"find_next" = "Pronađi sljedeće";
+"find_previous" = "Pronađi prethodno";
+"find_useSelection" = "Koristi odabir za pretraživanje";
+"navigationController_back" = "Natrag";
+"scrollView_refresh" = "Osvježi";
+"scrollView_zoomIn" = "Uvećaj";
+"scrollView_zoomOut" = "Umanji";
+"scrollView_zoomReset" = "Stvarna veličina";
+"window_close" = "Zatvori prozor";
+"window_cycle" = "Prebaci na sljedeći prozor";

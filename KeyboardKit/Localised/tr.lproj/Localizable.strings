@@ -1,16 +1,16 @@
-// Douglas Hill, December 2019
+// This file was generated from Apple localisation glossaries.
 
-"app_newWindow" = "New Window";
-"app_settings" = "Settings";
-"delete" = "Delete";
-"find_jump" = "Jump to Selection";
-"find_next" = "Find Next";
-"find_previous" = "Find Previous";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
-"window_close" = "Close Window";
-"window_cycle" = "Cycle Through Windows";
+"app_newWindow" = "Yeni Pencere";
+"app_settings" = "Ayarlar";
+"delete" = "Sil";
+"find_jump" = "Seçime Git";
+"find_next" = "Sonrakini Bul";
+"find_previous" = "Öncekini Bul";
+"find_useSelection" = "Bul İçin Seçimi Kullan";
+"navigationController_back" = "Geri";
+"scrollView_refresh" = "Yenile";
+"scrollView_zoomIn" = "Büyüt";
+"scrollView_zoomOut" = "Küçült";
+"scrollView_zoomReset" = "Gerçek Boyut";
+"window_close" = "Pencereyi Kapat";
+"window_cycle" = "Pencereler Arasında Dolaş";
