@@ -49,9 +49,49 @@ Apps created with AppKit tend to have better support for keyboard control compar
 | Rewind                                             | ⌘←                          | `KeyboardBarButtonItem` with `SystemItem.rewind` in `KeyboardNavigationController`                                                                                                                                                              |                                                                                                                                                                                                    |
 | Fast forward                                       | ⌘→                          | `KeyboardBarButtonItem` with `SystemItem.fastForward` in `KeyboardNavigationController`                                                                                                                                                         |                                                                                                                                                                                                    |
 
-## Status
+Text shown in the discoverability panel shown when holding the command key is localised in major languages. These translations are extracted from glossaries provided by Apple used in very similar contexts. The full list of supported localisations is:
 
-User-facing text is currently only localised in English. This text is used for discoverability in the panel shown when holding the command key.
+- Arabic
+- Catalan
+- Chinese, Simplified
+- Chinese, Traditional
+- Chinese (Hong Kong)
+- Croatian
+- Czech
+- Danish
+- Dutch
+- English
+- English (Australia)
+- English (United Kingdom)
+- Finnish
+- French
+- French (Canada)
+- German
+- Greek
+- Hebrew
+- Hindi
+- Hungarian
+- Indonesian
+- Italian
+- Japanese
+- Korean
+- Malay
+- Norwegian Bokmål
+- Polish
+- Portuguese (Brazil)
+- Portuguese (Portugal)
+- Romanian
+- Russian
+- Slovak
+- Spanish
+- Spanish (Latin America)
+- Swedish
+- Thai
+- Turkish
+- Ukrainian
+- Vietnamese
+
+## Status
 
 The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
 
