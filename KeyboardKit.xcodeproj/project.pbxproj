@@ -604,6 +604,7 @@
 				A57A9AA224218C34005425F9 /* hi */,
 			);
 			name = Localizable.strings;
+			path = Localised;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
