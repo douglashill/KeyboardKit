@@ -2,15 +2,15 @@
 
 "app_newWindow" = "Neues Fenster";
 "app_settings" = "Einstellungen";
-"delete" = "Delete";
+"delete" = "Löschen";
 "find_jump" = "Auswahl anzeigen";
-"find_next" = "Find Next";
+"find_next" = "Weitersuchen (vorwärts)";
 "find_previous" = "Weitersuchen (rückwärts)";
-"find_useSelection" = "Use Selection for Find";
-"navigationController_back" = "Back";
-"scrollView_refresh" = "Refresh";
-"scrollView_zoomIn" = "Zoom In";
-"scrollView_zoomOut" = "Zoom Out";
-"scrollView_zoomReset" = "Actual Size";
+"find_useSelection" = "Auswahl für Suche übernehmen";
+"navigationController_back" = "Zurück";
+"scrollView_refresh" = "Aktualisieren";
+"scrollView_zoomIn" = "Vergrößern";
+"scrollView_zoomOut" = "Verkleinern";
+"scrollView_zoomReset" = "Tatsächliche Größe";
 "window_close" = "Fenster schließen";
 "window_cycle" = "Nächstes Fenster";
