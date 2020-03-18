@@ -28,6 +28,6 @@ Apps created with AppKit tend to have better support for keyboard control compar
       'KeyboardKit/Info.plist',
       'KeyboardKit/UpdateLocalisedStringKeys.swift'
     ]
-    spec.resources = "KeyboardKit/*.lproj"
+    spec.resources = "KeyboardKit/Localised/*.lproj"
 
 end
