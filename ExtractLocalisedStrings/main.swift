@@ -177,7 +177,7 @@ for lang in languages {
     try! FileManager.default.createDirectory(at: targetStringsFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 
     try! """
-        // This file was generated from Apple localisation glossaries.
+        // This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
 
         \(lines.joined(separator: "\n"))
 
