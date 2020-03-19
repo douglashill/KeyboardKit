@@ -444,7 +444,7 @@
 			attributes = {
 				CLASSPREFIX = KBD;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Douglas Hill";
 				TargetAttributes = {
 					A53ADFE82375AA1600B07957 = {
@@ -999,6 +999,7 @@
 		A57A9AFA24220E33005425F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1012,6 +1013,7 @@
 		A57A9AFB24220E33005425F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				ENABLE_HARDENED_RUNTIME = YES;
