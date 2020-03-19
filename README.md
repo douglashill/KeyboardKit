@@ -1,3 +1,5 @@
+Next: make the generation script use env for paths. Tidy up a bit. Polish the documentation.
+
 # KeyboardKit
 
 KeyboardKit makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.
