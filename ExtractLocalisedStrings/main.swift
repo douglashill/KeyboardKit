@@ -74,20 +74,42 @@ struct NeededLocalisation {
 }
 
 let neededLocalisations = [
-    NeededLocalisation(targetKey: "app_newWindow", appleKey: "fluid.switcher.plus.button.label", glossaryFilename: "AccessibilityBundles"),
-    NeededLocalisation(targetKey: "app_settings", appleKey: "Settings", glossaryFilename: "MobileNotes"),
-    NeededLocalisation(targetKey: "delete", appleKey: "Delete", glossaryFilename: "UIKitCore"),
-    NeededLocalisation(targetKey: "find_jump", appleKey: "315.title", glossaryFilename: "TextEdit"),
-    NeededLocalisation(targetKey: "find_next", appleKey: "312.title", glossaryFilename: "TextEdit"),
-    NeededLocalisation(targetKey: "find_previous", appleKey: "314.title", glossaryFilename: "TextEdit"),
-    NeededLocalisation(targetKey: "find_useSelection", appleKey: "316.title", glossaryFilename: "TextEdit"),
-    NeededLocalisation(targetKey: "navigationController_back", appleKey: "Back", glossaryFilename: "UIKitCore"),
-    NeededLocalisation(targetKey: "scrollView_refresh", appleKey: "Refresh", glossaryFilename: "UIKitCore"),
-    NeededLocalisation(targetKey: "scrollView_zoomIn", appleKey: "438.title", glossaryFilename: "WebBrowser"),
-    NeededLocalisation(targetKey: "scrollView_zoomOut", appleKey: "439.title", glossaryFilename: "WebBrowser"),
-    NeededLocalisation(targetKey: "scrollView_zoomReset", appleKey: "863.title", glossaryFilename: "WebBrowser"),
-    NeededLocalisation(targetKey: "window_close", appleKey: "Close Window", glossaryFilename: "AppKit"),
-    NeededLocalisation(targetKey: "window_cycle", appleKey: "Cycle Through Windows", glossaryFilename: "AppKit"),
+    NeededLocalisation(targetKey: "app_newWindow",          appleKey: "fluid.switcher.plus.button.label", glossaryFilename: "AccessibilityBundles"),
+    NeededLocalisation(targetKey: "app_settings",           appleKey: "Settings",                         glossaryFilename: "MobileNotes"         ),
+    NeededLocalisation(targetKey: "barButton_action",       appleKey: "Action",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_add",          appleKey: "Add",                              glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_bookmarks",    appleKey: "Bookmarks",                        glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_camera",       appleKey: "Camera",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_cancel",       appleKey: "Cancel",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_close",        appleKey: "Close",                            glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_compose",      appleKey: "Compose",                          glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_done",         appleKey: "Done",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_edit",         appleKey: "Edit",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_fastForward",  appleKey: "Fast Forward",                     glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_organize",     appleKey: "Organize",                         glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_pause",        appleKey: "Pause",                            glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_play",         appleKey: "Play",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_redo",         appleKey: "Redo",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_refresh",      appleKey: "Refresh",                          glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_reply",        appleKey: "Reply",                            glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_rewind",       appleKey: "Rewind",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_save",         appleKey: "Save",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_search",       appleKey: "Search",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_stop",         appleKey: "Stop",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_trash",        appleKey: "Trash",                            glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "barButton_undo",         appleKey: "Undo",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "delete",                 appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "find_jump",              appleKey: "315.title",                        glossaryFilename: "TextEdit"            ),
+    NeededLocalisation(targetKey: "find_next",              appleKey: "312.title",                        glossaryFilename: "TextEdit"            ),
+    NeededLocalisation(targetKey: "find_previous",          appleKey: "314.title",                        glossaryFilename: "TextEdit"            ),
+    NeededLocalisation(targetKey: "find_useSelection",      appleKey: "316.title",                        glossaryFilename: "TextEdit"            ),
+    NeededLocalisation(targetKey: "navigation_back",        appleKey: "Back",                             glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "scrollView_refresh",     appleKey: "Refresh",                          glossaryFilename: "UIKitCore"           ),
+    NeededLocalisation(targetKey: "scrollView_zoomIn",      appleKey: "438.title",                        glossaryFilename: "WebBrowser"          ),
+    NeededLocalisation(targetKey: "scrollView_zoomOut",     appleKey: "439.title",                        glossaryFilename: "WebBrowser"          ),
+    NeededLocalisation(targetKey: "scrollView_zoomReset",   appleKey: "863.title",                        glossaryFilename: "WebBrowser"          ),
+    NeededLocalisation(targetKey: "window_close",           appleKey: "Close Window",                     glossaryFilename: "AppKit"              ),
+    NeededLocalisation(targetKey: "window_cycle",           appleKey: "Cycle Through Windows",            glossaryFilename: "AppKit"              ),
 ]
 
 struct Language {
@@ -144,7 +166,7 @@ for lang in languages {
         fileURL.lastPathComponent.contains(lang.volumeName)
     }
 
-    print("ℹ️ Starting language \(lang.volumeName) (\(lang.code)) in \(matchingVolumes.count) volumes.") // There should be 2 volumes.
+    print("ℹ️ Localising \(lang.volumeName) (\(lang.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
 
     let lines = neededLocalisations.compactMap { neededLocalisation -> String? in
         let localisationEntries = matchingVolumes.flatMap { volumeURL -> [LocalisationEntry] in

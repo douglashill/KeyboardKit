@@ -19,6 +19,8 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     /// The character and the modifier flags corresponding to the keys that must be pressed to trigger this bar button item’s action from a keyboard.
     public var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
 
+    private var systemItem: SystemItem?
+
     /// Creates a key command that can be used to trigger this bar button item’s action.
     /// This will return a key command even if it would override text input.
     var keyCommand: UIKeyCommand? {
@@ -26,15 +28,23 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
             return nil
         }
 
-        // Neither the title nor the accessibilityLabel is set on the item for system items, so we need to fall back to the view.
-        let title = self.title ?? accessibilityLabel ?? (kbd_value(forKey: "view") as? NSObject)?.accessibilityLabel
+        // Neither the title nor the accessibilityLabel is set on the item for system items, so we need to use
+        // our own translations (which are extracted from Apple’s localisation glossaries so are the same).
+        let title: String? = self.title ?? accessibilityLabel ?? {
+            if let key = systemItem?.titleLocalisedStringKey {
+                return localisedString(key)
+            } else {
+                return nil
+            }
+        }()
 
         return UIKeyCommand(keyEquivalent, action: action, title: title)
     }
 
     /// For KeyboardKit internal use.
-    public override func wasInitialised(with systemItem: UIBarButtonItem.SystemItem) {
+    public override func wasInitialised(with systemItem: SystemItem) {
         keyEquivalent = systemItem.keyEquivalent
+        self.systemItem = systemItem
     }
 }
 
@@ -67,6 +77,37 @@ private extension UIBarButtonItem.SystemItem {
         case .pageCurl:    return nil
         // These should never get key equivalents. System already has good support for undo and redo.
         case .undo, .redo, .flexibleSpace, .fixedSpace: fallthrough @unknown default: return nil
+        }
+    }
+
+    var titleLocalisedStringKey: LocalisedStringKey? {
+        switch self {
+        case .action: return .barButton_action
+        case .add: return .barButton_add
+        case .bookmarks: return .barButton_bookmarks
+        case .camera: return .barButton_camera
+        case .cancel: return .barButton_cancel
+        case .close: return .barButton_close
+        case .compose: return .barButton_compose
+        case .done: return .barButton_done
+        case .edit: return .barButton_edit
+        case .fastForward: return .barButton_fastForward
+        case .fixedSpace: return nil
+        case .flexibleSpace: return nil
+        case .organize: return .barButton_organize
+        case .pageCurl: return nil
+        case .pause: return .barButton_pause
+        case .play: return .barButton_play
+        case .redo: return .barButton_redo
+        case .refresh: return .barButton_refresh
+        case .reply: return .barButton_reply
+        case .rewind: return .barButton_rewind
+        case .save: return .barButton_save
+        case .search: return .barButton_search
+        case .stop: return .barButton_stop
+        case .trash: return .barButton_trash
+        case .undo: return .barButton_undo
+        @unknown default: return nil
         }
     }
 }

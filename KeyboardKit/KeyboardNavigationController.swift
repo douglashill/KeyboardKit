@@ -15,12 +15,12 @@ open class KeyboardNavigationController: UINavigationController {
     }
 
     private lazy var leftToRightBackKeyCommands = [
-        UIKeyCommand((.command, .leftArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigationController_back)),
+        UIKeyCommand((.command, .leftArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
         UIKeyCommand((.command, "["), action: #selector(kbd_goBackFromKeyCommand)),
     ]
 
     private lazy var rightToLeftBackKeyCommands = [
-        UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigationController_back)),
+        UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
         UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand)),
     ]
 
