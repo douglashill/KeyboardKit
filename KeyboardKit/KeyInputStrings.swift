@@ -15,10 +15,9 @@ extension String {
     static let leftArrow = UIKeyCommand.inputLeftArrow
     static let rightArrow = UIKeyCommand.inputRightArrow
 
-    // These were found in the open source WebKit.
+    // TODO: Change these to the public constants once Xcode 11.4 is out of beta.
     static let pageUp = "UIKeyInputPageUp"
     static let pageDown = "UIKeyInputPageDown"
-    // These were found by guessing.
     static let home = "UIKeyInputHome"
     static let end = "UIKeyInputEnd"
 }

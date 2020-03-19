@@ -137,8 +137,6 @@ I’d love to have help on this project. For small changes please [open a pull r
 
 ## Private API use
 
-KeyboardKit uses the undocumented strings `UIKeyInputPageUp`, `UIKeyInputPageDown`, `UIKeyInputHome` and `UIKeyInputEnd`. This should be very safe: they’re just strings. Please get in touch if you know any other way to support scrolling with the Page Up, Page Down, Home and End keys.
-
 `KeyboardBarButtonItem` safely calls the private `view` property on `UIBarButtonItem` to obtain the accessibility label of system bar button items, so that associated key equivalents can be shown to the user in the discoverability overlay on iPad. This could be removed if KeyboardKit provided its own localised text for system bar button items, but that’s not ideal given the system already has this text in a large number of languages.
 
 At least one app using KeyboardKit has been approved by app review and is live on the App Store. Please let me know if your app has been accepted too. 
