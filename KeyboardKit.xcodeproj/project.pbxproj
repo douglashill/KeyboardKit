@@ -19,8 +19,6 @@
 		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
 		A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */; };
 		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
-		A53EA62E239F1C4D0065C8EB /* KeyValueCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A53EA62F239F1C4D0065C8EB /* KeyValueCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */; };
 		A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542D89B23A01DC8007E68C3 /* PointAnimator.swift */; };
 		A54EFB1023AADEB8001776A2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54EFB0F23AADEB8001776A2 /* TextInput.swift */; };
 		A55D7AF223C1108300302D79 /* KeyboardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */; };
@@ -104,8 +102,6 @@
 		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayoutViewController.swift; path = KeyboardKitDemo/FlowLayoutViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
-		A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueCoding.h; sourceTree = "<group>"; };
-		A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueCoding.m; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
 		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResponderChainDebugging.m; sourceTree = "<group>"; };
 		A54EFB0F23AADEB8001776A2 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
@@ -317,8 +313,6 @@
 				A56FFD5A2398778400E13773 /* KeyboardKit.h */,
 				A56FFD562398776C00E13773 /* BarButtonItem.h */,
 				A56FFD572398776C00E13773 /* BarButtonItem.m */,
-				A53EA62C239F1C4D0065C8EB /* KeyValueCoding.h */,
-				A53EA62D239F1C4D0065C8EB /* KeyValueCoding.m */,
 				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
 				A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */,
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
@@ -354,7 +348,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A53EA62E239F1C4D0065C8EB /* KeyValueCoding.h in Headers */,
 				A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */,
 				A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */,
 			);
@@ -602,7 +595,6 @@
 				A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */,
 				A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
-				A53EA62F239F1C4D0065C8EB /* KeyValueCoding.m in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
 				A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */,
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
