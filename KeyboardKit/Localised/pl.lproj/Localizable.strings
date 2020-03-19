@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Nowe okno";
 "app_settings" = "Ustawienia";
-"barButton_action" = "Czynność";
+"barButton_action" = "Udostępnij";
 "barButton_add" = "Dodaj";
 "barButton_bookmarks" = "Zakładki";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Zachowaj";
 "barButton_search" = "Szukaj";
 "barButton_stop" = "Zatrzymaj";
-"barButton_trash" = "Kosz";
+"barButton_trash" = "Usuń";
 "barButton_undo" = "Cofnij";
 "delete" = "Usuń";
 "find_jump" = "Przejdź do zaznaczenia";

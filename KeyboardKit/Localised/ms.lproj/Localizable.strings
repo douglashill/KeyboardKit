@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Tetingkap Baru";
 "app_settings" = "Seting";
-"barButton_action" = "Tindakan";
+"barButton_action" = "Kongsi";
 "barButton_add" = "Tambah";
 "barButton_bookmarks" = "Penanda Buku";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Simpan";
 "barButton_search" = "Cari";
 "barButton_stop" = "Henti";
-"barButton_trash" = "Buang";
+"barButton_trash" = "Padam";
 "barButton_undo" = "Buat Asal";
 "delete" = "Padam";
 "find_jump" = "Lompat ke Pilihan";

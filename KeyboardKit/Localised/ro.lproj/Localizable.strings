@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Fereastră nouă";
 "app_settings" = "Configurări";
-"barButton_action" = "Acțiune";
+"barButton_action" = "Partajează";
 "barButton_add" = "Adaugă";
 "barButton_bookmarks" = "Favorite";
 "barButton_camera" = "Cameră";
@@ -22,7 +22,7 @@
 "barButton_save" = "Salvează";
 "barButton_search" = "Căutare";
 "barButton_stop" = "Stop";
-"barButton_trash" = "Coș";
+"barButton_trash" = "Șterge";
 "barButton_undo" = "Anulează";
 "delete" = "Șterge";
 "find_jump" = "Salt la selecție";

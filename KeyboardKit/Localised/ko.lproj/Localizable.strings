@@ -2,7 +2,7 @@
 
 "app_newWindow" = "새로운 윈도우";
 "app_settings" = "설정";
-"barButton_action" = "작업";
+"barButton_action" = "공유";
 "barButton_add" = "추가";
 "barButton_bookmarks" = "책갈피";
 "barButton_camera" = "카메라";
@@ -22,7 +22,7 @@
 "barButton_save" = "저장";
 "barButton_search" = "검색";
 "barButton_stop" = "중단";
-"barButton_trash" = "지우기";
+"barButton_trash" = "삭제";
 "barButton_undo" = "실행 취소";
 "delete" = "삭제";
 "find_jump" = "선택 부분으로 이동";

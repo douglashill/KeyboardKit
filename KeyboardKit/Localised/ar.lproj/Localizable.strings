@@ -2,7 +2,7 @@
 
 "app_newWindow" = "نافذة جديدة";
 "app_settings" = "الإعدادات";
-"barButton_action" = "الإجراء";
+"barButton_action" = "مشاركة";
 "barButton_add" = "إضافة";
 "barButton_bookmarks" = "الإشارات المرجعية";
 "barButton_camera" = "الكاميرا";
@@ -22,7 +22,7 @@
 "barButton_save" = "حفظ";
 "barButton_search" = "بحث";
 "barButton_stop" = "إيقاف";
-"barButton_trash" = "سلة المهملات";
+"barButton_trash" = "حذف";
 "barButton_undo" = "تراجع";
 "delete" = "حذف";
 "find_jump" = "انتقال سريع إلى التحديد";

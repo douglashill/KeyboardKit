@@ -2,7 +2,7 @@
 
 "app_newWindow" = "หน้าต่างใหม่";
 "app_settings" = "การตั้งค่า";
-"barButton_action" = "การทำงาน";
+"barButton_action" = "แชร์";
 "barButton_add" = "เพิ่ม";
 "barButton_bookmarks" = "ที่คั่นหน้า";
 "barButton_camera" = "กล้อง";
@@ -22,7 +22,7 @@
 "barButton_save" = "บันทึก";
 "barButton_search" = "ค้นหา";
 "barButton_stop" = "หยุด";
-"barButton_trash" = "ทิ้ง";
+"barButton_trash" = "ลบ";
 "barButton_undo" = "เลิกทำ";
 "delete" = "ลบ";
 "find_jump" = "ข้ามไปยังการเลือก";

@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Nové okno";
 "app_settings" = "Nastavení";
-"barButton_action" = "Akce";
+"barButton_action" = "Sdílet";
 "barButton_add" = "Přidat";
 "barButton_bookmarks" = "Záložky";
 "barButton_camera" = "Fotoaparát";
@@ -22,7 +22,7 @@
 "barButton_save" = "Uložit";
 "barButton_search" = "Hledat";
 "barButton_stop" = "Zastavit";
-"barButton_trash" = "Koš";
+"barButton_trash" = "Smazat";
 "barButton_undo" = "Odvolat akci";
 "delete" = "Smazat";
 "find_jump" = "Zobrazit výběr";

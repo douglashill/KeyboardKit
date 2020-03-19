@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Nova finestra";
 "app_settings" = "Configuració";
-"barButton_action" = "Acció";
+"barButton_action" = "Compartir";
 "barButton_add" = "Afegir";
 "barButton_bookmarks" = "Marcadors";
 "barButton_camera" = "Càmera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Desar";
 "barButton_search" = "Buscar";
 "barButton_stop" = "Aturar";
-"barButton_trash" = "Paperera";
+"barButton_trash" = "Eliminar";
 "barButton_undo" = "Desfer";
 "delete" = "Eliminar";
 "find_jump" = "Anar a la selecció";

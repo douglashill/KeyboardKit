@@ -2,7 +2,7 @@
 
 "app_newWindow" = "नई विंडो";
 "app_settings" = "सेटिंग्ज़";
-"barButton_action" = "क्रिया";
+"barButton_action" = "शेयर करें";
 "barButton_add" = "जोड़ें";
 "barButton_bookmarks" = "बुकमार्क";
 "barButton_camera" = "कैमरा";
@@ -22,7 +22,7 @@
 "barButton_save" = "सहेजें";
 "barButton_search" = "खोजें";
 "barButton_stop" = "रोकें";
-"barButton_trash" = "रद्दी";
+"barButton_trash" = "डिलीट करें";
 "barButton_undo" = "पहले जैसा करें";
 "delete" = "डिलीट करें";
 "find_jump" = "चयन पर जाएँ";

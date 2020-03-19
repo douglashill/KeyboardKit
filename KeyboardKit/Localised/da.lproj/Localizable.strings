@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Nyt vindue";
 "app_settings" = "Indstillinger";
-"barButton_action" = "Handling";
+"barButton_action" = "Del";
 "barButton_add" = "Tilføj";
 "barButton_bookmarks" = "Bogmærker";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Gem";
 "barButton_search" = "Søg";
 "barButton_stop" = "Stop";
-"barButton_trash" = "Papirkurv";
+"barButton_trash" = "Slet";
 "barButton_undo" = "Fortryd";
 "delete" = "Slet";
 "find_jump" = "Hop til det valgte";

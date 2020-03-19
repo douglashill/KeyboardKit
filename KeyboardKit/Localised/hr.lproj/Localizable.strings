@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Novi prozor";
 "app_settings" = "Postavke";
-"barButton_action" = "Postupak";
+"barButton_action" = "Dijeli";
 "barButton_add" = "Dodaj";
 "barButton_bookmarks" = "Knjižne oznake";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Spremi";
 "barButton_search" = "Traži";
 "barButton_stop" = "Zaustavi";
-"barButton_trash" = "Smeće";
+"barButton_trash" = "Obriši";
 "barButton_undo" = "Vrati";
 "delete" = "Obriši";
 "find_jump" = "Idi na odabir";

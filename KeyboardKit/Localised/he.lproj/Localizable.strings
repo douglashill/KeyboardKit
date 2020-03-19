@@ -2,7 +2,7 @@
 
 "app_newWindow" = "חלון חדש";
 "app_settings" = "הגדרות";
-"barButton_action" = "פעולה";
+"barButton_action" = "שיתוף";
 "barButton_add" = "‏הוסף";
 "barButton_bookmarks" = "סימניות";
 "barButton_camera" = "מצלמה";
@@ -22,7 +22,7 @@
 "barButton_save" = "שמור";
 "barButton_search" = "חיפוש";
 "barButton_stop" = "עצור";
-"barButton_trash" = "פח";
+"barButton_trash" = "מחק";
 "barButton_undo" = "בטל";
 "delete" = "מחק";
 "find_jump" = "עבור אל הקטע הנבחר";

@@ -2,7 +2,7 @@
 
 "app_newWindow" = "新規ウインドウ";
 "app_settings" = "設定";
-"barButton_action" = "アクション";
+"barButton_action" = "共有";
 "barButton_add" = "追加";
 "barButton_bookmarks" = "ブックマーク";
 "barButton_camera" = "カメラ";
@@ -22,7 +22,7 @@
 "barButton_save" = "保存";
 "barButton_search" = "検索";
 "barButton_stop" = "中止";
-"barButton_trash" = "ゴミ箱";
+"barButton_trash" = "削除";
 "barButton_undo" = "取り消す";
 "delete" = "削除";
 "find_jump" = "選択部分へジャンプ";

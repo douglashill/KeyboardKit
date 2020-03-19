@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Uusi ikkuna";
 "app_settings" = "Asetukset";
-"barButton_action" = "Toiminto";
+"barButton_action" = "Jaa";
 "barButton_add" = "Lisää";
 "barButton_bookmarks" = "Kirjanmerkit";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Tallenna";
 "barButton_search" = "Haku";
 "barButton_stop" = "Keskeytä";
-"barButton_trash" = "Roskakori";
+"barButton_trash" = "Poista";
 "barButton_undo" = "Peru";
 "delete" = "Poista";
 "find_jump" = "Siirry valintaan";

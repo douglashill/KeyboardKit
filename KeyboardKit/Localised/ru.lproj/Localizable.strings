@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Новое окно";
 "app_settings" = "Настройки";
-"barButton_action" = "Действие";
+"barButton_action" = "Поделиться";
 "barButton_add" = "Добавить";
 "barButton_bookmarks" = "Закладки";
 "barButton_camera" = "Камера";
@@ -22,7 +22,7 @@
 "barButton_save" = "Сохранить";
 "barButton_search" = "Поиск";
 "barButton_stop" = "Остановить";
-"barButton_trash" = "Корзина";
+"barButton_trash" = "Удалить";
 "barButton_undo" = "Отменить";
 "delete" = "Удалить";
 "find_jump" = "Перейти к выбранному тексту";

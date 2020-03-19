@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Yeni Pencere";
 "app_settings" = "Ayarlar";
-"barButton_action" = "Eylem";
+"barButton_action" = "Paylaş";
 "barButton_add" = "Ekle";
 "barButton_bookmarks" = "Yer İşaretleri";
 "barButton_camera" = "Kamera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Kaydet";
 "barButton_search" = "Ara";
 "barButton_stop" = "Durdur";
-"barButton_trash" = "Çöp Sepeti";
+"barButton_trash" = "Sil";
 "barButton_undo" = "Geri Al";
 "delete" = "Sil";
 "find_jump" = "Seçime Git";

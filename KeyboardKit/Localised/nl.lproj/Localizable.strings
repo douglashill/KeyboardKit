@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Nieuw venster";
 "app_settings" = "Instellingen";
-"barButton_action" = "Taak";
+"barButton_action" = "Deel";
 "barButton_add" = "Voeg toe";
 "barButton_bookmarks" = "Bladwijzers";
 "barButton_camera" = "Camera";
@@ -22,7 +22,7 @@
 "barButton_save" = "Bewaar";
 "barButton_search" = "Zoek";
 "barButton_stop" = "Stop";
-"barButton_trash" = "Prullenmand";
+"barButton_trash" = "Verwijder";
 "barButton_undo" = "Herstel";
 "delete" = "Verwijder";
 "find_jump" = "Ga naar selectie";

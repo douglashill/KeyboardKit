@@ -76,7 +76,8 @@ struct NeededLocalisation {
 let neededLocalisations = [
     NeededLocalisation(targetKey: "app_newWindow",          appleKey: "fluid.switcher.plus.button.label", glossaryFilename: "AccessibilityBundles"),
     NeededLocalisation(targetKey: "app_settings",           appleKey: "Settings",                         glossaryFilename: "MobileNotes"         ),
-    NeededLocalisation(targetKey: "barButton_action",       appleKey: "Action",                           glossaryFilename: "UIKitCore"           ),
+    // UIKit is inconsistent here. It uses "Share" for the accessibility label, but "Action" for the large content viewer.
+    NeededLocalisation(targetKey: "barButton_action",       appleKey: "Share",                            glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_add",          appleKey: "Add",                              glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_bookmarks",    appleKey: "Bookmarks",                        glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_camera",       appleKey: "Camera",                           glossaryFilename: "UIKitCore"           ),
@@ -96,7 +97,8 @@ let neededLocalisations = [
     NeededLocalisation(targetKey: "barButton_save",         appleKey: "Save",                             glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_search",       appleKey: "Search",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_stop",         appleKey: "Stop",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_trash",        appleKey: "Trash",                            glossaryFilename: "UIKitCore"           ),
+    // UIKit localises "Trash" but actually uses "Delete" for this item.
+    NeededLocalisation(targetKey: "barButton_trash",        appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_undo",         appleKey: "Undo",                             glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "delete",                 appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "find_jump",              appleKey: "315.title",                        glossaryFilename: "TextEdit"            ),

@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Νέο παράθυρο";
 "app_settings" = "Ρυθμίσεις";
-"barButton_action" = "Ενέργεια";
+"barButton_action" = "Κοινή χρήση";
 "barButton_add" = "Προσθήκη";
 "barButton_bookmarks" = "Σελιδοδείκτες";
 "barButton_camera" = "Κάμερα";
@@ -22,7 +22,7 @@
 "barButton_save" = "Αποθήκευση";
 "barButton_search" = "Εύρεση";
 "barButton_stop" = "Διακοπή";
-"barButton_trash" = "Κάδος";
+"barButton_trash" = "Διαγραφή";
 "barButton_undo" = "Αναίρεση";
 "delete" = "Διαγραφή";
 "find_jump" = "Μετάβαση σε επιλογή";
