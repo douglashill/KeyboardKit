@@ -557,7 +557,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/KeyboardKit/en.lproj/Localizable.strings",
+				"$(SRCROOT)/KeyboardKit/Localised/en.lproj/Localizable.strings",
 				"$(SRCROOT)/KeyboardKit/UpdateLocalisedStringKeys.swift",
 			);
 			name = "Update localised string keys";
