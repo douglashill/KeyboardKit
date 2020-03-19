@@ -126,7 +126,7 @@ let languages = [
     Language(code: "da", volumeName: "Danish"),
     Language(code: "de", volumeName: "German"),
     Language(code: "el", volumeName: "Greek"),
-    Language(code: "en", volumeName: "British English"), // Apple does not provide a glossary for en so it may need updating manually after generation.
+    Language(code: "en", volumeName: "Australian English"), // Apple does not provide a glossary for en so it will need updating manually after generation (organise/organize).
     Language(code: "en-AU", volumeName: "Australian English"),
     Language(code: "en-GB", volumeName: "British English"),
     Language(code: "es", volumeName: "Spanish"),

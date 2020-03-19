@@ -92,10 +92,7 @@ private extension UIBarButtonItem.SystemItem {
         case .done: return .barButton_done
         case .edit: return .barButton_edit
         case .fastForward: return .barButton_fastForward
-        case .fixedSpace: return nil
-        case .flexibleSpace: return nil
         case .organize: return .barButton_organize
-        case .pageCurl: return nil
         case .pause: return .barButton_pause
         case .play: return .barButton_play
         case .redo: return .barButton_redo
@@ -107,7 +104,8 @@ private extension UIBarButtonItem.SystemItem {
         case .stop: return .barButton_stop
         case .trash: return .barButton_trash
         case .undo: return .barButton_undo
-        @unknown default: return nil
+        // The system does not provide an accessibility label for page curl.
+        case .fixedSpace, .flexibleSpace, .pageCurl: fallthrough @unknown default: return nil
         }
     }
 }

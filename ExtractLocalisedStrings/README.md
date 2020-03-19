@@ -9,7 +9,7 @@ This script extracts localised strings from Apple’s glossary files.
 1. Download all macOS and iOS glossary DMGs from the [Apple Developer website](https://developer.apple.com/download/more). 
 2. Mount all of these DMGs on your Mac. There should be about 80. Mounting ~40 at once may slow down your Mac, so consider opening in batches of ~15.
 3. Run this target, `ExtractLocalisedStrings`. Look out for any errors in the console.
-4. Manually check the `.strings` file in `en.lproj`. It’s generated from British English because Apple does not provide `en` glossaries. Might need to replace s with z. 
+4. Manually check the  American English `.strings` file in `en.lproj`. It’s generated from Australian English because Apple does not provide `en` glossaries. Organise must be changed back to Organize. 
 5. Manually check the diff of all `.strings`  files.
 
 ## Adding new localised strings
