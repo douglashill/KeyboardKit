@@ -197,45 +197,49 @@ func memoisedReadLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEn
 let volumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])!
 
 for localisation in localisations {
-    let matchingVolumes = volumes.filter { fileURL -> Bool in
-        fileURL.lastPathComponent.contains(localisation.volumeName)
-    }
+    // This reduces peak memory usage from ~2GB to ~200MB.
+    autoreleasepool { () -> Void in
 
-    print("ℹ️ Localising \(localisation.volumeName) (\(localisation.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
+        let matchingVolumes = volumes.filter { fileURL -> Bool in
+            fileURL.lastPathComponent.contains(localisation.volumeName)
+        }
 
-    let lines = neededLocalisations.compactMap { neededLocalisation -> String? in
-        let localisationEntries = matchingVolumes.flatMap { volumeURL -> [LocalisationEntry] in
-            let glossaryFilePaths = try! FileManager.default.contentsOfDirectory(at: volumeURL, includingPropertiesForKeys: nil, options: []).filter { fileURL in
-                fileURL.lastPathComponent.contains(neededLocalisation.glossaryFilename)
-            }
+        print("ℹ️ Localising \(localisation.volumeName) (\(localisation.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
 
-            return glossaryFilePaths.flatMap { fileURL -> [LocalisationEntry] in
-                memoisedReadLocalisationEntriesFromFile(at: fileURL).filter { entry in
-                    entry.key == neededLocalisation.appleKey
+        let lines = neededLocalisations.compactMap { neededLocalisation -> String? in
+            let localisationEntries = matchingVolumes.flatMap { volumeURL -> [LocalisationEntry] in
+                let glossaryFilePaths = try! FileManager.default.contentsOfDirectory(at: volumeURL, includingPropertiesForKeys: nil, options: []).filter { fileURL in
+                    fileURL.lastPathComponent.contains(neededLocalisation.glossaryFilename)
+                }
+
+                return glossaryFilePaths.flatMap { fileURL -> [LocalisationEntry] in
+                    memoisedReadLocalisationEntriesFromFile(at: fileURL).filter { entry in
+                        entry.key == neededLocalisation.appleKey
+                    }
                 }
             }
+
+            let translations: Set<String> = Set<String>(localisationEntries.map { $0.translation })
+
+            guard let translation = translations.single else {
+                print("❌ Wrong number of matches for \(neededLocalisation.appleKey) in files matching \(neededLocalisation.glossaryFilename): \(translations)")
+                return nil
+            }
+
+            return """
+            "\(neededLocalisation.targetKey)" = "\(translation)";
+            """
         }
 
-        let translations: Set<String> = Set<String>(localisationEntries.map { $0.translation })
+        let targetStringsFileURL = outputDirectory.appendingPathComponents(["\(localisation.code).lproj", "Localizable.strings"])
 
-        guard let translation = translations.single else {
-            print("❌ Wrong number of matches for \(neededLocalisation.appleKey) in files matching \(neededLocalisation.glossaryFilename): \(translations)")
-            return nil
-        }
+        try! FileManager.default.createDirectory(at: targetStringsFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 
-        return """
-        "\(neededLocalisation.targetKey)" = "\(translation)";
-        """
+        try! """
+            // This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+
+            \(lines.joined(separator: "\n"))
+
+            """.write(to: targetStringsFileURL, atomically: false, encoding: .utf8)
     }
-
-    let targetStringsFileURL = outputDirectory.appendingPathComponents(["\(localisation.code).lproj", "Localizable.strings"])
-
-    try! FileManager.default.createDirectory(at: targetStringsFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
-
-    try! """
-        // This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
-
-        \(lines.joined(separator: "\n"))
-
-        """.write(to: targetStringsFileURL, atomically: false, encoding: .utf8)
 }
