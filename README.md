@@ -1,5 +1,3 @@
-Next: make the generation script use env for paths. Tidy up a bit. Polish the documentation.
-
 # KeyboardKit
 
 KeyboardKit makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.
@@ -51,47 +49,10 @@ Apps created with AppKit tend to have better support for keyboard control compar
 | Rewind                                             | ⌘←                          | `KeyboardBarButtonItem` with `SystemItem.rewind` in `KeyboardNavigationController`                                                                                                                                                              |                                                                                                                                                                                                    |
 | Fast forward                                       | ⌘→                          | `KeyboardBarButtonItem` with `SystemItem.fastForward` in `KeyboardNavigationController`                                                                                                                                                         |                                                                                                                                                                                                    |
 
-Text shown in the discoverability panel shown when holding the command key is localised in major languages. These translations are extracted from glossaries provided by Apple used in very similar contexts. The full list of supported localisations is:
-
-- Arabic
-- Catalan
-- Chinese, Simplified
-- Chinese, Traditional
-- Chinese (Hong Kong)
-- Croatian
-- Czech
-- Danish
-- Dutch
-- English
-- English (Australia)
-- English (United Kingdom)
-- Finnish
-- French
-- French (Canada)
-- German
-- Greek
-- Hebrew
-- Hindi
-- Hungarian
-- Indonesian
-- Italian
-- Japanese
-- Korean
-- Malay
-- Norwegian Bokmål
-- Polish
-- Portuguese (Brazil)
-- Portuguese (Portugal)
-- Romanian
-- Russian
-- Slovak
-- Spanish
-- Spanish (Latin America)
-- Swedish
-- Thai
-- Turkish
-- Ukrainian
-- Vietnamese
+- 39 localisations
+- No use of private API
+- No swizzling
+- App Store approved
 
 ## Status
 
@@ -176,12 +137,6 @@ KeyboardKit is a project from [Douglas Hill](https://douglashill.co/). Some conc
 ## Contributing
 
 I’d love to have help on this project. For small changes please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls), for larger changes please [open an issue](https://github.com/douglashill/KeyboardKit/issues) first to discuss what you’d like to see.
-
-## Private API use
-
-`KeyboardBarButtonItem` safely calls the private `view` property on `UIBarButtonItem` to obtain the accessibility label of system bar button items, so that associated key equivalents can be shown to the user in the discoverability overlay on iPad. This could be removed if KeyboardKit provided its own localised text for system bar button items, but that’s not ideal given the system already has this text in a large number of languages.
-
-At least one app using KeyboardKit has been approved by app review and is live on the App Store. Please let me know if your app has been accepted too. 
 
 ## Licence
 

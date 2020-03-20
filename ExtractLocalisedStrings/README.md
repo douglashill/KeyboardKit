@@ -1,6 +1,6 @@
 # ExtractLocalisedStrings
 
-All KeyboardKit’s user-facing text is used in a similar context to text used in Apple’s software. Therefore localisation is achieved by leveraging Apple’s existing translations. 
+All KeyboardKit’s user-facing text (for the discoverability panel shown when holding the command key) is used in a similar context to text used in Apple’s software. Therefore localisation is achieved by leveraging Apple’s existing translations.
 
 This script extracts localised strings from the glossary files that Apple provides.
 
