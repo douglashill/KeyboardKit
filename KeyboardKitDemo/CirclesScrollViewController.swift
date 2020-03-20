@@ -46,11 +46,12 @@ private class CirclesView: UIView {
 
     override func draw(_ rect: CGRect) {
         for _ in 1 ... 150 {
-            let randomPoint = CGPoint(x: .random(in: bounds.minX...bounds.maxX), y: .random(in: bounds.minY...bounds.maxY))
-            let randomDiameter = CGFloat.random(in: 20...300)
+            let randomRadius = CGFloat.random(in: 10...150)
+            let insetBounds = bounds.insetBy(dx: randomRadius, dy: randomRadius)
+            let randomPoint = CGPoint(x: .random(in: insetBounds.minX...insetBounds.maxX), y: .random(in: insetBounds.minY...insetBounds.maxY))
             let randomColour = UIColor(hue: .random(in: 0...1), saturation: 1, brightness: 1, alpha: .random(in: 0.5...1))
 
-            let path = UIBezierPath(ovalIn: CGRect(x: randomPoint.x - randomDiameter / 2, y: randomPoint.y - randomDiameter / 2, width: randomDiameter, height: randomDiameter))
+            let path = UIBezierPath(ovalIn: CGRect(x: randomPoint.x - randomRadius, y: randomPoint.y - randomRadius, width: 2 * randomRadius, height: 2 * randomRadius))
 
             randomColour.setFill()
             path.fill()
