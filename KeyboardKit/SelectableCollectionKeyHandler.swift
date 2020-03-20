@@ -174,7 +174,7 @@ private extension SelectableCollection {
         case .fullyVisible:
             break
         case .notFullyVisible(let scrollPosition):
-            scrollToItem(at: indexPath, at: scrollPosition, animated: true)
+            scrollToItem(at: indexPath, at: scrollPosition, animated: UIAccessibility.isReduceMotionEnabled == false)
             flashScrollIndicators()
         }
     }

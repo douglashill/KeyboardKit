@@ -181,13 +181,17 @@ class ScrollViewKeyHandler: InjectableResponder {
     /// - Maintain a continuous velocity if a new animation is started while an existing animation is in progress.
     /// - Interact better with finger scrolling when an animation is in progress.
     private func animateToContentOffset(_ targetContentOffset: CGPoint) {
-        if scrollView.isDecelerating {
-            // UIKit’s animator would fight with our own on each frame (and it would win) so kill any active deceleration animations.
-            // This deliberately passed the current content offset rather than the target.
-            scrollView.setContentOffset(scrollView.contentOffset, animated: false)
-        }
+        if UIAccessibility.isReduceMotionEnabled {
+            scrollView.setContentOffset(targetContentOffset, animated: false)
+        } else {
+            if scrollView.isDecelerating {
+                // UIKit’s animator would fight with our own on each frame (and it would win) so kill any active deceleration animations.
+                // This deliberately passed the current content offset rather than the target.
+                scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+            }
 
-        contentOffsetAnimator.startAnimation(fromPoint: scrollView.contentOffset, toPoint: targetContentOffset)
+            contentOffsetAnimator.startAnimation(fromPoint: scrollView.contentOffset, toPoint: targetContentOffset)
+        }
     }
 }
 
@@ -409,8 +413,12 @@ private extension UIScrollView {
         pinchGestureRecognizer != nil
     }
 
+    var shouldAnimate: Bool {
+        UIAccessibility.isReduceMotionEnabled == false
+    }
+
     @objc func kbd_resetZoom(_ keyCommand: UIKeyCommand) {
-        setZoomScale(1, animated: true)
+        setZoomScale(1, animated: shouldAnimate)
     }
 
     @objc func kbd_zoomIn(_ keyCommand: UIKeyCommand) {
@@ -461,7 +469,7 @@ private extension UIScrollView {
         // Convert back from the logarithmic scale.
         let targetZoomScale = minScale * pow(zoomStepMultiple, targetPower)
 
-        setZoomScale(targetZoomScale, animated: true)
+        setZoomScale(targetZoomScale, animated: shouldAnimate)
     }
 }
 
