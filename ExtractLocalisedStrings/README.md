@@ -1,15 +1,15 @@
 # ExtractLocalisedStrings
 
-All KeyboardKit’s user-facing text is used in a similar context to text uses in Apple’s software. Therefore localisation is achieved by leveraging Apple’s existing translations. 
+All KeyboardKit’s user-facing text is used in a similar context to text used in Apple’s software. Therefore localisation is achieved by leveraging Apple’s existing translations. 
 
-This script extracts localised strings from Apple’s glossary files.
+This script extracts localised strings from the glossary files that Apple provides.
 
 ## Updating
 
-1. Download all macOS and iOS glossary DMGs from the [Apple Developer website](https://developer.apple.com/download/more). 
-2. Mount all of these DMGs on your Mac. There should be about 80. Mounting ~40 at once may slow down your Mac, so consider opening in batches of ~15.
-3. Run this target, `ExtractLocalisedStrings`. Look out for any errors in the console.
-4. Manually check the  American English `.strings` file in `en.lproj`. It’s generated from Australian English because Apple does not provide `en` glossaries. Organise must be changed back to Organize. 
+1. Download all macOS and iOS glossary DMGs from the [Apple Developer website](https://developer.apple.com/download/more) (sign in required). 
+2. Mount all of these DMGs on your Mac. There should be about 80. DiskImageMounter may get stuck if you try mounting ~20 or more at once, so opening in batches of ~15 is recommended.
+3. Run this target, ExtractLocalisedStrings. Look out for any errors in the console. That may indicate some DMGs failed to mount, or Apple removed a localisation key or added one so the lookup is ambiguous.
+4. Manually edit the American English `.strings` file in `en.lproj`. It’s generated from Australian English because Apple does not provide `en` glossaries. Organise must be changed back to Organize. 
 5. Manually check the diff of all `.strings`  files.
 
 ## Adding new localised strings

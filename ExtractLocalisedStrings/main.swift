@@ -4,72 +4,21 @@
 
 import Foundation
 
-extension Collection {
-    /// The only element in the collection, or nil if there are multiple or zero elements.
-    var single: Element? { count == 1 ? first! : nil }
-}
+// MARK: Input data
 
-extension XMLElement {
-    func singleChild(withName name: String) -> XMLElement? {
-        elements(forName: name).single
-    }
-}
+// Possible improvement:
+// We identify using glossary > key, which could be ambiguous because there are entries from
+// many .strings files in each glossary file, so there can be duplicate keys in the glossary.
+// This is handled by finding all matches and printing an error if there are multiple matches.
+// It would be better to identify each needed localisation by glossary > filename > key.
 
-extension XMLNode {
-    var textOfSingleChild: String? {
-        guard let singleChild = children?.single, singleChild.kind == .text else {
-            return nil
-        }
-        return singleChild.stringValue
-    }
-}
-
-struct LocalisationEntry {
-    /// The file where the entry was read from.
-    let fileURL: URL
-    /// The usage description to help with translation.
-    let comment: String?
-    /// The key to look up this string. This is optional because some Apple strings files use just whitespace as a key and NSXMLDocument can not read whitespace-only text elements.
-    let key: String?
-    /// The English text.
-    let base: String
-    /// The localised text.
-    let translation: String
-}
-
-func readLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEntry] {
-    defer {
-//        print("ℹ️ Read file at \(fileURL)")
-    }
-
-    let doc = try! XMLDocument(contentsOf: fileURL, options: [.nodePreserveWhitespace])
-
-    return doc.rootElement()!.elements(forName: "File").flatMap { file -> [LocalisationEntry] in
-        file.elements(forName: "TextItem").compactMap { textItem -> LocalisationEntry? in
-            let translationSet = textItem.singleChild(withName: "TranslationSet")!
-
-            guard let base = translationSet.singleChild(withName: "base")!.textOfSingleChild, let translation = translationSet.singleChild(withName: "tran")!.textOfSingleChild else {
-                //                print("⚠️ Could not parse entry \(textItem)")
-                return nil
-            }
-
-            return LocalisationEntry(
-                fileURL: fileURL,
-                comment: textItem.singleChild(withName: "Description")!.textOfSingleChild,
-                key: textItem.singleChild(withName: "Position")!.textOfSingleChild,
-                base: base,
-                translation: translation
-            )
-        }
-    }
-}
-
-// TODO: These are ambiguous because there are usually entries from many strings files in each glossary file, so there can be duplicate keys in the glossary.
-// Would be better to track the file path inside each glossary too.
-
+/// A localised strings entry that we want to extract from Apple’s glossary files.
 struct NeededLocalisation {
+    /// The key to use in the generated KeyboardKit .strings file.
     let targetKey: String
+    /// The key (AKA Position) that Apple uses in their glossary.
     let appleKey: String
+    /// The file base name of the glossary file in which this localisation can be found. I.e. the filename is glossaryFilename.lg.
     let glossaryFilename: String
 }
 
@@ -114,61 +63,145 @@ let neededLocalisations = [
     NeededLocalisation(targetKey: "window_cycle",           appleKey: "Cycle Through Windows",            glossaryFilename: "AppKit"              ),
 ]
 
-struct Language {
+struct Localisation {
     let code: String
     let volumeName: String
 }
 
-let languages = [
-    Language(code: "ar", volumeName: "Arabic"),
-    Language(code: "ca", volumeName: "Catalan"),
-    Language(code: "cs", volumeName: "Czech"),
-    Language(code: "da", volumeName: "Danish"),
-    Language(code: "de", volumeName: "German"),
-    Language(code: "el", volumeName: "Greek"),
-    Language(code: "en", volumeName: "Australian English"), // Apple does not provide a glossary for en so it will need updating manually after generation (organise/organize).
-    Language(code: "en-AU", volumeName: "Australian English"),
-    Language(code: "en-GB", volumeName: "British English"),
-    Language(code: "es", volumeName: "Spanish"),
-    Language(code: "es-419", volumeName: "Latin"),
-    Language(code: "fi", volumeName: "Finnish"),
-    Language(code: "fr", volumeName: "Universal French"),
-    Language(code: "fr-CA", volumeName: "Canadian"),
-    Language(code: "he", volumeName: "Hebrew"),
-    Language(code: "hi", volumeName: "Hindi"),
-    Language(code: "hr", volumeName: "Croatian"),
-    Language(code: "hu", volumeName: "Hungarian"),
-    Language(code: "id", volumeName: "Indonesian"),
-    Language(code: "it", volumeName: "Italian"),
-    Language(code: "ja", volumeName: "Japanese"),
-    Language(code: "ko", volumeName: "Korean"),
-    Language(code: "ms", volumeName: "Malay"),
-    Language(code: "nb", volumeName: "Norwegian"),
-    Language(code: "nl", volumeName: "Dutch"),
-    Language(code: "pl", volumeName: "Polish"),
-    Language(code: "pt-BR", volumeName: "Brazilian"),
-    Language(code: "pt-PT", volumeName: "Portuguese"),
-    Language(code: "ro", volumeName: "Romanian"),
-    Language(code: "ru", volumeName: "Russian"),
-    Language(code: "sk", volumeName: "Slovak"),
-    Language(code: "sv", volumeName: "Swedish"),
-    Language(code: "th", volumeName: "Thai"),
-    Language(code: "tr", volumeName: "Turkish"),
-    Language(code: "uk", volumeName: "Ukrainian"),
-    Language(code: "vi", volumeName: "Vietnamese"),
-    Language(code: "zh-Hans", volumeName: "Simplified Chinese"),
-    Language(code: "zh-Hant", volumeName: "Traditional Chinese"),
-    Language(code: "zh-HK", volumeName: "Hong Kong"),
+let localisations = [
+    Localisation(code: "ar", volumeName: "Arabic"),
+    Localisation(code: "ca", volumeName: "Catalan"),
+    Localisation(code: "cs", volumeName: "Czech"),
+    Localisation(code: "da", volumeName: "Danish"),
+    Localisation(code: "de", volumeName: "German"),
+    Localisation(code: "el", volumeName: "Greek"),
+    Localisation(code: "en", volumeName: "Australian English"), // Apple does not provide a glossary for en so it will need updating manually after generation (organise/organize).
+    Localisation(code: "en-AU", volumeName: "Australian English"),
+    Localisation(code: "en-GB", volumeName: "British English"),
+    Localisation(code: "es", volumeName: "Spanish"),
+    Localisation(code: "es-419", volumeName: "Latin"),
+    Localisation(code: "fi", volumeName: "Finnish"),
+    Localisation(code: "fr", volumeName: "Universal French"),
+    Localisation(code: "fr-CA", volumeName: "Canadian"),
+    Localisation(code: "he", volumeName: "Hebrew"),
+    Localisation(code: "hi", volumeName: "Hindi"),
+    Localisation(code: "hr", volumeName: "Croatian"),
+    Localisation(code: "hu", volumeName: "Hungarian"),
+    Localisation(code: "id", volumeName: "Indonesian"),
+    Localisation(code: "it", volumeName: "Italian"),
+    Localisation(code: "ja", volumeName: "Japanese"),
+    Localisation(code: "ko", volumeName: "Korean"),
+    Localisation(code: "ms", volumeName: "Malay"),
+    Localisation(code: "nb", volumeName: "Norwegian"),
+    Localisation(code: "nl", volumeName: "Dutch"),
+    Localisation(code: "pl", volumeName: "Polish"),
+    Localisation(code: "pt-BR", volumeName: "Brazilian"),
+    Localisation(code: "pt-PT", volumeName: "Portuguese"),
+    Localisation(code: "ro", volumeName: "Romanian"),
+    Localisation(code: "ru", volumeName: "Russian"),
+    Localisation(code: "sk", volumeName: "Slovak"),
+    Localisation(code: "sv", volumeName: "Swedish"),
+    Localisation(code: "th", volumeName: "Thai"),
+    Localisation(code: "tr", volumeName: "Turkish"),
+    Localisation(code: "uk", volumeName: "Ukrainian"),
+    Localisation(code: "vi", volumeName: "Vietnamese"),
+    Localisation(code: "zh-Hans", volumeName: "Simplified Chinese"),
+    Localisation(code: "zh-Hant", volumeName: "Traditional Chinese"),
+    Localisation(code: "zh-HK", volumeName: "Hong Kong"),
 ]
+
+/// The directory containing the .lproj directories where the .strings files will be written.
+/// The `OUTPUT_DIR` environment variable should be set by the scheme.
+let outputDirectory = URL(fileURLWithPath: ProcessInfo.processInfo.environment["OUTPUT_DIR"]!)
+
+// MARK: - Support
+
+extension Collection {
+    /// The only element in the collection, or nil if there are multiple or zero elements.
+    var single: Element? { count == 1 ? first! : nil }
+}
+
+extension URL {
+    public func appendingPathComponents(_ pathComponents: [String]) -> URL {
+        return pathComponents.enumerated().reduce(self) { url, pair in
+            return url.appendingPathComponent(pair.element, isDirectory: pair.offset + 1 < pathComponents.count)
+        }
+    }
+}
+
+extension XMLElement {
+    func singleChild(withName name: String) -> XMLElement? {
+        elements(forName: name).single
+    }
+}
+
+extension XMLNode {
+    var textOfSingleChild: String? {
+        guard let singleChild = children?.single, singleChild.kind == .text else {
+            return nil
+        }
+        return singleChild.stringValue
+    }
+}
+
+/// A localisation entry parsed from a glossary.
+struct LocalisationEntry {
+    /// The file where the entry was read from.
+    let fileURL: URL
+    /// The usage description to help with translation.
+    let comment: String?
+    /// The key to look up this string. This is optional because some Apple strings files use just whitespace as a key and NSXMLDocument can not read whitespace-only text elements.
+    let key: String?
+    /// The English text.
+    let base: String
+    /// The localised text.
+    let translation: String
+}
+
+func readLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEntry] {
+    let doc = try! XMLDocument(contentsOf: fileURL, options: [.nodePreserveWhitespace])
+
+    return doc.rootElement()!.elements(forName: "File").flatMap { file -> [LocalisationEntry] in
+        file.elements(forName: "TextItem").compactMap { textItem -> LocalisationEntry? in
+            let translationSet = textItem.singleChild(withName: "TranslationSet")!
+
+            guard let base = translationSet.singleChild(withName: "base")!.textOfSingleChild, let translation = translationSet.singleChild(withName: "tran")!.textOfSingleChild else {
+                return nil
+            }
+
+            return LocalisationEntry(
+                fileURL: fileURL,
+                comment: textItem.singleChild(withName: "Description")!.textOfSingleChild,
+                key: textItem.singleChild(withName: "Position")!.textOfSingleChild,
+                base: base,
+                translation: translation
+            )
+        }
+    }
+}
+
+func memoisedReadLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEntry] {
+    enum __ { static var results: [URL: [LocalisationEntry]] = [:] }
+
+    if let existingResult = __.results[fileURL] {
+        return existingResult
+    }
+
+    let newResult = readLocalisationEntriesFromFile(at: fileURL)
+    __.results[fileURL] = newResult
+    return newResult
+}
+
+// MARK: - The script itself
 
 let volumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])!
 
-for lang in languages {
+for localisation in localisations {
     let matchingVolumes = volumes.filter { fileURL -> Bool in
-        fileURL.lastPathComponent.contains(lang.volumeName)
+        fileURL.lastPathComponent.contains(localisation.volumeName)
     }
 
-    print("ℹ️ Localising \(lang.volumeName) (\(lang.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
+    print("ℹ️ Localising \(localisation.volumeName) (\(localisation.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
 
     let lines = neededLocalisations.compactMap { neededLocalisation -> String? in
         let localisationEntries = matchingVolumes.flatMap { volumeURL -> [LocalisationEntry] in
@@ -177,7 +210,7 @@ for lang in languages {
             }
 
             return glossaryFilePaths.flatMap { fileURL -> [LocalisationEntry] in
-                readLocalisationEntriesFromFile(at: fileURL).filter { entry in
+                memoisedReadLocalisationEntriesFromFile(at: fileURL).filter { entry in
                     entry.key == neededLocalisation.appleKey
                 }
             }
@@ -195,8 +228,7 @@ for lang in languages {
         """
     }
 
-    // TODO: Get this path from the environment.
-    let targetStringsFileURL = URL(fileURLWithPath: "/Users/Douglas/Development/KeyboardKit/KeyboardKit/Localised/\(lang.code).lproj/Localizable.strings")
+    let targetStringsFileURL = outputDirectory.appendingPathComponents(["\(localisation.code).lproj", "Localizable.strings"])
 
     try! FileManager.default.createDirectory(at: targetStringsFileURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 
