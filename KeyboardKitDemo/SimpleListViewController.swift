@@ -5,7 +5,7 @@ import KeyboardKit
 
 class SimpleListViewController: FirstResponderViewController, UITableViewDataSource, UITableViewDelegate {
     override var title: String? {
-        get { "Simple List" }
+        get { "List" }
         set {}
     }
 

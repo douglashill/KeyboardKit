@@ -5,7 +5,7 @@ import KeyboardKit
 
 class TextViewController: FirstResponderViewController {
     override var title: String? {
-        get { "Text View" }
+        get { "Text" }
         set {}
     }
 

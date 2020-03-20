@@ -5,7 +5,7 @@ import KeyboardKit
 
 class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDelegate {
     override var title: String? {
-        get { "Scroll View" }
+        get { "Scrolling" }
         set {}
     }
 
