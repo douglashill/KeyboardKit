@@ -49,9 +49,12 @@ Apps created with AppKit tend to have better support for keyboard control compar
 | Rewind                                             | ⌘←                          | `KeyboardBarButtonItem` with `SystemItem.rewind` in `KeyboardNavigationController`                                                                                                                                                              |                                                                                                                                                                                                    |
 | Fast forward                                       | ⌘→                          | `KeyboardBarButtonItem` with `SystemItem.fastForward` in `KeyboardNavigationController`                                                                                                                                                         |                                                                                                                                                                                                    |
 
-## Status
+- 39 localisations
+- No use of private API
+- No swizzling
+- App Store approved
 
-User-facing text is currently only localised in English. This text is used for discoverability in the panel shown when holding the command key.
+## Status
 
 The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
 
@@ -134,12 +137,6 @@ KeyboardKit is a project from [Douglas Hill](https://douglashill.co/). Some conc
 ## Contributing
 
 I’d love to have help on this project. For small changes please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls), for larger changes please [open an issue](https://github.com/douglashill/KeyboardKit/issues) first to discuss what you’d like to see.
-
-## Private API use
-
-`KeyboardBarButtonItem` safely calls the private `view` property on `UIBarButtonItem` to obtain the accessibility label of system bar button items, so that associated key equivalents can be shown to the user in the discoverability overlay on iPad. This could be removed if KeyboardKit provided its own localised text for system bar button items, but that’s not ideal given the system already has this text in a large number of languages.
-
-At least one app using KeyboardKit has been approved by app review and is live on the App Store. Please let me know if your app has been accepted too. 
 
 ## Licence
 

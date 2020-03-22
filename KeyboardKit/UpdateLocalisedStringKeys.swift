@@ -13,7 +13,7 @@ extension URL {
 }
 
 let projectDirectory = URL(fileURLWithPath: ProcessInfo.processInfo.environment["PROJECT_DIR"]!)
-let inputStringsFile = projectDirectory.appendingPathComponents(["KeyboardKit", "en.lproj", "Localizable.strings"])
+let inputStringsFile = projectDirectory.appendingPathComponents(["KeyboardKit", "Localised", "en.lproj", "Localizable.strings"])
 let outputSwiftFile = projectDirectory.appendingPathComponents(["KeyboardKit", "LocalisedStringKeys.swift"])
 
 let stringsDictionary = NSDictionary(contentsOf: inputStringsFile)!

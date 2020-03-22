@@ -22,12 +22,11 @@ Apps created with AppKit tend to have better support for keyboard control compar
     spec.public_header_files = [
       'KeyboardKit/KeyboardKit.h',
       'KeyboardKit/BarButtonItem.h',
-      'KeyboardKit/KeyValueCoding.h'
     ]
     spec.exclude_files = [
       'KeyboardKit/Info.plist',
       'KeyboardKit/UpdateLocalisedStringKeys.swift'
     ]
-    spec.resources = "KeyboardKit/*.lproj"
+    spec.resources = "KeyboardKit/Localised/*.lproj"
 
 end
