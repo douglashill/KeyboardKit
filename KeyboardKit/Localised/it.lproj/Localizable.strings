@@ -5,7 +5,7 @@
 "barButton_action" = "Condividi";
 "barButton_add" = "Aggiungi";
 "barButton_bookmarks" = "Segnalibri";
-"barButton_camera" = "Fotocamera";
+"barButton_camera" = "Foto"; // Possible alternative: Fotocamera, which is used in the large content viewer.
 "barButton_cancel" = "Annulla";
 "barButton_close" = "Chiudi";
 "barButton_compose" = "Scrivi";

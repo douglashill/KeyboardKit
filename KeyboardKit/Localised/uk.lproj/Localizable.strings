@@ -2,7 +2,7 @@
 
 "app_newWindow" = "Нове вікно";
 "app_settings" = "Параметри";
-"barButton_action" = "Спільний доступ";
+"barButton_action" = "Ділитись";
 "barButton_add" = "Додати";
 "barButton_bookmarks" = "Закладки";
 "barButton_camera" = "Камера";
@@ -12,7 +12,7 @@
 "barButton_done" = "Готово";
 "barButton_edit" = "Змінити";
 "barButton_fastForward" = "Мотати вперед";
-"barButton_organize" = "Упорядкувати";
+"barButton_organize" = "Організувати";
 "barButton_pause" = "Призупинити";
 "barButton_play" = "Відтворити";
 "barButton_redo" = "Повторити";
@@ -21,7 +21,7 @@
 "barButton_rewind" = "Мотати назад";
 "barButton_save" = "Зберегти";
 "barButton_search" = "Пошук";
-"barButton_stop" = "Стоп";
+"barButton_stop" = "Зупинити";
 "barButton_trash" = "Видалити";
 "barButton_undo" = "Відмінити";
 "delete" = "Видалити";

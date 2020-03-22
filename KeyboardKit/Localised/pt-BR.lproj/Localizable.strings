@@ -9,9 +9,9 @@
 "barButton_cancel" = "Cancelar";
 "barButton_close" = "Fechar";
 "barButton_compose" = "Redigir";
-"barButton_done" = "Concluído";
+"barButton_done" = "OK";
 "barButton_edit" = "Editar";
-"barButton_fastForward" = "Avançar Rapidamente";
+"barButton_fastForward" = "Avanço Rápido"; // Possible alternative: Avançar Rapidamente
 "barButton_organize" = "Organizar";
 "barButton_pause" = "Pausar";
 "barButton_play" = "Reproduzir";

@@ -11,10 +11,10 @@
 "barButton_compose" = "लिखें";
 "barButton_done" = "पूर्ण";
 "barButton_edit" = "संपादित करें";
-"barButton_fastForward" = "फ़ास्ट फ़ॉरवर्ड करें";
+"barButton_fastForward" = "फ़ास्ट फ़ॉरवर्ड";
 "barButton_organize" = "व्यवस्थित करें";
 "barButton_pause" = "पॉज़ करें";
-"barButton_play" = "बजाएँ";
+"barButton_play" = "चलाएँ"; // Possible alternative: बजाएँ
 "barButton_redo" = "फिर करें";
 "barButton_refresh" = "रीफ़्रेश करें";
 "barButton_reply" = "जवाब दें";

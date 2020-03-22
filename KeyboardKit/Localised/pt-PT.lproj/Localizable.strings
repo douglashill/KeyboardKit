@@ -11,7 +11,7 @@
 "barButton_compose" = "Compor";
 "barButton_done" = "OK";
 "barButton_edit" = "Editar";
-"barButton_fastForward" = "Avançar rápido";
+"barButton_fastForward" = "Avanço rápido"; // Possible alternative: Avançar rápido
 "barButton_organize" = "Organizar";
 "barButton_pause" = "Pausar";
 "barButton_play" = "Reproduzir";
@@ -20,7 +20,7 @@
 "barButton_reply" = "Responder";
 "barButton_rewind" = "Rebobinar";
 "barButton_save" = "Guardar";
-"barButton_search" = "Pesquisa";
+"barButton_search" = "Pesquisar";
 "barButton_stop" = "Parar";
 "barButton_trash" = "Apagar";
 "barButton_undo" = "Desfazer";

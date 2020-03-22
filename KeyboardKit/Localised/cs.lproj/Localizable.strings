@@ -16,7 +16,7 @@
 "barButton_pause" = "Pozastavit";
 "barButton_play" = "Přehrát";
 "barButton_redo" = "Opakovat akci";
-"barButton_refresh" = "Aktualizovat";
+"barButton_refresh" = "Obnovit"; // Possible alternative: Aktualizovat
 "barButton_reply" = "Odpovědět";
 "barButton_rewind" = "Rychle zpět";
 "barButton_save" = "Uložit";
@@ -30,7 +30,7 @@
 "find_previous" = "Hledat předchozí";
 "find_useSelection" = "Hledat výběr";
 "navigation_back" = "Zpět";
-"scrollView_refresh" = "Aktualizovat";
+"scrollView_refresh" = "Obnovit"; // Possible alternative: Aktualizovat
 "scrollView_zoomIn" = "Zvětšit";
 "scrollView_zoomOut" = "Zmenšit";
 "scrollView_zoomReset" = "Skutečná velikost";

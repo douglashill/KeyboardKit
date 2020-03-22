@@ -4,12 +4,12 @@
 "app_settings" = "Postavke";
 "barButton_action" = "Dijeli";
 "barButton_add" = "Dodaj";
-"barButton_bookmarks" = "Knjižne oznake";
+"barButton_bookmarks" = "Oznake";
 "barButton_camera" = "Kamera";
 "barButton_cancel" = "Poništi";
 "barButton_close" = "Zatvori";
 "barButton_compose" = "Sastavi";
-"barButton_done" = "U redu";
+"barButton_done" = "OK";
 "barButton_edit" = "Uredi";
 "barButton_fastForward" = "Pretraživanje unaprijed";
 "barButton_organize" = "Organiziraj";
@@ -18,7 +18,7 @@
 "barButton_redo" = "Ponovi";
 "barButton_refresh" = "Osvježi";
 "barButton_reply" = "Odgovori";
-"barButton_rewind" = "Pretraži unatrag";
+"barButton_rewind" = "Pretraživanje unatrag"; // Possible alternative: Pretraži unatrag (verb form). Using the longer one to be consistent with fast-forward.
 "barButton_save" = "Spremi";
 "barButton_search" = "Traži";
 "barButton_stop" = "Zaustavi";

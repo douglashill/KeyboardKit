@@ -18,9 +18,9 @@
 "barButton_redo" = "Επανάληψη";
 "barButton_refresh" = "Ανανέωση";
 "barButton_reply" = "Απάντηση";
-"barButton_rewind" = "Πίσω";
+"barButton_rewind" = "Γρήγορη επαναφορά";
 "barButton_save" = "Αποθήκευση";
-"barButton_search" = "Εύρεση";
+"barButton_search" = "Αναζήτηση";
 "barButton_stop" = "Διακοπή";
 "barButton_trash" = "Διαγραφή";
 "barButton_undo" = "Αναίρεση";

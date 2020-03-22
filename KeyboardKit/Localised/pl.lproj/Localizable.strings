@@ -2,19 +2,19 @@
 
 "app_newWindow" = "Nowe okno";
 "app_settings" = "Ustawienia";
-"barButton_action" = "Udostępnij";
+"barButton_action" = "Wyślij"; // Possible alternative: Udostępnij
 "barButton_add" = "Dodaj";
 "barButton_bookmarks" = "Zakładki";
-"barButton_camera" = "Kamera";
+"barButton_camera" = "Aparat";
 "barButton_cancel" = "Anuluj";
 "barButton_close" = "Zamknij";
 "barButton_compose" = "Utwórz";
-"barButton_done" = "Gotowe";
+"barButton_done" = "OK";
 "barButton_edit" = "Edycja";
 "barButton_fastForward" = "Szybko do przodu";
 "barButton_organize" = "Uporządkuj";
-"barButton_pause" = "Wstrzymaj";
-"barButton_play" = "Odtwórz";
+"barButton_pause" = "Pauza";
+"barButton_play" = "Odtwarzaj";
 "barButton_redo" = "Przywróć";
 "barButton_refresh" = "Odśwież";
 "barButton_reply" = "Odpowiedz";

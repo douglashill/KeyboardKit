@@ -12,7 +12,7 @@
 "barButton_done" = "Kész";
 "barButton_edit" = "Szerkesztés";
 "barButton_fastForward" = "Gyors előretekerés";
-"barButton_organize" = "Rendszerezés";
+"barButton_organize" = "Szervezés"; // Possible alternative: Rendszerezés
 "barButton_pause" = "Szüneteltetés";
 "barButton_play" = "Lejátszás";
 "barButton_redo" = "Ismétlés";

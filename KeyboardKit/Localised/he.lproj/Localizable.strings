@@ -2,13 +2,13 @@
 
 "app_newWindow" = "חלון חדש";
 "app_settings" = "הגדרות";
-"barButton_action" = "שיתוף";
-"barButton_add" = "‏הוסף";
+"barButton_action" = "שתף/י";
+"barButton_add" = "הוסף";
 "barButton_bookmarks" = "סימניות";
 "barButton_camera" = "מצלמה";
 "barButton_cancel" = "ביטול";
 "barButton_close" = "סגור";
-"barButton_compose" = "כתוב/י";
+"barButton_compose" = "כתוב";
 "barButton_done" = "סיום";
 "barButton_edit" = "עריכה";
 "barButton_fastForward" = "הרץ קדימה";
@@ -17,7 +17,7 @@
 "barButton_play" = "נגן";
 "barButton_redo" = "שחזר";
 "barButton_refresh" = "רענן";
-"barButton_reply" = "תגובה";
+"barButton_reply" = "השב";
 "barButton_rewind" = "אחורה";
 "barButton_save" = "שמור";
 "barButton_search" = "חיפוש";

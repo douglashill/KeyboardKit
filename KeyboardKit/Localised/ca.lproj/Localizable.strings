@@ -11,7 +11,7 @@
 "barButton_compose" = "Redactar";
 "barButton_done" = "Fet";
 "barButton_edit" = "Editar";
-"barButton_fastForward" = "Avanç ràpid";
+"barButton_fastForward" = "Avançar ràpid"; // Went with the accessibility label. Possible alternative: Avanç ràpid
 "barButton_organize" = "Organitzar";
 "barButton_pause" = "Pausa";
 "barButton_play" = "Reproduir";

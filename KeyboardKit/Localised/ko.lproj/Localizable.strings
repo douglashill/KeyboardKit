@@ -17,7 +17,7 @@
 "barButton_play" = "재생";
 "barButton_redo" = "실행 복귀";
 "barButton_refresh" = "새로 고침";
-"barButton_reply" = "답글";
+"barButton_reply" = "답장"; // This matches the accessibility label. Possible alternative: 답글 to match the large content title.
 "barButton_rewind" = "되감기";
 "barButton_save" = "저장";
 "barButton_search" = "검색";

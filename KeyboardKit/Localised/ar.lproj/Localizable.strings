@@ -4,11 +4,11 @@
 "app_settings" = "الإعدادات";
 "barButton_action" = "مشاركة";
 "barButton_add" = "إضافة";
-"barButton_bookmarks" = "الإشارات المرجعية";
+"barButton_bookmarks" = "إشارات مرجعية";
 "barButton_camera" = "الكاميرا";
 "barButton_cancel" = "إلغاء";
 "barButton_close" = "إغلاق";
-"barButton_compose" = "إنشاء";
+"barButton_compose" = "كتابة";
 "barButton_done" = "تم";
 "barButton_edit" = "تحرير";
 "barButton_fastForward" = "تقديم سريع للأمام";

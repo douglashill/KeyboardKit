@@ -17,7 +17,7 @@
 "barButton_play" = "เล่น";
 "barButton_redo" = "ทำกลับมาใหม่";
 "barButton_refresh" = "ดึงข้อมูลใหม่";
-"barButton_reply" = "ตอบกลับ";
+"barButton_reply" = "ตอบ";
 "barButton_rewind" = "เลื่อนถอยกลับ";
 "barButton_save" = "บันทึก";
 "barButton_search" = "ค้นหา";
