@@ -102,7 +102,7 @@ private extension UIBarButtonItem.SystemItem {
         case .save: return .barButton_save
         case .search: return .barButton_search
         case .stop: return .barButton_stop
-        case .trash: return .barButton_trash
+        case .trash: return .delete
         case .undo: return .barButton_undo
         // The system does not provide an accessibility label for page curl.
         case .fixedSpace, .flexibleSpace, .pageCurl: fallthrough @unknown default: return nil

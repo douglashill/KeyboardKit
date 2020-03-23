@@ -22,7 +22,6 @@
 "barButton_save" = "Sichern";
 "barButton_search" = "Suchen";
 "barButton_stop" = "Stoppen"; // The accessibility label is Stopp but this should be a verb. Stoppen matches the Safari for Mac menu command.
-"barButton_trash" = "Löschen";
 "barButton_undo" = "Widerrufen";
 "delete" = "Löschen";
 "find_jump" = "Auswahl anzeigen";

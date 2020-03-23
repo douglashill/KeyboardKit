@@ -22,7 +22,6 @@
 "barButton_save" = "Gem";
 "barButton_search" = "Søg";
 "barButton_stop" = "Stop"; // The accessibility label is Afbryd. Used Stop to match Safari for Mac.
-"barButton_trash" = "Slet";
 "barButton_undo" = "Fortryd";
 "delete" = "Slet";
 "find_jump" = "Hop til det valgte";

@@ -22,7 +22,6 @@
 "barButton_save" = "Enregistrer";
 "barButton_search" = "Rechercher";
 "barButton_stop" = "Arrêter"; // The accessibility label is Arrêt. However this should be a verb, not a noun.
-"barButton_trash" = "Supprimer";
 "barButton_undo" = "Annuler";
 "delete" = "Supprimer";
 "find_jump" = "Aller à la sélection";

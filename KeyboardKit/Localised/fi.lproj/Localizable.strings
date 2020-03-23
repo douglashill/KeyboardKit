@@ -22,7 +22,6 @@
 "barButton_save" = "Tallenna";
 "barButton_search" = "Haku"; // Possible alternative: Etsi, which is the accessibility label.
 "barButton_stop" = "Seis"; // Possible alternatives: Lopeta (which Safari for Mac uses) or Keskeytä.
-"barButton_trash" = "Poista";
 "barButton_undo" = "Peru";
 "delete" = "Poista";
 "find_jump" = "Siirry valintaan";

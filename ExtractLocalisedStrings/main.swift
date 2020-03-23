@@ -46,8 +46,6 @@ let neededLocalisations = [
     NeededLocalisation(targetKey: "barButton_save",         appleKey: "Save",                             glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_search",       appleKey: "Search",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_stop",         appleKey: "Stop",                             glossaryFilename: "UIKitCore"           ),
-    // UIKit localises "Trash" but actually uses "Delete" for this item.
-    NeededLocalisation(targetKey: "barButton_trash",        appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "barButton_undo",         appleKey: "Undo",                             glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "delete",                 appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
     NeededLocalisation(targetKey: "find_jump",              appleKey: "315.title",                        glossaryFilename: "TextEdit"            ),
