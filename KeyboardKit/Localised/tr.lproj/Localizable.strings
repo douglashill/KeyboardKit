@@ -16,7 +16,6 @@
 "barButton_pause" = "Duraklat";
 "barButton_play" = "Çal";
 "barButton_redo" = "Yinele";
-"barButton_refresh" = "Yenile";
 "barButton_reply" = "Yanıtla";
 "barButton_rewind" = "Geri Sar";
 "barButton_save" = "Kaydet";
@@ -29,7 +28,7 @@
 "find_previous" = "Öncekini Bul";
 "find_useSelection" = "Bul İçin Seçimi Kullan";
 "navigation_back" = "Geri";
-"scrollView_refresh" = "Yenile";
+"refresh" = "Yenile";
 "scrollView_zoomIn" = "Büyüt";
 "scrollView_zoomOut" = "Küçült";
 "scrollView_zoomReset" = "Gerçek Boyut";

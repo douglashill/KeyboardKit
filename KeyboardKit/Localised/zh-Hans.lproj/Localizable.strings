@@ -16,7 +16,6 @@
 "barButton_pause" = "暂停";
 "barButton_play" = "播放";
 "barButton_redo" = "重做";
-"barButton_refresh" = "刷新";
 "barButton_reply" = "回复";
 "barButton_rewind" = "倒回";
 "barButton_save" = "存储";
@@ -29,7 +28,7 @@
 "find_previous" = "查找上一个";
 "find_useSelection" = "查找所选内容";
 "navigation_back" = "返回";
-"scrollView_refresh" = "刷新";
+"refresh" = "刷新";
 "scrollView_zoomIn" = "放大";
 "scrollView_zoomOut" = "缩小";
 "scrollView_zoomReset" = "实际大小";

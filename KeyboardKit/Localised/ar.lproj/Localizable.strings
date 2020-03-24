@@ -16,7 +16,6 @@
 "barButton_pause" = "إيقاف مؤقت";
 "barButton_play" = "تشغيل";
 "barButton_redo" = "إعادة";
-"barButton_refresh" = "تحديث";
 "barButton_reply" = "رد";
 "barButton_rewind" = "إرجاع";
 "barButton_save" = "حفظ";
@@ -29,7 +28,7 @@
 "find_previous" = "بحث عن السابق";
 "find_useSelection" = "استخدام التحديد للبحث";
 "navigation_back" = "رجوع";
-"scrollView_refresh" = "تحديث";
+"refresh" = "تحديث";
 "scrollView_zoomIn" = "تكبير";
 "scrollView_zoomOut" = "تصغير";
 "scrollView_zoomReset" = "الحجم الفعلي";

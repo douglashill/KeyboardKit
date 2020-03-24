@@ -16,7 +16,6 @@
 "barButton_pause" = "Pausa";
 "barButton_play" = "Spela";
 "barButton_redo" = "Gör om";
-"barButton_refresh" = "Uppdatera";
 "barButton_reply" = "Svara";
 "barButton_rewind" = "Sök bakåt";
 "barButton_save" = "Spara";
@@ -29,7 +28,7 @@
 "find_previous" = "Sök föregående";
 "find_useSelection" = "Använd markering för sökning";
 "navigation_back" = "Tillbaka";
-"scrollView_refresh" = "Uppdatera";
+"refresh" = "Uppdatera";
 "scrollView_zoomIn" = "Zooma in";
 "scrollView_zoomOut" = "Zooma ut";
 "scrollView_zoomReset" = "Verklig storlek";

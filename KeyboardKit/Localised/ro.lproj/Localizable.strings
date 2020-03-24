@@ -16,7 +16,6 @@
 "barButton_pause" = "Pauză";
 "barButton_play" = "Redare";
 "barButton_redo" = "Reconfirmați";
-"barButton_refresh" = "Reîmprospătare";
 "barButton_reply" = "Răspundeți";
 "barButton_rewind" = "Derulare";
 "barButton_save" = "Salvați";
@@ -29,7 +28,7 @@
 "find_previous" = "Găsește anteriorul";
 "find_useSelection" = "Găsește selecția";
 "navigation_back" = "Înapoi";
-"scrollView_refresh" = "Actualizează";
+"refresh" = "Reîmprospătare"; // Possible alternative: Actualizeazăs
 "scrollView_zoomIn" = "Zoom înainte";
 "scrollView_zoomOut" = "Zoom înapoi";
 "scrollView_zoomReset" = "Dimensiune reală";

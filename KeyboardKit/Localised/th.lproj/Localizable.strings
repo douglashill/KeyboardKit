@@ -16,7 +16,6 @@
 "barButton_pause" = "หยุดพัก";
 "barButton_play" = "เล่น";
 "barButton_redo" = "ทำกลับมาใหม่";
-"barButton_refresh" = "ดึงข้อมูลใหม่";
 "barButton_reply" = "ตอบ";
 "barButton_rewind" = "เลื่อนถอยกลับ";
 "barButton_save" = "บันทึก";
@@ -29,7 +28,7 @@
 "find_previous" = "ค้นหาก่อนหน้า";
 "find_useSelection" = "ใช้การเลือกสำหรับค้นหา";
 "navigation_back" = "ย้อนกลับ";
-"scrollView_refresh" = "ดึงข้อมูลใหม่";
+"refresh" = "ดึงข้อมูลใหม่";
 "scrollView_zoomIn" = "ซูมเข้า";
 "scrollView_zoomOut" = "ซูมออก";
 "scrollView_zoomReset" = "ขนาดจริง";

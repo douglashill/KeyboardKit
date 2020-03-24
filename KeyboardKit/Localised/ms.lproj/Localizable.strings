@@ -16,7 +16,6 @@
 "barButton_pause" = "Jeda";
 "barButton_play" = "Main";
 "barButton_redo" = "Buat Semula";
-"barButton_refresh" = "Segar Semula";
 "barButton_reply" = "Balas";
 "barButton_rewind" = "Putar Balik";
 "barButton_save" = "Simpan";
@@ -29,7 +28,7 @@
 "find_previous" = "Cari Sebelumnya";
 "find_useSelection" = "Guna Pilihan untuk Mencari";
 "navigation_back" = "Balik";
-"scrollView_refresh" = "Segar Semula";
+"refresh" = "Segar Semula";
 "scrollView_zoomIn" = "Zum Masuk";
 "scrollView_zoomOut" = "Zum Keluar";
 "scrollView_zoomReset" = "Saiz Sebenar";

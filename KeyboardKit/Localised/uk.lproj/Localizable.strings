@@ -16,7 +16,6 @@
 "barButton_pause" = "Призупинити";
 "barButton_play" = "Відтворити";
 "barButton_redo" = "Повторити";
-"barButton_refresh" = "Оновити";
 "barButton_reply" = "Відповісти";
 "barButton_rewind" = "Мотати назад";
 "barButton_save" = "Зберегти";
@@ -29,7 +28,7 @@
 "find_previous" = "Знайти попереднє";
 "find_useSelection" = "Використати виділене для пошуку";
 "navigation_back" = "Назад";
-"scrollView_refresh" = "Оновити";
+"refresh" = "Оновити";
 "scrollView_zoomIn" = "Наблизити";
 "scrollView_zoomOut" = "Віддалити";
 "scrollView_zoomReset" = "Справжній розмір";

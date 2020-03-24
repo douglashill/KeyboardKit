@@ -16,7 +16,6 @@
 "barButton_pause" = "השהה";
 "barButton_play" = "נגן";
 "barButton_redo" = "שחזר";
-"barButton_refresh" = "רענן";
 "barButton_reply" = "השב";
 "barButton_rewind" = "אחורה";
 "barButton_save" = "שמור";
@@ -29,7 +28,7 @@
 "find_previous" = "חפש את הקודם";
 "find_useSelection" = "השתמש במלל הנבחר לחיפוש";
 "navigation_back" = "הקודם";
-"scrollView_refresh" = "רענן";
+"refresh" = "רענן";
 "scrollView_zoomIn" = "הגדל";
 "scrollView_zoomOut" = "הקטן";
 "scrollView_zoomReset" = "גודל אמיתי";

@@ -16,7 +16,6 @@
 "barButton_pause" = "Anhalten"; // A possible alternative is Pause, which is a noun. However QuickTime Player for Mac uses Start/Pause.
 "barButton_play" = "Wiedergeben"; // The accessibility label is Wiedergabe but this should be a verb.
 "barButton_redo" = "Wiederholen";
-"barButton_refresh" = "Aktualisieren";
 "barButton_reply" = "Antworten";
 "barButton_rewind" = "Zurückspulen"; // The accessibility label is Schneller Rücklauf. That seems unnecessary. Zurückspulen matches the accessibility label in QuickTime Player for Mac.
 "barButton_save" = "Sichern";
@@ -29,7 +28,7 @@
 "find_previous" = "Weitersuchen (rückwärts)";
 "find_useSelection" = "Auswahl für Suche übernehmen";
 "navigation_back" = "Zurück";
-"scrollView_refresh" = "Aktualisieren";
+"refresh" = "Aktualisieren";
 "scrollView_zoomIn" = "Vergrößern";
 "scrollView_zoomOut" = "Verkleinern";
 "scrollView_zoomReset" = "Originalgröße";

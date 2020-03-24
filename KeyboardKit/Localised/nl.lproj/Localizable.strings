@@ -16,7 +16,6 @@
 "barButton_pause" = "Pauzeer"; // The accessibility label is Pauze, which is the noun. Went with the verb instead.
 "barButton_play" = "Speel af";
 "barButton_redo" = "Opnieuw";
-"barButton_refresh" = "Vernieuw";
 "barButton_reply" = "Reageer"; // The accessibility label is Antwoord, which is the noun. Went with the verb instead.
 "barButton_rewind" = "Spoel terug";
 "barButton_save" = "Bewaar";
@@ -29,7 +28,7 @@
 "find_previous" = "Zoek vorige";
 "find_useSelection" = "Gebruik selectie voor zoekactie";
 "navigation_back" = "Vorige";
-"scrollView_refresh" = "Vernieuw";
+"refresh" = "Vernieuw";
 "scrollView_zoomIn" = "Zoom in";
 "scrollView_zoomOut" = "Zoom uit";
 "scrollView_zoomReset" = "Werkelijke grootte";

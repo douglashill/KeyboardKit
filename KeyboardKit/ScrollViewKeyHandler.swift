@@ -69,7 +69,7 @@ class ScrollViewKeyHandler: InjectableResponder {
     ]
 
     private lazy var refreshingCommands = [
-        UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.scrollView_refresh))
+        UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.refresh))
     ]
 
     public override var keyCommands: [UIKeyCommand]? {

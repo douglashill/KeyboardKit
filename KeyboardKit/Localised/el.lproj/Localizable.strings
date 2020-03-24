@@ -16,7 +16,6 @@
 "barButton_pause" = "Παύση";
 "barButton_play" = "Αναπαραγωγή";
 "barButton_redo" = "Επανάληψη";
-"barButton_refresh" = "Ανανέωση";
 "barButton_reply" = "Απάντηση";
 "barButton_rewind" = "Γρήγορη επαναφορά";
 "barButton_save" = "Αποθήκευση";
@@ -29,7 +28,7 @@
 "find_previous" = "Εύρεση προηγούμενου";
 "find_useSelection" = "Χρήση επιλογής για εύρεση";
 "navigation_back" = "Πίσω";
-"scrollView_refresh" = "Ανανέωση";
+"refresh" = "Ανανέωση";
 "scrollView_zoomIn" = "Μεγέθυνση";
 "scrollView_zoomOut" = "Σμίκρυνση";
 "scrollView_zoomReset" = "Πραγματικό μέγεθος";

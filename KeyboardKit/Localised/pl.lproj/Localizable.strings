@@ -16,7 +16,6 @@
 "barButton_pause" = "Pauza";
 "barButton_play" = "Odtwarzaj";
 "barButton_redo" = "Przywróć";
-"barButton_refresh" = "Odśwież";
 "barButton_reply" = "Odpowiedz";
 "barButton_rewind" = "Szybko do tyłu";
 "barButton_save" = "Zachowaj";
@@ -29,7 +28,7 @@
 "find_previous" = "Znajdź poprzednie";
 "find_useSelection" = "Szukaj zaznaczonego tekstu";
 "navigation_back" = "Wróć";
-"scrollView_refresh" = "Odśwież";
+"refresh" = "Odśwież";
 "scrollView_zoomIn" = "Powiększ";
 "scrollView_zoomOut" = "Pomniejsz";
 "scrollView_zoomReset" = "Wielkość rzeczywista";

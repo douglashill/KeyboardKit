@@ -16,7 +16,6 @@
 "barButton_pause" = "Pozastaviť";
 "barButton_play" = "Prehrať";
 "barButton_redo" = "Obnoviť";
-"barButton_refresh" = "Osviežiť";
 "barButton_reply" = "Odpovedať";
 "barButton_rewind" = "Prevíjanie dozadu"; // Possible alternative: Prevíjať dozadu
 "barButton_save" = "Uložiť";
@@ -29,7 +28,7 @@
 "find_previous" = "Nájsť predošlé";
 "find_useSelection" = "Použiť výber pri hľadaní";
 "navigation_back" = "Naspäť";
-"scrollView_refresh" = "Osviežiť";
+"refresh" = "Osviežiť";
 "scrollView_zoomIn" = "Priblížiť";
 "scrollView_zoomOut" = "Oddialiť";
 "scrollView_zoomReset" = "Skutočná veľkosť";

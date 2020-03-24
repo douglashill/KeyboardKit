@@ -16,7 +16,6 @@
 "barButton_pause" = "Приостановить";
 "barButton_play" = "Воспроизвести";
 "barButton_redo" = "Повторить";
-"barButton_refresh" = "Обновить";
 "barButton_reply" = "Ответить";
 "barButton_rewind" = "Перемотка назад";
 "barButton_save" = "Сохранить";
@@ -29,7 +28,7 @@
 "find_previous" = "Найти ранее";
 "find_useSelection" = "Найти выбранное";
 "navigation_back" = "Назад";
-"scrollView_refresh" = "Обновить";
+"refresh" = "Обновить";
 "scrollView_zoomIn" = "Увеличить";
 "scrollView_zoomOut" = "Уменьшить";
 "scrollView_zoomReset" = "Реальный размер";

@@ -16,7 +16,6 @@
 "barButton_pause" = "暫停";
 "barButton_play" = "播放";
 "barButton_redo" = "重做";
-"barButton_refresh" = "重新整理";
 "barButton_reply" = "回覆";
 "barButton_rewind" = "回帶";
 "barButton_save" = "儲存";
@@ -29,7 +28,7 @@
 "find_previous" = "尋找上一個";
 "find_useSelection" = "使用所選範圍尋找";
 "navigation_back" = "返回";
-"scrollView_refresh" = "重新整理";
+"refresh" = "重新整理";
 "scrollView_zoomIn" = "放大";
 "scrollView_zoomOut" = "縮小";
 "scrollView_zoomReset" = "實際大小";

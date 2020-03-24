@@ -16,7 +16,6 @@
 "barButton_pause" = "Pauza";
 "barButton_play" = "Reprodukcija";
 "barButton_redo" = "Ponovi";
-"barButton_refresh" = "Osvježi";
 "barButton_reply" = "Odgovori";
 "barButton_rewind" = "Pretraživanje unatrag"; // Possible alternative: Pretraži unatrag (verb form). Using the longer one to be consistent with fast-forward.
 "barButton_save" = "Spremi";
@@ -29,7 +28,7 @@
 "find_previous" = "Pronađi prethodno";
 "find_useSelection" = "Koristi odabir za pretraživanje";
 "navigation_back" = "Natrag";
-"scrollView_refresh" = "Osvježi";
+"refresh" = "Osvježi";
 "scrollView_zoomIn" = "Uvećaj";
 "scrollView_zoomOut" = "Umanji";
 "scrollView_zoomReset" = "Stvarna veličina";

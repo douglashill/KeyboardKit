@@ -16,7 +16,6 @@
 "barButton_pause" = "पॉज़ करें";
 "barButton_play" = "चलाएँ"; // Possible alternative: बजाएँ
 "barButton_redo" = "फिर करें";
-"barButton_refresh" = "रीफ़्रेश करें";
 "barButton_reply" = "जवाब दें";
 "barButton_rewind" = "रिवाइंड करें";
 "barButton_save" = "सहेजें";
@@ -29,7 +28,7 @@
 "find_previous" = "पिछला ढूँढें";
 "find_useSelection" = "ढूँढने के लिए चयन का उपयोग करें";
 "navigation_back" = "वापस";
-"scrollView_refresh" = "रीफ़्रेश करें";
+"refresh" = "रीफ़्रेश करें";
 "scrollView_zoomIn" = "ज़ूम इन करें";
 "scrollView_zoomOut" = "ज़ूम आउट करें";
 "scrollView_zoomReset" = "वास्तविक आकार";

@@ -96,7 +96,7 @@ private extension UIBarButtonItem.SystemItem {
         case .pause: return .barButton_pause
         case .play: return .barButton_play
         case .redo: return .barButton_redo
-        case .refresh: return .barButton_refresh
+        case .refresh: return .refresh
         case .reply: return .barButton_reply
         case .rewind: return .barButton_rewind
         case .save: return .barButton_save

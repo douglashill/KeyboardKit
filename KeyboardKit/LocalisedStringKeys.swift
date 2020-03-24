@@ -17,7 +17,6 @@ enum LocalisedStringKey: String {
     case barButton_pause
     case barButton_play
     case barButton_redo
-    case barButton_refresh
     case barButton_reply
     case barButton_rewind
     case barButton_save
@@ -30,7 +29,7 @@ enum LocalisedStringKey: String {
     case find_previous
     case find_useSelection
     case navigation_back
-    case scrollView_refresh
+    case refresh
     case scrollView_zoomIn
     case scrollView_zoomOut
     case scrollView_zoomReset

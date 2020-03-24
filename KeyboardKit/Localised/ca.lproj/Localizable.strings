@@ -16,7 +16,6 @@
 "barButton_pause" = "Pausa";
 "barButton_play" = "Reproduir";
 "barButton_redo" = "Refer";
-"barButton_refresh" = "Actualitzar";
 "barButton_reply" = "Respondre";
 "barButton_rewind" = "Rebobinar";
 "barButton_save" = "Desar";
@@ -29,7 +28,7 @@
 "find_previous" = "Buscar l’anterior";
 "find_useSelection" = "Utilitzar la selecció per buscar";
 "navigation_back" = "Enrere";
-"scrollView_refresh" = "Actualitzar";
+"refresh" = "Actualitzar";
 "scrollView_zoomIn" = "Apropar";
 "scrollView_zoomOut" = "Allunyar";
 "scrollView_zoomReset" = "Mida real";

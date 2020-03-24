@@ -16,7 +16,6 @@
 "barButton_pause" = "Szüneteltetés";
 "barButton_play" = "Lejátszás";
 "barButton_redo" = "Ismétlés";
-"barButton_refresh" = "Frissítés";
 "barButton_reply" = "Válasz";
 "barButton_rewind" = "Visszatekerés";
 "barButton_save" = "Mentés";
@@ -29,7 +28,7 @@
 "find_previous" = "Előző keresése";
 "find_useSelection" = "A kijelölés használata kereséshez";
 "navigation_back" = "Vissza";
-"scrollView_refresh" = "Frissítés";
+"refresh" = "Frissítés";
 "scrollView_zoomIn" = "Nagyítás";
 "scrollView_zoomOut" = "Kicsinyítés";
 "scrollView_zoomReset" = "Tényleges méret";

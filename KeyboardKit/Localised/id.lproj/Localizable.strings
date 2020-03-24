@@ -16,7 +16,6 @@
 "barButton_pause" = "Jeda";
 "barButton_play" = "Putar";
 "barButton_redo" = "Ulang"; // The accessibility label is Ulangi. Went with Ulang to match the Mac menu bar.
-"barButton_refresh" = "Segarkan";
 "barButton_reply" = "Balas";
 "barButton_rewind" = "Putar balik";
 "barButton_save" = "Simpan";
@@ -29,7 +28,7 @@
 "find_previous" = "Temukan Sebelumnya";
 "find_useSelection" = "Gunakan Pilihan untuk Temukan";
 "navigation_back" = "Kembali";
-"scrollView_refresh" = "Segarkan";
+"refresh" = "Segarkan";
 "scrollView_zoomIn" = "Perbesar";
 "scrollView_zoomOut" = "Perkecil";
 "scrollView_zoomReset" = "Ukuran Asli";

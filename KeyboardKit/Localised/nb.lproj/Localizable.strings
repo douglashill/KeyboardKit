@@ -16,7 +16,6 @@
 "barButton_pause" = "Pause";
 "barButton_play" = "Spill av";
 "barButton_redo" = "Utfør likevel";
-"barButton_refresh" = "Oppdater";
 "barButton_reply" = "Svar";
 "barButton_rewind" = "Spol tilbake";
 "barButton_save" = "Arkiver";
@@ -29,7 +28,7 @@
 "find_previous" = "Finn forrige";
 "find_useSelection" = "Bruk markering til søk";
 "navigation_back" = "Tilbake";
-"scrollView_refresh" = "Oppdater";
+"refresh" = "Oppdater";
 "scrollView_zoomIn" = "Zoom inn";
 "scrollView_zoomOut" = "Zoom ut";
 "scrollView_zoomReset" = "Faktisk størrelse";

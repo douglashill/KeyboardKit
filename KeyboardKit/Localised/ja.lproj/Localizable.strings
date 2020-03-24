@@ -16,7 +16,6 @@
 "barButton_pause" = "一時停止";
 "barButton_play" = "再生";
 "barButton_redo" = "やり直す";
-"barButton_refresh" = "更新";
 "barButton_reply" = "返信";
 "barButton_rewind" = "早戻し";
 "barButton_save" = "保存";
@@ -29,7 +28,7 @@
 "find_previous" = "前を検索";
 "find_useSelection" = "選択部分を検索に使用";
 "navigation_back" = "戻る";
-"scrollView_refresh" = "更新";
+"refresh" = "更新";
 "scrollView_zoomIn" = "拡大";
 "scrollView_zoomOut" = "縮小";
 "scrollView_zoomReset" = "実際のサイズ";
