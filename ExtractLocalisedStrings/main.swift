@@ -4,60 +4,60 @@
 
 import Foundation
 
-// MARK: Input data
+/*
 
-// Possible improvement:
-// We identify using glossary > key, which could be ambiguous because there are entries from
-// many .strings files in each glossary file, so there can be duplicate keys in the glossary.
-// This is handled by finding all matches and printing an error if there are multiple matches.
-// It would be better to identify each needed localisation by glossary > filename > key.
+ Status:
+
+ I’m dubious of this ‘most popular’ approach because I think it’s biased by
+ old or Mac translations.
+
+ */
+
+// MARK: Input data
 
 /// A localised strings entry that we want to extract from Apple’s glossary files.
 struct NeededLocalisation {
     /// The key to use in the generated KeyboardKit .strings file.
     let targetKey: String
-    /// The key (AKA Position) that Apple uses in their glossary.
-    let appleKey: String
-    /// The file base name of the glossary file in which this localisation can be found. I.e. the filename is glossaryFilename.lg.
-    let glossaryFilename: String
+    /// The English text.
+    let english: String
 }
 
 let neededLocalisations = [
-    NeededLocalisation(targetKey: "app_newWindow",          appleKey: "fluid.switcher.plus.button.label", glossaryFilename: "AccessibilityBundles"),
-    NeededLocalisation(targetKey: "app_settings",           appleKey: "Settings",                         glossaryFilename: "MobileNotes"         ),
-    // UIKit is inconsistent here. It uses "Share" for the accessibility label, but "Action" for the large content viewer.
-    NeededLocalisation(targetKey: "barButton_action",       appleKey: "Share",                            glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_add",          appleKey: "Add",                              glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_bookmarks",    appleKey: "Bookmarks",                        glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_camera",       appleKey: "Camera",                           glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_cancel",       appleKey: "Cancel",                           glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_close",        appleKey: "Close",                            glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_compose",      appleKey: "Compose",                          glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_done",         appleKey: "Done",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_edit",         appleKey: "Edit",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_fastForward",  appleKey: "Fast Forward",                     glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_organize",     appleKey: "Organize",                         glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_pause",        appleKey: "Pause",                            glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_play",         appleKey: "Play",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_redo",         appleKey: "Redo",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_reply",        appleKey: "Reply",                            glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_rewind",       appleKey: "Rewind",                           glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_save",         appleKey: "Save",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_search",       appleKey: "Search",                           glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_stop",         appleKey: "Stop",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "barButton_undo",         appleKey: "Undo",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "delete",                 appleKey: "Delete",                           glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "find_jump",              appleKey: "315.title",                        glossaryFilename: "TextEdit"            ),
-    NeededLocalisation(targetKey: "find_next",              appleKey: "312.title",                        glossaryFilename: "TextEdit"            ),
-    NeededLocalisation(targetKey: "find_previous",          appleKey: "314.title",                        glossaryFilename: "TextEdit"            ),
-    NeededLocalisation(targetKey: "find_useSelection",      appleKey: "316.title",                        glossaryFilename: "TextEdit"            ),
-    NeededLocalisation(targetKey: "navigation_back",        appleKey: "Back",                             glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "refresh",                appleKey: "Refresh",                          glossaryFilename: "UIKitCore"           ),
-    NeededLocalisation(targetKey: "scrollView_zoomIn",      appleKey: "438.title",                        glossaryFilename: "WebBrowser"          ),
-    NeededLocalisation(targetKey: "scrollView_zoomOut",     appleKey: "439.title",                        glossaryFilename: "WebBrowser"          ),
-    NeededLocalisation(targetKey: "scrollView_zoomReset",   appleKey: "863.title",                        glossaryFilename: "WebBrowser"          ),
-    NeededLocalisation(targetKey: "window_close",           appleKey: "Close Window",                     glossaryFilename: "AppKit"              ),
-    NeededLocalisation(targetKey: "window_cycle",           appleKey: "Cycle Through Windows",            glossaryFilename: "AppKit"              ),
+    NeededLocalisation(targetKey: "app_newWindow",         english: "New Window"),
+    NeededLocalisation(targetKey: "app_settings",          english: "Settings"),
+    NeededLocalisation(targetKey: "barButton_action",      english: "Share"),
+    NeededLocalisation(targetKey: "barButton_add",         english: "Add"),
+    NeededLocalisation(targetKey: "barButton_bookmarks",   english: "Bookmarks"),
+    NeededLocalisation(targetKey: "barButton_camera",      english: "Camera"),
+    NeededLocalisation(targetKey: "barButton_cancel",      english: "Cancel"),
+    NeededLocalisation(targetKey: "barButton_close",       english: "Close"),
+    NeededLocalisation(targetKey: "barButton_compose",     english: "Compose"),
+    NeededLocalisation(targetKey: "barButton_done",        english: "Done"),
+    NeededLocalisation(targetKey: "barButton_edit",        english: "Edit"),
+    NeededLocalisation(targetKey: "barButton_fastForward", english: "Fast Forward"),
+    NeededLocalisation(targetKey: "barButton_organize",    english: "Organize"),
+    NeededLocalisation(targetKey: "barButton_pause",       english: "Pause"),
+    NeededLocalisation(targetKey: "barButton_play",        english: "Play"),
+    NeededLocalisation(targetKey: "barButton_redo",        english: "Redo"),
+    NeededLocalisation(targetKey: "barButton_reply",       english: "Reply"),
+    NeededLocalisation(targetKey: "barButton_rewind",      english: "Rewind"),
+    NeededLocalisation(targetKey: "barButton_save",        english: "Save"),
+    NeededLocalisation(targetKey: "barButton_search",      english: "Search"),
+    NeededLocalisation(targetKey: "barButton_stop",        english: "Stop"),
+    NeededLocalisation(targetKey: "barButton_undo",        english: "Undo"),
+    NeededLocalisation(targetKey: "delete",                english: "Delete"),
+    NeededLocalisation(targetKey: "find_jump",             english: "Jump to Selection"),
+    NeededLocalisation(targetKey: "find_next",             english: "Find Next"),
+    NeededLocalisation(targetKey: "find_previous",         english: "Find Previous"),
+    NeededLocalisation(targetKey: "find_useSelection",     english: "Use Selection for Find"),
+    NeededLocalisation(targetKey: "navigation_back",       english: "Back"),
+    NeededLocalisation(targetKey: "refresh",               english: "Refresh"),
+    NeededLocalisation(targetKey: "scrollView_zoomIn",     english: "Zoom In"),
+    NeededLocalisation(targetKey: "scrollView_zoomOut",    english: "Zoom Out"),
+    NeededLocalisation(targetKey: "scrollView_zoomReset",  english: "Actual Size"),
+    NeededLocalisation(targetKey: "window_close",          english: "Close Window"),
+    NeededLocalisation(targetKey: "window_cycle",          english: "Cycle Through Windows"),
 ]
 
 struct Localisation {
@@ -72,7 +72,7 @@ let localisations = [
     Localisation(code: "da", volumeName: "Danish"),
     Localisation(code: "de", volumeName: "German"),
     Localisation(code: "el", volumeName: "Greek"),
-    Localisation(code: "en", volumeName: "Australian English"), // Apple does not provide a glossary for en so it will need updating manually after generation (organise/organize).
+    Localisation(code: "en", volumeName: "???"),
     Localisation(code: "en-AU", volumeName: "Australian English"),
     Localisation(code: "en-GB", volumeName: "British English"),
     Localisation(code: "es", volumeName: "Spanish"),
@@ -143,89 +143,86 @@ extension XMLNode {
 
 /// A localisation entry parsed from a glossary.
 struct LocalisationEntry {
-    /// The file where the entry was read from.
-    let fileURL: URL
-    /// The usage description to help with translation.
-    let comment: String?
-    /// The key to look up this string. This is optional because some Apple strings files use just whitespace as a key and NSXMLDocument can not read whitespace-only text elements.
-    let key: String?
     /// The English text.
     let base: String
     /// The localised text.
     let translation: String
 }
 
-func readLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEntry] {
-    let doc = try! XMLDocument(contentsOf: fileURL, options: [.nodePreserveWhitespace])
+func readLocalisationEntriesFromFile(at fileURL: URL, allowedBases: Set<String>) -> [LocalisationEntry] {
+    autoreleasepool {
+        let doc = try! XMLDocument(contentsOf: fileURL, options: [.nodePreserveWhitespace])
 
-    return doc.rootElement()!.elements(forName: "File").flatMap { file -> [LocalisationEntry] in
-        file.elements(forName: "TextItem").compactMap { textItem -> LocalisationEntry? in
-            let translationSet = textItem.singleChild(withName: "TranslationSet")!
+        return doc.rootElement()!.elements(forName: "File").flatMap { file -> [LocalisationEntry] in
+            file.elements(forName: "TextItem").compactMap { textItem -> LocalisationEntry? in
+                let translationSet = textItem.singleChild(withName: "TranslationSet")!
 
-            guard let base = translationSet.singleChild(withName: "base")!.textOfSingleChild, let translation = translationSet.singleChild(withName: "tran")!.textOfSingleChild else {
-                return nil
+                guard
+                    let base = translationSet.singleChild(withName: "base")!.textOfSingleChild,
+                    allowedBases.contains(base),
+                    let translation = translationSet.singleChild(withName: "tran")!.textOfSingleChild
+                    else {
+                        return nil
+                }
+
+                return LocalisationEntry(base: base, translation: translation)
             }
-
-            return LocalisationEntry(
-                fileURL: fileURL,
-                comment: textItem.singleChild(withName: "Description")!.textOfSingleChild,
-                key: textItem.singleChild(withName: "Position")!.textOfSingleChild,
-                base: base,
-                translation: translation
-            )
         }
     }
-}
-
-func memoisedReadLocalisationEntriesFromFile(at fileURL: URL) -> [LocalisationEntry] {
-    enum __ { static var results: [URL: [LocalisationEntry]] = [:] }
-
-    if let existingResult = __.results[fileURL] {
-        return existingResult
-    }
-
-    let newResult = readLocalisationEntriesFromFile(at: fileURL)
-    __.results[fileURL] = newResult
-    return newResult
 }
 
 // MARK: - The script itself
 
+let allowedBases = Set<String>(neededLocalisations.map{ $0.english })
+
 let volumes = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])!
 
 for localisation in localisations {
-    // This reduces peak memory usage from ~2GB to ~200MB.
-    autoreleasepool { () -> Void in
+    autoreleasepool {
+        let lines: [String]
+        if localisation.code == "en" {
+            lines = neededLocalisations.compactMap { neededLocalisation -> String? in
+                return """
+                "\(neededLocalisation.targetKey)" = "\(neededLocalisation.english)";
+                """
+            }
+        } else {
+            let matchingVolumes = volumes.filter { fileURL -> Bool in
+                fileURL.lastPathComponent.contains(localisation.volumeName)
+            }
 
-        let matchingVolumes = volumes.filter { fileURL -> Bool in
-            fileURL.lastPathComponent.contains(localisation.volumeName)
-        }
+            print("ℹ️ Localising \(localisation.volumeName) (\(localisation.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
+            precondition(matchingVolumes.count == 2)
 
-        print("ℹ️ Localising \(localisation.volumeName) (\(localisation.code)) from \(matchingVolumes.count) volumes.") // There should be 2 volumes.
-
-        let lines = neededLocalisations.compactMap { neededLocalisation -> String? in
             let localisationEntries = matchingVolumes.flatMap { volumeURL -> [LocalisationEntry] in
-                let glossaryFilePaths = try! FileManager.default.contentsOfDirectory(at: volumeURL, includingPropertiesForKeys: nil, options: []).filter { fileURL in
-                    fileURL.lastPathComponent.contains(neededLocalisation.glossaryFilename)
-                }
-
+                let glossaryFilePaths = try! FileManager.default.contentsOfDirectory(at: volumeURL, includingPropertiesForKeys: nil, options: [])
                 return glossaryFilePaths.flatMap { fileURL -> [LocalisationEntry] in
-                    memoisedReadLocalisationEntriesFromFile(at: fileURL).filter { entry in
-                        entry.key == neededLocalisation.appleKey
-                    }
+                    readLocalisationEntriesFromFile(at: fileURL, allowedBases: allowedBases)
                 }
             }
+            print("✅ Read \(localisationEntries.count) localisation entries.")
 
-            let translations: Set<String> = Set<String>(localisationEntries.map { $0.translation })
-
-            guard let translation = translations.single else {
-                print("❌ Wrong number of matches for \(neededLocalisation.appleKey) in files matching \(neededLocalisation.glossaryFilename): \(translations)")
-                return nil
+            var translationsByEnglishText: [String: [String: Int]] = [:]
+            for entry in localisationEntries {
+                var translationsForThisEnglishText = translationsByEnglishText[entry.base] ?? [:]
+                var countsForThisTranslation = translationsForThisEnglishText[entry.translation] ?? 0
+                countsForThisTranslation += 1
+                translationsForThisEnglishText[entry.translation] = countsForThisTranslation
+                translationsByEnglishText[entry.base] = translationsForThisEnglishText
             }
+            print("✅ There are \(translationsByEnglishText.count) unique English strings.")
 
-            return """
-            "\(neededLocalisation.targetKey)" = "\(translation)";
-            """
+            lines = neededLocalisations.compactMap { neededLocalisation -> String? in
+                let translations = translationsByEnglishText[neededLocalisation.english]!
+
+                let mostCommonTranslation = (translations.max {
+                    $0.value < $1.value
+                    }!).key
+
+                return """
+                "\(neededLocalisation.targetKey)" = "\(mostCommonTranslation)";
+                """
+            }
         }
 
         let targetStringsFileURL = outputDirectory.appendingPathComponents(["\(localisation.code).lproj", "Localizable.strings"])
