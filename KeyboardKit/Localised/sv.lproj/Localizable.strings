@@ -10,8 +10,8 @@
 "barButton_close" = "Stäng";
 "barButton_compose" = "Skapa";
 "barButton_done" = "Klar";
-"barButton_edit" = "Ändra";
-"barButton_fastForward" = "Sök framåt";
+"barButton_edit" = "Ändra"; // Matches the bar button text. More common in Apple strings files: Redigera
+"barButton_fastForward" = "Sök framåt"; // Matches the bar button accessibility label. More common in Apple strings files: Spola framåt
 "barButton_organize" = "Ordna";
 "barButton_pause" = "Pausa";
 "barButton_play" = "Spela";
@@ -20,7 +20,7 @@
 "barButton_rewind" = "Sök bakåt";
 "barButton_save" = "Spara";
 "barButton_search" = "Sök";
-"barButton_stop" = "Stoppa"; // Accessibility label is Stopp (noun). Going with the verb instead, which also matches the Safari for Mac menu item.
+"barButton_stop" = "Stoppa"; // Accessibility label is Stopp (noun), which is also more common in Apple strings files. Going with the verb instead, which also matches the Safari for Mac menu item.
 "barButton_undo" = "Ångra";
 "delete" = "Radera";
 "find_jump" = "Gå till markering";

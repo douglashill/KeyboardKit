@@ -8,7 +8,7 @@
 "barButton_camera" = "Kamera";
 "barButton_cancel" = "Avbryt";
 "barButton_close" = "Lukk";
-"barButton_compose" = "Ny melding";
+"barButton_compose" = "Ny melding"; // This matches the iOS Mail accessibility label. More common in Apple strings files: Skriv
 "barButton_done" = "Ferdig";
 "barButton_edit" = "Rediger";
 "barButton_fastForward" = "Spol framover";

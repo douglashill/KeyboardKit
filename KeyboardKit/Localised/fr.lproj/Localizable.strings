@@ -8,9 +8,9 @@
 "barButton_camera" = "Appareil photo";
 "barButton_cancel" = "Annuler";
 "barButton_close" = "Fermer";
-"barButton_compose" = "Rédiger";
+"barButton_compose" = "Composer"; // This is most common in Apple strings files. The iOS Mail app uses Rédiger but that’s more specific (writing) although other languages like Spanish are using a word that translates most to writing.
 "barButton_done" = "OK";
-"barButton_edit" = "Modifier";
+"barButton_edit" = "Modifier"; // This matches the actual button text. Édition is more common in Apple strings files but does not match.
 "barButton_fastForward" = "Avance rapide";
 "barButton_organize" = "Organiser";
 "barButton_pause" = "Pause";

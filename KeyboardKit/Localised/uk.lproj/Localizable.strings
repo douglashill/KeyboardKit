@@ -10,9 +10,9 @@
 "barButton_close" = "Закрити";
 "barButton_compose" = "Написати";
 "barButton_done" = "Готово";
-"barButton_edit" = "Змінити";
+"barButton_edit" = "Змінити"; // Matches bar button text. More common in Apple strings files: Редагування
 "barButton_fastForward" = "Мотати вперед";
-"barButton_organize" = "Організувати";
+"barButton_organize" = "Організувати"; // More common in Apple strings files: Упорядкувати
 "barButton_pause" = "Призупинити";
 "barButton_play" = "Відтворити";
 "barButton_redo" = "Повторити";

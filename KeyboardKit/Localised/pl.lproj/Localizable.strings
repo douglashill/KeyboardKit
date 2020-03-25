@@ -2,18 +2,18 @@
 
 "app_newWindow" = "Nowe okno";
 "app_settings" = "Ustawienia";
-"barButton_action" = "Wyślij"; // Possible alternative: Udostępnij
+"barButton_action" = "Udostępnij"; // This is most common in Apple strings files and matches Safari and Photos. Possible alternative: Wyślij (which is Send rather than Share).
 "barButton_add" = "Dodaj";
 "barButton_bookmarks" = "Zakładki";
 "barButton_camera" = "Aparat";
 "barButton_cancel" = "Anuluj";
 "barButton_close" = "Zamknij";
 "barButton_compose" = "Utwórz";
-"barButton_done" = "OK";
+"barButton_done" = "OK"; // Matches the bar button text. More common in Apple strings files: Gotowe (which is for example the text on the close button in the video player in the iOS TV app).
 "barButton_edit" = "Edycja";
 "barButton_fastForward" = "Szybko do przodu";
 "barButton_organize" = "Uporządkuj";
-"barButton_pause" = "Pauza";
+"barButton_pause" = "Wstrzymaj"; // This is most common in Apple stings files and matches the iOS Music app. An alternative would be Pauza which matches the iOS TV app.
 "barButton_play" = "Odtwarzaj";
 "barButton_redo" = "Przywróć";
 "barButton_reply" = "Odpowiedz";

@@ -13,10 +13,10 @@
 "barButton_edit" = "Wijzig";
 "barButton_fastForward" = "Spoel vooruit";
 "barButton_organize" = "Orden";
-"barButton_pause" = "Pauzeer"; // The accessibility label is Pauze, which is the noun. Went with the verb instead.
+"barButton_pause" = "Pauze"; // This looks like it’s a noun, but it’s more common in Apple strings files, and it matches the bar button accessibility label, iOS TV and Music apps. Verb alternative: Pauzeer
 "barButton_play" = "Speel af";
 "barButton_redo" = "Opnieuw";
-"barButton_reply" = "Reageer"; // The accessibility label is Antwoord, which is the noun. Went with the verb instead.
+"barButton_reply" = "Antwoord"; // This looks like it’s a noun, but it’s more common in Apple strings files, and it matches the bar button accessibility label and iOS Mail app. Verb alternative: Reageer
 "barButton_rewind" = "Spoel terug";
 "barButton_save" = "Bewaar";
 "barButton_search" = "Zoek";

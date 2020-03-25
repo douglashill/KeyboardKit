@@ -13,7 +13,7 @@
 "barButton_edit" = "Szerkesztés";
 "barButton_fastForward" = "Gyors előretekerés";
 "barButton_organize" = "Szervezés"; // Possible alternative: Rendszerezés
-"barButton_pause" = "Szüneteltetés";
+"barButton_pause" = "Szüneteltetés"; // This matches the iOS TV app, iOS Music app, and Mac Music app. However Szünet is more common in Apple strings files.
 "barButton_play" = "Lejátszás";
 "barButton_redo" = "Ismétlés";
 "barButton_reply" = "Válasz";
@@ -26,7 +26,7 @@
 "find_jump" = "Ugrás a kijelölésre";
 "find_next" = "Következő keresése";
 "find_previous" = "Előző keresése";
-"find_useSelection" = "A kijelölés használata kereséshez";
+"find_useSelection" = "A kijelölés használata kereséshez"; // This matches TextEdit. More common in Apple strings files: Kijelölés használata a kereséshez
 "navigation_back" = "Vissza";
 "refresh" = "Frissítés";
 "scrollView_zoomIn" = "Nagyítás";

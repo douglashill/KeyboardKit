@@ -16,7 +16,7 @@
 "barButton_pause" = "หยุดพัก";
 "barButton_play" = "เล่น";
 "barButton_redo" = "ทำกลับมาใหม่";
-"barButton_reply" = "ตอบ";
+"barButton_reply" = "ตอบกลับ"; // Most common in Apple strings files and matches iOS Mail. However the bar button accessibility label is just ตอบ
 "barButton_rewind" = "เลื่อนถอยกลับ";
 "barButton_save" = "บันทึก";
 "barButton_search" = "ค้นหา";

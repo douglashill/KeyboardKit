@@ -8,9 +8,9 @@
 "barButton_camera" = "Fotoaparát";
 "barButton_cancel" = "Zrušit";
 "barButton_close" = "Zavřít";
-"barButton_compose" = "Sestavit";
+"barButton_compose" = "Sestavit"; // Napsat is a more common translation in Apple strings files but does not match the accessibility label in iOS Mail.
 "barButton_done" = "Hotovo";
-"barButton_edit" = "Upravit";
+"barButton_edit" = "Upravit"; // Úpravy is a more common translation in Apple strings files but does not match the iOS Done button.
 "barButton_fastForward" = "Rychle vpřed";
 "barButton_organize" = "Uspořádat";
 "barButton_pause" = "Pozastavit";

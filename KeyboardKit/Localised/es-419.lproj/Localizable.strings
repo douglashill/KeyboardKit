@@ -9,11 +9,11 @@
 "barButton_cancel" = "Cancelar";
 "barButton_close" = "Cerrar";
 "barButton_compose" = "Redactar";
-"barButton_done" = "Listo";
-"barButton_edit" = "Editar";
+"barButton_done" = "Listo"; // A more common translation in Apple string files is ‘OK’, but that does not match the iOS button text.
+"barButton_edit" = "Editar"; // A more common translation in Apple string files is Edición, but that does not match the iOS button text.
 "barButton_fastForward" = "Avance rápido";
 "barButton_organize" = "Organizar";
-"barButton_pause" = "Pausa"; // possible alternative: Pausar
+"barButton_pause" = "Pausa"; // Possible alternative: Pausar
 "barButton_play" = "Reproducir";
 "barButton_redo" = "Rehacer";
 "barButton_reply" = "Responder";

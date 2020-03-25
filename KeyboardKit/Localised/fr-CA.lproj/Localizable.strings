@@ -9,8 +9,8 @@
 "barButton_cancel" = "Annuler";
 "barButton_close" = "Fermer";
 "barButton_compose" = "Rédiger";
-"barButton_done" = "OK";
-"barButton_edit" = "Modifier";
+"barButton_done" = "OK"; // A more common translation in Apple string files is Terminé, but that does not match the iOS button text.
+"barButton_edit" = "Modifier"; // A more common translation in Apple string files is Édition, but that does not match the iOS button text.
 "barButton_fastForward" = "Avance rapide";
 "barButton_organize" = "Organiser";
 "barButton_pause" = "Pause";

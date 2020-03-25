@@ -10,7 +10,7 @@
 "barButton_close" = "Fechar";
 "barButton_compose" = "Compor";
 "barButton_done" = "OK";
-"barButton_edit" = "Editar";
+"barButton_edit" = "Editar"; // Matches the bar button text. More common in Apple strings files: Edição
 "barButton_fastForward" = "Avanço rápido"; // Possible alternative: Avançar rápido
 "barButton_organize" = "Organizar";
 "barButton_pause" = "Pausar";
@@ -19,7 +19,7 @@
 "barButton_reply" = "Responder";
 "barButton_rewind" = "Rebobinar";
 "barButton_save" = "Guardar";
-"barButton_search" = "Pesquisar";
+"barButton_search" = "Pesquisa"; // Matches iOS search field placeholders.
 "barButton_stop" = "Parar";
 "barButton_undo" = "Desfazer";
 "delete" = "Apagar";
