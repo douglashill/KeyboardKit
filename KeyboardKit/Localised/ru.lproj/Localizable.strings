@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Новое окно";
 "app_settings" = "Настройки";
@@ -8,29 +8,27 @@
 "barButton_camera" = "Камера";
 "barButton_cancel" = "Отменить";
 "barButton_close" = "Закрыть";
-"barButton_compose" = "Создать";
+"barButton_compose" = "Написать"; // Matches the bar button and Mail accessibility labels. More common in Apple strings files: Создать
 "barButton_done" = "Готово";
-"barButton_edit" = "Редактировать";
-"barButton_fastForward" = "Перемотать вперед";
-"barButton_organize" = "Разместить";
+"barButton_edit" = "Править"; // Matches bar button text. More common in Apple strings files: Правка
+"barButton_fastForward" = "Перемотка вперед";
+"barButton_organize" = "Расположить";
 "barButton_pause" = "Приостановить";
 "barButton_play" = "Воспроизвести";
 "barButton_redo" = "Повторить";
-"barButton_refresh" = "Обновить";
 "barButton_reply" = "Ответить";
-"barButton_rewind" = "Перемотать назад";
+"barButton_rewind" = "Перемотка назад"; // Went with this to have a consistent form with fast-forward. More common in Apple strings files: Перемотать назад
 "barButton_save" = "Сохранить";
-"barButton_search" = "Поиск";
+"barButton_search" = "Поиск"; // Most common in Apple strings files and matches iOS search fields. However bar button accessibility label is Искать.
 "barButton_stop" = "Остановить";
-"barButton_trash" = "Удалить";
-"barButton_undo" = "Отменить";
+"barButton_undo" = "Отменить"; // Most common in Apple strings files. Possible alternative: Не применять. Pages on iOS uses a mix: the undo button accessibility label is Отменить but when you long press it to show the menu to pick from undo or redo it says Не применять (which is combined with the name of the action to be undone).
 "delete" = "Удалить";
-"find_jump" = "Перейти к выбранному тексту";
+"find_jump" = "Перейти к выбранному тексту"; // This means ‘Go to selected text’, which has a clearer meaning than the English text. More common in Apple strings files: Перейти к выбранному (Go to selection).
 "find_next" = "Найти далее";
 "find_previous" = "Найти ранее";
 "find_useSelection" = "Найти выбранное";
 "navigation_back" = "Назад";
-"scrollView_refresh" = "Обновить";
+"refresh" = "Обновить";
 "scrollView_zoomIn" = "Увеличить";
 "scrollView_zoomOut" = "Уменьшить";
 "scrollView_zoomReset" = "Реальный размер";

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nové okno";
 "app_settings" = "Nastavenia";
@@ -11,28 +11,26 @@
 "barButton_compose" = "Napísať";
 "barButton_done" = "Hotovo";
 "barButton_edit" = "Upraviť";
-"barButton_fastForward" = "Prevíjať dopredu";
+"barButton_fastForward" = "Prevíjať dopredu"; // Went with the most common translation in Apple strings files. Possible alternative: Rýchle prevíjanie dopredu
 "barButton_organize" = "Usporiadať";
 "barButton_pause" = "Pozastaviť";
 "barButton_play" = "Prehrať";
 "barButton_redo" = "Obnoviť";
-"barButton_refresh" = "Osviežiť";
 "barButton_reply" = "Odpovedať";
-"barButton_rewind" = "Prevíjať dozadu";
+"barButton_rewind" = "Prevíjať dozadu"; // Went with the most common translation in Apple strings files. Possible alternative: Prevíjanie dozadu
 "barButton_save" = "Uložiť";
-"barButton_search" = "Vyhľadávanie";
+"barButton_search" = "Vyhľadať";
 "barButton_stop" = "Zastaviť";
-"barButton_trash" = "Vymazať";
 "barButton_undo" = "Odvolať";
 "delete" = "Vymazať";
 "find_jump" = "Prejsť na výber";
 "find_next" = "Nájsť ďalšie";
 "find_previous" = "Nájsť predošlé";
 "find_useSelection" = "Použiť výber pri hľadaní";
-"navigation_back" = "Naspäť";
-"scrollView_refresh" = "Osviežiť";
-"scrollView_zoomIn" = "Priblížiť";
-"scrollView_zoomOut" = "Oddialiť";
+"navigation_back" = "Naspäť"; // Matches navigation controller button text. More common in Apple strings files: Späť
+"refresh" = "Osviežiť";
+"scrollView_zoomIn" = "Zväčšiť"; // This is most common in Apple strings files and seems to have a more appropriate meaning than the alternative Priblížiť (from Apple’s WebBrowser glossary file).
+"scrollView_zoomOut" = "Zmenšiť"; // This is most common in Apple strings files and seems to have a more appropriate meaning than the alternative Oddialiť (from Apple’s WebBrowser glossary file).
 "scrollView_zoomReset" = "Skutočná veľkosť";
 "window_close" = "Zatvoriť okno";
 "window_cycle" = "Prechádzať oknami";

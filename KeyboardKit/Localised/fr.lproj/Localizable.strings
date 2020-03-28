@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nouvelle fenêtre";
 "app_settings" = "Réglages";
@@ -8,21 +8,19 @@
 "barButton_camera" = "Appareil photo";
 "barButton_cancel" = "Annuler";
 "barButton_close" = "Fermer";
-"barButton_compose" = "Rédiger";
+"barButton_compose" = "Composer"; // This is most common in Apple strings files. The iOS Mail app uses Rédiger but that’s more specific (writing) although other languages like Spanish are using a word that translates most to writing.
 "barButton_done" = "OK";
-"barButton_edit" = "Modifier";
+"barButton_edit" = "Modifier"; // This matches the actual button text. Édition is more common in Apple strings files but does not match.
 "barButton_fastForward" = "Avance rapide";
 "barButton_organize" = "Organiser";
 "barButton_pause" = "Pause";
 "barButton_play" = "Lecture";
 "barButton_redo" = "Rétablir";
-"barButton_refresh" = "Actualiser";
 "barButton_reply" = "Répondre";
 "barButton_rewind" = "Retour rapide";
 "barButton_save" = "Enregistrer";
 "barButton_search" = "Rechercher";
-"barButton_stop" = "Arrêter";
-"barButton_trash" = "Supprimer";
+"barButton_stop" = "Arrêter"; // The accessibility label is Arrêt. However this should be a verb, not a noun.
 "barButton_undo" = "Annuler";
 "delete" = "Supprimer";
 "find_jump" = "Aller à la sélection";
@@ -30,7 +28,7 @@
 "find_previous" = "Rechercher le précédent";
 "find_useSelection" = "Rechercher la sélection";
 "navigation_back" = "Retour";
-"scrollView_refresh" = "Actualiser";
+"refresh" = "Actualiser";
 "scrollView_zoomIn" = "Zoom avant";
 "scrollView_zoomOut" = "Zoom arrière";
 "scrollView_zoomReset" = "Taille réelle";

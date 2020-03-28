@@ -1,8 +1,8 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Нове вікно";
 "app_settings" = "Параметри";
-"barButton_action" = "Спільний доступ";
+"barButton_action" = "Ділитись";
 "barButton_add" = "Додати";
 "barButton_bookmarks" = "Закладки";
 "barButton_camera" = "Камера";
@@ -10,19 +10,17 @@
 "barButton_close" = "Закрити";
 "barButton_compose" = "Написати";
 "barButton_done" = "Готово";
-"barButton_edit" = "Змінити";
+"barButton_edit" = "Змінити"; // Matches bar button text. More common in Apple strings files: Редагування
 "barButton_fastForward" = "Мотати вперед";
-"barButton_organize" = "Упорядкувати";
+"barButton_organize" = "Організувати"; // More common in Apple strings files: Упорядкувати
 "barButton_pause" = "Призупинити";
 "barButton_play" = "Відтворити";
 "barButton_redo" = "Повторити";
-"barButton_refresh" = "Оновити";
 "barButton_reply" = "Відповісти";
 "barButton_rewind" = "Мотати назад";
 "barButton_save" = "Зберегти";
 "barButton_search" = "Пошук";
-"barButton_stop" = "Стоп";
-"barButton_trash" = "Видалити";
+"barButton_stop" = "Зупинити";
 "barButton_undo" = "Відмінити";
 "delete" = "Видалити";
 "find_jump" = "Перейти до виділеного";
@@ -30,7 +28,7 @@
 "find_previous" = "Знайти попереднє";
 "find_useSelection" = "Використати виділене для пошуку";
 "navigation_back" = "Назад";
-"scrollView_refresh" = "Оновити";
+"refresh" = "Оновити";
 "scrollView_zoomIn" = "Наблизити";
 "scrollView_zoomOut" = "Віддалити";
 "scrollView_zoomReset" = "Справжній розмір";

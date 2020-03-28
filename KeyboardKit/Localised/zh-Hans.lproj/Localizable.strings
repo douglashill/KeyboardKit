@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "新建窗口";
 "app_settings" = "设置";
@@ -16,13 +16,11 @@
 "barButton_pause" = "暂停";
 "barButton_play" = "播放";
 "barButton_redo" = "重做";
-"barButton_refresh" = "刷新";
 "barButton_reply" = "回复";
 "barButton_rewind" = "倒回";
 "barButton_save" = "存储";
 "barButton_search" = "搜索";
 "barButton_stop" = "停止";
-"barButton_trash" = "删除";
 "barButton_undo" = "撤销";
 "delete" = "删除";
 "find_jump" = "跳到所选内容";
@@ -30,7 +28,7 @@
 "find_previous" = "查找上一个";
 "find_useSelection" = "查找所选内容";
 "navigation_back" = "返回";
-"scrollView_refresh" = "刷新";
+"refresh" = "刷新";
 "scrollView_zoomIn" = "放大";
 "scrollView_zoomOut" = "缩小";
 "scrollView_zoomReset" = "实际大小";

@@ -96,13 +96,13 @@ private extension UIBarButtonItem.SystemItem {
         case .pause: return .barButton_pause
         case .play: return .barButton_play
         case .redo: return .barButton_redo
-        case .refresh: return .barButton_refresh
+        case .refresh: return .refresh
         case .reply: return .barButton_reply
         case .rewind: return .barButton_rewind
         case .save: return .barButton_save
         case .search: return .barButton_search
         case .stop: return .barButton_stop
-        case .trash: return .barButton_trash
+        case .trash: return .delete
         case .undo: return .barButton_undo
         // The system does not provide an accessibility label for page curl.
         case .fixedSpace, .flexibleSpace, .pageCurl: fallthrough @unknown default: return nil

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Cửa sổ mới";
 "app_settings" = "Cài đặt";
@@ -8,7 +8,7 @@
 "barButton_camera" = "Camera";
 "barButton_cancel" = "Hủy";
 "barButton_close" = "Đóng";
-"barButton_compose" = "Soạn thảo";
+"barButton_compose" = "Soạn thảo"; // Matches the bar button and iOS Mail app accessibility labels. More common in Apple strings files: Soạn
 "barButton_done" = "Xong";
 "barButton_edit" = "Sửa";
 "barButton_fastForward" = "Tua đi nhanh";
@@ -16,23 +16,21 @@
 "barButton_pause" = "Tạm dừng";
 "barButton_play" = "Phát";
 "barButton_redo" = "Làm lại";
-"barButton_refresh" = "Làm mới";
 "barButton_reply" = "Trả lời";
 "barButton_rewind" = "Tua lại";
 "barButton_save" = "Lưu";
 "barButton_search" = "Tìm kiếm";
 "barButton_stop" = "Dừng";
-"barButton_trash" = "Xóa";
 "barButton_undo" = "Hoàn tác";
 "delete" = "Xóa";
-"find_jump" = "Chuyển đến Lựa chọn";
+"find_jump" = "Chuyển đến lựa chọn";
 "find_next" = "Tìm mục tiếp theo";
 "find_previous" = "Tìm mục trước";
 "find_useSelection" = "Sử dụng lựa chọn để tìm";
 "navigation_back" = "Quay lại";
-"scrollView_refresh" = "Làm mới";
+"refresh" = "Làm mới";
 "scrollView_zoomIn" = "Phóng to";
 "scrollView_zoomOut" = "Thu nhỏ";
 "scrollView_zoomReset" = "Kích cỡ thực";
-"window_close" = "Đóng Cửa sổ";
-"window_cycle" = "Luân chuyển qua các Cửa sổ";
+"window_close" = "Đóng cửa sổ";
+"window_cycle" = "Luân chuyển qua các cửa sổ";

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "新規ウインドウ";
 "app_settings" = "設定";
@@ -8,7 +8,7 @@
 "barButton_camera" = "カメラ";
 "barButton_cancel" = "キャンセル";
 "barButton_close" = "閉じる";
-"barButton_compose" = "合成";
+"barButton_compose" = "新規作成"; // This matches iOS Mail accessibility label (Create new). More common in Apple strings files is just the second word: 作成 (create)
 "barButton_done" = "完了";
 "barButton_edit" = "編集";
 "barButton_fastForward" = "早送り";
@@ -16,13 +16,11 @@
 "barButton_pause" = "一時停止";
 "barButton_play" = "再生";
 "barButton_redo" = "やり直す";
-"barButton_refresh" = "更新";
 "barButton_reply" = "返信";
 "barButton_rewind" = "早戻し";
 "barButton_save" = "保存";
 "barButton_search" = "検索";
-"barButton_stop" = "中止";
-"barButton_trash" = "削除";
+"barButton_stop" = "停止"; // This matches the iOS Safari stop button and is more common in Apple strings files. However the bar button accessibility label is 中止
 "barButton_undo" = "取り消す";
 "delete" = "削除";
 "find_jump" = "選択部分へジャンプ";
@@ -30,7 +28,7 @@
 "find_previous" = "前を検索";
 "find_useSelection" = "選択部分を検索に使用";
 "navigation_back" = "戻る";
-"scrollView_refresh" = "更新";
+"refresh" = "更新";
 "scrollView_zoomIn" = "拡大";
 "scrollView_zoomOut" = "縮小";
 "scrollView_zoomReset" = "実際のサイズ";

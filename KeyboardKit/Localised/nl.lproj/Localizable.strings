@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nieuw venster";
 "app_settings" = "Instellingen";
@@ -13,16 +13,14 @@
 "barButton_edit" = "Wijzig";
 "barButton_fastForward" = "Spoel vooruit";
 "barButton_organize" = "Orden";
-"barButton_pause" = "Pauzeer";
+"barButton_pause" = "Pauze"; // This looks like it’s a noun, but it’s more common in Apple strings files, and it matches the bar button accessibility label, iOS TV and Music apps. Verb alternative: Pauzeer
 "barButton_play" = "Speel af";
 "barButton_redo" = "Opnieuw";
-"barButton_refresh" = "Vernieuw";
-"barButton_reply" = "Reageer";
+"barButton_reply" = "Antwoord"; // This looks like it’s a noun, but it’s more common in Apple strings files, and it matches the bar button accessibility label and iOS Mail app. Verb alternative: Reageer
 "barButton_rewind" = "Spoel terug";
 "barButton_save" = "Bewaar";
 "barButton_search" = "Zoek";
 "barButton_stop" = "Stop";
-"barButton_trash" = "Verwijder";
 "barButton_undo" = "Herstel";
 "delete" = "Verwijder";
 "find_jump" = "Ga naar selectie";
@@ -30,7 +28,7 @@
 "find_previous" = "Zoek vorige";
 "find_useSelection" = "Gebruik selectie voor zoekactie";
 "navigation_back" = "Vorige";
-"scrollView_refresh" = "Vernieuw";
+"refresh" = "Vernieuw";
 "scrollView_zoomIn" = "Zoom in";
 "scrollView_zoomOut" = "Zoom uit";
 "scrollView_zoomReset" = "Werkelijke grootte";

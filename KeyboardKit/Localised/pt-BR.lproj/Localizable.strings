@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nova Janela";
 "app_settings" = "Ajustes";
@@ -9,20 +9,18 @@
 "barButton_cancel" = "Cancelar";
 "barButton_close" = "Fechar";
 "barButton_compose" = "Redigir";
-"barButton_done" = "Concluído";
+"barButton_done" = "OK";
 "barButton_edit" = "Editar";
-"barButton_fastForward" = "Avançar Rapidamente";
+"barButton_fastForward" = "Avanço Rápido"; // Possible alternative: Avançar Rapidamente
 "barButton_organize" = "Organizar";
 "barButton_pause" = "Pausar";
 "barButton_play" = "Reproduzir";
 "barButton_redo" = "Refazer";
-"barButton_refresh" = "Atualizar";
 "barButton_reply" = "Responder";
 "barButton_rewind" = "Retroceder";
 "barButton_save" = "Salvar";
 "barButton_search" = "Buscar";
 "barButton_stop" = "Parar";
-"barButton_trash" = "Apagar";
 "barButton_undo" = "Desfazer";
 "delete" = "Apagar";
 "find_jump" = "Saltar para Seleção";
@@ -30,7 +28,7 @@
 "find_previous" = "Buscar Anterior";
 "find_useSelection" = "Usar Seleção para Buscar";
 "navigation_back" = "Voltar";
-"scrollView_refresh" = "Atualizar";
+"refresh" = "Atualizar";
 "scrollView_zoomIn" = "Ampliar";
 "scrollView_zoomOut" = "Reduzir";
 "scrollView_zoomReset" = "Tamanho Real";

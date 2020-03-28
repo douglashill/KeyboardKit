@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "New Window";
 "app_settings" = "Settings";
@@ -16,13 +16,11 @@
 "barButton_pause" = "Pause";
 "barButton_play" = "Play";
 "barButton_redo" = "Redo";
-"barButton_refresh" = "Refresh";
 "barButton_reply" = "Reply";
 "barButton_rewind" = "Rewind";
 "barButton_save" = "Save";
 "barButton_search" = "Search";
 "barButton_stop" = "Stop";
-"barButton_trash" = "Delete";
 "barButton_undo" = "Undo";
 "delete" = "Delete";
 "find_jump" = "Jump to Selection";
@@ -30,7 +28,7 @@
 "find_previous" = "Find Previous";
 "find_useSelection" = "Use Selection for Find";
 "navigation_back" = "Back";
-"scrollView_refresh" = "Refresh";
+"refresh" = "Refresh";
 "scrollView_zoomIn" = "Zoom In";
 "scrollView_zoomOut" = "Zoom Out";
 "scrollView_zoomReset" = "Actual Size";

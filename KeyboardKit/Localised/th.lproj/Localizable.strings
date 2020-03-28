@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "หน้าต่างใหม่";
 "app_settings" = "การตั้งค่า";
@@ -16,13 +16,11 @@
 "barButton_pause" = "หยุดพัก";
 "barButton_play" = "เล่น";
 "barButton_redo" = "ทำกลับมาใหม่";
-"barButton_refresh" = "ดึงข้อมูลใหม่";
-"barButton_reply" = "ตอบกลับ";
+"barButton_reply" = "ตอบกลับ"; // Most common in Apple strings files and matches iOS Mail. However the bar button accessibility label is just ตอบ
 "barButton_rewind" = "เลื่อนถอยกลับ";
 "barButton_save" = "บันทึก";
 "barButton_search" = "ค้นหา";
 "barButton_stop" = "หยุด";
-"barButton_trash" = "ลบ";
 "barButton_undo" = "เลิกทำ";
 "delete" = "ลบ";
 "find_jump" = "ข้ามไปยังการเลือก";
@@ -30,7 +28,7 @@
 "find_previous" = "ค้นหาก่อนหน้า";
 "find_useSelection" = "ใช้การเลือกสำหรับค้นหา";
 "navigation_back" = "ย้อนกลับ";
-"scrollView_refresh" = "ดึงข้อมูลใหม่";
+"refresh" = "ดึงข้อมูลใหม่";
 "scrollView_zoomIn" = "ซูมเข้า";
 "scrollView_zoomOut" = "ซูมออก";
 "scrollView_zoomReset" = "ขนาดจริง";

@@ -1,14 +1,14 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "نافذة جديدة";
 "app_settings" = "الإعدادات";
 "barButton_action" = "مشاركة";
 "barButton_add" = "إضافة";
-"barButton_bookmarks" = "الإشارات المرجعية";
+"barButton_bookmarks" = "إشارات مرجعية";
 "barButton_camera" = "الكاميرا";
 "barButton_cancel" = "إلغاء";
 "barButton_close" = "إغلاق";
-"barButton_compose" = "إنشاء";
+"barButton_compose" = "كتابة";
 "barButton_done" = "تم";
 "barButton_edit" = "تحرير";
 "barButton_fastForward" = "تقديم سريع للأمام";
@@ -16,13 +16,11 @@
 "barButton_pause" = "إيقاف مؤقت";
 "barButton_play" = "تشغيل";
 "barButton_redo" = "إعادة";
-"barButton_refresh" = "تحديث";
 "barButton_reply" = "رد";
 "barButton_rewind" = "إرجاع";
 "barButton_save" = "حفظ";
 "barButton_search" = "بحث";
 "barButton_stop" = "إيقاف";
-"barButton_trash" = "حذف";
 "barButton_undo" = "تراجع";
 "delete" = "حذف";
 "find_jump" = "انتقال سريع إلى التحديد";
@@ -30,7 +28,7 @@
 "find_previous" = "بحث عن السابق";
 "find_useSelection" = "استخدام التحديد للبحث";
 "navigation_back" = "رجوع";
-"scrollView_refresh" = "تحديث";
+"refresh" = "تحديث";
 "scrollView_zoomIn" = "تكبير";
 "scrollView_zoomOut" = "تصغير";
 "scrollView_zoomReset" = "الحجم الفعلي";

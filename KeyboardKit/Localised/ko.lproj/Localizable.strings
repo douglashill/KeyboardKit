@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "새로운 윈도우";
 "app_settings" = "설정";
@@ -16,13 +16,11 @@
 "barButton_pause" = "일시 정지";
 "barButton_play" = "재생";
 "barButton_redo" = "실행 복귀";
-"barButton_refresh" = "새로 고침";
-"barButton_reply" = "답글";
+"barButton_reply" = "답장"; // This matches the accessibility label. Possible alternative: 답글 to match the large content title.
 "barButton_rewind" = "되감기";
 "barButton_save" = "저장";
 "barButton_search" = "검색";
 "barButton_stop" = "중단";
-"barButton_trash" = "삭제";
 "barButton_undo" = "실행 취소";
 "delete" = "삭제";
 "find_jump" = "선택 부분으로 이동";
@@ -30,7 +28,7 @@
 "find_previous" = "이전 찾기";
 "find_useSelection" = "선택 부분으로 찾기";
 "navigation_back" = "뒤로";
-"scrollView_refresh" = "새로 고침";
+"refresh" = "새로 고침";
 "scrollView_zoomIn" = "확대";
 "scrollView_zoomOut" = "축소";
 "scrollView_zoomReset" = "실제 크기";

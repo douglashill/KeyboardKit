@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Νέο παράθυρο";
 "app_settings" = "Ρυθμίσεις";
@@ -16,13 +16,11 @@
 "barButton_pause" = "Παύση";
 "barButton_play" = "Αναπαραγωγή";
 "barButton_redo" = "Επανάληψη";
-"barButton_refresh" = "Ανανέωση";
 "barButton_reply" = "Απάντηση";
-"barButton_rewind" = "Πίσω";
+"barButton_rewind" = "Γρήγορη επαναφορά";
 "barButton_save" = "Αποθήκευση";
-"barButton_search" = "Εύρεση";
+"barButton_search" = "Αναζήτηση";
 "barButton_stop" = "Διακοπή";
-"barButton_trash" = "Διαγραφή";
 "barButton_undo" = "Αναίρεση";
 "delete" = "Διαγραφή";
 "find_jump" = "Μετάβαση σε επιλογή";
@@ -30,7 +28,7 @@
 "find_previous" = "Εύρεση προηγούμενου";
 "find_useSelection" = "Χρήση επιλογής για εύρεση";
 "navigation_back" = "Πίσω";
-"scrollView_refresh" = "Ανανέωση";
+"refresh" = "Ανανέωση";
 "scrollView_zoomIn" = "Μεγέθυνση";
 "scrollView_zoomOut" = "Σμίκρυνση";
 "scrollView_zoomReset" = "Πραγματικό μέγεθος";

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nyt vindue";
 "app_settings" = "Indstillinger";
@@ -16,13 +16,11 @@
 "barButton_pause" = "Pause";
 "barButton_play" = "Afspil";
 "barButton_redo" = "Gentag";
-"barButton_refresh" = "Opdater";
 "barButton_reply" = "Svar";
 "barButton_rewind" = "Spol tilbage";
 "barButton_save" = "Gem";
 "barButton_search" = "Søg";
-"barButton_stop" = "Stop";
-"barButton_trash" = "Slet";
+"barButton_stop" = "Stop"; // The accessibility label is Afbryd. Used Stop to match Safari for Mac.
 "barButton_undo" = "Fortryd";
 "delete" = "Slet";
 "find_jump" = "Hop til det valgte";
@@ -30,7 +28,7 @@
 "find_previous" = "Find forrige";
 "find_useSelection" = "Søg med det valgte";
 "navigation_back" = "Tilbage";
-"scrollView_refresh" = "Opdater";
+"refresh" = "Opdater";
 "scrollView_zoomIn" = "Zoom ind";
 "scrollView_zoomOut" = "Zoom ud";
 "scrollView_zoomReset" = "Faktisk størrelse";

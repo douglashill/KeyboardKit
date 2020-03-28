@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Jendela Baru";
 "app_settings" = "Pengaturan";
@@ -15,14 +15,12 @@
 "barButton_organize" = "Atur";
 "barButton_pause" = "Jeda";
 "barButton_play" = "Putar";
-"barButton_redo" = "Ulang";
-"barButton_refresh" = "Segarkan";
+"barButton_redo" = "Ulang"; // The accessibility label is Ulangi. Went with Ulang to match the Mac menu bar.
 "barButton_reply" = "Balas";
-"barButton_rewind" = "Putar balik";
+"barButton_rewind" = "Putar Balik";
 "barButton_save" = "Simpan";
 "barButton_search" = "Cari";
-"barButton_stop" = "Hentikan";
-"barButton_trash" = "Hapus";
+"barButton_stop" = "Berhenti";
 "barButton_undo" = "Urung";
 "delete" = "Hapus";
 "find_jump" = "Lompat ke Pilihan";
@@ -30,7 +28,7 @@
 "find_previous" = "Temukan Sebelumnya";
 "find_useSelection" = "Gunakan Pilihan untuk Temukan";
 "navigation_back" = "Kembali";
-"scrollView_refresh" = "Segarkan";
+"refresh" = "Segarkan";
 "scrollView_zoomIn" = "Perbesar";
 "scrollView_zoomOut" = "Perkecil";
 "scrollView_zoomReset" = "Ukuran Asli";

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Nova janela";
 "app_settings" = "Definições";
@@ -10,19 +10,17 @@
 "barButton_close" = "Fechar";
 "barButton_compose" = "Compor";
 "barButton_done" = "OK";
-"barButton_edit" = "Editar";
-"barButton_fastForward" = "Avançar rápido";
+"barButton_edit" = "Editar"; // Matches the bar button text. More common in Apple strings files: Edição
+"barButton_fastForward" = "Avanço rápido"; // Possible alternative: Avançar rápido
 "barButton_organize" = "Organizar";
 "barButton_pause" = "Pausar";
 "barButton_play" = "Reproduzir";
 "barButton_redo" = "Refazer";
-"barButton_refresh" = "Atualizar";
 "barButton_reply" = "Responder";
 "barButton_rewind" = "Rebobinar";
 "barButton_save" = "Guardar";
-"barButton_search" = "Pesquisa";
+"barButton_search" = "Pesquisa"; // Matches iOS search field placeholders.
 "barButton_stop" = "Parar";
-"barButton_trash" = "Apagar";
 "barButton_undo" = "Desfazer";
 "delete" = "Apagar";
 "find_jump" = "Ir para seleção";
@@ -30,7 +28,7 @@
 "find_previous" = "Procurar anterior";
 "find_useSelection" = "Procurar seleção";
 "navigation_back" = "Anterior";
-"scrollView_refresh" = "Atualizar";
+"refresh" = "Atualizar";
 "scrollView_zoomIn" = "Ampliar";
 "scrollView_zoomOut" = "Reduzir";
 "scrollView_zoomReset" = "Tamanho real";

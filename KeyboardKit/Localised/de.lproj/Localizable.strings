@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Neues Fenster";
 "app_settings" = "Einstellungen";
@@ -13,16 +13,14 @@
 "barButton_edit" = "Bearbeiten";
 "barButton_fastForward" = "Schneller Vorlauf";
 "barButton_organize" = "Organisieren";
-"barButton_pause" = "Pause";
-"barButton_play" = "Wiedergeben";
+"barButton_pause" = "Anhalten"; // The iOS accessibility label and the Mac Music app menu command use Pause (noun). The iOS TV and Music apps use Anhalten, which was picked because it’s a verb.
+"barButton_play" = "Wiedergeben"; // The iOS accessibility label, iOS Music app, and Mac Music app menu command use Wiedergabe (noun). The iOS TV app uses Wiedergeben, which was picked because it’s a verb.
 "barButton_redo" = "Wiederholen";
-"barButton_refresh" = "Aktualisieren";
 "barButton_reply" = "Antworten";
-"barButton_rewind" = "Zurückspulen";
+"barButton_rewind" = "Schneller Rücklauf"; // Possible alternative: Zurückspulen
 "barButton_save" = "Sichern";
 "barButton_search" = "Suchen";
-"barButton_stop" = "Angehalten";
-"barButton_trash" = "Löschen";
+"barButton_stop" = "Stoppen"; // This matches the Safari for Mac menu command. The accessibility label is Stopp and that would match the Mac Music app, but the usage here is stopping loading/refreshing rather than media playback.
 "barButton_undo" = "Widerrufen";
 "delete" = "Löschen";
 "find_jump" = "Auswahl anzeigen";
@@ -30,7 +28,7 @@
 "find_previous" = "Weitersuchen (rückwärts)";
 "find_useSelection" = "Auswahl für Suche übernehmen";
 "navigation_back" = "Zurück";
-"scrollView_refresh" = "Aktualisieren";
+"refresh" = "Aktualisieren";
 "scrollView_zoomIn" = "Vergrößern";
 "scrollView_zoomOut" = "Verkleinern";
 "scrollView_zoomReset" = "Originalgröße";

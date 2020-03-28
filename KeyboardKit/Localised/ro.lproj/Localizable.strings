@@ -1,38 +1,40 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
+
+// There is a lot of variation in translations for Romanian.
+// I guess there is not a consensus on how to conjugate verbs for use as actions in software.
+// The guiding principle is first match text that’s visible on iOS without accessibility, and then try make other text consistent with those.
 
 "app_newWindow" = "Fereastră nouă";
 "app_settings" = "Configurări";
-"barButton_action" = "Partajează";
-"barButton_add" = "Adaugă";
+"barButton_action" = "Partajați";
+"barButton_add" = "Adăugați"; // More common in Apple strings files: Adaugă
 "barButton_bookmarks" = "Favorite";
 "barButton_camera" = "Cameră";
-"barButton_cancel" = "Renunță";
-"barButton_close" = "Închide";
-"barButton_compose" = "Compune";
+"barButton_cancel" = "Anulați"; // More common in Apple strings files: Renunță
+"barButton_close" = "Închideți"; // More common in Apple strings files: Închide
+"barButton_compose" = "Compuneți"; // More common in Apple strings files: Compune
 "barButton_done" = "OK";
-"barButton_edit" = "Editare";
-"barButton_fastForward" = "Repede înainte";
-"barButton_organize" = "Organizează";
-"barButton_pause" = "Suspendă";
-"barButton_play" = "Redă";
-"barButton_redo" = "Refă";
-"barButton_refresh" = "Actualizează";
-"barButton_reply" = "Răspunde";
-"barButton_rewind" = "Derulează înapoi";
-"barButton_save" = "Salvează";
+"barButton_edit" = "Editați"; // More common in Apple strings files: Editare
+"barButton_fastForward" = "Avans rapid"; // More common in Apple strings files: Repede înainte
+"barButton_organize" = "Ordonare"; // More common in Apple strings files: Organizare
+"barButton_pause" = "Suspendați"; // More common in Apple strings files: Suspendă. Another alternative which I think is the bar button accessibility label is Pauză.
+"barButton_play" = "Redați"; // More common in Apple strings files: Redă. Another alternative which I think is the bar button accessibility label is Redare.
+"barButton_redo" = "Reconfirmați"; // More common in Apple strings files: Refă
+"barButton_reply" = "Răspundeți"; // More common in Apple strings files: Răspunde
+"barButton_rewind" = "Derulare"; // More common in Apple strings files: Derulează înapoi
+"barButton_save" = "Salvați"; // More common in Apple strings files: Salvează
 "barButton_search" = "Căutare";
-"barButton_stop" = "Stop";
-"barButton_trash" = "Șterge";
-"barButton_undo" = "Anulează";
+"barButton_stop" = "Stop"; // More common in Apple strings files: Oprește
+"barButton_undo" = "Infirmați"; // More common in Apple strings files: Anulează
 "delete" = "Șterge";
 "find_jump" = "Salt la selecție";
 "find_next" = "Găsește următorul";
 "find_previous" = "Găsește anteriorul";
 "find_useSelection" = "Găsește selecția";
 "navigation_back" = "Înapoi";
-"scrollView_refresh" = "Actualizează";
+"refresh" = "Reîmprospătare"; // More common in Apple strings files: Actualizeazăs
 "scrollView_zoomIn" = "Zoom înainte";
 "scrollView_zoomOut" = "Zoom înapoi";
-"scrollView_zoomReset" = "Dimensiune reală";
+"scrollView_zoomReset" = "Dimensiune reală"; // More common in Apple strings files: Dimensiune efectivă
 "window_close" = "Închide fereastra";
 "window_cycle" = "Circulă între ferestre";

@@ -1,4 +1,4 @@
-// This file was generated from Apple localisation glossaries by ExtractLocalisedStrings.
+// Douglas Hill, March 2020
 
 "app_newWindow" = "Tetingkap Baru";
 "app_settings" = "Seting";
@@ -16,13 +16,11 @@
 "barButton_pause" = "Jeda";
 "barButton_play" = "Main";
 "barButton_redo" = "Buat Semula";
-"barButton_refresh" = "Segar Semula";
 "barButton_reply" = "Balas";
 "barButton_rewind" = "Putar Balik";
 "barButton_save" = "Simpan";
 "barButton_search" = "Cari";
 "barButton_stop" = "Henti";
-"barButton_trash" = "Padam";
 "barButton_undo" = "Buat Asal";
 "delete" = "Padam";
 "find_jump" = "Lompat ke Pilihan";
@@ -30,7 +28,7 @@
 "find_previous" = "Cari Sebelumnya";
 "find_useSelection" = "Guna Pilihan untuk Mencari";
 "navigation_back" = "Balik";
-"scrollView_refresh" = "Segar Semula";
+"refresh" = "Segar Semula";
 "scrollView_zoomIn" = "Zum Masuk";
 "scrollView_zoomOut" = "Zum Keluar";
 "scrollView_zoomReset" = "Saiz Sebenar";
