@@ -61,9 +61,11 @@ The public API is currently kept minimal. Exposing more API without first unders
 
 ## Requirements
 
-The framework deployment target is iOS 11.0. However at this early stage the project has only been tested on iOS 13. The latest Xcode 11.x is required.
+KeyboardKit supports from iOS 11.0 onwards. The latest Xcode 11.x is required.
 
 KeyboardKit is written in Swift with a very small amount of Objective-C.
+
+Both Swift and Objective-C apps are supported. Since KeyboardKit uses Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
 ## Installation
 
