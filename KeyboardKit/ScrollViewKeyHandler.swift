@@ -15,9 +15,9 @@ import UIKit
 /// finishing. This is important for keyboard input because it’s common to tap a key multiple times in
 /// quick succession. The custom implementation is also required to keep track of the final state.
 ///
-/// The scroll view’s `scrollViewDidEndScrollingAnimation:` will be called after a scrolling
-/// animation finishes or is interrupted by a new scrolling animation.
-class ScrollViewKeyHandler: InjectableResponder {
+/// The scroll view’s `delegate` can conform to `KeyboardScrollingDelegate`
+/// to receive callbacks about keyboard-driven scrolling animations.
+class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
     private unowned var scrollView: UIScrollView
 
@@ -138,6 +138,7 @@ class ScrollViewKeyHandler: InjectableResponder {
             return
         }
 
+        (scrollView.delegate as? KeyboardScrollingDelegate)?.willBeginKeyboardScrollingAnimation(toContentOffset: target, inScrollView: scrollView)
         animateToContentOffset(target)
         scrollView.flashScrollIndicators()
     }
@@ -165,7 +166,7 @@ class ScrollViewKeyHandler: InjectableResponder {
 
         animator.endCallback = { [weak self] isFinished in
             guard let self = self else { return }
-            self.scrollView.delegate?.scrollViewDidEndScrollingAnimation?(self.scrollView)
+            (self.scrollView.delegate as? KeyboardScrollingDelegate)?.didEndKeyboardScrollingAnimation(inScrollView: self.scrollView, isFinished: isFinished)
         }
 
         return animator
