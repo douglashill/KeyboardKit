@@ -181,8 +181,8 @@ class PointAnimator {
     var stepCallback: ((CGPoint) -> Void)?
 
     /// Called when animation ends or is redirected. Balances calls to `startAnimation`.
-    /// This is also called when calling `stopAnimation` externally.
-    /// The parameter is whether the animation reached its target or was cancelled early.
+    /// This is also called when calling `cancelAnimation` externally.
+    /// The parameter is whether the animation reached its target (true) or was cancelled early (false).
     var endCallback: ((Bool) -> Void)?
 
     private var currentAnimationParameters: AnimationParameters?
