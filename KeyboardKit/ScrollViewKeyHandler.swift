@@ -116,17 +116,94 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         }
     }
 
+    // MARK: - Scroll view delegate interception
+
+    /// The delegate external to KeyboardKit.
+    weak var externalDelegate: UIScrollViewDelegate?
+
+    private var keyboardScrollingDelegate: KeyboardScrollingDelegate? {
+        (enableScrollViewDelegateInterception ? externalDelegate : scrollView.delegate) as? KeyboardScrollingDelegate
+    }
+
+    override func responds(to selector: Selector!) -> Bool {
+        if super.responds(to: selector) {
+            return true
+        } else {
+            return externalDelegate?.responds(to: selector) ?? false
+        }
+    }
+
+    override func forwardingTarget(for selector: Selector!) -> Any? {
+        if let delegate = externalDelegate, delegate.responds(to: selector) {
+            return delegate
+        } else {
+            return super.forwardingTarget(for: selector)
+        }
+    }
+
+    var previousScrollViewDidScroll: (contentOffset: CGPoint, time: CFTimeInterval)?
+    var mostRecentScrollViewDidScroll: (contentOffset: CGPoint, time: CFTimeInterval)?
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        previousScrollViewDidScroll = mostRecentScrollViewDidScroll
+        mostRecentScrollViewDidScroll = (scrollView.contentOffset, CACurrentMediaTime())
+
+        externalDelegate?.scrollViewDidScroll?(scrollView)
+    }
+
+    /// The velocity of the scroll view content offset change found by observing when this property changes.
+    private var measuredVelocityOfScrollView: CGPoint? {
+        guard
+            let (previousContentOffset, previousTime) = previousScrollViewDidScroll,
+            let (mostRecentContentOffset, mostRecentTime) = mostRecentScrollViewDidScroll
+            else
+        {
+            return nil
+        }
+
+        // This lags behind the actual velocity but it’s better than nothing.
+        let dv = mostRecentContentOffset - previousContentOffset
+        let dt = mostRecentTime - previousTime
+        return dv / dt
+    }
+
+    /// The content offset the scroll view is animating to after dragging ends (only with paging enabled).
+    ///
+    /// This means if the user swipes to change page and then quickly triggers keyboard scrolling
+    /// then the keyboard-driven animation will start from the destination page after the swipe.
+    var targetContentOffsetFromDragging: CGPoint?
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        externalDelegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+
+        targetContentOffsetFromDragging = targetContentOffset.pointee
+    }
+
     // MARK: - Scrolling
+
+    /// The content offset that should be used as a base when starting an animation to account for active animations.
+    private var startingContentOffsetForAnimation: CGPoint {
+        if let offsetFromAnimator = contentOffsetAnimator.targetPoint {
+            return offsetFromAnimator
+        } else if scrollView.isPagingEnabled, scrollView.isDecelerating, let offsetFromDragging = targetContentOffsetFromDragging {
+            // Check isDecelerating because trying to nil out the property with scrollViewDidEndDecelerating was not reliable.
+            // This only feels good in paging scroll views because the deceleration time is shorter and the final position feels more well defined.
+            return offsetFromDragging
+        } else {
+            return scrollView.contentOffset
+        }
+    }
 
     private func targetContentOffsetForKeyCommand(_ keyCommand: UIKeyCommand) -> CGPoint? {
         if scrollView.isTracking {
             return nil
         }
 
-        let unbounded = scrollView.unboundedContentOffsetFromKeyCommand(keyCommand, startingContentOffset: startingContentOffsetForAnimation)
+        let startingOffset = startingContentOffsetForAnimation
+        let unbounded = scrollView.unboundedContentOffsetFromKeyCommand(keyCommand, startingContentOffset: startingOffset)
         let target = scrollView.boundedContentOffsetFromProposedContentOffset(unbounded)
 
-        if target == startingContentOffsetForAnimation {
+        if target == startingOffset {
             return nil
         } else {
             return target
@@ -138,7 +215,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
             return
         }
 
-        (scrollView.delegate as? KeyboardScrollingDelegate)?.willBeginKeyboardScrollingAnimation(toContentOffset: target, inScrollView: scrollView)
+        keyboardScrollingDelegate?.willBeginKeyboardScrollingAnimation(toContentOffset: target, inScrollView: scrollView)
         animateToContentOffset(target)
         scrollView.flashScrollIndicators()
     }
@@ -166,15 +243,10 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
         animator.endCallback = { [weak self] isFinished in
             guard let self = self else { return }
-            (self.scrollView.delegate as? KeyboardScrollingDelegate)?.didEndKeyboardScrollingAnimation(inScrollView: self.scrollView, isFinished: isFinished)
+            self.keyboardScrollingDelegate?.didEndKeyboardScrollingAnimation(inScrollView: self.scrollView, isFinished: isFinished)
         }
 
         return animator
-    }
-
-    /// The content offset that should be used as a base when starting an animation to account for active animations.
-    private var startingContentOffsetForAnimation: CGPoint {
-        return contentOffsetAnimator.targetPoint ?? scrollView.contentOffset
     }
 
     /// Custom implementation of animated scrolling to:
@@ -185,13 +257,22 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         if UIAccessibility.isReduceMotionEnabled {
             scrollView.setContentOffset(targetContentOffset, animated: false)
         } else {
+            let velocity: CGPoint?
+
             if scrollView.isDecelerating {
+                velocity = measuredVelocityOfScrollView
                 // UIKit’s animator would fight with our own on each frame (and it would win) so kill any active deceleration animations.
-                // This deliberately passed the current content offset rather than the target.
+                // This deliberately passes the current content offset rather than the target.
                 scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+            } else {
+                velocity = nil
             }
 
-            contentOffsetAnimator.startAnimation(fromPoint: scrollView.contentOffset, toPoint: targetContentOffset)
+            contentOffsetAnimator.startAnimation(
+                fromPoint: scrollView.contentOffset,
+                toPoint: targetContentOffset,
+                startingVelocity: velocity
+            )
         }
     }
 }
@@ -534,3 +615,17 @@ private extension UIScrollView {
 private func + (lhs: CGPoint, rhs: CGVector) -> CGPoint {
     CGPoint(x: lhs.x + rhs.dx, y: lhs.y + rhs.dy)
 }
+
+private func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+}
+
+private func / (lhs: CGPoint, rhs: Double) -> CGPoint {
+    CGPoint(x: lhs.x / CGFloat(rhs), y: lhs.y / CGFloat(rhs))
+}
+
+/// If this is set, `KeyboardScrollView` will hook into its own delegate to slightly improve
+/// keyboard-drive animations started while the scroll view is decelerating after dragging.
+/// This is currently inconsistent because it’s only applied to `KeyboardScrollView` and not table views etc.
+/// This is not considered supported public API.
+let enableScrollViewDelegateInterception = (Bundle.main.object(forInfoDictionaryKey: "KeyboardKitEnableScrollViewDelegateInterception") as? NSNumber)?.boolValue ?? false

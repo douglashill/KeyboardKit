@@ -11,6 +11,37 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
         true
     }
 
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        if enableScrollViewDelegateInterception {
+            delegate = keyHandler
+        }
+    }
+
+    open override var delegate: UIScrollViewDelegate? {
+        get {
+            // It may be unexpected that reading this property will not return the object that was set,
+            // which is why this is not currently publicly supported.
+            super.delegate
+        }
+        set {
+            if enableScrollViewDelegateInterception && newValue !== keyHandler {
+                keyHandler.externalDelegate = newValue
+            } else {
+                super.delegate = newValue
+            }
+        }
+    }
+
     private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
     public override var next: UIResponder? {

@@ -95,9 +95,9 @@ class PointAnimator {
         }
     }
 
-    private func velocityForTime(_ absoluteTime: CGFloat) -> CGPoint {
+    private func velocityForTime(_ absoluteTime: CGFloat) -> CGPoint? {
         guard let parameters = currentAnimationParameters else {
-            return .zero
+            return nil
         }
 
         let t = max(absoluteTime - parameters.startTime, 0)
@@ -119,7 +119,7 @@ class PointAnimator {
         }
     }
 
-    func startAnimation(fromPoint startPoint: CGPoint, toPoint targetPoint: CGPoint) {
+    func startAnimation(fromPoint startPoint: CGPoint, toPoint targetPoint: CGPoint, startingVelocity: CGPoint?) {
         // Could be tweaked. Maybe look at the duration UIScrollView uses and try to match that.
         // Perhaps go a bit faster for short distances and a bit slower for longer distances.
         let distance = sqrt(pow(targetPoint.x - startPoint.x, 2) + pow(targetPoint.y - startPoint.y, 2))
@@ -135,7 +135,7 @@ class PointAnimator {
             duration: duration,
             startPoint: startPoint,
             endPoint: targetPoint,
-            startVelocity: velocityForTime(now)
+            startVelocity: velocityForTime(now) ?? startingVelocity ?? .zero
         )
 
         if displayLink.isPaused {
