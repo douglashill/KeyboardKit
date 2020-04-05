@@ -207,6 +207,7 @@
 		A57A9AEF2421963C005425F9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A57A9AF12421963D005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
+		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -274,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				A5CEF298239837EC0099A19D /* README.md */,
+				A59855012439CE6B008DB610 /* CHANGELOG.md */,
 				A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */,
 				A53AE0062375AAAE00B07957 /* KeyboardKit */,
 				A53ADFEB2375AA1600B07957 /* KeyboardKitDemo */,
