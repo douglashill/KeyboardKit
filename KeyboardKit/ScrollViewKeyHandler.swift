@@ -123,8 +123,8 @@ class ScrollViewKeyHandler: InjectableResponder {
             return nil
         }
 
-        let diff = scrollView.contentOffsetDiffFromKeyCommand(keyCommand)
-        let target = scrollView.boundedContentOffsetFromProposedContentOffset(startingContentOffsetForAnimation + diff)
+        let unbounded = scrollView.unboundedContentOffsetFromKeyCommand(keyCommand, startingContentOffset: startingContentOffsetForAnimation)
+        let target = scrollView.boundedContentOffsetFromProposedContentOffset(unbounded)
 
         if target == startingContentOffsetForAnimation {
             return nil
@@ -225,10 +225,10 @@ private extension UIScrollView {
         return offset
     }
 
-    /// Returns the vector by which to change the content offset due to input from a key command. This does not consider the content offset limits.
-    func contentOffsetDiffFromKeyCommand(_ keyCommand: UIKeyCommand) -> CGVector {
+    /// Returns the desired content offset due to input from a key command. This does not consider the content offset limits.
+    func unboundedContentOffsetFromKeyCommand(_ keyCommand: UIKeyCommand, startingContentOffset: CGPoint) -> CGPoint {
         guard let direction = directionFromKeyCommand(keyCommand), let step = scrollStepFromKeyCommand(keyCommand, isPaging: isPagingEnabled) else {
-            return .zero
+            return startingContentOffset
         }
 
         let resolvedDirection = resolvedDirectionFromDirection(direction)
@@ -239,25 +239,25 @@ private extension UIScrollView {
         let limit: CGFloat = 1e6
 
         switch (step, resolvedDirection) {
-        case (.nudge, .up):       return CGVector(dx: 0, dy: -nudgeDistance)
-        case (.nudge, .down):     return CGVector(dx: 0, dy: +nudgeDistance)
-        case (.nudge, .left):     return CGVector(dx: -nudgeDistance, dy: 0)
-        case (.nudge, .right):    return CGVector(dx: +nudgeDistance, dy: 0)
+        case (.nudge, .up):       return startingContentOffset + CGVector(dx: 0, dy: -nudgeDistance)
+        case (.nudge, .down):     return startingContentOffset + CGVector(dx: 0, dy: +nudgeDistance)
+        case (.nudge, .left):     return startingContentOffset + CGVector(dx: -nudgeDistance, dy: 0)
+        case (.nudge, .right):    return startingContentOffset + CGVector(dx: +nudgeDistance, dy: 0)
 
-        case (.viewport, .up):    return CGVector(dx: 0, dy: -viewportScrollSize.height)
-        case (.viewport, .down):  return CGVector(dx: 0, dy: +viewportScrollSize.height)
-        case (.viewport, .left):  return CGVector(dx: -viewportScrollSize.width, dy: 0)
-        case (.viewport, .right): return CGVector(dx: +viewportScrollSize.width, dy: 0)
+        case (.viewport, .up):    return startingContentOffset + CGVector(dx: 0, dy: -viewportScrollSize.height)
+        case (.viewport, .down):  return startingContentOffset + CGVector(dx: 0, dy: +viewportScrollSize.height)
+        case (.viewport, .left):  return startingContentOffset + CGVector(dx: -viewportScrollSize.width, dy: 0)
+        case (.viewport, .right): return startingContentOffset + CGVector(dx: +viewportScrollSize.width, dy: 0)
 
-        case (.page, .up):        return CGVector(dx: 0, dy: -bounds.height)
-        case (.page, .down):      return CGVector(dx: 0, dy: +bounds.height)
-        case (.page, .left):      return CGVector(dx: -bounds.width, dy: 0)
-        case (.page, .right):     return CGVector(dx: +bounds.width, dy: 0)
+        case (.page, .up):        return startingContentOffset + CGVector(dx: 0, dy: -bounds.height)
+        case (.page, .down):      return startingContentOffset + CGVector(dx: 0, dy: +bounds.height)
+        case (.page, .left):      return startingContentOffset + CGVector(dx: -bounds.width, dy: 0)
+        case (.page, .right):     return startingContentOffset + CGVector(dx: +bounds.width, dy: 0)
 
-        case (.end, .up):         return CGVector(dx: 0, dy: -limit)
-        case (.end, .down):       return CGVector(dx: 0, dy: +limit)
-        case (.end, .left):       return CGVector(dx: -limit, dy: 0)
-        case (.end, .right):      return CGVector(dx: +limit, dy: 0)
+        case (.end, .up):         return startingContentOffset + CGVector(dx: 0, dy: -limit)
+        case (.end, .down):       return startingContentOffset + CGVector(dx: 0, dy: +limit)
+        case (.end, .left):       return startingContentOffset + CGVector(dx: -limit, dy: 0)
+        case (.end, .right):      return startingContentOffset + CGVector(dx: +limit, dy: 0)
         }
     }
 
