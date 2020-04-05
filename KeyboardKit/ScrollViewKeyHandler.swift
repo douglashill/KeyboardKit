@@ -233,7 +233,11 @@ private extension UIScrollView {
 
         let resolvedDirection = resolvedDirectionFromDirection(direction)
 
-        let viewportScrollSize = bounds.inset(by: adjustedContentInset).insetBy(dx: 0.5 * viewportScrollingOverlapDistance, dy: 0.5 * viewportScrollingOverlapDistance).size
+        /// The horizontal and vertical distances by which to scroll when scrolling by one page, but with overlap to give the user better sense of place.
+        /// This is for when isPagingEnabled if false.
+        var viewportScrollSize: CGSize {
+            bounds.inset(by: adjustedContentInset).insetBy(dx: 0.5 * viewportScrollingOverlapDistance, dy: 0.5 * viewportScrollingOverlapDistance).size
+        }
 
         // Easier to deal with than CGFloat.greatestFiniteMagnitude to avoid overflow.
         let limit: CGFloat = 1e6
