@@ -249,16 +249,51 @@ private extension UIScrollView {
         case (.viewport, .left):  return startingContentOffset + CGVector(dx: -viewportScrollSize.width, dy: 0)
         case (.viewport, .right): return startingContentOffset + CGVector(dx: +viewportScrollSize.width, dy: 0)
 
-        case (.page, .up):        return startingContentOffset + CGVector(dx: 0, dy: -bounds.height)
-        case (.page, .down):      return startingContentOffset + CGVector(dx: 0, dy: +bounds.height)
-        case (.page, .left):      return startingContentOffset + CGVector(dx: -bounds.width, dy: 0)
-        case (.page, .right):     return startingContentOffset + CGVector(dx: +bounds.width, dy: 0)
+        case (.page, .up):        return unboundedContentOffsetByAddingPageDiff((dx: 0, dy: -1), toContentOffset: startingContentOffset)
+        case (.page, .down):      return unboundedContentOffsetByAddingPageDiff((dx: 0, dy: +1), toContentOffset: startingContentOffset)
+        case (.page, .left):      return unboundedContentOffsetByAddingPageDiff((dx: -1, dy: 0), toContentOffset: startingContentOffset)
+        case (.page, .right):     return unboundedContentOffsetByAddingPageDiff((dx: +1, dy: 0), toContentOffset: startingContentOffset)
 
         case (.end, .up):         return startingContentOffset + CGVector(dx: 0, dy: -limit)
         case (.end, .down):       return startingContentOffset + CGVector(dx: 0, dy: +limit)
         case (.end, .left):       return startingContentOffset + CGVector(dx: -limit, dy: 0)
         case (.end, .right):      return startingContentOffset + CGVector(dx: +limit, dy: 0)
         }
+    }
+
+    /// Returns a modified content offset for incrementing/decrementing through pages with isPagingEnabled.
+    /// Locks to page boundaries. No attempt is made to stay within the contentSize.
+    private func unboundedContentOffsetByAddingPageDiff(_ pageDiff: (dx: Int, dy: Int), toContentOffset startingContentOffset: CGPoint) -> CGPoint {
+        // There is no guarantee the starting offset is on a page boundary. Happens
+        // if pressing an arrow key while still decelerating from finger scrolling.
+
+        var contentOffset = startingContentOffset
+        let startingPage = pageForContentOffset(startingContentOffset)
+
+        if let startingHorizontalPage = startingPage.x, pageDiff.dx != 0 {
+            let finalHorizontalPage = startingHorizontalPage + pageDiff.dx
+            contentOffset.x = CGFloat(finalHorizontalPage) * bounds.width
+        }
+        if let startingVerticalPage = startingPage.y, pageDiff.dy != 0 {
+            let finalVerticalPage = startingVerticalPage + pageDiff.dy
+            contentOffset.y = CGFloat(finalVerticalPage) * bounds.height
+        }
+
+        return contentOffset
+    }
+
+    /// Returns the closest current page index for isPagingEnabled with (x, y) components.
+    /// Each component may be nil if the bounds has zero size in either dimension. First page is zero.
+    private func pageForContentOffset(_ contentOffset: CGPoint) -> (x: Int?, y: Int?) {
+        var h: Int?
+        var v: Int?
+        if bounds.width != 0 {
+            h = Int(round(contentOffset.x / bounds.width))
+        }
+        if bounds.height != 0 {
+            v = Int(round(contentOffset.y / bounds.height))
+        }
+        return (h, v)
     }
 
     /// Whether scrolling is horizontal or vertical.
