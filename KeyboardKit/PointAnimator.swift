@@ -16,24 +16,24 @@ import QuartzCore
 /// before starting the new animation because that will mean the velocity transition won’t be smooth.
 class PointAnimator {
     /// The display link for callbacks at the screen refresh interval.
-    private let displayLink: CADisplayLink
+    private lazy var displayLink = CADisplayLink(target: retainCycleBreaker, selector: #selector(RetainCycleBreaker.updateFromDisplayLink(_:)))
 
-    /// Break the retain cycle due to `CADisplayLink` retaining its target.
-    private let retainCycleBreaker: RetainCycleBreaker
+    /// Breaks the retain cycle due to `CADisplayLink` retaining its target.
+    private lazy var retainCycleBreaker = RetainCycleBreaker(owner: self)
 
     private class RetainCycleBreaker {
-        unowned var owner: PointAnimator?
+        unowned let owner: PointAnimator
+
+        init(owner: PointAnimator) {
+            self.owner = owner
+        }
 
         @objc func updateFromDisplayLink(_ displayLink: CADisplayLink) {
-            owner?.updateFromDisplayLink(displayLink)
+            owner.updateFromDisplayLink(displayLink)
         }
     }
 
     init() {
-        retainCycleBreaker = RetainCycleBreaker()
-        displayLink = CADisplayLink(target: retainCycleBreaker, selector: #selector(RetainCycleBreaker.updateFromDisplayLink(_:)))
-
-        retainCycleBreaker.owner = self
         displayLink.isPaused = true
         displayLink.add(to: .main, forMode: .default)
     }
