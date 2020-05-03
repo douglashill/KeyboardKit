@@ -62,7 +62,7 @@ extension UIKeyCommand {
             default:
                 return false
             }
-        case .return, .tab, .escape:
+        case .returnOrEnter, .tab, .escape:
             // With modifiers these either do nothing or do the same as with no modifiers.
             return modifierFlags.isEmpty
         case .pageUp, .pageDown, .home, .end:

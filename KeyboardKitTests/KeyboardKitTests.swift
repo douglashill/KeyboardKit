@@ -195,26 +195,26 @@ class KeyboardKitTests: XCTestCase {
 
         // Return
 
-        XCTAssertTrue(UIKeyCommand([], .return).doesConflictWithTextInput)
+        XCTAssertTrue(UIKeyCommand([], .returnOrEnter).doesConflictWithTextInput)
 
-        XCTAssertFalse(UIKeyCommand(.shift, .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand(.control, .return).doesConflictWithTextInput) // Types a newline. Not useful. Differs from the Mac where this types a paragraph break.
-        XCTAssertFalse(UIKeyCommand(.alternate, .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand(.command, .return).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand(.shift, .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand(.control, .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful. Differs from the Mac where this types a paragraph break.
+        XCTAssertFalse(UIKeyCommand(.alternate, .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand(.command, .returnOrEnter).doesConflictWithTextInput)
 
-        XCTAssertFalse(UIKeyCommand([.shift, .control], .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand([.shift, .alternate], .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand([.shift, .command], .return).doesConflictWithTextInput)
-        XCTAssertFalse(UIKeyCommand([.control, .alternate], .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand([.control, .command], .return).doesConflictWithTextInput)
-        XCTAssertFalse(UIKeyCommand([.alternate, .command], .return).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .control], .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand([.shift, .alternate], .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand([.shift, .command], .returnOrEnter).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.control, .alternate], .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand([.control, .command], .returnOrEnter).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.alternate, .command], .returnOrEnter).doesConflictWithTextInput)
 
-        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate], .return).doesConflictWithTextInput) // Types a newline. Not useful.
-        XCTAssertFalse(UIKeyCommand([.shift, .control, .command], .return).doesConflictWithTextInput)
-        XCTAssertFalse(UIKeyCommand([.shift, .alternate, .command], .return).doesConflictWithTextInput)
-        XCTAssertFalse(UIKeyCommand([.control, .alternate, .command], .return).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate], .returnOrEnter).doesConflictWithTextInput) // Types a newline. Not useful.
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .command], .returnOrEnter).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .alternate, .command], .returnOrEnter).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.control, .alternate, .command], .returnOrEnter).doesConflictWithTextInput)
 
-        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate, .command], .return).doesConflictWithTextInput)
+        XCTAssertFalse(UIKeyCommand([.shift, .control, .alternate, .command], .returnOrEnter).doesConflictWithTextInput)
 
         // Arrow keys
 

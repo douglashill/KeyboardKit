@@ -55,7 +55,7 @@ private extension UIBarButtonItem.SystemItem {
         case .close:       return (.command, "w")
         // Apparently "\u{3}" might work for enter (not return) but not quite. Shows up in the HUD with no key and I couldn’t get it to trigger. For now use cmd + return instead.
         // Sources: https://forums.developer.apple.com/thread/119584 and https://stackoverflow.com/questions/56963348/uikeycommand-for-the-enter-key-on-mac-keyboards-numeric-keypad.
-        case .done:        return (.command, .return)
+        case .done:        return (.command, .returnOrEnter)
         case .save:        return (.command, "s")
         case .action:      return (.command, "i") // Safari uses this for Email This Page. Perhaps something else would be better.
         case .edit:        return (.command, "e")

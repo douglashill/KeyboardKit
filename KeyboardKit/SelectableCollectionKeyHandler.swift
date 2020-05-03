@@ -60,7 +60,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     } + [
         UIKeyCommand(.escape, action: #selector(clearSelection)),
         UIKeyCommand(.space, action: #selector(activateSelection)),
-        UIKeyCommand(.return, action: #selector(activateSelection)),
+        UIKeyCommand(.returnOrEnter, action: #selector(activateSelection)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
