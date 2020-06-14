@@ -47,7 +47,7 @@
 		A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */; };
 		A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */; };
 		A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */; };
-		A5E5389F239B0387004A2EE2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* Localizable.strings */; };
+		A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */; };
 		A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */; };
 		A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */; };
 		A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */; };
@@ -126,49 +126,49 @@
 		A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKitTests.swift; sourceTree = "<group>"; };
 		A55D7AF323C1108300302D79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keyboard-Kit.podspec"; sourceTree = "<group>"; };
-		A5671D5F2420CD1E0061B9DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5671D5F2420CD1E0061B9DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
 		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
-		A57A9A7D242186B0005425F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A7E242188CB005425F9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A7F242189D1005425F9 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8124218A2C005425F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8224218A32005425F9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8324218A39005425F9 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8424218AAA005425F9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8524218AB3005425F9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8624218AB9005425F9 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8724218AC6005425F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8824218ACB005425F9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8924218AD2005425F9 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8A24218AD9005425F9 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A57A9A8B24218AE0005425F9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8C24218BB1005425F9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8D24218BB8005425F9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8E24218BBE005425F9 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A8F24218BC4005425F9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9024218BC9005425F9 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9124218BCF005425F9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9224218BD6005425F9 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9324218BDC005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9424218BE1005425F9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9524218BE6005425F9 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9624218BEB005425F9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9724218BF1005425F9 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9824218BF6005425F9 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9924218BFB005425F9 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9A24218C00005425F9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9B24218C08005425F9 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9C24218C0D005425F9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9D24218C1A005425F9 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9E24218C20005425F9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9A9F24218C25005425F9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9AA024218C2A005425F9 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9AA124218C2F005425F9 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A57A9AA224218C34005425F9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A57A9A7D242186B0005425F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A7E242188CB005425F9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A7F242189D1005425F9 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8124218A2C005425F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8224218A32005425F9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8324218A39005425F9 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8424218AAA005425F9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8524218AB3005425F9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8624218AB9005425F9 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8724218AC6005425F9 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8824218ACB005425F9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8924218AD2005425F9 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8A24218AD9005425F9 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
+		A57A9A8B24218AE0005425F9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8C24218BB1005425F9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8D24218BB8005425F9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8E24218BBE005425F9 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A8F24218BC4005425F9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9024218BC9005425F9 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9124218BCF005425F9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9224218BD6005425F9 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9324218BDC005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9424218BE1005425F9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9524218BE6005425F9 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9624218BEB005425F9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9724218BF1005425F9 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9824218BF6005425F9 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9924218BFB005425F9 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9A24218C00005425F9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9B24218C08005425F9 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9C24218C0D005425F9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9D24218C1A005425F9 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9E24218C20005425F9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9A9F24218C25005425F9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9AA024218C2A005425F9 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9AA124218C2F005425F9 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A57A9AA224218C34005425F9 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A57A9AA52421961B005425F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A57A9AA724219627005425F9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A57A9AA924219627005425F9 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStrings.swift; sourceTree = "<group>"; };
 		A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStringKeys.swift; sourceTree = "<group>"; };
 		A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalisedStringKeys.swift; sourceTree = "<group>"; };
-		A5E538A0239B0387004A2EE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5E538A0239B0387004A2EE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWindowScene.swift; sourceTree = "<group>"; };
 		A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardApplication.swift; sourceTree = "<group>"; };
 		A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
 				A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */,
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
-				A5E538A1239B0387004A2EE2 /* Localizable.strings */,
+				A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */,
 				A53AE0082375AAAE00B07957 /* Info.plist */,
 				A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */,
 			);
@@ -563,7 +563,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5E5389F239B0387004A2EE2 /* Localizable.strings in Resources */,
+				A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,7 +747,7 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		A5E538A1239B0387004A2EE2 /* Localizable.strings */ = {
+		A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A5E538A0239B0387004A2EE2 /* en */,
@@ -790,7 +790,7 @@
 				A57A9AA124218C2F005425F9 /* ms */,
 				A57A9AA224218C34005425F9 /* hi */,
 			);
-			name = Localizable.strings;
+			name = KeyboardKit.strings;
 			path = Localised;
 			sourceTree = "<group>";
 		};
