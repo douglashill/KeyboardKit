@@ -14,13 +14,21 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "KeyboardKitObjC",
+            path: "KeyboardKit/ObjC",
+            exclude: ["ResponderChainDebugging.m"]
+        ),
+        .target(
             name: "KeyboardKit",
-            path: "KeyboardKit"
+            dependencies: ["KeyboardKitObjC"],
+            path: "KeyboardKit",
+            exclude: ["Info.plist", "ObjC", "UpdateLocalisedStringKeys.swift"]
         ),
         .testTarget(
             name: "KeyboardKitTests",
             dependencies: ["KeyboardKit"],
-            path: "KeyboardKitTests"
+            path: "KeyboardKitTests",
+            exclude: ["Info.plist"]
         ),
     ]
 )

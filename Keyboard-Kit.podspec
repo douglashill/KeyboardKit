@@ -21,7 +21,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
     spec.source_files = 'KeyboardKit/*.{h,m,swift}'
     spec.public_header_files = [
       'KeyboardKit/KeyboardKit.h',
-      'KeyboardKit/BarButtonItem.h',
+      'KeyboardKit/BarButtonItem.h', # this will be broken
     ]
     spec.exclude_files = [
       'KeyboardKit/Info.plist',
