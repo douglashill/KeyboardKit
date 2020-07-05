@@ -127,6 +127,7 @@
 		A55D7AF323C1108300302D79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keyboard-Kit.podspec"; sourceTree = "<group>"; };
 		A5671D5F2420CD1E0061B9DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
+		A5693A3B24B232A000F82CB6 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
@@ -278,6 +279,7 @@
 			children = (
 				A5CEF298239837EC0099A19D /* README.md */,
 				A59855012439CE6B008DB610 /* CHANGELOG.md */,
+				A5693A3B24B232A000F82CB6 /* Package.swift */,
 				A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */,
 				A53AE0062375AAAE00B07957 /* KeyboardKit */,
 				A53ADFEB2375AA1600B07957 /* KeyboardKitDemo */,
