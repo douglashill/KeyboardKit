@@ -16,7 +16,8 @@ let package = Package(
         .target(
             name: "KeyboardKitObjC",
             path: "KeyboardKit/ObjC",
-            exclude: ["ResponderChainDebugging.m"]
+            exclude: ["ResponderChainDebugging.m"],
+            publicHeadersPath: ""
         ),
         .target(
             name: "KeyboardKit",

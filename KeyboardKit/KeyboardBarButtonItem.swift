@@ -1,5 +1,9 @@
 // Douglas Hill, December 2019
 
+#if SWIFT_PACKAGE
+import KeyboardKitObjC
+#endif
+
 import UIKit
 
 /// A bar button item that can define keys that may be pressed on a keyboard to trigger the button’s action.
