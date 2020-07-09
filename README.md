@@ -136,7 +136,7 @@ KeyboardKit is a project from [Douglas Hill](https://douglashill.co/). Some conc
 ## Learn more
 
 - Conference talk: [*Keyboard control in UIKit apps* at iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933) 
-- Podcast discussion: [iPhreaks episode 297](https://devchat.tv/iphreaks/ips-297-keyboard-controls-with-douglas-hill/).
+- Podcast discussion: [iPhreaks episode 297](https://devchat.tv/iphreaks/ips-297-keyboard-controls-with-douglas-hill/)
 
 ## Contributing
 
