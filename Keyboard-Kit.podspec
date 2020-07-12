@@ -25,7 +25,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
     ]
     spec.exclude_files = [
       'KeyboardKit/Info.plist',
-      'KeyboardKit/ResponderChainDebugging.m',
+      'KeyboardKit/ObjC/ResponderChainDebugging.m',
       'KeyboardKit/UpdateLocalisedStringKeys.swift'
     ]
     spec.resources = "KeyboardKit/Localised/*.lproj"
