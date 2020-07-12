@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- 2020-06-12
+    - Adds support for Swift Packager Manager. 
 - 2020-04-26
     - Breaking change: Xcode 11.4 is now required.
     - Breaking change: KeyboardKit scroll views will no longer send their delegate `scrollViewDidEndScrollingAnimation(_:)` after keyboard-driven animations end. Instead, the scroll view’s delegate can conform to `KeyboardScrollingDelegate` to receive callbacks when keyboard-driven scrolling animations start or finish.
