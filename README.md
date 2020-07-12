@@ -76,6 +76,13 @@ Both Swift and Objective-C apps are supported. Since KeyboardKit uses Swift, it�
 3. Add the KeyboardKit target as a dependency of your target.
 4. Add `KeyboardKit.framework` as an embedded framework.
 
+### Swift Package Manager
+
+Add KeyboardKit to an existing Xcode project as a package dependency:
+
+1. From the File menu, select Swift Packages › Add Package Dependency…
+2. Enter "https://github.com/douglashill/KeyboardKit" into the package repository URL text field
+
 ### CocoaPods
 
 1. Add the following to your `Podfile`:
