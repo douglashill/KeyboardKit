@@ -81,7 +81,11 @@ Both Swift and Objective-C apps are supported. Since KeyboardKit uses Swift, it�
 Add KeyboardKit to an existing Xcode project as a package dependency:
 
 1. From the File menu, select Swift Packages › Add Package Dependency…
-2. Enter "https://github.com/douglashill/KeyboardKit" into the package repository URL text field
+2. Enter "https://github.com/douglashill/KeyboardKit" into the package repository URL text field.
+
+This Swift package contains localised resources, so Swift 5.3 (Xcode 12) or later is required.
+
+Swift Package Manager requires the Swift and Objective-C sources to be separated into modules. The `KeyboardKitObjC` module is used internally by KeyboardKit and does not need to be imported explicit by your app.
 
 ### CocoaPods
 
@@ -97,7 +101,7 @@ Add KeyboardKit to an existing Xcode project as a package dependency:
     pod install
     ```
 
-CocoaPods may not be as well tested as the recommended steps above. Please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls) if you notice any problems.
+Please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls) if you notice any integration problems.
 
 ## Usage
 
