@@ -45,6 +45,9 @@
 		A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */; };
 		A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */; };
 		A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */; };
+		A5E3D37924C39041008C1FDB /* PartialParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */; };
+		A5E3D37A24C39041008C1FDB /* SidebarAndTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */; };
+		A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37824C39041008C1FDB /* SidebarViewController.swift */; };
 		A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */; };
 		A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */; };
 		A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */; };
@@ -229,6 +232,9 @@
 		A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWindow.swift; sourceTree = "<group>"; };
 		A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewKeyHandler.swift; sourceTree = "<group>"; };
 		A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableResponder.swift; sourceTree = "<group>"; };
+		A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartialParentViewController.swift; sourceTree = "<group>"; };
+		A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAndTabBarController.swift; sourceTree = "<group>"; };
+		A5E3D37824C39041008C1FDB /* SidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStrings.swift; sourceTree = "<group>"; };
 		A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStringKeys.swift; sourceTree = "<group>"; };
 		A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalisedStringKeys.swift; sourceTree = "<group>"; };
@@ -305,6 +311,9 @@
 			children = (
 				A5D20F3D23787DA80057A8EE /* main.swift */,
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
+				A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */,
+				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
+				A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */,
 				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
 				A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */,
@@ -618,11 +627,14 @@
 			files = (
 				A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */,
 				A5D20F3E23787DA80057A8EE /* main.swift in Sources */,
+				A5E3D37A24C39041008C1FDB /* SidebarAndTabBarController.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */,
+				A5E3D37924C39041008C1FDB /* PartialParentViewController.swift in Sources */,
 				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
+				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
