@@ -70,6 +70,9 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        // TODO: The partial parent system wasn’t designed with pushing in mind, so this probably breaks.
+
         navigationController?.pushViewController(SimpleListViewController(), animated: true)
     }
 

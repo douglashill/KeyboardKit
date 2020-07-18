@@ -10,6 +10,8 @@ class SidebarViewController: KeyboardCollectionViewController {
     let items: [((String, UIImage?))]
     weak var delegate: SidebarViewControllerDelegate?
 
+    // TODO: Make image required again by setting an image on all the content VCs.
+
     private lazy var cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
         cell.contentConfiguration = {
             var config = cell.defaultContentConfiguration()
