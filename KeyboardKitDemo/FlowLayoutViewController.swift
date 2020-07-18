@@ -2,35 +2,42 @@
 
 import KeyboardKit
 
-class FlowLayoutViewController: KeyboardCollectionViewController {
-    init() {
+class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDataSource {
+    override var title: String? {
+        get { "Flow Layout" }
+        set {}
+    }
+
+    private let cellReuseIdentifier = "a"
+    private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 150, height: 150)
         flowLayout.minimumInteritemSpacing = 20
         flowLayout.minimumLineSpacing = 20
-        super.init(collectionViewLayout: flowLayout)
-        title = "Flow Layout"
+
+        return KeyboardCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    }()
+
+    override func loadView() {
+        view = collectionView
     }
-
-    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
-
-    private let cellReuseIdentifier = "a"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView!.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        collectionView!.backgroundColor = .systemGroupedBackground
+        collectionView.backgroundColor = .systemGroupedBackground
+        collectionView.dataSource = self
+        collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
 
     private let numberOfItems = 47
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfItems
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        numberOfItems
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
     }
 
     class Cell: UICollectionViewCell {
