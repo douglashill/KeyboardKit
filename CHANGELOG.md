@@ -1,6 +1,8 @@
 # KeyboardKit change log
 
-- 2020-06-12
+- 2020-08-19
+    - Resolves project settings warnings with Xcode 12.
+- 2020-07-12
     - Adds support for Swift Packager Manager. 
 - 2020-04-26
     - Breaking change: Xcode 11.4 is now required.
