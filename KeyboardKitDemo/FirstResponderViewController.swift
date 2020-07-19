@@ -7,6 +7,11 @@ import UIKit
 /// This is not the most robust way to manage the first responder when there are multiple potential first responder
 /// views visible at once (such as with a split view) but this technique is easy and good enough for now.
 class FirstResponderViewController: UIViewController {
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
     override var canBecomeFirstResponder: Bool {
         true

@@ -3,9 +3,10 @@
 import KeyboardKit
 
 class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDataSource {
-    override var title: String? {
-        get { "Flow Layout" }
-        set {}
+    override init() {
+        super.init()
+        title = "Flow Layout"
+        tabBarItem.image = UIImage(systemName: "square.grid.2x2")
     }
 
     private let cellReuseIdentifier = "a"
@@ -46,7 +47,7 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
 
             contentView.layer.cornerRadius = 25
             contentView.layer.cornerCurve = .continuous
-            contentView.layer.borderColor = UIColor.black.cgColor
+            contentView.layer.borderColor = UIColor.label.cgColor
             contentView.backgroundColor = .secondarySystemGroupedBackground
         }
 

@@ -4,13 +4,14 @@ import UIKit
 import KeyboardKit
 
 class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDelegate {
-    override var title: String? {
-        get { "Scrolling" }
-        set {}
+    override init() {
+        super.init()
+        title = "Scrolling"
+        tabBarItem.image = UIImage(systemName: "circle.grid.hex")
     }
 
     private lazy var scrollView = KeyboardScrollView()
-    private lazy var contentView = CirclesView(frame: CGRect(x: 0, y: 0, width: 3000, height: 3000))
+    private lazy var contentView = CirclesView(frame: CGRect(x: 0, y: 0, width: 2500, height: 2500))
 
     override func loadView() {
         view = scrollView
@@ -19,7 +20,7 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemBackground
 
         scrollView.addSubview(contentView)
 
@@ -45,7 +46,7 @@ private class CirclesView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        for _ in 1 ... 150 {
+        for _ in 1 ... 100 {
             let randomRadius = CGFloat.random(in: 10...150)
             let insetBounds = bounds.insetBy(dx: randomRadius, dy: randomRadius)
             let randomPoint = CGPoint(x: .random(in: insetBounds.minX...insetBounds.maxX), y: .random(in: insetBounds.minY...insetBounds.maxY))

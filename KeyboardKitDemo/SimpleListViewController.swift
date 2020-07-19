@@ -4,9 +4,10 @@ import UIKit
 import KeyboardKit
 
 class SimpleListViewController: FirstResponderViewController, UITableViewDataSource, UITableViewDelegate {
-    override var title: String? {
-        get { "List" }
-        set {}
+    override init() {
+        super.init()
+        title = "List"
+        tabBarItem.image = UIImage(systemName: "list.bullet")
     }
 
     private let cellReuseIdentifier = "a"
@@ -51,7 +52,7 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        3
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -59,7 +60,7 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 33
+        33
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,9 +97,9 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
 }
 
 class BookmarksViewController: FirstResponderViewController {
-    override var title: String? {
-        get { "Bookmarks" }
-        set {}
+    override init() {
+        super.init()
+        title = "Bookmarks"
     }
 
     override func viewDidLoad() {

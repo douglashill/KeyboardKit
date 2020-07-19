@@ -4,9 +4,10 @@ import UIKit
 import KeyboardKit
 
 class TextViewController: FirstResponderViewController {
-    override var title: String? {
-        get { "Text" }
-        set {}
+    override init() {
+        super.init()
+        title = "Text"
+        tabBarItem.image = UIImage(systemName: "text.cursor")
     }
 
     private lazy var textView = KeyboardTextView()

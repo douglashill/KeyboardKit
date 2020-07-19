@@ -4,9 +4,10 @@ import UIKit
 import KeyboardKit
 
 class PagingScrollViewController: FirstResponderViewController {
-    override var title: String? {
-        get { "Paging" }
-        set {}
+    override init() {
+        super.init()
+        title = "Paging"
+        tabBarItem.image = UIImage(systemName: "book")
     }
 
     lazy var scrollView = KeyboardScrollView()
