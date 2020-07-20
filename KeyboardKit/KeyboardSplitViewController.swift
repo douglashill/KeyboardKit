@@ -33,34 +33,18 @@ public class KeyboardSplitViewController: UISplitViewController {
             ]
         }
 
-        // LtR leading edge primary
-        // Tab 1 to 2
-        // --> 1 to 2
-
-        // LtR trailing edge primary (inspector)
-        // Tab 2 to 1
-        // --> 2 to 1
-
-        // RtL leading edge primary
-        // Tab 1 to 2
-        // --> 2 to 1
-
-        // RtL trailing edge primary (inspector)
-        // Tab 2 to 1
-        // --> 1 to 2
-
         return commands
     }
 
     /*
      When you factor in everything there are a bazillion cases.
 
-     - [ ] collapsing
-     - [ ] triple column style
+     - [x] collapsing
+     - [x] triple column style
      - [ ] display mode
      - [ ] split behaviour
-     - [ ] primary edge
-     - [ ] UI layout direction
+     - [x] primary edge
+     - [x] UI layout direction
      */
 
     @objc private func moveFocusInLeadingDirection(_ sender: UIKeyCommand) {
