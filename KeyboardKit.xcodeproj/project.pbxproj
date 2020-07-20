@@ -48,6 +48,7 @@
 		A5E3D37924C39041008C1FDB /* PartialParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */; };
 		A5E3D37A24C39041008C1FDB /* SidebarAndTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */; };
 		A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37824C39041008C1FDB /* SidebarViewController.swift */; };
+		A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */; };
 		A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */; };
 		A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */; };
 		A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */; };
@@ -235,6 +236,7 @@
 		A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartialParentViewController.swift; sourceTree = "<group>"; };
 		A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAndTabBarController.swift; sourceTree = "<group>"; };
 		A5E3D37824C39041008C1FDB /* SidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
+		A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSplitViewController.swift; sourceTree = "<group>"; };
 		A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStrings.swift; sourceTree = "<group>"; };
 		A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStringKeys.swift; sourceTree = "<group>"; };
 		A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalisedStringKeys.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
+				A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
 				A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */,
 				A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */,
@@ -655,6 +658,7 @@
 				A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
+				A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */,
 				A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */,
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
