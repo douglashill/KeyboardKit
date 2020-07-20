@@ -9,7 +9,16 @@ import UIKit
 @available(iOS 14.0, *)
 public class KeyboardSplitViewController: UISplitViewController {
 
-    private var focusedColumn: Column?
+    private var focusedColumn: Column? {
+        didSet {
+            if let column = focusedColumn {
+                show(column)
+            }
+        }
+    }
+
+    // TODO: Somehow update the 1R when the focused column changes.
+    // Probably by letting the app observe the change and the app decides how to update the 1R.
 
     public override var canBecomeFirstResponder: Bool {
         true
@@ -41,8 +50,8 @@ public class KeyboardSplitViewController: UISplitViewController {
 
      - [x] collapsing
      - [x] triple column style
-     - [ ] display mode
-     - [ ] split behaviour
+     - [-] display mode
+     - [-] split behaviour
      - [x] primary edge
      - [x] UI layout direction
      */
@@ -70,6 +79,9 @@ public class KeyboardSplitViewController: UISplitViewController {
     }
 
     private func moveFocusTowardsSecondary() {
+
+        // TODO: Validate the column we thought was focused could still be focused since it might have been hidden or overlaid.
+
         switch focusedColumn {
         case .none, .some(.secondary):
             focusedColumn = .primary

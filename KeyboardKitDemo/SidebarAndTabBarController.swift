@@ -41,11 +41,8 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         }
         selectedViewControllerIndex = initialSelectedIndex
 
-        // TODO: Create and use a KeyboardSplitViewController that supports moving focus between the columns.
-        let splitViewController = UISplitViewController(style: .doubleColumn)
+        let splitViewController = KeyboardSplitViewController(style: .doubleColumn)
         splitViewController.presentsWithGesture = false
-        splitViewController.preferredDisplayMode = .oneBesideSecondary
-        splitViewController.preferredSplitBehavior = .tile
 
         sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
         splitViewController.setViewController(sidebar, for: .primary)
