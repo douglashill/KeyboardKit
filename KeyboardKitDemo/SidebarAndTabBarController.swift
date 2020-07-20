@@ -70,7 +70,24 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         splitViewController.didMove(toParent: self)
 
         updateSelectedContentViewController()
+
+        for (index, contentViewController) in viewControllers.prefix(9).enumerated() {
+            addKeyCommand(UIKeyCommand(title: contentViewController.title!, action: #selector(scrollToNumberedTab), input: String(index + 1), modifierFlags: .command))
+        }
     }
+
+    // For using command-1 to command-9.
+    @objc private func scrollToNumberedTab(_ sender: UIKeyCommand) {
+        guard let keyInput = sender.input, let targetTabNumber = Int(keyInput), targetTabNumber > 0 else {
+            return
+        }
+
+        selectedViewControllerIndex = targetTabNumber - 1
+    }
+
+    // TODO: The split view and tab bar aren’t always showing the same content view. I don’t think this is related to this keyboard control I just added for changing sidebar selection.
+
+    // TODO: Also after using cmd-1 etc the selection in the sidebar is not updated until you scroll the sidebar a little bit.
 
     override var title: String? {
         get { sidebar.title }
