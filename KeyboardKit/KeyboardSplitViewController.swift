@@ -11,9 +11,8 @@ public class KeyboardSplitViewController: UISplitViewController {
 
     private var focusedColumn: Column? {
         didSet {
-            if let column = focusedColumn {
-                show(column)
-            }
+            precondition(focusedColumn != nil, "Focused column should not be cleared.")
+            show(focusedColumn!)
         }
     }
 
