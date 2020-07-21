@@ -35,10 +35,10 @@ public class KeyboardSplitViewController: UISplitViewController {
             // TODO: Localised titles
 
             commands += [
-                UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirection), title: "Focus Next Column"),
-                UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirection), title: "Focus Previous Column"),
-                UIKeyCommand(leadingArrow, action: #selector(moveFocusInLeadingDirection)),
-                UIKeyCommand(trailingArrow, action: #selector(moveFocusInTrailingDirection)),
+                UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
+                UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
+                UIKeyCommand(leadingArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
+                UIKeyCommand(trailingArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
             ]
         }
 
@@ -56,35 +56,55 @@ public class KeyboardSplitViewController: UISplitViewController {
      - [x] UI layout direction
      */
 
-    @objc private func moveFocusInLeadingDirection(_ sender: UIKeyCommand) {
+    @objc private func moveFocusInLeadingDirectionWithWrapping(_ sender: UIKeyCommand) {
+        moveFocusInLeadingDirection(shouldWrap: true)
+    }
+
+    @objc private func moveFocusInTrailingDirectionWithWrapping(_ sender: UIKeyCommand) {
+        moveFocusInTrailingDirection(shouldWrap: true)
+    }
+
+    @objc private func moveFocusInLeadingDirectionWithoutWrapping(_ sender: UIKeyCommand) {
+        moveFocusInLeadingDirection(shouldWrap: false)
+    }
+
+    @objc private func moveFocusInTrailingDirectionWithoutWrapping(_ sender: UIKeyCommand) {
+        moveFocusInTrailingDirection(shouldWrap: false)
+    }
+
+    private func moveFocusInLeadingDirection(shouldWrap: Bool) {
         switch primaryEdge {
         case .leading:
-            moveFocusTowardsSecondary()
+            moveFocusTowardsSecondary(shouldWrap: shouldWrap)
         case .trailing:
-            moveFocusTowardsPrimary()
+            moveFocusTowardsPrimary(shouldWrap: shouldWrap)
         @unknown default:
             break
         }
     }
 
-    @objc private func moveFocusInTrailingDirection(_ sender: UIKeyCommand) {
+    private func moveFocusInTrailingDirection(shouldWrap: Bool) {
         switch primaryEdge {
         case .leading:
-            moveFocusTowardsPrimary()
+            moveFocusTowardsPrimary(shouldWrap: shouldWrap)
         case .trailing:
-            moveFocusTowardsSecondary()
+            moveFocusTowardsSecondary(shouldWrap: shouldWrap)
         @unknown default:
             break
         }
     }
 
-    private func moveFocusTowardsSecondary() {
+    private func moveFocusTowardsSecondary(shouldWrap: Bool) {
 
         // TODO: Validate the column we thought was focused could still be focused since it might have been hidden or overlaid.
 
         switch focusedColumn {
-        case .none, .some(.secondary):
+        case .none:
             focusedColumn = .primary
+        case .some(.secondary):
+            if shouldWrap {
+                focusedColumn = .primary
+            }
         case .some(.primary):
             switch style {
             case .doubleColumn:
@@ -104,10 +124,14 @@ public class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
-    private func moveFocusTowardsPrimary() {
+    private func moveFocusTowardsPrimary(shouldWrap: Bool) {
         switch focusedColumn {
-        case .none, .some(.primary):
+        case .none:
             focusedColumn = .secondary
+        case .some(.primary):
+            if shouldWrap {
+                focusedColumn = .secondary
+            }
         case .some(.secondary):
             switch style {
             case .doubleColumn:
