@@ -110,7 +110,7 @@ private extension UICollectionViewLayout {
     ///
     /// `UICollectionViewLayout` implements this method in a spatial manner. Subclasses may override this to provide better handling. Calling super is not necessary.
     ///
-    /// This needs to use Objective-C to get dynamic dispatch. However this means that Swift enums can’t be used as parameters. Therefore pass around integers. Bridging at its best!
+    /// This needs to use `@objc` so it can be overridden by subclasses. This means that Swift enums can’t be used as parameters, so pass around integers. Bridging at its best!
     ///
     /// - Parameters:
     ///   - indexPath: The existing selected index path if there is one.

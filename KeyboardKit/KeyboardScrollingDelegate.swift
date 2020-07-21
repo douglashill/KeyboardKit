@@ -7,12 +7,12 @@ import UIKit
 /// This can be used with any scrolling component from KeyboardKit: `KeyboardScrollView`, `KeyboardTableView`,
 /// `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` or `KeyboardTextView`.
 ///
-/// When an animation is interrupted by a new keyboard event, the delegate will receive
-/// willBegin for the new animation before receiving didEnd for the animation being cancelled.
-///
 /// If it conforms to `KeyboardScrollingDelegate`, the scroll view’s delegate will receive
 /// `willBeginKeyboardScrollingAnimation(toContentOffset:inScrollView:)` and
 /// `didEndKeyboardScrollingAnimation(inScrollView:)` when keyboard-driven scrolling animations begin and end.
+///
+/// When an animation is interrupted by a new keyboard event, the delegate will receive
+/// `willBegin` for the new animation before receiving `didEnd` for the animation being cancelled.
 ///
 /// The delegate will not receive `scrollViewDidEndScrollingAnimation(_:)` callbacks due to keyboard scrolling.
 public protocol KeyboardScrollingDelegate: UIScrollViewDelegate {

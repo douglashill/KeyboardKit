@@ -4,6 +4,10 @@ import UIKit
 
 /// A tab bar controller that supports navigating between tabs using cmd+number on a hardware keyboard.
 /// So cmd+1 for the first tab, cmd+2 for the second tab etc.
+///
+/// Setting more view controllers than the number displayable by a tab bar such that the More item is added is not supported.
+/// This is partly because the view controller hierarchy modifications done by the More tab are hard to support well, and partly
+/// because the More list and navigation controller don’t support keyboard input so would result in an inconsistent user experience.
 open class KeyboardTabBarController: UITabBarController {
 
     public override var canBecomeFirstResponder: Bool {

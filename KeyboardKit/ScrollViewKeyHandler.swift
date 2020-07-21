@@ -625,7 +625,7 @@ private func / (lhs: CGPoint, rhs: Double) -> CGPoint {
 }
 
 /// If this is set, `KeyboardScrollView` will hook into its own delegate to slightly improve
-/// keyboard-drive animations started while the scroll view is decelerating after dragging.
+/// keyboard-driven animations started while the scroll view is decelerating after dragging.
 /// This is currently inconsistent because it’s only applied to `KeyboardScrollView` and not table views etc.
 /// This is not considered supported public API.
 let enableScrollViewDelegateInterception = (Bundle.main.object(forInfoDictionaryKey: "KeyboardKitEnableScrollViewDelegateInterception") as? NSNumber)?.boolValue ?? false
