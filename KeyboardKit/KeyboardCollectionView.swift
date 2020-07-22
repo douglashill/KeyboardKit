@@ -166,7 +166,11 @@ private extension UICollectionViewLayout {
             var smallestDistance = CGFloat.greatestFiniteMagnitude
 
             for attributes in attributesArray {
-                if attributes.isHidden {
+                guard attributes.isHidden == false
+                        && attributes.alpha > 0
+                        && attributes.representedElementCategory == .cell
+                        && collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath)
+                else {
                     continue
                 }
 
