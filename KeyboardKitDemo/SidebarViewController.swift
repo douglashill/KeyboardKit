@@ -51,7 +51,9 @@ class SidebarViewController: KeyboardCollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        collectionView.selectItem(at: IndexPath(item: delegate!.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
+        if let delegate = delegate {
+            collectionView.selectItem(at: IndexPath(item: delegate.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
