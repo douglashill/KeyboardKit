@@ -109,11 +109,11 @@ public class KeyboardSplitViewController: UISplitViewController {
         switch focusedColumn {
         case .none:
             focusedColumn = .primary
-        case .some(.secondary):
+        case .secondary:
             if shouldWrap {
                 focusedColumn = .primary
             }
-        case .some(.primary):
+        case .primary:
             switch style {
             case .doubleColumn:
                 focusedColumn = .secondary
@@ -122,10 +122,10 @@ public class KeyboardSplitViewController: UISplitViewController {
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
-        case .some(.supplementary):
+        case .supplementary:
             precondition(style == .tripleColumn)
             focusedColumn = .secondary
-        case .some(.compact):
+        case .compact:
             preconditionFailure("Compact column should never be focused.")
         @unknown default:
             break
@@ -136,11 +136,11 @@ public class KeyboardSplitViewController: UISplitViewController {
         switch focusedColumn {
         case .none:
             focusedColumn = .secondary
-        case .some(.primary):
+        case .primary:
             if shouldWrap {
                 focusedColumn = .secondary
             }
-        case .some(.secondary):
+        case .secondary:
             switch style {
             case .doubleColumn:
                 focusedColumn = .primary
@@ -149,10 +149,10 @@ public class KeyboardSplitViewController: UISplitViewController {
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
-        case .some(.supplementary):
+        case .supplementary:
             precondition(style == .tripleColumn)
             focusedColumn = .primary
-        case .some(.compact):
+        case .compact:
             preconditionFailure("Compact column should never be focused.")
         @unknown default:
             break
