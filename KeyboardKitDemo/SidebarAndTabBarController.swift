@@ -4,7 +4,7 @@ import UIKit
 import KeyboardKit
 
 /// Shows an array of content views. The user switches views using a tab bar in compact widths or using a sidebar in regular widths.
-class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegate, UITabBarControllerDelegate {
+class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegate, UITabBarControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: UISplitViewController
     private let innerTabBarController: UITabBarController
     private let sidebar: SidebarViewController
@@ -62,6 +62,7 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
 
         sidebar.delegate = self
         innerTabBarController.delegate = self
+        splitViewController.delegate = self
 
         addChild(splitViewController)
         splitViewController.didMove(toParent: self)
@@ -115,5 +116,30 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         selectedViewControllerIndex = tabBarController.selectedIndex
+    }
+
+    // MARK: - KeyboardSplitViewControllerDelegate
+
+    func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
+        switch splitViewController.focusedColumn {
+        case .none:
+            break
+        case .primary:
+            if let transitionCoordinator = splitViewController.transitionCoordinator {
+                transitionCoordinator.animate { transitionCoordinatorContext in
+                    // Nothing to do.
+                } completion: { transitionCoordinatorContext in
+                    precondition(self.sidebar.becomeFirstResponder())
+                }
+            } else {
+                // TODO: Maybe assert/check that the column is visible.
+                precondition(sidebar.becomeFirstResponder())
+            }
+
+        case .secondary:
+            break // need some kind of 1R resolver that digs into the hierarchy
+        case .compact, .supplementary: fallthrough @unknown default:
+            preconditionFailure("Unsupported column type.")
+        }
     }
 }

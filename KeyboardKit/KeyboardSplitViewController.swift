@@ -9,11 +9,20 @@ import UIKit
 @available(iOS 14.0, *)
 public class KeyboardSplitViewController: UISplitViewController {
 
-    private var focusedColumn: Column? {
+    /// The column in the split view that currently has focus.
+    ///
+    /// If the user focuses a column using the keyboard and then hides
+    /// that column by other means, no change occurs in KeyboardKit.
+    public private(set) var focusedColumn: Column? {
         didSet {
             precondition(focusedColumn != nil, "Focused column should not be cleared.")
             show(focusedColumn!)
+            keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
         }
+    }
+
+    private var keyboardDelegate: KeyboardSplitViewControllerDelegate? {
+        delegate as? KeyboardSplitViewControllerDelegate
     }
 
     // TODO: Somehow update the 1R when the focused column changes.
@@ -149,4 +158,17 @@ public class KeyboardSplitViewController: UISplitViewController {
             break
         }
     }
+}
+
+/// The delegate of a `UISplitViewController` can conform to `KeyboardSplitViewControllerDelegate` in addition
+/// to `UISplitViewControllerDelegate` to receive a callback when the focused tab changes via keyboard input.
+@available(iOS 14.0, *)
+public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
+    /// Called after the user uses keyboard input to change the focused column.
+    ///
+    /// This is typically used to update the first responder to a view within the new focused column.
+    ///
+    /// This method will not be called when the focused column is hidden because KeyboardKit
+    /// does not have enough contexts to handle that case. Your app should handle this.
+    func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController)
 }
