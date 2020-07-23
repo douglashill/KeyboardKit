@@ -32,22 +32,33 @@ public class KeyboardSplitViewController: UISplitViewController {
         true
     }
 
+    // TODO: Localised titles
+
+    private lazy var tabCommands: [UIKeyCommand] = [
+        UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
+        UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
+    ]
+
+    private lazy var leftToRightArrowKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(.rightArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
+        UIKeyCommand(.leftArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
+    ]
+
+    private lazy var rightToLeftArrowKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(.leftArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
+        UIKeyCommand(.rightArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
+    ]
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if presentedViewController == nil, style == .doubleColumn || style == .tripleColumn, isCollapsed == false, UIResponder.isTextInputActive == false {
-            let isRtL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-            let leadingArrow: String = isRtL ? .leftArrow : .rightArrow
-            let trailingArrow: String = isRtL ? .rightArrow : .leftArrow
-
-            // TODO: Localised titles
-
-            commands += [
-                UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
-                UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
-                UIKeyCommand(leadingArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
-                UIKeyCommand(trailingArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
-            ]
+            commands += tabCommands
+            switch view.effectiveUserInterfaceLayoutDirection {
+            case .leftToRight: commands += leftToRightArrowKeyCommands
+            case .rightToLeft: commands += rightToLeftArrowKeyCommands
+            @unknown default: break
+            }
         }
 
         return commands
