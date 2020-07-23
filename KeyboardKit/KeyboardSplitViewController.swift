@@ -64,17 +64,6 @@ public class KeyboardSplitViewController: UISplitViewController {
         return commands
     }
 
-    /*
-     When you factor in everything there are a bazillion cases.
-
-     - [x] collapsing
-     - [x] triple column style
-     - [-] display mode
-     - [-] split behaviour
-     - [x] primary edge
-     - [x] UI layout direction
-     */
-
     @objc private func moveFocusInLeadingDirectionWithWrapping(_ sender: UIKeyCommand) {
         moveFocusInLeadingDirection(shouldWrap: true)
     }
