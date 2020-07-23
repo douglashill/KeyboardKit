@@ -27,9 +27,18 @@ static UIResponder *foundFirstResponder;
     UIResponder *responder = [UIResponder kbd_firstResponder];
 
     while (responder != nil) {
-        NSLog(@"%@", responder);
+        print([responder description]);
+
+        for (UIKeyCommand *command in [responder keyCommands]) {
+            print([NSString stringWithFormat:@"  | %@", command]);
+        }
+
         responder = [responder nextResponder];
     }
+}
+
+static void print(NSString *message) {
+    printf("%s\n", [message cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 @end
