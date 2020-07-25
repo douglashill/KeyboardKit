@@ -74,6 +74,14 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         }
     }
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(scrollToNumberedTab) {
+            return presentedViewController == nil
+        } else {
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+
     // For using command-1 to command-9.
     @objc private func scrollToNumberedTab(_ sender: UIKeyCommand) {
         guard let keyInput = sender.input, let targetTabNumber = Int(keyInput), targetTabNumber > 0 else {
