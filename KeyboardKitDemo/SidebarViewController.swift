@@ -6,7 +6,7 @@ import KeyboardKit
 /// Shows a sidebar list.
 ///
 /// Intended for private use in SidebarAndTabBarController. Not intended for any other use.
-class SidebarViewController: KeyboardCollectionViewController {
+class SidebarViewController: FirstResponderViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let items: [((String, UIImage?))]
     weak var delegate: SidebarViewControllerDelegate?
 
@@ -24,11 +24,22 @@ class SidebarViewController: KeyboardCollectionViewController {
     init(items: [(String, UIImage?)]) {
         self.items = items
 
-        let layout = UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar))
-        super.init(collectionViewLayout: layout)
+        super.init()
     }
 
-    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
+    // TODO: it might not like being created with zero frame. Might have to do the initial sizing trick.
+    lazy var collectionView: UICollectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar)))
+
+    override func loadView() {
+        view = collectionView
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -56,15 +67,15 @@ class SidebarViewController: KeyboardCollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         items.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: items[indexPath.item])
     }
 
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectItemAtIndex(indexPath.item, inSidebarViewController: self)
     }
 }
