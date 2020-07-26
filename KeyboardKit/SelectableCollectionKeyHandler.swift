@@ -26,6 +26,7 @@ protocol SelectableCollection: NSObjectProtocol {
 
     var shouldAllowSelection: Bool { get }
     var shouldAllowMultipleSelection: Bool { get }
+    var shouldAllowEmptySelection: Bool { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
     
     var indexPathsForSelectedItems: [IndexPath]? { get }
@@ -61,9 +62,12 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
-        UIKeyCommand(.escape, action: #selector(clearSelection)),
         UIKeyCommand(.space, action: #selector(activateSelection)),
         UIKeyCommand(.returnOrEnter, action: #selector(activateSelection)),
+    ]
+
+    private lazy var deselectionKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(.escape, action: #selector(clearSelection)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -71,6 +75,9 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
         if collection.shouldAllowSelection && UIResponder.isTextInputActive == false {
             commands += selectionKeyCommands
+            if collection.shouldAllowEmptySelection {
+                commands += deselectionKeyCommands
+            }
         }
 
         return commands

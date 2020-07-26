@@ -74,6 +74,10 @@ extension UICollectionView: SelectableCollection {
         allowsMultipleSelection
     }
 
+    var shouldAllowEmptySelection: Bool {
+        false
+    }
+
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
         delegate?.collectionView?(self, shouldHighlightItemAt: indexPath) ?? true
     }

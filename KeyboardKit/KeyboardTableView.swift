@@ -110,6 +110,10 @@ extension UITableView: SelectableCollection {
         isEditing ? allowsMultipleSelectionDuringEditing : allowsMultipleSelection
     }
 
+    var shouldAllowEmptySelection: Bool {
+        true
+    }
+
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
         delegate?.tableView?(self, shouldHighlightRowAt: indexPath) ?? true
     }

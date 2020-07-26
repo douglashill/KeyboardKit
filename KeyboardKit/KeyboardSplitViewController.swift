@@ -92,15 +92,29 @@ public class KeyboardSplitViewController: UISplitViewController {
         UIKeyCommand(.rightArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
     ]
 
+    private lazy var dismissTemporaryColumnKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(.escape, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
+    ]
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if presentedViewController == nil, style == .doubleColumn || style == .tripleColumn, isCollapsed == false, UIResponder.isTextInputActive == false {
             commands += tabCommands
+
             switch view.effectiveUserInterfaceLayoutDirection {
             case .leftToRight: commands += leftToRightArrowKeyCommands
             case .rightToLeft: commands += rightToLeftArrowKeyCommands
             @unknown default: break
+            }
+
+            switch displayMode {
+            case .automatic:
+                preconditionFailure()
+            case .oneOverSecondary, .twoOverSecondary, .twoDisplaceSecondary:
+                commands += dismissTemporaryColumnKeyCommands
+            case .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
+                break
             }
         }
 
@@ -199,6 +213,19 @@ public class KeyboardSplitViewController: UISplitViewController {
             preconditionFailure("Compact column should never be focused.")
         @unknown default:
             break
+        }
+    }
+
+    @objc private func dismissTemporaryColumn(_ sender: UIKeyCommand) {
+        switch displayMode {
+        case .oneOverSecondary:
+            storedFocusedColumn = .secondary
+        case .twoOverSecondary:
+            storedFocusedColumn = .supplementary
+        case .twoDisplaceSecondary:
+            storedFocusedColumn = .supplementary // I’m not sure this achieves the desired effect of hiding the primary. I may have to use the explicit API for that.
+        case .automatic, .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
+            preconditionFailure("Can’t dismiss temporary column with no suitable column. The key command should not have been supplied in this case.")
         }
     }
 }
