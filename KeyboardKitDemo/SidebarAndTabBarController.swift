@@ -130,15 +130,7 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        if let transitionCoordinator = splitViewController.transitionCoordinator {
-            transitionCoordinator.animate { transitionCoordinatorContext in
-                // Nothing to animate. We just want the completion handler.
-            } completion: { transitionCoordinatorContext in
-                self.view.window?.updateFirstResponder()
-            }
-        } else {
-            view.window?.updateFirstResponder()
-        }
+        view.window?.updateFirstResponder()
     }
 
     // MARK: - FirstResponderManagement
