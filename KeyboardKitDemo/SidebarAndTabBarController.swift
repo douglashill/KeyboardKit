@@ -71,12 +71,12 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         updateSelectedContentViewController()
 
         for (index, contentViewController) in viewControllers.prefix(9).enumerated() {
-            addKeyCommand(UIKeyCommand(title: contentViewController.title!, action: #selector(scrollToNumberedTab), input: String(index + 1), modifierFlags: .command))
+            addKeyCommand(UIKeyCommand(title: contentViewController.title!, action: #selector(showChildByNumberFromKeyCommand), input: String(index + 1), modifierFlags: .command))
         }
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(scrollToNumberedTab) {
+        if action == #selector(showChildByNumberFromKeyCommand) {
             return presentedViewController == nil
         } else {
             return super.canPerformAction(action, withSender: sender)
@@ -84,12 +84,12 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
     }
 
     // For using command-1 to command-9.
-    @objc private func scrollToNumberedTab(_ sender: UIKeyCommand) {
-        guard let keyInput = sender.input, let targetTabNumber = Int(keyInput), targetTabNumber > 0 else {
+    @objc private func showChildByNumberFromKeyCommand(_ sender: UIKeyCommand) {
+        guard let keyInput = sender.input, let targetChildNumber = Int(keyInput), targetChildNumber > 0 else {
             return
         }
 
-        selectedViewControllerIndex = targetTabNumber - 1
+        selectedViewControllerIndex = targetChildNumber - 1
     }
 
     // TODO: The split view and tab bar aren’t always showing the same content view. I don’t think this is related to this keyboard control I just added for changing sidebar selection.
