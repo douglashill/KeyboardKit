@@ -26,13 +26,6 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
     @available(*, unavailable) override var tabBarController: UITabBarController? { nil }
     @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
-    // TODO: Support using cmd-1 to cmd-5 to change the secondary column while expanded.
-    // While compact, the tab bar controller deals with this.
-    // Possible approach: put the sidebar in the responder chain after the detail VC.
-    // However this would mean making the sidebar a lot more aware of how it is used.
-    // Another possibility: replicate what the tab bar controller does in this class SidebarAndTabBarController.
-    // This makes the tab bar support redundant but does seem the most correct locations for responsibilities.
-
     init(viewControllers: [UIViewController], initialSelectedIndex: Int = 0) {
         precondition(viewControllers.isEmpty == false)
 
