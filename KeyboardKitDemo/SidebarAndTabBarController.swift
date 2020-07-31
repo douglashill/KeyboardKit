@@ -133,6 +133,14 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         view.window?.updateFirstResponder()
     }
 
+    func splitViewControllerDidExpand(_ svc: UISplitViewController) {
+        view.window?.updateFirstResponder()
+    }
+
+    func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
+        view.window?.updateFirstResponder()
+    }
+
     // MARK: - FirstResponderManagement
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
