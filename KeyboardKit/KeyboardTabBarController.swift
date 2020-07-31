@@ -15,7 +15,7 @@ open class KeyboardTabBarController: UITabBarController {
 
         if presentedViewController == nil, let items = tabBar.items {
             commands += items.prefix(9).enumerated().map { index, tabBarItem in
-                UIKeyCommand((.command, String(index + 1)), action: #selector(scrollToNumberedTab), title: tabBarItem.title)
+                UIKeyCommand((.command, String(index + 1)), action: #selector(selectTabByNumberFromKeyCommand), title: tabBarItem.title)
             }
         }
 
@@ -23,7 +23,7 @@ open class KeyboardTabBarController: UITabBarController {
     }
 
     // For using command-1 to command-9.
-    @objc private func scrollToNumberedTab(_ sender: UIKeyCommand) {
+    @objc private func selectTabByNumberFromKeyCommand(_ sender: UIKeyCommand) {
         guard let keyInput = sender.input, let targetTabNumber = Int(keyInput), targetTabNumber > 0 else {
             return
         }
