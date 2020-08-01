@@ -131,90 +131,90 @@ private extension UICollectionViewLayout {
             return collectionView!.firstSelectableIndexPath
         }
 
-        let rectangleOfOldSelection = attributesOfOldSelection.frame
-        let centreOfOldSelection = attributesOfOldSelection.center
-        let contentSize = collectionViewContentSize
-
-        func indexPathBySearchingWithOffset(_ offset: CGFloat, distance distanceToSearch: CGFloat) -> IndexPath? {
-            let rectangleToSearch: CGRect
-            switch (direction, step) {
-
-            case (.up, .closest):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
-            case (.down, .end):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: contentSize.height - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
-
-            case (.down, .closest):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
-            case (.up, .end):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: 0 + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
-
-            case (.left, .closest):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-            case (.right, .end):
-                rectangleToSearch = CGRect(x: contentSize.width - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-
-            case (.right, .closest):
-                rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-            case (.left, .end):
-                rectangleToSearch = CGRect(x: 0 + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
-            }
-
-            let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
-
-            var closestAttributes: UICollectionViewLayoutAttributes?
-            var smallestDistance = CGFloat.greatestFiniteMagnitude
-
-            for attributes in attributesArray {
-                guard attributes.isHidden == false
-                        && attributes.alpha > 0
-                        && attributes.representedElementCategory == .cell
-                        && collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath)
-                else {
-                    continue
-                }
-
-                let distance: CGFloat
-
-                switch (direction, step) {
-                case (.up, .closest):
-                    distance = centreOfOldSelection.y - attributes.center.y
-                case (.down , .end):
-                    distance = contentSize.height - attributes.center.y
-
-                case (.down, .closest):
-                    distance = attributes.center.y - centreOfOldSelection.y
-                case (.up , .end):
-                    distance = attributes.center.y - 0
-
-                case (.left, .closest):
-                    distance = centreOfOldSelection.x - attributes.center.x
-                case (.right , .end):
-                    distance = contentSize.width - attributes.center.x
-
-                case (.right, .closest):
-                    distance = attributes.center.x - centreOfOldSelection.x
-                case (.left , .end):
-                    distance = attributes.center.x
-                }
-
-                // The index path is a deterministic tie-breaker.
-                if distance > 0 && (distance < smallestDistance || distance == smallestDistance && attributes.indexPath < closestAttributes!.indexPath) {
-                    closestAttributes = attributes
-                    smallestDistance = distance
-                }
-            }
-
-            return closestAttributes?.indexPath
-        }
-
         // First search some small distance along. Likely to find something. Feels like it might be faster than searching a long way from the start. Haven’t tested the performance; it depends so much on the layout anyway.
-        if let newIndexPath = indexPathBySearchingWithOffset(0, distance: 500) {
+        if let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction, step: step, offset: 0, distance: 500) {
             return newIndexPath
         }
 
         // Search further if finding nothing. Give up if the next item is further than 3000 points away.
-        return indexPathBySearchingWithOffset(500, distance: 2500)
+        return indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction, step: step, offset: 500, distance: 2500)
+    }
+
+    private func indexPathBySearchingFromAttributes(_ attributesOfOldSelection: UICollectionViewLayoutAttributes, direction: NavigationDirection, step: NavigationStep,  offset: CGFloat, distance distanceToSearch: CGFloat) -> IndexPath? {
+        let rectangleOfOldSelection = attributesOfOldSelection.frame
+        let centreOfOldSelection = attributesOfOldSelection.center
+        let contentSize = collectionViewContentSize
+
+        let rectangleToSearch: CGRect
+        switch (direction, step) {
+
+        case (.up, .closest):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
+        case (.down, .end):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: contentSize.height - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
+
+        case (.down, .closest):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
+        case (.up, .end):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: 0 + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
+
+        case (.left, .closest):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+        case (.right, .end):
+            rectangleToSearch = CGRect(x: contentSize.width - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+
+        case (.right, .closest):
+            rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+        case (.left, .end):
+            rectangleToSearch = CGRect(x: 0 + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
+        }
+
+        let attributesArray = layoutAttributesForElements(in: rectangleToSearch) ?? []
+
+        var closestAttributes: UICollectionViewLayoutAttributes?
+        var smallestDistance = CGFloat.greatestFiniteMagnitude
+
+        for attributes in attributesArray {
+            guard attributes.isHidden == false
+                    && attributes.alpha > 0
+                    && attributes.representedElementCategory == .cell
+                    && collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath)
+            else {
+                continue
+            }
+
+            let distance: CGFloat
+
+            switch (direction, step) {
+            case (.up, .closest):
+                distance = centreOfOldSelection.y - attributes.center.y
+            case (.down , .end):
+                distance = contentSize.height - attributes.center.y
+
+            case (.down, .closest):
+                distance = attributes.center.y - centreOfOldSelection.y
+            case (.up , .end):
+                distance = attributes.center.y - 0
+
+            case (.left, .closest):
+                distance = centreOfOldSelection.x - attributes.center.x
+            case (.right , .end):
+                distance = contentSize.width - attributes.center.x
+
+            case (.right, .closest):
+                distance = attributes.center.x - centreOfOldSelection.x
+            case (.left , .end):
+                distance = attributes.center.x
+            }
+
+            // The index path is a deterministic tie-breaker.
+            if distance > 0 && (distance < smallestDistance || distance == smallestDistance && attributes.indexPath < closestAttributes!.indexPath) {
+                closestAttributes = attributes
+                smallestDistance = distance
+            }
+        }
+
+        return closestAttributes?.indexPath
     }
 }
 
