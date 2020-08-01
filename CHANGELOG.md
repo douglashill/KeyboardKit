@@ -2,6 +2,7 @@
 
 - 2020-08-19
     - Resolves project settings warnings with Xcode 12.
+    - Adds support for selection wrapping in any `UICollectionViewLayout`. 
     - Fixes selection in collection views not working as expected when there are supplementary views, decoration views, cells with an alpha of zero, or items for which the delegate returns false to `collectionView(_:shouldHighlightItemAt:)`. This issue affected  `UICollectionLayoutListConfiguration`.
     - Fixes the back command not working with nested `UINavigationControllers`s.
 - 2020-07-12

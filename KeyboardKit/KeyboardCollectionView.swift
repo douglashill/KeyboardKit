@@ -131,12 +131,29 @@ private extension UICollectionViewLayout {
             return collectionView!.firstSelectableIndexPath
         }
 
+        if let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction, step: step) {
+            return newIndexPath
+        }
+
+        switch step {
+        case .end:
+            // Already at end so can’t do any more.
+            return nil
+        case .closest:
+            // Wrap around.
+            let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction.opposite, step: .end)
+            // If we wrapped around to the same object, return nil so we don’t steal this event without doing anything.
+            return newIndexPath == indexPath ? nil : newIndexPath
+        }
+    }
+
+    private func indexPathBySearchingFromAttributes(_ attributesOfOldSelection: UICollectionViewLayoutAttributes, direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
         // First search some small distance along. Likely to find something. Feels like it might be faster than searching a long way from the start. Haven’t tested the performance; it depends so much on the layout anyway.
         if let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction, step: step, offset: 0, distance: 500) {
             return newIndexPath
         }
 
-        // Search further if finding nothing. Give up if the next item is further than 3000 points away.
+        // Search further if nothing was found. Assume we’re at the end if the next item is further than 3000 points away.
         return indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction, step: step, offset: 500, distance: 2500)
     }
 
@@ -269,6 +286,17 @@ private extension UICollectionViewFlowLayout {
             } else {
                 return collectionView!.firstSelectableIndexPath
             }
+        }
+    }
+}
+
+private extension NavigationDirection {
+    var opposite: NavigationDirection {
+        switch self {
+        case .up: return .down
+        case .down: return .up
+        case .left: return .right
+        case .right: return .left
         }
     }
 }
