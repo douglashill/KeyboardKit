@@ -35,7 +35,6 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         selectedViewControllerIndex = initialSelectedIndex
 
         let splitViewController = KeyboardSplitViewController(style: .doubleColumn)
-        splitViewController.presentsWithGesture = false
 
         sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
         sidebar.collectionView.selectionFollowsFocus = true
