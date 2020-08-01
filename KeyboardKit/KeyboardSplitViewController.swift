@@ -183,7 +183,7 @@ public class KeyboardSplitViewController: UISplitViewController {
             precondition(style == .tripleColumn)
             storedFocusedColumn = .secondary
         case .compact:
-            preconditionFailure("Compact column should never be focused.")
+            preconditionFailure("Moving focus should not be enabled when compact.")
         @unknown default:
             break
         }
@@ -210,7 +210,7 @@ public class KeyboardSplitViewController: UISplitViewController {
             precondition(style == .tripleColumn)
             storedFocusedColumn = .primary
         case .compact:
-            preconditionFailure("Compact column should never be focused.")
+            preconditionFailure("Moving focus should not be enabled when compact.")
         @unknown default:
             break
         }
