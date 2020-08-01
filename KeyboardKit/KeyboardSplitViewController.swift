@@ -93,7 +93,7 @@ public class KeyboardSplitViewController: UISplitViewController {
     ]
 
     private lazy var dismissTemporaryColumnKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(.escape, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
+        UIKeyCommand(.escape, action: #selector(dismissTemporaryColumn)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
