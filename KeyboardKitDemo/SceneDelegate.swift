@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let rootViewController = SidebarAndTabBarController(viewControllers: [
             SimpleListViewController(),
+            CompositionalLayoutViewController(),
             FlowLayoutViewController(),
             CirclesScrollViewController(),
             PagingScrollViewController(),
