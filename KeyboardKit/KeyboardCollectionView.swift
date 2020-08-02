@@ -190,6 +190,9 @@ private extension UICollectionViewLayout {
 
         var closestAttributes: UICollectionViewLayoutAttributes?
         var smallestDistance = CGFloat.greatestFiniteMagnitude
+        /// Used if two or more items are the same distance away in the desired direction. Most commonly, this kicks
+        /// in when a grid has no padding between items. Transverse means the direction perpendicular to `direction`.
+        var smallestTransverseDistance = CGFloat.greatestFiniteMagnitude
 
         for attributes in attributesArray {
             guard attributes.isHidden == false
@@ -201,7 +204,6 @@ private extension UICollectionViewLayout {
             }
 
             let distance: CGFloat
-
             switch (direction, step) {
             case (.up, .closest):
                 distance = centreOfOldSelection.y - attributes.center.y
@@ -224,10 +226,23 @@ private extension UICollectionViewLayout {
                 distance = attributes.center.x
             }
 
-            // The index path is a deterministic tie-breaker.
-            if distance > 0 && (distance < smallestDistance || distance == smallestDistance && attributes.indexPath < closestAttributes!.indexPath) {
+            guard distance > 0 else {
+                // Most likely this is the old selected item or one transverse to it. This could also be one slightly
+                // in the opposite direction, or the layout returned attributes outside of what we asked for.
+                continue
+            }
+
+            let transverseDistance: CGFloat
+            switch direction {
+            case .up, .down: transverseDistance = abs(attributes.center.x - centreOfOldSelection.x)
+            case .left, .right: transverseDistance = abs(attributes.center.y - centreOfOldSelection.y)
+            }
+
+            // The ‘sort descriptors’ are [distance, transverse distance, index path]. The index path is a deterministic tie-breaker.
+            if distance < smallestDistance || distance == smallestDistance && (transverseDistance < smallestTransverseDistance || transverseDistance == smallestTransverseDistance && attributes.indexPath < closestAttributes!.indexPath) {
                 closestAttributes = attributes
                 smallestDistance = distance
+                smallestTransverseDistance = transverseDistance
             }
         }
 
