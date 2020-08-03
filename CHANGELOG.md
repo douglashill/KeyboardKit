@@ -3,6 +3,7 @@
 - 2020-08-19
     - Resolves project settings warnings with Xcode 12.
     - Adds support for selection wrapping in any `UICollectionViewLayout`. 
+    - Adds selecting the last item initially with `UICollectionViewCompositionalLayout` when pressing the up arrow with vertical scrolling or the trailing arrow with a horizontal scrolling.
     - Fixes selection in collection views not working as expected when there are supplementary views, decoration views, cells with an alpha of zero, or items for which the delegate returns false to `collectionView(_:shouldHighlightItemAt:)`. This issue affected  `UICollectionLayoutListConfiguration`.
     - Fixes selection in collection views sometimes shifting into an adjacent row or column when there is no padding between items.
     - Fixes the back command not working with nested `UINavigationControllers`s.

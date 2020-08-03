@@ -127,7 +127,60 @@ private extension UICollectionViewLayout {
             let oldIndexPath = indexPath,
             let attributesOfOldSelection = layoutAttributesForItem(at: oldIndexPath)
         else {
-            // It’s very layout-dependent what would make sense here. Important to return something though otherwise it would be impossible to get started with arrow key navigation.
+            /*
+             It’s very layout-dependent what would make sense here. Important to not always return nil otherwise it would
+             be impossible to get started with arrow key navigation. Doing this spatially would mean looking for items
+             closest to an edge. This potentially means requesting all layout attributes (as in the case of pressing left
+             or right in a list). This could be expensive and not make sense to the user anyway.
+             */
+
+            /*
+             This behaviour is modified for compositional layout so that the initial selection is only created in the
+             scroll direction. I.e. so left/right arrows keys don’t make an initial selection in a list.
+
+             Ideally this method would be overridden by `UICollectionViewCompositionalLayout`. That class is only
+             available from iOS 13 while our deployment target is currently iOS 12, so the extension must be
+             marked with `@available(iOS 13.0, *)`. (I guess that’s just to be explicit. This could surely be
+             inferred.) However for some reason if the extension on `UICollectionViewCompositionalLayout` has an
+             `@available` restriction then we get this compiler error:
+
+             > Overriding 'kbd_indexPathFromIndexPath' must be as available as declaration it overrides
+
+             I don’t understand why that would be the case. Isn’t doing stuff like this the point of dynamic dispatch?
+             Rewriting all this index path moving code in Objective-C would be tedious because there are lots of switch
+             statements on tuples. So let’s just check for the specific subclass here instead of using overriding.
+             */
+
+            if #available(iOS 13.0, *), let compositionalLayout = self as? UICollectionViewCompositionalLayout {
+                switch compositionalLayout.configuration.scrollDirection {
+                case .horizontal:
+                    switch (direction, collectionView!.effectiveUserInterfaceLayoutDirection) {
+                    case (.up, _), (.down, _):
+                        return nil
+                    case (.left, .leftToRight), (.right, .rightToLeft):
+                        return collectionView!.lastSelectableIndexPath
+                    case (.right, .leftToRight), (.left, .rightToLeft):
+                        return collectionView!.firstSelectableIndexPath
+                    @unknown default:
+                        break
+                    }
+                case .vertical:
+                    switch direction {
+                    case .left, .right:
+                        return nil
+                    case .up:
+                        return collectionView!.lastSelectableIndexPath
+                    case .down:
+                        return collectionView!.firstSelectableIndexPath
+                    }
+                @unknown default:
+                    break
+                }
+            }
+
+            // We have no idea so always go to the first item.
+            // A possible improvement would be to infer the scroll direction for custom layouts based on the
+            // collectionViewContentSize and then use the same branching as for compositional layout above.
             return collectionView!.firstSelectableIndexPath
         }
 
@@ -251,7 +304,7 @@ private extension UICollectionViewLayout {
 }
 
 private extension UICollectionViewFlowLayout {
-
+    /// Overridden so that wrapping around moves to the next/previous line instead of the start/end of the current line.
     override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int) -> IndexPath? {
         let direction = NavigationDirection(rawValue: rawDirection)!
 
@@ -273,8 +326,8 @@ private extension UICollectionViewFlowLayout {
                 return collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft ? .backwards : .forwards
             case (.vertical, .up), (.vertical, .down), (.horizontal, .left), (.horizontal, .right):
                 return .spatial
-            case (_, _):
-                // This is the unknown default if a new scroll direction is added!? Whatever. Let’s go with spatial.
+            @unknown default:
+                // Don’t know. Let’s go with spatial.
                 return .spatial
             }
         }
