@@ -38,10 +38,7 @@ open class KeyboardNavigationController: UINavigationController {
             let navigationItem = topViewController.navigationItem
             var additionalCommands: [UIKeyCommand] = []
 
-            let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
-            if (canGoBack) {
-                additionalCommands += backKeyCommands
-            }
+            additionalCommands += backKeyCommands
 
             let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
                 $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
@@ -59,6 +56,15 @@ open class KeyboardNavigationController: UINavigationController {
         }
 
         return commands
+    }
+
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(kbd_goBackFromKeyCommand) {
+            let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
+            return canGoBack
+        }
+
+        return super.canPerformAction(action, withSender: sender)
     }
 }
 

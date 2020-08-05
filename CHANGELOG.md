@@ -2,6 +2,7 @@
 
 - 2020-08-19
     - Resolves project settings warnings with Xcode 12.
+    - Fixes the back command not working with nested `UINavigationControllers`s.
 - 2020-07-12
     - Adds support for Swift Packager Manager. 
 - 2020-04-26
