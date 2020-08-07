@@ -62,6 +62,8 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        // TODO: Allow empty selection when the split view is collapsed.
+
         if let delegate = delegate {
             collectionView.selectItem(at: IndexPath(item: delegate.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
         }
@@ -77,6 +79,18 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectItemAtIndex(indexPath.item, inSidebarViewController: self)
+    }
+
+    func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
+        // TODO: Don’t do this when the split view is collapsed.
+        if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+            delegate?.didSelectItemAtIndex(indexPath.item, inSidebarViewController: self)
+        }
+    }
+
+    func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool {
+        // TODO: Allow this when the split view is collapsed.
+        false
     }
 }
 
