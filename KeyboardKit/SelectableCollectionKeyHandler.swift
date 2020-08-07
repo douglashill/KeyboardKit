@@ -26,7 +26,8 @@ protocol SelectableCollection: NSObjectProtocol {
 
     var shouldAllowSelection: Bool { get }
     var shouldAllowMultipleSelection: Bool { get }
-    var shouldAllowEmptySelection: Bool { get }
+    /// Optional because the delegate might not implement the method so the default value is not repeated.
+    var shouldAllowEmptySelection: Bool? { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
     
     var indexPathsForSelectedItems: [IndexPath]? { get }
@@ -74,7 +75,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
         if collection.shouldAllowSelection && UIResponder.isTextInputActive == false {
             commands += selectionKeyCommands
-            if collection.shouldAllowEmptySelection {
+            if collection.shouldAllowEmptySelection ?? true {
                 commands += deselectionKeyCommands
             }
         }

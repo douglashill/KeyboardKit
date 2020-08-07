@@ -72,6 +72,11 @@ public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
     /// content in a detail view. This callback should typically be ignored when a split view controller
     /// is collapsed because updating a detail view that isn’t visible may be wasteful.
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView)
+
+    /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
+    func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool
 }
 
 extension UICollectionView {
@@ -85,6 +90,9 @@ extension UICollectionView {
 }
 
 extension UICollectionView: SelectableCollection {
+    private var keyboardDelegate: KeyboardCollectionViewDelegate? {
+        delegate as? KeyboardCollectionViewDelegate
+    }
 
     var shouldAllowSelection: Bool {
         allowsSelection
@@ -94,8 +102,11 @@ extension UICollectionView: SelectableCollection {
         allowsMultipleSelection
     }
 
-    var shouldAllowEmptySelection: Bool {
-        false
+    var shouldAllowEmptySelection: Bool? {
+        // shouldDeselectItemAtIndexPath is not considered appropriate because it is explicitly documented as
+        // “called when the user taps on an already-selected item in multi-select mode”
+        // and also there is no equivalent for UITableView.
+        keyboardDelegate?.collectionViewShouldClearSelection(self)
     }
 
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
@@ -103,7 +114,7 @@ extension UICollectionView: SelectableCollection {
     }
 
     func notifyDelegateOfSelectionChange() {
-        (delegate as? KeyboardCollectionViewDelegate)?.collectionViewDidChangeSelectedItemsUsingKeyboard(self)
+        keyboardDelegate?.collectionViewDidChangeSelectedItemsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {

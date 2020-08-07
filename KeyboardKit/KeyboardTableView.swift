@@ -57,6 +57,11 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
     /// content in a detail view. This callback should typically be ignored when a split view controller
     /// is collapsed because updating a detail view that isn’t visible may be wasteful.
     func tableViewDidChangeSelectedRowsUsingKeyboard(_ tableView: UITableView)
+
+    /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
+    func tableViewShouldClearSelection(_ tableView: UITableView) -> Bool
 }
 
 /// Provides key commands for a table view and implements the actions of those key commands.
@@ -117,6 +122,9 @@ extension UITableView {
 }
 
 extension UITableView: SelectableCollection {
+    private var keyboardDelegate: KeyboardTableViewDelegate? {
+        delegate as? KeyboardTableViewDelegate
+    }
 
     func numberOfItems(inSection section: Int) -> Int {
         numberOfRows(inSection: section)
@@ -130,8 +138,8 @@ extension UITableView: SelectableCollection {
         isEditing ? allowsMultipleSelectionDuringEditing : allowsMultipleSelection
     }
 
-    var shouldAllowEmptySelection: Bool {
-        true
+    var shouldAllowEmptySelection: Bool? {
+        keyboardDelegate?.tableViewShouldClearSelection(self)
     }
 
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
@@ -147,7 +155,7 @@ extension UITableView: SelectableCollection {
     }
 
     func notifyDelegateOfSelectionChange() {
-        (delegate as? KeyboardTableViewDelegate)?.tableViewDidChangeSelectedRowsUsingKeyboard(self)
+        keyboardDelegate?.tableViewDidChangeSelectedRowsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {
