@@ -30,11 +30,10 @@ protocol SelectableCollection: NSObjectProtocol {
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
     
     var indexPathsForSelectedItems: [IndexPath]? { get }
+    /// Make sure `notifyDelegateOfSelectionChange` is called after this (potentially after batch selection changes).
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition)
-
-    /// Whether activateSelection is called when selecting an item with the keyboard.
-    @available(iOS 14.0, *)
-    var selectionFollowsFocus: Bool { get }
+    /// Should be called after `selectItem(at indexPath: animated: scrollPosition)`.
+    func notifyDelegateOfSelectionChange()
     func activateSelection(at indexPath: IndexPath)
 
     func flashScrollIndicators()
@@ -134,10 +133,12 @@ class SelectableCollectionKeyHandler: InjectableResponder {
                 collection.selectItem(at: IndexPath(item: item, section: section), animated: false, scrollPosition: [])
             }
         }
+        collection.notifyDelegateOfSelectionChange()
     }
 
     @objc private func clearSelection(_ sender: UIKeyCommand) {
         collection.selectItem(at: nil, animated: false, scrollPosition: [])
+        collection.notifyDelegateOfSelectionChange()
     }
 
     @objc private func activateSelection(_ sender: UIKeyCommand) {
@@ -177,8 +178,8 @@ private extension SelectableCollection {
         // The scrolling will have animation if the target is not fully visible.
 
         selectItem(at: nil, animated: false, scrollPosition: [])
-
         selectItem(at: indexPath, animated: false, scrollPosition: [])
+        notifyDelegateOfSelectionChange()
 
         switch cellVisibility(atIndexPath: indexPath) {
         case .fullyVisible:
@@ -186,15 +187,6 @@ private extension SelectableCollection {
         case .notFullyVisible(let scrollPosition):
             scrollToItem(at: indexPath, at: scrollPosition, animated: UIAccessibility.isReduceMotionEnabled == false)
             flashScrollIndicators()
-        }
-
-        if #available(iOS 14.0, *) {
-            if selectionFollowsFocus {
-                activateSelection(at: indexPath)
-            }
-        } else {
-            // TODO: Since I want this to work back to old versions I should probably just make a separate delegate method.
-            // (By being a method I can have different behaviour per item since maybe some should select immediately and some not.)
         }
     }
 }

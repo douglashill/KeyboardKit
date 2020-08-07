@@ -54,6 +54,26 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
     }
 }
 
+/// A collection view’s `delegate` can conform to this protocol to receive callbacks about keyboard-specific events.
+///
+/// This can be used with either `KeyboardCollectionView` or `KeyboardCollectionViewController`.
+///
+/// When selection is activated with return or space, the regular delegate method `collectionView(_:didSelectItemAt:)` is called.
+public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
+    /// Called when a keyboard is used to change the selected items.
+    ///
+    /// This happens in response to arrow keys, escape and ⌘A.
+    /// The items show as selected but `collectionView(_:didSelectItemAt:)` is not
+    /// called unless return or space is pressed while a single item shows selection.
+    ///
+    /// The new selected items can be read using `collectionView.indexPathsForSelectedItems`.
+    ///
+    /// Typically this callback would be used for changes in a collection view in a sidebar to update the
+    /// content in a detail view. This callback should typically be ignored when a split view controller
+    /// is collapsed because updating a detail view that isn’t visible may be wasteful.
+    func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView)
+}
+
 extension UICollectionView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
         shouldAllowSelection == false
@@ -80,6 +100,10 @@ extension UICollectionView: SelectableCollection {
 
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
         delegate?.collectionView?(self, shouldHighlightItemAt: indexPath) ?? true
+    }
+
+    func notifyDelegateOfSelectionChange() {
+        (delegate as? KeyboardCollectionViewDelegate)?.collectionViewDidChangeSelectedItemsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {

@@ -39,6 +39,26 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
     }
 }
 
+/// A table view’s `delegate` can conform to this protocol to receive callbacks about keyboard-specific events.
+///
+/// This can be used with either `KeyboardTableView` or `KeyboardTableViewController`.
+///
+/// When selection is activated with return or space, the regular delegate method `tableView(_:didSelectRowAt:)` is called.
+public protocol KeyboardTableViewDelegate: UITableViewDelegate {
+    /// Called when a keyboard is used to change the selected rows.
+    ///
+    /// This happens in response to arrow keys, escape and ⌘A.
+    /// The rows show as selected but `tableView(_:didSelectRowAt:)` is not
+    /// called unless return or space is pressed while a single row shows selection.
+    ///
+    /// The new selected rows can be read using `tableView.indexPathsForSelectedRows`.
+    ///
+    /// Typically this callback would be used for changes in a table view in a sidebar to update the
+    /// content in a detail view. This callback should typically be ignored when a split view controller
+    /// is collapsed because updating a detail view that isn’t visible may be wasteful.
+    func tableViewDidChangeSelectedRowsUsingKeyboard(_ tableView: UITableView)
+}
+
 /// Provides key commands for a table view and implements the actions of those key commands.
 /// In order to receive those actions the object must be added to the responder chain
 /// by the owner overriding `nextResponder`. Then implement `nextResponderForResponder`
@@ -124,6 +144,10 @@ extension UITableView: SelectableCollection {
 
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
         selectRow(at: indexPath, animated: animated, scrollPosition: .init(scrollPosition))
+    }
+
+    func notifyDelegateOfSelectionChange() {
+        (delegate as? KeyboardTableViewDelegate)?.tableViewDidChangeSelectedRowsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {
