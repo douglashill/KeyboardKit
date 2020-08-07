@@ -7,7 +7,7 @@ import UIKit
 /// This subclass only support iOS 14 split view controllers that are initialised with a `style` and have their
 /// view controllers set as columns. Using the `.unspecified` style is not supported.
 @available(iOS 14.0, *)
-public class KeyboardSplitViewController: UISplitViewController {
+open class KeyboardSplitViewController: UISplitViewController {
 
     /// The column in the split view that currently has focus.
     ///
