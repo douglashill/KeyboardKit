@@ -70,9 +70,6 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        // TODO: The partial parent system wasn’t designed with pushing in mind, so this probably breaks.
-
         navigationController?.pushViewController(SimpleListViewController(), animated: true)
     }
 
@@ -112,18 +109,6 @@ class BookmarksViewController: FirstResponderViewController {
 
         view.backgroundColor = .systemBackground
     }
-
-    // TODO: The original first responder is lost after this view is dismissed.
-    // One option would be to keep a stack of first responders and push/pop the stack when presenting/dismissing.
-    // But this seems likely to get out-of-sync.
-    // Another option would if I was able to reconstruct a chain from the window to the 1R at any time based on existing
-    // state, and then call a new updateFirstResponder method to set the 1R to the end of this chain at various points.
-
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        presentingViewController!.
-//    }
 
     @objc private func saveBookmarks(_ sender: Any?) {
         presentingViewController?.dismiss(animated: true)
