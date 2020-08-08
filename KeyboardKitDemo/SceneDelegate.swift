@@ -9,7 +9,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let windowScene = scene as! UIWindowScene
 
-        let rootViewController = SidebarAndTabBarController(viewControllers: [
+        let rootViewController = SplitContainer(viewControllers: [
             SimpleListViewController(),
             CompositionalLayoutViewController(),
             FlowLayoutViewController(),

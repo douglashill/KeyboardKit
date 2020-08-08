@@ -98,18 +98,16 @@ extension UINavigationController {
 
 extension UITabBarController {
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
+        // This won’t work if there is a More tab. The selectedViewController might be a navigation controller
+        // but that isn’t actually present in the VC hierarchy because the child of the navigation controller
+        // will be extracted and pushed onto the UIMoreNavigationController.
         presentedViewController ?? selectedViewController
     }
 }
 
 extension KeyboardSplitViewController {
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
+        // This isn’t quite right because if we’re collapsed but don’t have a compact column then the primary would be considred focused but the view controler for primary might be a content view controller but actually the visible view controller is pushed in the naviation controller of the primary, so not in the hierarhcy of the primary itself.
         presentedViewController ?? (focusedColumn != nil ? viewController(for: focusedColumn!) : nil)
-    }
-}
-
-extension PartialParentViewController {
-    override var kd_preferredFirstResponderInHierarchy: UIResponder? {
-        presentedViewController ?? childViewController
     }
 }

@@ -5,7 +5,7 @@ import KeyboardKit
 
 /// Shows a sidebar list.
 ///
-/// Intended for private use in SidebarAndTabBarController. Not intended for any other use.
+/// Intended for private use in SplitContainer. Not intended for any other use.
 class SidebarViewController: FirstResponderViewController, UICollectionViewDataSource, KeyboardCollectionViewDelegate {
     let items: [((String, UIImage?))]
     weak var delegate: SidebarViewControllerDelegate?

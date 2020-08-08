@@ -3,13 +3,11 @@
 import UIKit
 import KeyboardKit
 
-/// Shows an array of content views. The user switches views using a tab bar in compact widths or using a sidebar in regular widths.
-class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegate, UITabBarControllerDelegate, KeyboardSplitViewControllerDelegate {
-    private let innerSplitViewController: UISplitViewController
-    private let innerTabBarController: UITabBarController
+/// Shows an array of content views in a sidebar in regular widths, collapsing to using a navigation stack in compact widths.
+class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate {
+    private let innerSplitViewController: KeyboardSplitViewController
     private let sidebar: SidebarViewController
-    private let secondarySplitNavigationController: UINavigationController
-    private let secondarySplitPartialParents: [PartialParentViewController]
+    private let contentViewControllers: [KeyboardNavigationController]
 
     private var selectedViewControllerIndex: Int {
         didSet {
@@ -18,75 +16,35 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
     }
 
     private func updateSelectedContentViewController() {
-        secondarySplitNavigationController.viewControllers = [secondarySplitPartialParents[selectedViewControllerIndex]]
-        innerTabBarController.selectedIndex = selectedViewControllerIndex
+        innerSplitViewController.showDetailViewController(contentViewControllers[selectedViewControllerIndex], sender: nil)
     }
 
     @available(*, unavailable) override var splitViewController: UISplitViewController? { nil }
-    @available(*, unavailable) override var tabBarController: UITabBarController? { nil }
     @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
     init(viewControllers: [UIViewController], initialSelectedIndex: Int = 0) {
         precondition(viewControllers.isEmpty == false)
 
-        secondarySplitPartialParents = viewControllers.map {
-            PartialParentViewController(childViewController: $0)
-        }
+        contentViewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
         selectedViewControllerIndex = initialSelectedIndex
 
         let splitViewController = KeyboardSplitViewController(style: .doubleColumn)
 
         sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
-        sidebar.collectionView.selectionFollowsFocus = true
-        splitViewController.setViewController(sidebar, for: .primary)
-
-        secondarySplitNavigationController = KeyboardNavigationController()
-        splitViewController.setViewController(secondarySplitNavigationController, for: .secondary)
-
-        innerTabBarController = KeyboardTabBarController()
-        innerTabBarController.viewControllers = viewControllers.map { contentViewController in
-            KeyboardNavigationController(rootViewController: PartialParentViewController(childViewController: contentViewController))
-        }
-        splitViewController.setViewController(innerTabBarController, for: .compact)
+        splitViewController.setViewController(KeyboardNavigationController(rootViewController: sidebar), for: .primary)
 
         innerSplitViewController = splitViewController
 
         super.init(nibName: nil, bundle: nil)
 
         sidebar.delegate = self
-        innerTabBarController.delegate = self
         splitViewController.delegate = self
 
         addChild(splitViewController)
         splitViewController.didMove(toParent: self)
 
         updateSelectedContentViewController()
-
-        for (index, contentViewController) in viewControllers.prefix(9).enumerated() {
-            addKeyCommand(UIKeyCommand(title: contentViewController.title!, action: #selector(showChildByNumberFromKeyCommand), input: String(index + 1), modifierFlags: .command))
-        }
     }
-
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(showChildByNumberFromKeyCommand) {
-            return presentedViewController == nil
-        } else {
-            return super.canPerformAction(action, withSender: sender)
-        }
-    }
-
-    // For using command-1 to command-9.
-    @objc private func showChildByNumberFromKeyCommand(_ sender: UIKeyCommand) {
-        guard let keyInput = sender.input, let targetChildNumber = Int(keyInput), targetChildNumber > 0 else {
-            return
-        }
-
-        selectedViewControllerIndex = targetChildNumber - 1
-    }
-
-    // TODO: The split view and tab bar aren’t always showing the same content view. I don’t think this is related to this keyboard control I just added for changing sidebar selection.
-
-    // TODO: Also after using cmd-1 etc the selection in the sidebar is not updated until you scroll the sidebar a little bit.
 
     override var title: String? {
         get { sidebar.title }
@@ -113,12 +71,6 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         selectedViewControllerIndex
     }
 
-    // MARK: - UITabBarControllerDelegate
-
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        selectedViewControllerIndex = tabBarController.selectedIndex
-    }
-
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
@@ -131,6 +83,17 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
 
     func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
         view.window?.updateFirstResponder()
+    }
+
+    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+        // The default behaviour is to always show the secondary.
+        // Since we have a first-class concept of user focus let’s use that.
+        innerSplitViewController.focusedColumn ?? proposedTopColumn
+    }
+
+    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
+        // What would be nice to do here is if the navigation controller top controller is the primary content VC then go to a display mode that shows the sidebar and focus it.
+        proposedDisplayMode
     }
 
     // MARK: - FirstResponderManagement

@@ -46,7 +46,6 @@
 		A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */; };
 		A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */; };
 		A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */; };
-		A5E3D37924C39041008C1FDB /* PartialParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */; };
 		A5E3D37A24C39041008C1FDB /* SidebarAndTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */; };
 		A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37824C39041008C1FDB /* SidebarViewController.swift */; };
 		A5E3D37D24C46E28008C1FDB /* ResponderChainDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */; };
@@ -236,7 +235,6 @@
 		A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWindow.swift; sourceTree = "<group>"; };
 		A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewKeyHandler.swift; sourceTree = "<group>"; };
 		A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableResponder.swift; sourceTree = "<group>"; };
-		A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartialParentViewController.swift; sourceTree = "<group>"; };
 		A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarAndTabBarController.swift; sourceTree = "<group>"; };
 		A5E3D37824C39041008C1FDB /* SidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSplitViewController.swift; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A5E3D37724C39041008C1FDB /* SidebarAndTabBarController.swift */,
 				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
-				A5E3D37624C39041008C1FDB /* PartialParentViewController.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */,
 				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
 				A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */,
@@ -639,7 +636,6 @@
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
-				A5E3D37924C39041008C1FDB /* PartialParentViewController.swift in Sources */,
 				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
 				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
