@@ -11,12 +11,43 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
 
     private let cellReuseIdentifier = "a"
     private lazy var collectionView: UICollectionView = {
-        let ignored = NSCollectionLayoutDimension.absolute(9999)
+        let nestedGroupsSection = { () -> NSCollectionLayoutSection in
+            let standardInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
+            
+            let horizontalStackingSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+            let verticalStackingSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.5))
 
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: ignored, heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100)), subitem: item, count: 3)
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
+            let horizontallyStackingItem = NSCollectionLayoutItem(layoutSize: horizontalStackingSize)
+            horizontallyStackingItem.contentInsets = standardInsets
+            let verticallyStackingItem = NSCollectionLayoutItem(layoutSize: verticalStackingSize)
+            verticallyStackingItem.contentInsets = standardInsets
+
+            let group5 = NSCollectionLayoutGroup.horizontal(layoutSize: verticalStackingSize, subitems: [horizontallyStackingItem, horizontallyStackingItem])
+            let group4 = NSCollectionLayoutGroup.vertical(layoutSize: horizontalStackingSize, subitems: [verticallyStackingItem, group5])
+            let group3 = NSCollectionLayoutGroup.horizontal(layoutSize: verticalStackingSize, subitems: [horizontallyStackingItem, group4])
+            let group2 = NSCollectionLayoutGroup.vertical(layoutSize: horizontalStackingSize, subitems: [verticallyStackingItem, group3])
+            let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitems: [horizontallyStackingItem, group2])
+
+            let section = NSCollectionLayoutSection(group: group1)
+            section.contentInsets = standardInsets
+            return section
+        }()
+
+        let orthogonalScrollingSection = { () -> NSCollectionLayoutSection in
+            let itemThatFillGroup = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+            let fixedSizeGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(150)), subitems: [itemThatFillGroup])
+            let section = NSCollectionLayoutSection(group: fixedSizeGroup)
+            section.orthogonalScrollingBehavior = .continuous
+            section.interGroupSpacing = 8
+            return section
+        }()
+
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 12
+
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, environment -> NSCollectionLayoutSection? in
+            sectionIndex == 1 ? orthogonalScrollingSection : nestedGroupsSection
+        }, configuration: config)
 
         return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
     }()
@@ -30,7 +61,7 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
 
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.dataSource = self
-        collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -42,25 +73,17 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
-    }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UICollectionViewListCell
 
-    class Cell: UICollectionViewCell {
-        override init(frame: CGRect) {
-            super.init(frame: frame)
+        var content = cell.defaultContentConfiguration()
+        content.text = "\(indexPath.item)"
+        content.textProperties.alignment = .center
+        cell.contentConfiguration = content
 
-            contentView.layer.cornerRadius = 25
-            contentView.layer.cornerCurve = .continuous
-            contentView.layer.borderColor = UIColor.label.cgColor
-            contentView.backgroundColor = .secondarySystemGroupedBackground
-        }
+        var background = UIBackgroundConfiguration.listPlainCell()
+        background.cornerRadius = 8
+        cell.backgroundConfiguration = background
 
-        required init?(coder decoder: NSCoder) { preconditionFailure() }
-
-        override var isSelected: Bool {
-            didSet {
-                contentView.layer.borderWidth = isSelected ? 2 : 0
-            }
-        }
+        return cell
     }
 }
