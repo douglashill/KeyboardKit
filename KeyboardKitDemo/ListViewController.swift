@@ -19,7 +19,12 @@ class ListViewController: FirstResponderViewController, UICollectionViewDelegate
     }()
 
     override func loadView() {
+        // If the collection view starts off with zero frame is briefly shows as black when appearing.
+        // I’ve only seen this happen with lists using UICollectionView, not in other compositional layouts.
+        super.loadView() // Hack: Load the default view to get the initial frame from UIKit.
+        let initialFrame = view.frame
         view = collectionView
+        collectionView.frame = initialFrame
     }
 
     override func viewDidLoad() {
