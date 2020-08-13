@@ -3,10 +3,10 @@
 import UIKit
 import KeyboardKit
 
-class SimpleListViewController: FirstResponderViewController, UITableViewDataSource, UITableViewDelegate {
+class TableViewController: FirstResponderViewController, UITableViewDataSource, UITableViewDelegate {
     override init() {
         super.init()
-        title = "List"
+        title = "Table View"
         tabBarItem.image = UIImage(systemName: "list.bullet")
     }
 
@@ -70,7 +70,7 @@ class SimpleListViewController: FirstResponderViewController, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(SimpleListViewController(), animated: true)
+        navigationController?.pushViewController(TableViewController(), animated: true)
     }
 
     @objc private func testAction(_ sender: Any?) {

@@ -10,7 +10,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let windowScene = scene as! UIWindowScene
 
         let rootViewController = SplitContainer(viewControllers: [
-            SimpleListViewController(),
+            TableViewController(),
+            ListViewController(),
             CompositionalLayoutViewController(),
             FlowLayoutViewController(),
             CirclesScrollViewController(),
