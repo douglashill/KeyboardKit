@@ -80,7 +80,24 @@ extension UIResponder {
 
     // UIKit does an annoying thing where during transitions it returns NO to becomeFirstResponder and then becomes first responder anyway after a delay. I can’t keep the state in sync if that happens.
     func becomeFirstResponderOrCrash() {
-        precondition(becomeFirstResponder(), "Could not become first responder.")
+        if becomeFirstResponder() {
+
+            // As a POC this is OK.  So I might make this function @objc so it can be overridden.
+            // And add a parameter  that trickles down from UIWindow.updateFirstResponder
+            // to set whether become 1R should make a selection if none exists.
+            // So a view simply appearing does not trigger this.
+            // But tab or left/right arrow keys in a split view do.
+            // This is getting quite complex for the demo app, but I think that’s the nature of 1R management.
+            if
+                let collectionView = self as? UICollectionView,
+                collectionView.indexPathsForSelectedItems?.isEmpty ?? true
+            {
+                collectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: false, scrollPosition: [])
+            }
+
+            return
+        }
+        print("❌ Could not become first responder: \(self)")
     }
 }
 

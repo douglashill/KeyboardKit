@@ -59,12 +59,13 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         navigationController!.view.frame = originalFrame
     }
 
+    // TODO: Clear the selection when collapsing.
+    // TODO: Activate the selection (show detail VC) when expanding.
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        // TODO: Allow empty selection when the split view is collapsed.
-
-        if let delegate = delegate {
+        if let delegate = delegate, delegate.shouldRequireSelectionInSidebarViewController(self) {
             collectionView.selectItem(at: IndexPath(item: delegate.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
         }
     }
@@ -77,24 +78,42 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: items[indexPath.item])
     }
 
+    // MARK: - UICollectionViewDelegate
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectItemAtIndex(indexPath.item, inSidebarViewController: self)
+        delegate?.didActivateSelectionAtIndex(indexPath.item, inSidebarViewController: self)
     }
 
+    // MARK: - KeyboardCollectionViewDelegate
+
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
-        // TODO: Don’t do this when the split view is collapsed.
         if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-            delegate?.didSelectItemAtIndex(indexPath.item, inSidebarViewController: self)
+            delegate?.didShowSelectionAtIndex(indexPath.item, inSidebarViewController: self)
         }
     }
 
     func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool {
-        // TODO: Allow this when the split view is collapsed.
-        false
+        if let delegate = delegate {
+            return delegate.shouldRequireSelectionInSidebarViewController(self) == false
+        } else {
+            return true
+        }
     }
 }
 
+// MARK: -
+
 protocol SidebarViewControllerDelegate: NSObjectProtocol {
-    func didSelectItemAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController)
+    /// Called when the selected item in the sidebar changes using arrow keys.
+    func didShowSelectionAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController)
+
+    /// Called when the user taps an item or uses space or return to activate the item that was previously selected using arrow keys.
+    func didActivateSelectionAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController)
+
+    /// Whether the sidebar must have an item selected. I.e. it does not allow an empty selection.
+    func shouldRequireSelectionInSidebarViewController(_ sidebarViewController: SidebarViewController) -> Bool
+
+    /// The index of the selected item if the sidebar.
+    /// This is only used if the sidebar is required to have a selection due to `shouldRequireSelectionInSidebarViewController`.
     func selectedIndexInSidebarViewController(_ sidebarViewController: SidebarViewController) -> Int
 }

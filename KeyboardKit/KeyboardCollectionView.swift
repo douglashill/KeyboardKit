@@ -76,6 +76,9 @@ public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
     /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
     ///
     /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
+
+    // TODO: Naming. Maybe `collectionViewShouldClearSelectionUsingKeyboard` or `collectionViewShouldAllowEmptySelectionUsingKeyboard`.
+
     func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool
 }
 

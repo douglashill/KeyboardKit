@@ -21,9 +21,16 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
+    // TODO: One thing not supported currently is if the first responder is set to a column using anything other than the storedFocusedColumn.
+    // This happens if you focus the sidebar, go into compact width (detail view gets focus) and then go back into expanded (focus is restored to sidebar, which feels a bit odd)
+
     public var focusedColumn: Column? {
         if isCollapsed {
-            return .compact
+            // Primary doesn’t quite make sense. Yes the focus in in the primary *navigation* controller but this may or may not be the primary VC that was set.
+            // It might be better to say the focused column is nil.
+            // And/or have API to get the focused VC rather than column.
+            // That way I could see if the set primary VC is a navigation controller and find its parent navigation controller if necessary.
+            return viewController(for: .compact) != nil ? .compact : .primary
         }
 
         switch displayMode {
@@ -119,6 +126,22 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
 
         return commands
+    }
+
+    // TODO: Don’t steal arrow keys when can’t go further in direction.
+
+    // Generally this is a problem if there are nested split views since the action might end up handled by the wrong object.
+
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+
+        // To avoid duplicating the conditions in keyCommands it seems best to just
+        // always provide key commands and rely on canPerformAction to filter things out.
+
+//        if action == #selector(dismissTemporaryColumn) {
+//
+//        }
+
+        return super.canPerformAction(action, withSender: sender)
     }
 
     @objc private func moveFocusInLeadingDirectionWithWrapping(_ sender: UIKeyCommand) {
@@ -218,12 +241,15 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     @objc private func dismissTemporaryColumn(_ sender: UIKeyCommand) {
         switch displayMode {
-        case .oneOverSecondary:
+        case .oneOverSecondary, .twoOverSecondary:
+            // Dismiss one or two overlaid columns. This matches what tapping the dimmed area above the secondary does.
             storedFocusedColumn = .secondary
-        case .twoOverSecondary:
-            storedFocusedColumn = .supplementary
         case .twoDisplaceSecondary:
-            storedFocusedColumn = .supplementary // I’m not sure this achieves the desired effect of hiding the primary. I may have to use the explicit API for that.
+            // Either the primary or supplementary must have been focused and in either case focusing the supplementary makes sense.
+            // TODO: Does this two step sequence of calls work?
+            // I need to make a modal example that shows a 3 column split view.
+            hide(.primary)
+            storedFocusedColumn = .supplementary
         case .automatic, .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
             preconditionFailure("Can’t dismiss temporary column with no suitable column. The key command should not have been supplied in this case.")
         }

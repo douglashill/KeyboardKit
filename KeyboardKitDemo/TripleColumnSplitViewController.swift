@@ -5,6 +5,21 @@ import KeyboardKit
 
 class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
+//    private let primaryNavigationController: KeyboardNavigationController
+
+//    private var _selectedViewControllerIndex: Int
+//    func getSelectedViewControllerIndex() -> Int { _selectedViewControllerIndex }
+//    func setSelectedViewControllerIndex(_ newValue: Int, shouldTransitionToDetail: Bool) {
+//        _selectedViewControllerIndex  = newValue
+//
+//        let newDetailViewController = contentViewControllers[newValue]
+//
+//        if shouldTransitionToDetail {
+//            innerSplitViewController.showDetailViewController(newDetailViewController, sender: nil)
+//        } else {
+//            innerSplitViewController.setViewController(newDetailViewController, for: .secondary)
+//        }
+//    }
 
     @available(*, unavailable) override var splitViewController: UISplitViewController? { nil }
     @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
@@ -62,6 +77,39 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
         viewIfLoaded?.window?.updateFirstResponder()
     }
+
+//    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+//        // The default behaviour is to always show the secondary.
+//        // Since we have a first-class concept of user focus let’s use that.
+////        innerSplitViewController.focusedColumn ?? proposedTopColumn
+//        // TODO: Is this actually doing anything since the primary and secondary get combined?
+//
+//
+//        // The bit not working is the UISVC is already collapsed at this point
+//        // so focusedColumn is returning the primary. But really there is no clear meaning of focused column when collapsed.
+//
+//
+//        // Since we have a first-class concept of user focus let’s use that.
+//        if let focusedColumn = innerSplitViewController.focusedColumn, focusedColumn == .primary {
+//            // Sidebar is focused so just showing that is fine. No combining needed.
+////            primaryNavigationController.viewControllers = [sidebar]
+//            return .primary // This does work. The UISVC doesn’t push the secondary if we return this.
+//        } else {
+//            // Sidebar is not focused. Let UIKit push the secondary onto the primary’s navigation stack.
+//            return .secondary
+//        }
+//
+////        return proposedTopColumn
+//    }
+//
+//    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
+//        // If the primary was the top view controller when collapsed, keep it visible after expanding.
+//        if proposedDisplayMode == .secondaryOnly && primaryNavigationController.topViewController === sidebar {
+//            return .oneOverSecondary
+//        } else {
+//            return proposedDisplayMode
+//        }
+//    }
 
     // MARK: - FirstResponderManagement
 
@@ -158,6 +206,10 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
         func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
             indexPath.item != 0
+        }
+
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            // TODO: Move the focused column.
         }
     }
 }
