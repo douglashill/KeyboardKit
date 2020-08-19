@@ -45,6 +45,7 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
         splitViewController.presentsWithGesture = false
 
         sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
+        sidebar.collectionView.selectionFollowsFocus = true
         splitViewController.setViewController(sidebar, for: .primary)
 
         secondarySplitNavigationController = KeyboardNavigationController()
@@ -129,25 +130,20 @@ class SidebarAndTabBarController: UIViewController, SidebarViewControllerDelegat
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        switch splitViewController.focusedColumn {
-        case .none:
-            break
-        case .primary:
-            if let transitionCoordinator = splitViewController.transitionCoordinator {
-                transitionCoordinator.animate { transitionCoordinatorContext in
-                    // Nothing to do.
-                } completion: { transitionCoordinatorContext in
-                    precondition(self.sidebar.becomeFirstResponder())
-                }
-            } else {
-                // TODO: Maybe assert/check that the column is visible.
-                precondition(sidebar.becomeFirstResponder())
+        if let transitionCoordinator = splitViewController.transitionCoordinator {
+            transitionCoordinator.animate { transitionCoordinatorContext in
+                // Nothing to animate. We just want the completion handler.
+            } completion: { transitionCoordinatorContext in
+                self.view.window?.updateFirstResponder()
             }
-
-        case .secondary:
-            break // need some kind of 1R resolver that digs into the hierarchy
-        case .compact, .supplementary: fallthrough @unknown default:
-            preconditionFailure("Unsupported column type.")
+        } else {
+            view.window?.updateFirstResponder()
         }
+    }
+
+    // MARK: - FirstResponderManagement
+
+    override var kd_preferredFirstResponderInHierarchy: UIResponder? {
+        presentedViewController ?? innerSplitViewController
     }
 }

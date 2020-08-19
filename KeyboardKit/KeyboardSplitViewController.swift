@@ -13,11 +13,54 @@ public class KeyboardSplitViewController: UISplitViewController {
     ///
     /// If the user focuses a column using the keyboard and then hides
     /// that column by other means, no change occurs in KeyboardKit.
-    public private(set) var focusedColumn: Column? {
+    private var storedFocusedColumn: Column? {
         didSet {
-            precondition(focusedColumn != nil, "Focused column should not be cleared.")
-            show(focusedColumn!)
+            precondition(storedFocusedColumn != nil, "Focused column should not be cleared.")
+            show(storedFocusedColumn!)
             keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
+        }
+    }
+
+    public var focusedColumn: Column? {
+        if isCollapsed {
+            return .compact
+        }
+
+        switch displayMode {
+        case .automatic:
+            preconditionFailure("Read displayMode must not be automatic.")
+        case .secondaryOnly:
+            return .secondary
+        case .oneBesideSecondary:
+            switch (style, storedFocusedColumn) {
+            case (.unspecified, _): preconditionFailure("Keyboard control is not supported in split views with an unspecified style.")
+            case (.doubleColumn, .none): return .primary // Move focus to first column.
+            case (.doubleColumn, .primary): return .primary
+            case (.doubleColumn, .supplementary): preconditionFailure("There should not be a supplementary column with the double column style.")
+            case (.tripleColumn, .none): return .supplementary // Move focus to first column.
+            case (.tripleColumn, .primary): return .supplementary // Move focus to closest column.
+            case (.tripleColumn, .supplementary): return .supplementary
+            case (_, .secondary): return .secondary
+            case (_, .compact): preconditionFailure("The compact column should never be stored as focused.")
+            @unknown default: return nil
+            }
+        case .oneOverSecondary:
+            switch style {
+            case .doubleColumn: return .primary
+            case .tripleColumn: return .supplementary
+            case .unspecified: preconditionFailure("Keyboard control is not supported in split views with an unspecified style.")
+            @unknown default: return nil
+            }
+        case .twoBesideSecondary:
+            return storedFocusedColumn
+        case .twoOverSecondary, .twoDisplaceSecondary:
+            switch storedFocusedColumn {
+            case .primary: return .primary
+            case .supplementary: return .supplementary
+            default: return .primary // Move focus to first column.
+            }
+        @unknown default:
+            return nil
         }
     }
 
@@ -108,23 +151,23 @@ public class KeyboardSplitViewController: UISplitViewController {
 
         switch focusedColumn {
         case .none:
-            focusedColumn = .primary
+            storedFocusedColumn = .primary
         case .secondary:
             if shouldWrap {
-                focusedColumn = .primary
+                storedFocusedColumn = .primary
             }
         case .primary:
             switch style {
             case .doubleColumn:
-                focusedColumn = .secondary
+                storedFocusedColumn = .secondary
             case .tripleColumn:
-                focusedColumn = .supplementary
+                storedFocusedColumn = .supplementary
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
         case .supplementary:
             precondition(style == .tripleColumn)
-            focusedColumn = .secondary
+            storedFocusedColumn = .secondary
         case .compact:
             preconditionFailure("Compact column should never be focused.")
         @unknown default:
@@ -135,23 +178,23 @@ public class KeyboardSplitViewController: UISplitViewController {
     private func moveFocusTowardsPrimary(shouldWrap: Bool) {
         switch focusedColumn {
         case .none:
-            focusedColumn = .secondary
+            storedFocusedColumn = .secondary
         case .primary:
             if shouldWrap {
-                focusedColumn = .secondary
+                storedFocusedColumn = .secondary
             }
         case .secondary:
             switch style {
             case .doubleColumn:
-                focusedColumn = .primary
+                storedFocusedColumn = .primary
             case .tripleColumn:
-                focusedColumn = .supplementary
+                storedFocusedColumn = .supplementary
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
         case .supplementary:
             precondition(style == .tripleColumn)
-            focusedColumn = .primary
+            storedFocusedColumn = .primary
         case .compact:
             preconditionFailure("Compact column should never be focused.")
         @unknown default:

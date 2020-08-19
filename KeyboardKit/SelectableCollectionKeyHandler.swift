@@ -31,6 +31,9 @@ protocol SelectableCollection: NSObjectProtocol {
     var indexPathsForSelectedItems: [IndexPath]? { get }
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition)
 
+    /// Whether activateSelection is called when selecting an item with the keyboard.
+    @available(iOS 14.0, *)
+    var selectionFollowsFocus: Bool { get }
     func activateSelection(at indexPath: IndexPath)
 
     func flashScrollIndicators()
@@ -176,6 +179,15 @@ private extension SelectableCollection {
         case .notFullyVisible(let scrollPosition):
             scrollToItem(at: indexPath, at: scrollPosition, animated: UIAccessibility.isReduceMotionEnabled == false)
             flashScrollIndicators()
+        }
+
+        if #available(iOS 14.0, *) {
+            if selectionFollowsFocus {
+                activateSelection(at: indexPath)
+            }
+        } else {
+            // TODO: Since I want this to work back to old versions I should probably just make a separate delegate method.
+            // (By being a method I can have different behaviour per item since maybe some should select immediately and some not.)
         }
     }
 }
