@@ -32,6 +32,7 @@
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
+		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
 		A5B7C113242F9EA900B48595 /* ClassicDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C112242F9EA900B48595 /* ClassicDemoViewController.m */; };
@@ -219,6 +220,7 @@
 		A57A9AF12421963D005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
 		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
+				A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
 				A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */,
 				A53ADFFA2375AA1700B07957 /* Info.plist */,
@@ -632,6 +635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */,
 				A521CE5424D61B5C00EBB34D /* CompositionalLayoutViewController.swift in Sources */,
 				A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */,
 				A5666C5424DECCBE00524C23 /* ListViewController.swift in Sources */,
