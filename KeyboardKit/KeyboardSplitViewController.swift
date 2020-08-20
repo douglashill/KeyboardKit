@@ -114,14 +114,19 @@ open class KeyboardSplitViewController: UISplitViewController {
         return commands
     }
 
-    // TODO: Don’t steal arrow keys when can’t go further in direction.
-
     // Generally this is a problem if there are nested split views since the action might end up handled by the wrong object.
 
     open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 
         // To avoid duplicating the conditions in keyCommands it seems best to just
         // always provide key commands and rely on canPerformAction to filter things out.
+
+        if action == #selector(moveFocusRight) {
+            return canMoveFocusRight
+        }
+        if action == #selector(moveFocusLeft) {
+            return canMoveFocusLeft
+        }
 
 //        if action == #selector(dismissTemporaryColumn) {
 //
@@ -138,6 +143,14 @@ open class KeyboardSplitViewController: UISplitViewController {
         moveFocusInTrailingDirection(shouldWrap: true)
     }
 
+    private var canMoveFocusRight: Bool {
+        switch view.effectiveUserInterfaceLayoutDirection {
+        case .leftToRight: return canMoveFocusInLeadingDirection
+        case .rightToLeft: return canMoveFocusInTrailingDirection
+        @unknown default: return false
+        }
+    }
+
     @objc private func moveFocusRight(_ sender: UIKeyCommand) {
         switch view.effectiveUserInterfaceLayoutDirection {
         case .leftToRight: moveFocusInLeadingDirection(shouldWrap: false)
@@ -146,11 +159,27 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
+    private var canMoveFocusLeft: Bool {
+        switch view.effectiveUserInterfaceLayoutDirection {
+        case .leftToRight: return canMoveFocusInTrailingDirection
+        case .rightToLeft: return canMoveFocusInLeadingDirection
+        @unknown default: return false
+        }
+    }
+
     @objc private func moveFocusLeft(_ sender: UIKeyCommand) {
         switch view.effectiveUserInterfaceLayoutDirection {
         case .leftToRight: moveFocusInTrailingDirection(shouldWrap: false)
         case .rightToLeft: moveFocusInLeadingDirection(shouldWrap: false)
         @unknown default: break
+        }
+    }
+
+    private var canMoveFocusInLeadingDirection: Bool {
+        switch primaryEdge {
+        case .leading: return canMoveFocusTowardsSecondary
+        case .trailing: return canMoveFocusTowardsPrimary
+        @unknown default: return false
         }
     }
 
@@ -165,6 +194,14 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
+    private var canMoveFocusInTrailingDirection: Bool {
+        switch primaryEdge {
+        case .leading: return canMoveFocusTowardsPrimary
+        case .trailing: return canMoveFocusTowardsSecondary
+        @unknown default: return false
+        }
+    }
+
     private func moveFocusInTrailingDirection(shouldWrap: Bool) {
         switch primaryEdge {
         case .leading:
@@ -174,6 +211,10 @@ open class KeyboardSplitViewController: UISplitViewController {
         @unknown default:
             break
         }
+    }
+
+    private var canMoveFocusTowardsSecondary: Bool {
+        focusedColumn != .secondary
     }
 
     private func moveFocusTowardsSecondary(shouldWrap: Bool) {
@@ -204,6 +245,10 @@ open class KeyboardSplitViewController: UISplitViewController {
         @unknown default:
             break
         }
+    }
+
+    private var canMoveFocusTowardsPrimary: Bool {
+        focusedColumn != .primary
     }
 
     private func moveFocusTowardsPrimary(shouldWrap: Bool) {
