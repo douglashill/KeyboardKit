@@ -135,6 +135,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         return super.canPerformAction(action, withSender: sender)
     }
 
+    // MARK: -
+
     @objc private func moveFocusInLeadingDirectionWithWrapping(_ sender: UIKeyCommand) {
         moveFocusInLeadingDirection(shouldWrap: true)
     }
@@ -142,6 +144,8 @@ open class KeyboardSplitViewController: UISplitViewController {
     @objc private func moveFocusInTrailingDirectionWithWrapping(_ sender: UIKeyCommand) {
         moveFocusInTrailingDirection(shouldWrap: true)
     }
+
+    // MARK: -
 
     private var canMoveFocusRight: Bool {
         switch view.effectiveUserInterfaceLayoutDirection {
@@ -174,6 +178,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         @unknown default: break
         }
     }
+
+    // MARK: -
 
     private var canMoveFocusInLeadingDirection: Bool {
         switch primaryEdge {
@@ -212,6 +218,8 @@ open class KeyboardSplitViewController: UISplitViewController {
             break
         }
     }
+
+    // MARK: -
 
     private var canMoveFocusTowardsSecondary: Bool {
         focusedColumn != .secondary
@@ -278,6 +286,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
+    // MARK: -
+
     @objc private func dismissTemporaryColumn(_ sender: UIKeyCommand) {
         switch displayMode {
         case .oneOverSecondary, .twoOverSecondary:
@@ -294,6 +304,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 }
+
+// MARK: -
 
 /// The delegate of a `UISplitViewController` can conform to `KeyboardSplitViewControllerDelegate` in addition
 /// to `UISplitViewControllerDelegate` to receive a callback when the focused tab changes via keyboard input.
