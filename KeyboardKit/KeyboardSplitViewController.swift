@@ -84,19 +84,11 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     // TODO: Localised titles
 
-    private lazy var tabCommands: [UIKeyCommand] = [
+    private lazy var changeColumnFocusCommands: [UIKeyCommand] = [
         UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
         UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
-    ]
-
-    private lazy var leftToRightArrowKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(.rightArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
-        UIKeyCommand(.leftArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
-    ]
-
-    private lazy var rightToLeftArrowKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(.leftArrow, action: #selector(moveFocusInLeadingDirectionWithoutWrapping)),
-        UIKeyCommand(.rightArrow, action: #selector(moveFocusInTrailingDirectionWithoutWrapping)),
+        UIKeyCommand(.rightArrow, action: #selector(moveFocusRight)),
+        UIKeyCommand(.leftArrow, action: #selector(moveFocusLeft)),
     ]
 
     private lazy var dismissTemporaryColumnKeyCommands: [UIKeyCommand] = [
@@ -107,13 +99,7 @@ open class KeyboardSplitViewController: UISplitViewController {
         var commands = super.keyCommands ?? []
 
         if presentedViewController == nil, style == .doubleColumn || style == .tripleColumn, isCollapsed == false, UIResponder.isTextInputActive == false {
-            commands += tabCommands
-
-            switch view.effectiveUserInterfaceLayoutDirection {
-            case .leftToRight: commands += leftToRightArrowKeyCommands
-            case .rightToLeft: commands += rightToLeftArrowKeyCommands
-            @unknown default: break
-            }
+            commands += changeColumnFocusCommands
 
             switch displayMode {
             case .automatic:
@@ -152,12 +138,20 @@ open class KeyboardSplitViewController: UISplitViewController {
         moveFocusInTrailingDirection(shouldWrap: true)
     }
 
-    @objc private func moveFocusInLeadingDirectionWithoutWrapping(_ sender: UIKeyCommand) {
-        moveFocusInLeadingDirection(shouldWrap: false)
+    @objc private func moveFocusRight(_ sender: UIKeyCommand) {
+        switch view.effectiveUserInterfaceLayoutDirection {
+        case .leftToRight: moveFocusInLeadingDirection(shouldWrap: false)
+        case .rightToLeft: moveFocusInTrailingDirection(shouldWrap: false)
+        @unknown default: break
+        }
     }
 
-    @objc private func moveFocusInTrailingDirectionWithoutWrapping(_ sender: UIKeyCommand) {
-        moveFocusInTrailingDirection(shouldWrap: false)
+    @objc private func moveFocusLeft(_ sender: UIKeyCommand) {
+        switch view.effectiveUserInterfaceLayoutDirection {
+        case .leftToRight: moveFocusInTrailingDirection(shouldWrap: false)
+        case .rightToLeft: moveFocusInLeadingDirection(shouldWrap: false)
+        @unknown default: break
+        }
     }
 
     private func moveFocusInLeadingDirection(shouldWrap: Bool) {
