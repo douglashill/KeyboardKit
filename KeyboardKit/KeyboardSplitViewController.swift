@@ -84,13 +84,16 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     // TODO: Localised titles
 
-    private lazy var changeColumnFocusCommands: [UIKeyCommand] = [
+    private lazy var tabCommands: [UIKeyCommand] = [
         UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
         UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
+    ]
+    private lazy var rightArrowKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.rightArrow, action: #selector(moveFocusRight)),
+    ]
+    private lazy var leftArrowKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.leftArrow, action: #selector(moveFocusLeft)),
     ]
-
     private lazy var dismissTemporaryColumnKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.escape, action: #selector(dismissTemporaryColumn)),
     ]
@@ -98,9 +101,14 @@ open class KeyboardSplitViewController: UISplitViewController {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if presentedViewController == nil, style == .doubleColumn || style == .tripleColumn, isCollapsed == false, UIResponder.isTextInputActive == false {
-            commands += changeColumnFocusCommands
-
+        if canChangeFocusedColumn && UIResponder.isTextInputActive == false {
+            commands += tabCommands
+            if canMoveFocusRight {
+                commands += rightArrowKeyCommands
+            }
+            if canMoveFocusLeft  {
+                commands += leftArrowKeyCommands
+            }
             if canDismissTemporaryColumn {
                 commands += dismissTemporaryColumnKeyCommands
             }
@@ -109,24 +117,25 @@ open class KeyboardSplitViewController: UISplitViewController {
         return commands
     }
 
-    // Generally this is a problem if there are nested split views since the action might end up handled by the wrong object.
-
     open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-
-        // To avoid duplicating the conditions in keyCommands it seems best to just
-        // always provide key commands and rely on canPerformAction to filter things out.
-
+        if action == #selector(moveFocusInLeadingDirectionWithWrapping) || action == #selector(moveFocusInTrailingDirectionWithWrapping) {
+            return canChangeFocusedColumn
+        }
         if action == #selector(moveFocusRight) {
-            return canMoveFocusRight
+            return canChangeFocusedColumn && canMoveFocusRight
         }
         if action == #selector(moveFocusLeft) {
-            return canMoveFocusLeft
+            return canChangeFocusedColumn && canMoveFocusLeft
         }
         if action == #selector(dismissTemporaryColumn) {
-            return canDismissTemporaryColumn
+            return canChangeFocusedColumn && canDismissTemporaryColumn
         }
 
         return super.canPerformAction(action, withSender: sender)
+    }
+
+    private var canChangeFocusedColumn: Bool {
+        presentedViewController == nil && style == .doubleColumn || style == .tripleColumn && isCollapsed == false
     }
 
     // MARK: -
