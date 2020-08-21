@@ -58,7 +58,8 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
-        [UIKeyModifierFlags(), .alternate, .shift, [.alternate, .shift]].map { modifierFlags in
+        // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
+        [UIKeyModifierFlags(), .alternate].map { modifierFlags in
             UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
@@ -86,20 +87,20 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
 
-        case #selector(updateSelectionFromKeyCommand(_:)):
+        case #selector(updateSelectionFromKeyCommand):
             if let keyCommand = sender as? UIKeyCommand {
                 return targetSelectedIndexPathForKeyCommand(keyCommand) != nil
             } else {
                 return false
             }
 
-        case #selector(selectAll(_:)):
+        case #selector(selectAll):
             return collection.shouldAllowMultipleSelection
 
-        case #selector(clearSelection(_:)):
+        case #selector(clearSelection):
             return (collection.indexPathsForSelectedItems ?? []).isEmpty == false
 
-        case #selector(activateSelection(_:)):
+        case #selector(activateSelection):
             return collection.indexPathsForSelectedItems?.count == 1
 
         default:
