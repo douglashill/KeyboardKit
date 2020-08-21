@@ -101,13 +101,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         if presentedViewController == nil, style == .doubleColumn || style == .tripleColumn, isCollapsed == false, UIResponder.isTextInputActive == false {
             commands += changeColumnFocusCommands
 
-            switch displayMode {
-            case .automatic:
-                preconditionFailure()
-            case .oneOverSecondary, .twoOverSecondary, .twoDisplaceSecondary:
+            if canDismissTemporaryColumn {
                 commands += dismissTemporaryColumnKeyCommands
-            case .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
-                break
             }
         }
 
@@ -127,10 +122,9 @@ open class KeyboardSplitViewController: UISplitViewController {
         if action == #selector(moveFocusLeft) {
             return canMoveFocusLeft
         }
-
-//        if action == #selector(dismissTemporaryColumn) {
-//
-//        }
+        if action == #selector(dismissTemporaryColumn) {
+            return canDismissTemporaryColumn
+        }
 
         return super.canPerformAction(action, withSender: sender)
     }
@@ -288,19 +282,28 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     // MARK: -
 
+    private var canDismissTemporaryColumn: Bool {
+        switch displayMode {
+        case .automatic:
+            preconditionFailure("UISplitViewController should not return its current displayMode as automatic.")
+        case .oneOverSecondary, .twoOverSecondary, .twoDisplaceSecondary:
+            return true
+        case .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
+            return false
+        }
+    }
+
     @objc private func dismissTemporaryColumn(_ sender: UIKeyCommand) {
         switch displayMode {
         case .oneOverSecondary, .twoOverSecondary:
             // Dismiss one or two overlaid columns. This matches what tapping the dimmed area above the secondary does.
             storedFocusedColumn = .secondary
         case .twoDisplaceSecondary:
-            // Either the primary or supplementary must have been focused and in either case focusing the supplementary makes sense.
-            // TODO: Does this two step sequence of calls work?
-            // I need to make a modal example that shows a 3 column split view.
+            // Either the primary or supplementary must have been focused. Go to the supplementary because it’s the or the nearest.
             hide(.primary)
             storedFocusedColumn = .supplementary
         case .automatic, .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
-            preconditionFailure("Can’t dismiss temporary column with no suitable column. The key command should not have been supplied in this case.")
+            preconditionFailure("Can’t dismiss temporary column with no suitable column. This should be blocked by canDismissTemporaryColumn.")
         }
     }
 }
