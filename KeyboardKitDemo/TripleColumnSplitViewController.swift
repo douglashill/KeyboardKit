@@ -117,7 +117,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         presentedViewController ?? innerSplitViewController
     }
 
-    private class ListViewController: FirstResponderViewController, UICollectionViewDelegate {
+    private class ListViewController: FirstResponderViewController, UICollectionViewDelegate, KeyboardCollectionViewDelegate {
         init(appearance: UICollectionLayoutListConfiguration.Appearance) {
             self.appearance = appearance
             super.init()
@@ -210,6 +210,20 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             // TODO: Move the focused column.
+        }
+
+        // MARK: - KeyboardCollectionViewDelegate
+
+        func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
+            // Normally this would update the contents of a details view.
+            // But we’re using static lists in this example.
+        }
+
+        func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool {
+            // Not allowing clearing selection feels better for sidebars because usually want
+            // to force something to be selected. This also means the user can dismiss an
+            // overlaid or displacing sidebar with one press of the escape key instead of two.
+            false
         }
     }
 }
