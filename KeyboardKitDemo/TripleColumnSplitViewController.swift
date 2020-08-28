@@ -90,6 +90,40 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         viewIfLoaded?.window?.updateFirstResponder()
     }
 
+    // Handle and issue where if you have 1 over 2rd in portrait the rotate to landscape and focus
+    // the 2rd then rotate to portrait it shows 1 over 2ry but the focus remains on the hidden 2ry.
+
+    // willShowColumn and willHideColumn are not useful because when portrait shows one over
+    // secondary and landscape shows two columns, no columns are shown or hidden when rotating.
+
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
+        // We want a didChangeToDisplayMode callback. Try to approximate that here.
+        // I’d really like to find some way to move this into KeyboardSplitViewController
+        // rather than expecting everyone using that class to repeat the same code.
+        // Since updating first responder at the start of transitions is better than at the end,
+        // it might make sense to use the dispatch after patch even if there is a transitionCoordinator.
+
+        let didChangeToDisplayMode = {
+            self.viewIfLoaded?.window?.updateFirstResponder()
+        }
+
+        if let transitionCoordinator = svc.transitionCoordinator {
+            transitionCoordinator.animate(alongsideTransition: nil, completion: { transitionCoordinatorContext in
+                didChangeToDisplayMode()
+            })
+        }  else {
+            // This happens during initial setup and on device rotation. The initial setup does not matter but we need to handle the rotation case. Try dispatch after.
+            DispatchQueue.main.async {
+                guard svc.displayMode == displayMode else {
+                    NSLog("Display mode is not change to \(displayMode.rawValue) after willChangeTo callback. Instead the display mode is \(svc.displayMode.rawValue).")
+                    return
+                }
+
+                didChangeToDisplayMode()
+            }
+        }
+    }
+
 //    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
 //        // The default behaviour is to always show the secondary.
 //        // Since we have a first-class concept of user focus let’s use that.
@@ -154,9 +188,6 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     // This example is flawed without using actual hierarchical data so the sub-lists updated when changing the higher ones.
     // Like continents, countries, cities or something. Or countries/counties/towns in the UK.
     // It will always feel wrong without that.
-
-    // Issue I noticed: if you have 1 over 2rd in portrait the rotate to landscape and focus the 2rd then rotate to portrait
-    // it shows 1 over 2ry but the focus remains on the hidden 2ry
 
     // MARK: - FirstResponderManagement
 
