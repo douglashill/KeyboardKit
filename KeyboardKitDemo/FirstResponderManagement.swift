@@ -124,7 +124,6 @@ extension UITabBarController {
 
 extension KeyboardSplitViewController {
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
-        // This isn’t quite right because if we’re collapsed but don’t have a compact column then the primary would be considred focused but the view controler for primary might be a content view controller but actually the visible view controller is pushed in the naviation controller of the primary, so not in the hierarhcy of the primary itself.
-        presentedViewController ?? (focusedColumn != nil ? viewController(for: focusedColumn!) : nil)
+        presentedViewController ?? focusedViewController
     }
 }
