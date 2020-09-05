@@ -40,9 +40,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     init() {
         innerSplitViewController = KeyboardSplitViewController(style: .tripleColumn)
 
-        primaryList.title = "Primary"
-        supplementaryList.title = "Supplementary"
-        secondaryList.title = "Secondary"
+        primaryList.title = "Food"
 
         primaryNavigationController = KeyboardNavigationController(rootViewController: primaryList)
         supplementaryNavigationController = KeyboardNavigationController(rootViewController: supplementaryList)
