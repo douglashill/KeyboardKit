@@ -40,8 +40,6 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     init() {
         innerSplitViewController = KeyboardSplitViewController(style: .tripleColumn)
 
-        primaryList.title = "Food"
-
         primaryNavigationController = KeyboardNavigationController(rootViewController: primaryList)
         supplementaryNavigationController = KeyboardNavigationController(rootViewController: supplementaryList)
         secondaryNavigationController = KeyboardNavigationController(rootViewController: secondaryList)
@@ -57,7 +55,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         supplementaryList.delegate = self
         secondaryList.delegate = self
 
-        primaryList.data = self.data.map { $0.title }
+        updateListData()
 
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
@@ -133,25 +131,19 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     fileprivate func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool) {
         let nextColumn: UISplitViewController.Column
         if listViewController == primaryList {
-            // Since clearing selection is disabled, the indices can be force unwrapped.
-            let supplementaryData = self.data[primaryList.selectedIndex!]
-            supplementaryList.title = supplementaryData.title
-            supplementaryList.data = supplementaryData.items.map { $0.title }
-            secondaryList.title = nil
-            secondaryList.data = []
-
-
             nextColumn = .supplementary
+            supplementaryList.selectedIndex = 0
+            secondaryList.selectedIndex = 0
         } else if listViewController == supplementaryList {
-            // Since clearing selection is disabled, the indices can be force unwrapped.
-            let secondaryData = self.data[primaryList.selectedIndex!].items[supplementaryList.selectedIndex!]
-            secondaryList.title = secondaryData.title
-            secondaryList.data = secondaryData.items
-
             nextColumn = .secondary
-        } else {
+            secondaryList.selectedIndex = 0
+        } else if listViewController == secondaryList {
             return
+        } else {
+            preconditionFailure("Unexpected list: \(listViewController)")
         }
+
+        updateListData()
 
         guard isExplicitActivation else {
             // We updated the data already. That’s all we need to do for arrow key selection.
@@ -174,6 +166,19 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         // Public API to change focused column could be showColumn + changing the first responder externally.
     }
 
+    private func updateListData() {
+        primaryList.title = "Food"
+        primaryList.data = self.data.map { $0.title }
+
+        let supplementaryData = self.data[primaryList.selectedIndex]
+        supplementaryList.title = supplementaryData.title
+        supplementaryList.data = supplementaryData.items.map { $0.title }
+
+        let secondaryData = self.data[primaryList.selectedIndex].items[supplementaryList.selectedIndex]
+        secondaryList.title = secondaryData.title
+        secondaryList.data = secondaryData.items
+    }
+
     // MARK: - FirstResponderManagement
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
@@ -182,7 +187,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
     // MARK: - Data
 
-    let data: [(title: String, items: [(title: String, items: [String])])] = [
+    private let data: [(title: String, items: [(title: String, items: [String])])] = [
         (title: "Nuts and seeds", items: [
             (title: "Nuts", items: [
                 "Almond",
@@ -251,8 +256,10 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
         return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
     }()
 
-    var selectedIndex: Int? {
-        collectionView.indexPathsForSelectedItems?.first?.item
+    var selectedIndex = 0
+
+    private func updateSelectedIndexFromCollectionView() {
+        selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item ?? 0
     }
 
     override func loadView() {
@@ -290,6 +297,12 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
         self.dataSource = dataSource
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        collectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0), animated: false, scrollPosition: [])
+    }
+
     var data: [String] = [] {
         didSet {
             if let dataSource = dataSource {
@@ -310,12 +323,14 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
     // MARK: - UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        updateSelectedIndexFromCollectionView()
         delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: true)
     }
 
     // MARK: - KeyboardCollectionViewDelegate
 
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
+        updateSelectedIndexFromCollectionView()
         delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: false)
     }
 
