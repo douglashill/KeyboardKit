@@ -5,27 +5,15 @@ import KeyboardKit
 
 class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewControllerDelegate, TListViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
-//    private let primaryNavigationController: KeyboardNavigationController
 
-//    private var _selectedViewControllerIndex: Int
-//    func getSelectedViewControllerIndex() -> Int { _selectedViewControllerIndex }
-//    func setSelectedViewControllerIndex(_ newValue: Int, shouldTransitionToDetail: Bool) {
-//        _selectedViewControllerIndex  = newValue
-//
-//        let newDetailViewController = contentViewControllers[newValue]
-//
-//        if shouldTransitionToDetail {
-//            innerSplitViewController.showDetailViewController(newDetailViewController, sender: nil)
-//        } else {
-//            innerSplitViewController.setViewController(newDetailViewController, for: .secondary)
-//        }
-//    }
-
-    // The primary would ideally use the sidebar style, but as of Xcode 12 beta 4 using the
-    // sidebar style in the primary column results in a crash as soon as the view appears:
+    // The primary and supplementary would ideally use the sidebar and sidebarPlain styles. However these seem a bit half baked.
+    // In Xcode 12 beta 4 using sidebar always crashed as soon as the view appears:
     // *** Assertion failure in -[UIListContentConfiguration _enforcesMinimumHeight], UIListContentConfiguration.m:470
     // Unknown style: 10
-    // OK this also happens for the sidebarPlain style in the supplementary when collapsed. (Beta 5)
+    // In beta 5 the crashing extended to the sidebarPlain style in the supplementary when collapsed.
+    // In beta 6 the crashing has stopped but these styles don’t always look good. When collapsed the primary with
+    // sidebar style uses a blue selection highlight but does not invert the content colour.
+    // Having some highlight stronger than others implies that might be where keyboard focus is, but this isn’t the case.
     private let primaryList = TListViewController(appearance: .insetGrouped)
     private let supplementaryList = TListViewController(appearance: .insetGrouped)
     private let secondaryList = TListViewController(appearance: .insetGrouped)
