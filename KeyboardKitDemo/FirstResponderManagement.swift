@@ -69,7 +69,19 @@ extension UIResponder {
            preferredFirstResponderInHierarchy.kd_becomeFirstResponderInHierarchy() {
             return true
         } else {
-            if canBecomeFirstResponder {
+            // For views and view controllers where the view not added to a window, canBecomeFirstResponder will return true
+            // but becomeFirstResponder will return false, so let’s avoid that when state callbacks occur during setup.
+            var isSetUp: Bool {
+                if let view = self as? UIView {
+                    return view.window != nil
+                } else if let viewController = self as? UIViewController {
+                    return viewController.viewIfLoaded?.window != nil
+                } else {
+                    return true
+                }
+            }
+
+            if canBecomeFirstResponder && isSetUp {
                 becomeFirstResponderOrCrash()
                 return true
             } else {

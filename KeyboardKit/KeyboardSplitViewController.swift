@@ -59,6 +59,18 @@ open class KeyboardSplitViewController: UISplitViewController {
         intermediateDelegate.externalDelegate as? KeyboardSplitViewControllerDelegate
     }
 
+    // MARK: - View lifecycle
+
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Callbacks will be sent during setup such as the display mode changing. However at that
+        // point it might not be possible to set up the first responder correctly. Even if the split
+        // view controller view is in the window, the views of the column view controllers might not
+        // be in the window. Therefore post an update here once setup has finished.
+        updateFocusStateForDisplayStateChange()
+    }
+
     // MARK: - State
 
     private enum DisplayState {
