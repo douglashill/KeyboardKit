@@ -59,6 +59,8 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         supplementaryList.delegate = self
         secondaryList.delegate = self
 
+        primaryList.data = self.data.map { $0.title }
+
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
     }
@@ -76,51 +78,22 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        viewIfLoaded?.window?.updateFirstResponder()
-    }
-
-    func splitViewControllerDidExpand(_ svc: UISplitViewController) {
-        viewIfLoaded?.window?.updateFirstResponder()
-    }
-
-    func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
-        // This can be called during scene connection before the view loads.
+        // The collapse callback might be called during scene connection before the view loads.
         // If we force the view to load here, then we end up with an exception:
         // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
-        viewIfLoaded?.window?.updateFirstResponder()
-    }
-
-    // Handle and issue where if you have 1 over 2rd in portrait the rotate to landscape and focus
-    // the 2rd then rotate to portrait it shows 1 over 2ry but the focus remains on the hidden 2ry.
-
-    // willShowColumn and willHideColumn are not useful because when portrait shows one over
-    // secondary and landscape shows two columns, no columns are shown or hidden when rotating.
-
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
-        // We want a didChangeToDisplayMode callback. Try to approximate that here.
-        // I’d really like to find some way to move this into KeyboardSplitViewController
-        // rather than expecting everyone using that class to repeat the same code.
-        // Since updating first responder at the start of transitions is better than at the end,
-        // it might make sense to use the dispatch after patch even if there is a transitionCoordinator.
-
-        let didChangeToDisplayMode = {
-            self.viewIfLoaded?.window?.updateFirstResponder()
+        guard let window = viewIfLoaded?.window else {
+            return
         }
 
-        if let transitionCoordinator = svc.transitionCoordinator {
-            transitionCoordinator.animate(alongsideTransition: nil, completion: { transitionCoordinatorContext in
-                didChangeToDisplayMode()
-            })
-        }  else {
-            // This happens during initial setup and on device rotation. The initial setup does not matter but we need to handle the rotation case. Try dispatch after.
-            DispatchQueue.main.async {
-                guard svc.displayMode == displayMode else {
-                    NSLog("Display mode is not change to \(displayMode.rawValue) after willChangeTo callback. Instead the display mode is \(svc.displayMode.rawValue).")
-                    return
-                }
+        window.updateFirstResponder()
 
-                didChangeToDisplayMode()
-            }
+        guard innerSplitViewController.isCollapsed == false else {
+            return
+        }
+
+        for navigationController in [primaryNavigationController, supplementaryNavigationController, secondaryNavigationController] {
+            let isFocused = navigationController.viewControllers.first!.view.isFirstResponder
+            navigationController.navigationBar.titleTextAttributes = isFocused ? nil : [.foregroundColor: UIColor.secondaryLabel]
         }
     }
 
@@ -159,13 +132,31 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
     // MARK: - TListViewControllerDelegate
 
-    fileprivate func didSelectItemAtIndexPath(_ indexPath: IndexPath, inListViewController listViewController: TListViewController) {
+    fileprivate func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool) {
         let nextColumn: UISplitViewController.Column
         if listViewController == primaryList {
+            // Since clearing selection is disabled, the indices can be force unwrapped.
+            let supplementaryData = self.data[primaryList.selectedIndex!]
+            supplementaryList.title = supplementaryData.title
+            supplementaryList.data = supplementaryData.items.map { $0.title }
+            secondaryList.title = nil
+            secondaryList.data = []
+
+
             nextColumn = .supplementary
         } else if listViewController == supplementaryList {
+            // Since clearing selection is disabled, the indices can be force unwrapped.
+            let secondaryData = self.data[primaryList.selectedIndex!].items[supplementaryList.selectedIndex!]
+            secondaryList.title = secondaryData.title
+            secondaryList.data = secondaryData.items
+
             nextColumn = .secondary
         } else {
+            return
+        }
+
+        guard isExplicitActivation else {
+            // We updated the data already. That’s all we need to do for arrow key selection.
             return
         }
 
@@ -182,18 +173,65 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         innerSplitViewController.show(nextColumn)
         // It might feel a bit nicer if this also changed  the first responder to the next column.
         // I need to update KeyboardSplitViewController to account for the first responder being changed externally.
+        // Public API to change focused column could be showColumn + changing the first responder externally.
     }
-
-    // Public API to change focused column should be showColumn + changing the first responder externally.
-    // This example is flawed without using actual hierarchical data so the sub-lists updated when changing the higher ones.
-    // Like continents, countries, cities or something. Or countries/counties/towns in the UK.
-    // It will always feel wrong without that.
 
     // MARK: - FirstResponderManagement
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
         presentedViewController ?? innerSplitViewController
     }
+
+    // MARK: - Data
+
+    let data: [(title: String, items: [(title: String, items: [String])])] = [
+        (title: "Nuts and seeds", items: [
+            (title: "Nuts", items: [
+                "Almond",
+                "Brazil nut",
+                "Cashew",
+                "Pecan",
+                "Walnut",
+            ]),
+            (title: "Seeds", items: [
+                "Pumpkin seed",
+                "Sunflower seed",
+            ]),
+        ]),
+        (title: "Fruit and vegetables", items: [
+            (title: "Fruit", items: [
+                "Apple",
+                "Banana",
+                "Dragon fruit",
+                "Durian",
+                "Jack fruit",
+                "Mango",
+                "Pear",
+                "Plum",
+            ]),
+            (title: "Berries", items: [
+                "Bilberry",
+                "Blackberry",
+                "Blackcurrant",
+                "Blueberry",
+                "Gooseberry",
+                "Raspberry",
+                "Redcurrant",
+                "Strawberry",
+            ]),
+            (title: "Root vegetables", items: [
+                "Carrot",
+                "Cassava",
+                "Daikon",
+                "Ginger",
+                "Lotus root",
+                "Potato",
+                "Swede",
+                "Turnip",
+                "Yam",
+            ]),
+        ]),
+    ]
 }
 
 // MARK: - List
@@ -211,10 +249,13 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
 
     private lazy var collectionView: UICollectionView = {
         var listConfig = UICollectionLayoutListConfiguration(appearance: appearance)
-        listConfig.headerMode = .firstItemInSection
         let layout = UICollectionViewCompositionalLayout.list(using: listConfig)
         return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
     }()
+
+    var selectedIndex: Int? {
+        collectionView.indexPathsForSelectedItems?.first?.item
+    }
 
     override func loadView() {
         // If the collection view starts off with zero frame is briefly shows as black when appearing.
@@ -231,75 +272,53 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
         collectionView.delegate = self
 
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, stringItem in
-            let isHeader = indexPath.item == 0
-
             cell.contentConfiguration = {
                 var config = cell.defaultContentConfiguration()
                 config.text = stringItem
-                if isHeader == false {
-                    config.secondaryText = "The detail text goes here."
-                    config.image = UIImage(systemName: "star")
-                }
+                config.secondaryText = "The detail text goes here."
+                config.image = UIImage(systemName: "star")
                 return config
             }()
 
-            cell.accessories = isHeader ? [] : [.disclosureIndicator()]
+            cell.accessories = [.disclosureIndicator()]
         }
 
         let dataSource = UICollectionViewDiffableDataSource<Int, String>(collectionView: collectionView) { collectionView, indexPath, identifier in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
 
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .spellOut
-
-        let items = Array(1...40).map { formatter.string(from: NSNumber(value: $0))!.localizedCapitalized }
-
-        dataSource.apply({
-            var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
-            snapshot.appendSections([0, 1, 2])
-            return snapshot
-        }(), animatingDifferences: false)
-
-        dataSource.apply({
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-            sectionSnapshot.append(["Section 1"])
-            sectionSnapshot.append(Array(items[0..<12]))
-            return sectionSnapshot
-        }(), to: 0)
-
-        dataSource.apply({
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-            sectionSnapshot.append(["Section 2"])
-            sectionSnapshot.append(Array(items[12..<26]))
-            return sectionSnapshot
-        }(), to: 1)
-
-        dataSource.apply({
-            var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<String>()
-            sectionSnapshot.append(["Section 3"])
-            sectionSnapshot.append(Array(items[26...]))
-            return sectionSnapshot
-        }(), to: 2)
+        reloadDataWithDataSource(dataSource)
 
         self.dataSource = dataSource
     }
 
-    // MARK: - UICollectionViewDelegate
-
-    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        indexPath.item != 0
+    var data: [String] = [] {
+        didSet {
+            if let dataSource = dataSource {
+                reloadDataWithDataSource(dataSource)
+            }
+        }
     }
 
+    private func reloadDataWithDataSource(_ dataSource: UICollectionViewDiffableDataSource<Int, String>) {
+        dataSource.apply({
+            var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
+            snapshot.appendSections([0])
+            snapshot.appendItems(data)
+            return snapshot
+        }(), animatingDifferences: false)
+    }
+
+    // MARK: - UICollectionViewDelegate
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectItemAtIndexPath(indexPath, inListViewController: self)
+        delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: true)
     }
 
     // MARK: - KeyboardCollectionViewDelegate
 
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
-        // Normally this would update the contents of a details view.
-        // But we’re using static lists in this example.
+        delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: false)
     }
 
     func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool {
@@ -311,5 +330,5 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
 }
 
 private protocol TListViewControllerDelegate: NSObjectProtocol {
-    func didSelectItemAtIndexPath(_ indexPath: IndexPath, inListViewController listViewController: TListViewController)
+    func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool)
 }

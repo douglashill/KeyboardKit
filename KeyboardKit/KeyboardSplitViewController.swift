@@ -32,6 +32,9 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     private func sharedInit() {
         delegate = intermediateDelegate
+        intermediateDelegate.didChangeState = { [unowned self] in
+            self.updateFocusStateForDisplayStateChange()
+        }
     }
 
     private let intermediateDelegate = IntermediateDelegate()
@@ -172,10 +175,15 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
-    // MARK: - Key commands
+    private func updateFocusStateForDisplayStateChange() {
+        // TODO: Only notify the focusedColumn actually changes.
+        // This is hard with focusedColumn being computed and the stored property potentially being invalid. But now I have
+        // callbacks for every displayMode change I should in theory be able to have a stored property that is always valid.
 
-    // TODO: Somehow update the 1R when the focused column changes.
-    // Probably by letting the app observe the change and the app decides how to update the 1R.
+        keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
+    }
+
+    // MARK: - Key commands
 
     public override var canBecomeFirstResponder: Bool {
         true
@@ -328,9 +336,6 @@ open class KeyboardSplitViewController: UISplitViewController {
     }
 
     private func moveFocusTowardsSecondary(shouldWrap: Bool) {
-
-        // TODO: Validate the column we thought was focused could still be focused since it might have been hidden or overlaid.
-
         switch focusedColumn {
         case .none:
             storedFocusedColumn = .primary
@@ -416,7 +421,7 @@ open class KeyboardSplitViewController: UISplitViewController {
                 // Dismiss one or two overlaid columns. This matches what tapping the dimmed area above the secondary does.
                 storedFocusedColumn = .secondary
             case .twoDisplaceSecondary:
-                // Either the primary or supplementary must have been focused. Go to the supplementary because it’s the or the nearest.
+                // Either the primary or supplementary must have been focused. Go to the supplementary because it’s the same or the nearest.
                 hide(.primary)
                 storedFocusedColumn = .supplementary
             case .automatic, .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
@@ -433,6 +438,8 @@ open class KeyboardSplitViewController: UISplitViewController {
         weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
 
         var currentOrFutureDisplayMode: UISplitViewController.DisplayMode?
+
+        var didChangeState: (() -> Void)?
 
         override func responds(to selector: Selector!) -> Bool {
             if super.responds(to: selector) {
@@ -452,15 +459,19 @@ open class KeyboardSplitViewController: UISplitViewController {
 
         func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
             currentOrFutureDisplayMode = displayMode
+            didChangeState?()
             externalDelegate?.splitViewController?(svc, willChangeTo: displayMode)
-
-            // TODO: Notify the KeyboardSVC to validate the focused column and notify the delegate if the focus state changes.
-            // validate the focused column is still shown
-            // and update the focused column and notify delegate if necessary
-            // that way the delegate does not need to implement so many callbacks.
         }
 
-        // TODO: do the same with didCollapse & didExpand
+        func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
+            didChangeState?()
+            externalDelegate?.splitViewControllerDidCollapse?(svc)
+        }
+
+        func splitViewControllerDidExpand(_ svc: UISplitViewController) {
+            didChangeState?()
+            externalDelegate?.splitViewControllerDidExpand?(svc)
+        }
     }
 }
 
@@ -470,11 +481,17 @@ open class KeyboardSplitViewController: UISplitViewController {
 /// to `UISplitViewControllerDelegate` to receive a callback when the focused tab changes via keyboard input.
 @available(iOS 14.0, *)
 public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
-    /// Called after the user uses keyboard input to change the focused column.
+    /// Called after the `focusedColumn` may have changed.
+    ///
+    /// This happens if the user uses keyboard input to change the focused column,
+    /// display mode changes, the split view collapses, or the split view expands.
     ///
     /// This is typically used to update the first responder to a view within the new focused column.
     ///
     /// This method will not be called when the focused column is hidden because KeyboardKit
     /// does not have enough contexts to handle that case. Your app should handle this.
+    ///
+    /// Since `splitViewControllerDidCollapse` can be called before the view has loaded, this delegate
+    /// method may also be called before the view has loaded.
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController)
 }

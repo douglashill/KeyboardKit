@@ -92,7 +92,9 @@ extension UIResponder {
                 let collectionView = self as? UICollectionView,
                 collectionView.indexPathsForSelectedItems?.isEmpty ?? true
             {
-                collectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: false, scrollPosition: [])
+                // This doesn’t call the delegate which is a problem in the triple column example.
+                // Because it means when we force this selection in the supplementary, the secondary data is not updated.
+//                collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
             }
 
             return
