@@ -319,7 +319,7 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
         delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: false)
     }
 
-    func collectionViewShouldClearSelection(_ collectionView: UICollectionView) -> Bool {
+    func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool {
         // Not allowing clearing selection feels better for sidebars because usually want
         // to force something to be selected. This also means the user can dismiss an
         // overlaid or displacing sidebar with one press of the escape key instead of two.
