@@ -136,18 +136,13 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
         // We can’t use showDetailViewController because we might be showing the supplementary rather than the secondary.
         // Therefore we need to act differently depending on whether collapsed or expanded.
-
         if innerSplitViewController.isCollapsed {
             // We deliberately want to push the navigation controller rather than the list view controller because this is what
             // UISplitViewController expects when separating the supplementary and secondary from the primary when expanding.
             primaryNavigationController.pushViewController(innerSplitViewController.viewController(for: nextColumn)!, animated: true)
-            return
+        } else {
+            innerSplitViewController.show(nextColumn)
         }
-
-        innerSplitViewController.show(nextColumn)
-        // It might feel a bit nicer if this also changed  the first responder to the next column.
-        // I need to update KeyboardSplitViewController to account for the first responder being changed externally.
-        // Public API to change focused column could be showColumn + changing the first responder externally.
     }
 
     private func updateListData() {
