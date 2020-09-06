@@ -71,13 +71,9 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
         window.updateFirstResponder()
 
-        guard innerSplitViewController.isCollapsed == false else {
-            return
-        }
-
         for navigationController in [primaryNavigationController, supplementaryNavigationController, secondaryNavigationController] {
-            let isFocused = navigationController.viewControllers.first!.view.isFirstResponder
-            navigationController.navigationBar.titleTextAttributes = isFocused ? nil : [.foregroundColor: UIColor.secondaryLabel]
+            let isStrong = innerSplitViewController.isCollapsed || navigationController.viewControllers.first!.view.isFirstResponder
+            navigationController.navigationBar.titleTextAttributes = isStrong ? nil : [.foregroundColor: UIColor.secondaryLabel]
         }
     }
 
