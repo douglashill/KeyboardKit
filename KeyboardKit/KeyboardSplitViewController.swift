@@ -33,7 +33,7 @@ open class KeyboardSplitViewController: UISplitViewController {
     private func sharedInit() {
         delegate = intermediateDelegate
         intermediateDelegate.didChangeState = { [unowned self] in
-            self.updateFocusStateForDisplayStateChange()
+            self.validateFocusedColumnAfterDisplayStateChange()
         }
     }
 
@@ -68,7 +68,7 @@ open class KeyboardSplitViewController: UISplitViewController {
         // point it might not be possible to set up the first responder correctly. Even if the split
         // view controller view is in the window, the views of the column view controllers might not
         // be in the window. Therefore post an update here once setup has finished.
-        updateFocusStateForDisplayStateChange()
+        validateFocusedColumnAfterDisplayStateChange()
     }
 
     // MARK: - State
@@ -91,23 +91,35 @@ open class KeyboardSplitViewController: UISplitViewController {
         isCollapsed ? .collapsed : .expanded(intermediateDelegate.currentOrFutureDisplayMode ?? displayMode)
     }
 
-    /// The column in the split view that currently has focus.
+    /// The column in the split view that currently has focus when expanded.
     ///
     /// This will be nil when the split view is collapsed.
     ///
     /// Do not use this to find the focused view controller. Use `focusedViewController` instead.
-    private var storedFocusedColumn: Column? {
+    public private(set) var focusedColumn: Column? {
         didSet {
-            precondition(storedFocusedColumn != nil, "Focused column should not be cleared.")
-            show(storedFocusedColumn!)
+            precondition(focusedColumn != .compact, "An attempt was made to focus the compact column. The focused column should be nil when collapsed.")
+        }
+    }
+
+    // TODO: One thing not supported currently is if the first responder is set to a column using anything other than the focusedColumn.
+    // This happens if you focus the sidebar, go into compact width (detail view gets focus) and then go back into expanded (focus is restored to sidebar, which feels a bit odd)
+    
+    private func focusColumn(_ column: UISplitViewController.Column) {
+        focusedColumn = column
+        show(column)
+        keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
+    }
+
+    private func validateFocusedColumnAfterDisplayStateChange() {
+        let old = focusedColumn
+        focusedColumn = validatedFocusedColumn()
+        if focusedColumn != old {
             keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
         }
     }
 
-    // TODO: One thing not supported currently is if the first responder is set to a column using anything other than the storedFocusedColumn.
-    // This happens if you focus the sidebar, go into compact width (detail view gets focus) and then go back into expanded (focus is restored to sidebar, which feels a bit odd)
-
-    public var focusedColumn: Column? {
+    private func validatedFocusedColumn() -> UISplitViewController.Column? {
         switch displayState {
         case .collapsed:
             // If there is a collapsed column we could return .collapsed and that would make sense.
@@ -123,7 +135,7 @@ open class KeyboardSplitViewController: UISplitViewController {
             case .secondaryOnly:
                 return .secondary
             case .oneBesideSecondary:
-                switch (style, storedFocusedColumn) {
+                switch (style, focusedColumn) {
                 case (.unspecified, _): preconditionFailure("Keyboard control is not supported in split views with an unspecified style.")
                 case (.doubleColumn, .none): return .primary // Move focus to first column.
                 case (.doubleColumn, .primary): return .primary
@@ -143,9 +155,9 @@ open class KeyboardSplitViewController: UISplitViewController {
                 @unknown default: return nil
                 }
             case .twoBesideSecondary:
-                return storedFocusedColumn
+                return focusedColumn
             case .twoOverSecondary, .twoDisplaceSecondary:
-                switch storedFocusedColumn {
+                switch focusedColumn {
                 case .primary: return .primary
                 case .supplementary: return .supplementary
                 default: return .primary // Move focus to first column.
@@ -160,7 +172,7 @@ open class KeyboardSplitViewController: UISplitViewController {
     ///
     /// This may return a navigation controller that was implicitly created by `UISplitViewController`.
     /// It’s recommended that you don’t allow `UISplitViewController` to implicitly create
-    /// navigation controller by explicitly using `KeyboardNavigationController` for the columns.
+    /// navigation controllers by explicitly using `KeyboardNavigationController` for the columns.
     public var focusedViewController: UIViewController? {
         switch displayState {
         case .collapsed:
@@ -172,7 +184,7 @@ open class KeyboardSplitViewController: UISplitViewController {
                 } else if let navControllerOfPrimary = primary.navigationController {
                     return navControllerOfPrimary
                 } else {
-                    NSLog("Warning: viewController(for: .primary) of split view controller is not a navigation controller and does not have a navigation controller. This is not how UISVC is documented to work. Use the primary view controller as the focused view controller. %@", self)
+                    NSLog("Warning: viewController(for: .primary) of split view controller is not a navigation controller and does not have a navigation controller. This is not how UISVC is documented to work. Using the primary view controller as the focused view controller. %@", self)
                     return primary
                 }
             } else {
@@ -185,14 +197,6 @@ open class KeyboardSplitViewController: UISplitViewController {
                 return nil
             }
         }
-    }
-
-    private func updateFocusStateForDisplayStateChange() {
-        // TODO: Only notify the focusedColumn actually changes.
-        // This is hard with focusedColumn being computed and the stored property potentially being invalid. But now I have
-        // callbacks for every displayMode change I should in theory be able to have a stored property that is always valid.
-
-        keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
     }
 
     // MARK: - Key commands
@@ -350,23 +354,23 @@ open class KeyboardSplitViewController: UISplitViewController {
     private func moveFocusTowardsSecondary(shouldWrap: Bool) {
         switch focusedColumn {
         case .none:
-            storedFocusedColumn = .primary
+            focusColumn(.primary)
         case .secondary:
             if shouldWrap {
-                storedFocusedColumn = .primary
+                focusColumn(.primary)
             }
         case .primary:
             switch style {
             case .doubleColumn:
-                storedFocusedColumn = .secondary
+                focusColumn(.secondary)
             case .tripleColumn:
-                storedFocusedColumn = .supplementary
+                focusColumn(.supplementary)
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
         case .supplementary:
             precondition(style == .tripleColumn)
-            storedFocusedColumn = .secondary
+            focusColumn(.secondary)
         case .compact:
             preconditionFailure("Moving focus should not be enabled when compact.")
         @unknown default:
@@ -381,23 +385,23 @@ open class KeyboardSplitViewController: UISplitViewController {
     private func moveFocusTowardsPrimary(shouldWrap: Bool) {
         switch focusedColumn {
         case .none:
-            storedFocusedColumn = .secondary
+            focusColumn(.secondary)
         case .primary:
             if shouldWrap {
-                storedFocusedColumn = .secondary
+                focusColumn(.secondary)
             }
         case .secondary:
             switch style {
             case .doubleColumn:
-                storedFocusedColumn = .primary
+                focusColumn(.primary)
             case .tripleColumn:
-                storedFocusedColumn = .supplementary
+                focusColumn(.supplementary)
             case .unspecified: fallthrough @unknown default:
                 preconditionFailure()
             }
         case .supplementary:
             precondition(style == .tripleColumn)
-            storedFocusedColumn = .primary
+            focusColumn(.primary)
         case .compact:
             preconditionFailure("Moving focus should not be enabled when compact.")
         @unknown default:
@@ -431,11 +435,11 @@ open class KeyboardSplitViewController: UISplitViewController {
             switch displayMode {
             case .oneOverSecondary, .twoOverSecondary:
                 // Dismiss one or two overlaid columns. This matches what tapping the dimmed area above the secondary does.
-                storedFocusedColumn = .secondary
+                focusColumn(.secondary)
             case .twoDisplaceSecondary:
                 // Either the primary or supplementary must have been focused. Go to the supplementary because it’s the same or the nearest.
                 hide(.primary)
-                storedFocusedColumn = .supplementary
+                focusColumn(.supplementary)
             case .automatic, .secondaryOnly, .oneBesideSecondary, .twoBesideSecondary: fallthrough @unknown default:
                 preconditionFailure("Can’t dismiss temporary column with no suitable column. This should be blocked by canDismissTemporaryColumn.")
             }
