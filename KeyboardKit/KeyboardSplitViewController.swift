@@ -507,3 +507,25 @@ public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelega
     /// method may also be called before the view has loaded.
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController)
 }
+
+/*
+ Known issue with UISplitViewController
+
+ You can see this problem by focusing the primary on an iPad in portrait or major split view
+ and then pressing shift-tab three times quickly.
+
+ If you tell UISVC to show(.supplementary) while it is transitioning from twoOverSecondary to
+ secondaryOnly, it will initially say that it will transition to twoOverSecondary. However shortly
+ after this, a deferred callback comes in saying it will transition to oneOverSecondary. This sort
+ of makes sense: the expected end state for showing the supplementary from secondaryOnly would be
+ oneOverSecondary but since it started at twoOverSecondary maybe it thinks it can take a shortcut
+ to show the supplementary and then decides actually it can’t for some reason.
+
+ The problem is that if you call show(.primary) in this window between the twoOverSecondary callback
+ and the deferred oneOverSecondary callback, the UISVC does nothing. Presumably it thinks it’s already
+ in or heading to twoOverSecondary and therefore the primary is or will be visible, so there’s nothing
+ to do.
+
+ TODO: File a feedback
+
+ */
