@@ -179,28 +179,27 @@ open class KeyboardSplitViewController: UISplitViewController {
     /// It’s recommended that you don’t allow `UISplitViewController` to implicitly create
     /// navigation controllers by explicitly using `KeyboardNavigationController` for the columns.
     public var focusedViewController: UIViewController? {
-        switch displayState {
-        case .collapsed:
-            if let compactViewController = viewController(for: .compact) {
-                return compactViewController
-            } else if let primary = viewController(for: .primary) {
-                if let primaryAsNavController = primary as? UINavigationController {
-                    return primaryAsNavController
-                } else if let navControllerOfPrimary = primary.navigationController {
-                    return navControllerOfPrimary
-                } else {
-                    NSLog("Warning: viewController(for: .primary) of split view controller is not a navigation controller and does not have a navigation controller. This is not how UISVC is documented to work. Using the primary view controller as the focused view controller. %@", self)
-                    return primary
-                }
-            } else {
-                preconditionFailure("Using KeyboardSplitViewController without a primary view controller is not supported.")
-            }
-        case .expanded:
-            if let focusedColumn = focusedColumn {
-                return viewController(for: focusedColumn)
-            } else {
-                return nil
-            }
+        if let focusedColumn = focusedColumn {
+            return viewController(for: focusedColumn)
+        } else if isCollapsed == false {
+            // The most likely reason that there is no focused column is that the split view is collapsed,
+            // but we could also be during setup, or the property may have been explicitly set to nil.
+            return nil
+        } else if let compactViewController = viewController(for: .compact) {
+            // If a view controller for the compact column is set, use it.
+            return compactViewController
+        }
+        // With no compact column set, the split view will collapse onto the primary navigation controller.
+        guard let primary = viewController(for: .primary) else {
+            preconditionFailure("Using KeyboardSplitViewController without a primary view controller is not supported.")
+        }
+        if let primaryAsNavController = primary as? UINavigationController {
+            return primaryAsNavController
+        } else if let navControllerOfPrimary = primary.navigationController {
+            return navControllerOfPrimary
+        } else {
+            NSLog("Warning: viewController(for: .primary) of split view controller is not a navigation controller and does not have a navigation controller. This is not how UISVC is documented to work. Using the primary view controller as the focused view controller. %@", self)
+            return primary
         }
     }
 
