@@ -91,12 +91,17 @@ open class KeyboardSplitViewController: UISplitViewController {
         isCollapsed ? .collapsed : .expanded(intermediateDelegate.currentOrFutureDisplayMode ?? displayMode)
     }
 
-    /// The column in the split view that currently has focus when expanded.
+    /// The column in the expanded split view that currently has focus.
     ///
     /// This will be nil when the split view is collapsed.
     ///
     /// Do not use this to find the focused view controller. Use `focusedViewController` instead.
-    public private(set) var focusedColumn: Column? {
+    ///
+    /// This property may be set, which would typically be done to sync up the split view with changes to the first responder.
+    /// Setting this property will make no attempt to show the focused column
+    /// or validate the column is already visible, and the delegate will not called with `didChangeFocusedColumn`.
+    ///
+    public var focusedColumn: Column? {
         didSet {
             precondition(focusedColumn != .compact, "An attempt was made to focus the compact column. The focused column should be nil when collapsed.")
         }
@@ -493,11 +498,11 @@ open class KeyboardSplitViewController: UISplitViewController {
 
 // MARK: -
 
-/// The delegate of a `UISplitViewController` can conform to `KeyboardSplitViewControllerDelegate` in addition
-/// to `UISplitViewControllerDelegate` to receive a callback when the focused tab changes via keyboard input.
+/// The delegate of a `UISplitViewController` can conform to `KeyboardSplitViewControllerDelegate` in
+/// addition to `UISplitViewControllerDelegate` to receive a callback when the focused column changes.
 @available(iOS 14.0, *)
 public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
-    /// Called after the `focusedColumn` may have changed.
+    /// Called after the `focusedColumn` has changed.
     ///
     /// This happens if the user uses keyboard input to change the focused column,
     /// display mode changes, the split view collapses, or the split view expands.
