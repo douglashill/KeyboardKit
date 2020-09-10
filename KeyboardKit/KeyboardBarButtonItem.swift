@@ -6,7 +6,7 @@ import KeyboardKitObjC
 
 import UIKit
 
-/// A bar button item that can define keys that may be pressed on a keyboard to trigger the button’s action.
+/// A bar button item that can define keys that may be pressed on a keyboard to trigger the button’s action selector.
 ///
 /// The key command is used automatically when the bar button items is used in the navigation bar or toolbar
 /// of a `KeyboardNavigationController`.
@@ -16,6 +16,12 @@ import UIKit
 /// Key commands use nil-targeted actions so the first object on the responder chain responding to
 /// the selector will handle it. This means the action might be received by a different object if
 /// the bar button item uses an explicit target.
+///
+/// Bar button items that use `primaryAction` (a `UIAction`) are not supported because `UIAction` does not provide access to its `handler`.
+///
+/// Bar button items that use `menu` (a `UIMenu`) are not supported because the menu would not accessible with a keyboard.
+/// Instead since `UIKeyCommand` is a menu element it makes more sense to create the menu contents using `UIKeyCommand` and
+/// also expose these same command objects in an override of `keyCommands`.
 ///
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
 open class KeyboardBarButtonItem: KBDBarButtonItem {
@@ -49,6 +55,24 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     public override func wasInitialised(with systemItem: SystemItem) {
         keyEquivalent = systemItem.keyEquivalent
         self.systemItem = systemItem
+    }
+
+    @available(iOS 14.0, *)
+    open override var primaryAction: UIAction? {
+        didSet {
+            if primaryAction != nil {
+                NSLog("[KeyboardKit] Warning: Setting the primaryAction of a KeyboardBarButtonItem. The action will not be accessible from a keyboard because UIAction does not expose its handler.");
+            }
+        }
+    }
+
+    @available(iOS 14.0, *)
+    open override var menu: UIMenu? {
+        didSet {
+            if menu != nil {
+                NSLog("[KeyboardKit] Warning: Setting the menu of a KeyboardBarButtonItem. The menu will not be accessible from a keyboard. The recommend design is to use UIKeyCommand for each item in the menu and expose these same commands via an override of keyCommands.");
+            }
+        }
     }
 }
 
