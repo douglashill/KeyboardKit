@@ -9,19 +9,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let windowScene = scene as! UIWindowScene
 
-//        let rootViewController = SplitContainer(viewControllers: [
-//            TableViewController(),
-//            ListViewController(),
-//            CompositionalLayoutViewController(),
-//            FlowLayoutViewController(),
-//            CirclesScrollViewController(),
-//            PagingScrollViewController(),
-//            TextViewController(),
-//        ])
-//
-//        rootViewController.title = "KeyboardKit"
+        let rootViewController = SplitContainer(viewControllers: [
+            TableViewController(),
+            ListViewController(),
+            CompositionalLayoutViewController(),
+            FlowLayoutViewController(),
+            CirclesScrollViewController(),
+            PagingScrollViewController(),
+            TextViewController(),
+        ])
 
-        let rootViewController = TripleColumnSplitViewController()
+        rootViewController.title = "KeyboardKit"
 
         let window = KeyboardWindow(windowScene: windowScene)
         window.rootViewController = rootViewController
@@ -33,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     /// Deals with avoiding the software keyboard globally (or more likely the bar that’s shown when a hardware keyboard is connected).
-    /// This is needed for the TextViewController tab, and also if another app in Split View is showing the keyboard.
+    /// This is needed for TextViewController, and also if another app in Split View is showing the keyboard.
     /// Taken from https://gist.github.com/douglashill/41ea84f0ba59feecd3be51f21f73d501
     @objc private func updateSafeAreaForKeyboardFromNotification(_ notification: Notification) {
         guard

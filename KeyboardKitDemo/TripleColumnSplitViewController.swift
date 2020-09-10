@@ -43,10 +43,16 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         supplementaryList.delegate = self
         secondaryList.delegate = self
 
+        secondaryList.navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dismissSelf))
+
         updateListData()
 
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
+    }
+
+    @objc private func dismissSelf() {
+        dismiss(animated: true)
     }
 
     override func viewDidLoad() {

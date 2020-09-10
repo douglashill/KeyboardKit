@@ -38,7 +38,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
         bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
 
-        let testItem = KeyboardBarButtonItem(title: "Press Command + T", style: .plain, target: nil, action: #selector(testAction))
+        let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: nil, action: #selector(testAction))
         testItem.keyEquivalent = (.command, "t")
         navigationItem.rightBarButtonItems = [testItem, bookmarksBarButtonItem!]
 

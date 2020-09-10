@@ -10,8 +10,6 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
     let items: [((String, UIImage?))]
     weak var delegate: SidebarViewControllerDelegate?
 
-    // TODO: Make image required again by setting an image on all the content VCs.
-
     private lazy var cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
         cell.contentConfiguration = {
             var config = cell.defaultContentConfiguration()
@@ -25,6 +23,17 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         self.items = items
 
         super.init()
+
+        // Must use a selector action instead of UIAction because UIAction does not provide access to its handler.
+        let tripleColumnItem = KeyboardBarButtonItem(title: "Triple Column Split", style: .plain, target: nil, action: #selector(showTripleColumn))
+        tripleColumnItem.keyEquivalent = (.command, "t")
+        navigationItem.rightBarButtonItem = tripleColumnItem
+    }
+
+    @objc private func showTripleColumn() {
+        let tripleColumnViewController = TripleColumnSplitViewController()
+        tripleColumnViewController.modalPresentationStyle = .fullScreen
+        self.present(tripleColumnViewController, animated: true)
     }
 
     // TODO: it might not like being created with zero frame. Might have to do the initial sizing trick.
