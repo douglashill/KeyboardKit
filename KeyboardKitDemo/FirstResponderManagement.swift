@@ -3,6 +3,9 @@
 import UIKit
 import KeyboardKit
 
+/// Posted by the object that became first responder after calling `UIWindow.updateFirstResponder`.
+let firstResponderDidChangeNotification = Notification.Name("KBDFirstResponderDidChange")
+
 /// An abstract view controller that updates first responder when it appears.
 class FirstResponderViewController: UIViewController {
     init() {
@@ -108,6 +111,8 @@ extension UIResponder {
                 // Because it means when we force this selection in the supplementary, the secondary data is not updated.
 //                collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
             }
+
+            NotificationCenter.default.post(name: firstResponderDidChangeNotification, object: self)
 
             return
         }

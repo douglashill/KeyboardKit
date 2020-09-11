@@ -49,10 +49,19 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTitleTextAttributes), name: firstResponderDidChangeNotification, object: nil)
     }
 
     @objc private func dismissSelf() {
         dismiss(animated: true)
+    }
+
+    @objc private func updateTitleTextAttributes() {
+        for navigationController in [primaryNavigationController, supplementaryNavigationController, secondaryNavigationController] {
+            let isStrong = innerSplitViewController.isCollapsed || navigationController.viewControllers.first!.view.isFirstResponder
+            navigationController.navigationBar.titleTextAttributes = isStrong ? nil : [.foregroundColor: UIColor.secondaryLabel]
+        }
     }
 
     override func viewDidLoad() {
@@ -76,11 +85,6 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         }
 
         window.updateFirstResponder()
-
-        for navigationController in [primaryNavigationController, supplementaryNavigationController, secondaryNavigationController] {
-            let isStrong = innerSplitViewController.isCollapsed || navigationController.viewControllers.first!.view.isFirstResponder
-            navigationController.navigationBar.titleTextAttributes = isStrong ? nil : [.foregroundColor: UIColor.secondaryLabel]
-        }
     }
 
 //    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
