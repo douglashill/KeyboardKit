@@ -39,7 +39,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
 
         let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: nil, action: #selector(testAction))
-        testItem.keyEquivalent = (.command, "t")
+        testItem.keyEquivalent = ([.command, .alternate], "t")
         navigationItem.rightBarButtonItems = [testItem, bookmarksBarButtonItem!]
 
         tableView.dataSource = self
@@ -74,7 +74,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     }
 
     @objc private func testAction(_ sender: Any?) {
-        let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + T.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + option + T.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }

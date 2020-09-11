@@ -43,6 +43,8 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
 
         super.init(nibName: nil, bundle: nil)
 
+        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modal Examples", menu: UIMenu(title: "", children: modalExampleKeyCommands))
+
         sidebar.delegate = self
         splitViewController.delegate = self
 
@@ -50,6 +52,24 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
         splitViewController.didMove(toParent: self)
 
         setSelectedViewControllerIndex(initialSelectedIndex, shouldTransitionToDetail: false)
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        commands.append(contentsOf: modalExampleKeyCommands)
+
+        return commands
+    }
+
+    private let modalExampleKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(title: "Triple Column Split", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
+    ]
+
+    @objc private func showTripleColumn() {
+        let tripleColumnViewController = TripleColumnSplitViewController()
+        tripleColumnViewController.modalPresentationStyle = .fullScreen
+        self.present(tripleColumnViewController, animated: true)
     }
 
     override var title: String? {
