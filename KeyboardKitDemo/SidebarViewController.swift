@@ -56,8 +56,6 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         navigationController!.view.frame = originalFrame
     }
 
-    // TODO: Clear the selection when collapsing.
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
