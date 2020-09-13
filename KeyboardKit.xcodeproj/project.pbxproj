@@ -26,6 +26,7 @@
 		A55D7AF223C1108300302D79 /* KeyboardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */; };
 		A55D7AF423C1108300302D79 /* KeyboardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AE0052375AAAE00B07957 /* KeyboardKit.framework */; };
 		A5666C5424DECCBE00524C23 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5666C5324DECCBE00524C23 /* ListViewController.swift */; };
+		A56A4D65250E34A500A55939 /* TripleColumnListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */; };
 		A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD522398718100E13773 /* KeyboardNavigationController.swift */; };
 		A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */; };
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -136,6 +137,7 @@
 		A5666C5324DECCBE00524C23 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A5671D5F2420CD1E0061B9DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A5693A3B24B232A000F82CB6 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnListViewController.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BarButtonItem.h; path = ObjC/BarButtonItem.h; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
 				A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */,
+				A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
 				A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */,
 				A53ADFFA2375AA1700B07957 /* Info.plist */,
@@ -640,6 +643,7 @@
 				A5666C5424DECCBE00524C23 /* ListViewController.swift in Sources */,
 				A5D20F3E23787DA80057A8EE /* main.swift in Sources */,
 				A5E3D37A24C39041008C1FDB /* SidebarAndTabBarController.swift in Sources */,
+				A56A4D65250E34A500A55939 /* TripleColumnListViewController.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
