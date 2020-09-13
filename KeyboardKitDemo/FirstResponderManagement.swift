@@ -96,31 +96,7 @@ extension UIResponder {
     // UIKit does an annoying thing where during transitions it returns NO to becomeFirstResponder and then becomes first responder anyway after a delay. I can’t keep the state in sync if that happens.
     func becomeFirstResponderOrCrash() {
         if becomeFirstResponder() {
-            let desc: String
-            if self is UIView {
-                desc = self.value(forKeyPath: "viewDelegate.title") as! String
-            } else {
-                desc = self.description
-            }
-            print("Moved first responder to \(desc)")
-
-            // As a POC this is OK.  So I might make this function @objc so it can be overridden.
-            // And add a parameter  that trickles down from UIWindow.updateFirstResponder
-            // to set whether become 1R should make a selection if none exists.
-            // So a view simply appearing does not trigger this.
-            // But tab or left/right arrow keys in a split view do.
-            // This is getting quite complex for the demo app, but I think that’s the nature of 1R management.
-            if
-                let collectionView = self as? UICollectionView,
-                collectionView.indexPathsForSelectedItems?.isEmpty ?? true
-            {
-                // This doesn’t call the delegate which is a problem in the triple column example.
-                // Because it means when we force this selection in the supplementary, the secondary data is not updated.
-//                collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
-            }
-
             NotificationCenter.default.post(name: firstResponderDidChangeNotification, object: self)
-
             return
         }
         print("❌ Could not become first responder: \(self)")

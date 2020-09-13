@@ -98,7 +98,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
             case secondary
         }
 
-        enum ConcreteSplitBehavior {
+        enum ConcreteSplitBehaviour {
             case tile
             case overlay
             case displace
@@ -106,7 +106,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
             init?(splitBehavior: UISplitViewController.SplitBehavior) {
                 switch splitBehavior {
                 case .automatic:
-                    preconditionFailure("splitBehavior is automatic, which is not a concrete behavior.")
+                    preconditionFailure("splitBehavior is automatic, which is not a concrete behaviour.")
                 case .tile:
                     self = .tile
                 case .overlay:
@@ -125,10 +125,10 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         case supplementaryNavigationController: visibleColumn = .supplementary
         case secondaryNavigationController: visibleColumn = .secondary
         default:
-            preconditionFailure("Unexpected top view controller: \(String(describing: primaryNavigationController.topViewController))")
+            preconditionFailure("Unexpected top view controller: \(primaryNavigationController.topViewController?.description ?? "nil")")
         }
 
-        guard let splitBehavior = ConcreteSplitBehavior(splitBehavior: svc.splitBehavior) else {
+        guard let splitBehavior = ConcreteSplitBehaviour(splitBehavior: svc.splitBehavior) else {
             return proposedDisplayMode
         }
 
@@ -380,15 +380,4 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
 
 private protocol TListViewControllerDelegate: NSObjectProtocol {
     func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool)
-}
-
-private extension String {
-    /// Avoids wrapping the string in ‘Optional(...)’ when not nil.
-    init<T>(describing instance: Optional<T>) {
-        if let value = instance {
-            self.init(describing: value)
-        } else {
-            self = "nil"
-        }
-    }
 }
