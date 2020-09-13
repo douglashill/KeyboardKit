@@ -151,24 +151,20 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         sidebar.clearSelection()
     }
 
-    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
-        // The default behaviour is to always show the secondary.
-        // Since we have a first-class concept of user focus let’s use that.
-        innerSplitViewController.focusedColumn ?? proposedTopColumn
-    }
-
-    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
-        // If the primary was the top view controller when collapsed, keep it visible after expanding.
-        if proposedDisplayMode == .secondaryOnly && primaryNavigationController.topViewController === sidebar {
-            return .oneOverSecondary
-        } else {
-            return proposedDisplayMode
-        }
-    }
-
     // MARK: - FirstResponderManagement
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
-        presentedViewController ?? innerSplitViewController
+        if let presented = presentedViewController {
+            return presented
+        }
+
+        switch innerSplitViewController.focusedColumn {
+        case .none:          return primaryNavigationController // The split view is collapsed onto this navigation controller.
+        case .primary:       return sidebar // Could also return primaryNavigationController. The result would be the same.
+        case .supplementary: preconditionFailure("Unexpectedly found supplementary column focused in double column demo.")
+        case .secondary:     return contentViewControllers[getSelectedViewControllerIndex()]
+        case .compact:       preconditionFailure("Unexpectedly found compact column focused.")
+        @unknown default:    return nil
+        }
     }
 }

@@ -45,7 +45,7 @@ class FirstResponderViewController: UIViewController {
 
 extension UIWindow {
     func updateFirstResponder() {
-        precondition(rootViewController!.kd_becomeFirstResponderInHierarchy())
+        rootViewController!.kd_becomeFirstResponderInHierarchy()
     }
 }
 
@@ -67,7 +67,7 @@ extension UIResponder {
     /// Call super to make sure this is forwarded to `kd_preferredFirstResponderInHierarchy`.
     ///
     /// - Returns: True if the responder or a child became first responder. False if no responder change was made.
-    @objc func kd_becomeFirstResponderInHierarchy() -> Bool {
+    @discardableResult @objc func kd_becomeFirstResponderInHierarchy() -> Bool {
         if let preferredFirstResponderInHierarchy = kd_preferredFirstResponderInHierarchy,
            preferredFirstResponderInHierarchy.kd_becomeFirstResponderInHierarchy() {
             return true
@@ -123,11 +123,5 @@ extension UITabBarController {
         // but that isn’t actually present in the VC hierarchy because the child of the navigation controller
         // will be extracted and pushed onto the UIMoreNavigationController.
         presentedViewController ?? selectedViewController
-    }
-}
-
-extension KeyboardSplitViewController {
-    override var kd_preferredFirstResponderInHierarchy: UIResponder? {
-        presentedViewController ?? focusedViewController
     }
 }

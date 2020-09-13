@@ -18,7 +18,7 @@ import UIKit
 /// is added. This is mostly transparent. You can set the delegate and receive callbacks as normal, but if
 /// you read the value of the delegate property it will not be the same as the object you set.
 @available(iOS 14.0, *)
-open class KeyboardSplitViewController: UISplitViewController {
+open class KeyboardSplitViewController: UISplitViewController, IntermediateDelegateOwner {
 
     // MARK: - Delegate shenanigans
 
@@ -39,12 +39,9 @@ open class KeyboardSplitViewController: UISplitViewController {
 
     private func sharedInit() {
         delegate = intermediateDelegate
-        intermediateDelegate.didChangeState = { [unowned self] in
-            self.validateFocusedColumnAfterDisplayStateChange()
-        }
     }
 
-    private let intermediateDelegate = IntermediateDelegate()
+    private lazy var intermediateDelegate = IntermediateDelegate(owner: self)
 
     open override var delegate: UISplitViewControllerDelegate? {
         get {
@@ -119,7 +116,7 @@ open class KeyboardSplitViewController: UISplitViewController {
         keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
     }
 
-    private func validateFocusedColumnAfterDisplayStateChange() {
+    fileprivate func validateFocusedColumnAfterDisplayStateChange() {
         let old = focusedColumn
         focusedColumn = validatedFocusedColumn()
         if focusedColumn != old {
@@ -173,36 +170,6 @@ open class KeyboardSplitViewController: UISplitViewController {
             @unknown default:
                 return nil
             }
-        }
-    }
-
-    /// The child view controller of the split view that currently has focus.
-    ///
-    /// This may return a navigation controller that was implicitly created by `UISplitViewController`.
-    /// It’s recommended that you don’t allow `UISplitViewController` to implicitly create
-    /// navigation controllers by explicitly using `KeyboardNavigationController` for the columns.
-    public var focusedViewController: UIViewController? {
-        if let focusedColumn = focusedColumn {
-            return viewController(for: focusedColumn)
-        } else if isCollapsed == false {
-            // The most likely reason that there is no focused column is that the split view is collapsed,
-            // but we could also be during setup, or the property may have been explicitly set to nil.
-            return nil
-        } else if let compactViewController = viewController(for: .compact) {
-            // If a view controller for the compact column is set, use it.
-            return compactViewController
-        }
-        // With no compact column set, the split view will collapse onto the primary navigation controller.
-        guard let primary = viewController(for: .primary) else {
-            preconditionFailure("Using KeyboardSplitViewController without a primary view controller is not supported.")
-        }
-        if let primaryAsNavController = primary as? UINavigationController {
-            return primaryAsNavController
-        } else if let navControllerOfPrimary = primary.navigationController {
-            return navControllerOfPrimary
-        } else {
-            NSLog("[KeyboardKit] Warning: viewController(for: .primary) of split view controller is not a navigation controller and does not have a navigation controller. This is not how UISVC is documented to work. Using the primary view controller as the focused view controller. %@", self)
-            return primary
         }
     }
 
@@ -458,9 +425,14 @@ open class KeyboardSplitViewController: UISplitViewController {
         /// The delegate external to KeyboardKit.
         weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
 
-        var currentOrFutureDisplayMode: UISplitViewController.DisplayMode?
+        /// The object that owns this intermediate delegate.
+        unowned var owner: IntermediateDelegateOwner
 
-        var didChangeState: (() -> Void)?
+        init(owner: IntermediateDelegateOwner) {
+            self.owner = owner
+        }
+
+        var currentOrFutureDisplayMode: UISplitViewController.DisplayMode?
 
         override func responds(to selector: Selector!) -> Bool {
             if super.responds(to: selector) {
@@ -480,20 +452,35 @@ open class KeyboardSplitViewController: UISplitViewController {
 
         func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
             currentOrFutureDisplayMode = displayMode
-            didChangeState?()
+            owner.validateFocusedColumnAfterDisplayStateChange()
             externalDelegate?.splitViewController?(svc, willChangeTo: displayMode)
         }
 
         func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
-            didChangeState?()
+            owner.validateFocusedColumnAfterDisplayStateChange()
             externalDelegate?.splitViewControllerDidCollapse?(svc)
         }
 
         func splitViewControllerDidExpand(_ svc: UISplitViewController) {
-            didChangeState?()
+            owner.validateFocusedColumnAfterDisplayStateChange()
             externalDelegate?.splitViewControllerDidExpand?(svc)
         }
+
+        func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+            // The default behaviour is to always show the secondary.
+            // Since we have a first-class concept of user focus let’s use that.
+            let ourProposedTopColumn = owner.focusedColumn ?? proposedTopColumn
+            return externalDelegate?.splitViewController?(svc, topColumnForCollapsingToProposedTopColumn: ourProposedTopColumn) ?? ourProposedTopColumn
+        }
     }
+}
+
+// MARK: -
+
+@available(iOS 14.0, *)
+private protocol IntermediateDelegateOwner: NSObjectProtocol {
+    func validateFocusedColumnAfterDisplayStateChange()
+    var focusedColumn: UISplitViewController.Column? { get }
 }
 
 // MARK: -

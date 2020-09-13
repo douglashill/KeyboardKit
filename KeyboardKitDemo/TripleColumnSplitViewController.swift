@@ -127,83 +127,21 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         viewIfLoaded?.window?.updateFirstResponder()
     }
 
-    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
-        // The default behaviour is to always show the secondary.
-        // Since we have a first-class concept of user focus let’s use that.
-        innerSplitViewController.focusedColumn ?? proposedTopColumn
-    }
-
-    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
-        // TODO: Move this method into KeyboardSplitViewController.
-        // It will be a bit more work to infer the visibleColumn.
-
-        enum ConcreteColumn {
-            case primary
-            case supplementary
-            case secondary
-        }
-
-        enum ConcreteSplitBehaviour {
-            case tile
-            case overlay
-            case displace
-
-            init?(splitBehavior: UISplitViewController.SplitBehavior) {
-                switch splitBehavior {
-                case .automatic:  preconditionFailure("splitBehavior is automatic, which is not a concrete behaviour.")
-                case .tile:       self = .tile
-                case .overlay:    self = .overlay
-                case .displace:   self = .displace
-                @unknown default: return nil
-                }
-            }
-        }
-
-        let visibleColumn: ConcreteColumn
-        switch primaryNavigationController.topViewController {
-        case primaryList:                       visibleColumn = .primary
-        case supplementaryNavigationController: visibleColumn = .supplementary
-        case secondaryNavigationController:     visibleColumn = .secondary
-        default:                                preconditionFailure("Unexpected top view controller: \(primaryNavigationController.topViewController?.description ?? "nil")")
-        }
-
-        guard let splitBehavior = ConcreteSplitBehaviour(splitBehavior: svc.splitBehavior) else {
-            return proposedDisplayMode
-        }
-
-        switch (proposedDisplayMode, visibleColumn) {
-        case (.automatic, _):
-            preconditionFailure("proposedDisplayMode is automatic, which is not a concrete mode.")
-        case (.secondaryOnly, .primary), (.oneBesideSecondary, .primary), (.oneOverSecondary, .primary):
-            // TODO: Some of this is redundant. E.g. oneOverSecondary must mean the behaviour is overlay so we could go straight to returning twoOverSecondary.
-            switch splitBehavior {
-            case .tile:     return .twoBesideSecondary
-            case .overlay:  return .twoOverSecondary
-            case .displace: return .twoDisplaceSecondary
-            }
-        case (.secondaryOnly, .supplementary):
-            switch splitBehavior {
-            case .tile:     return .oneBesideSecondary
-            case .overlay:  return .oneOverSecondary
-            case .displace: return .oneBesideSecondary
-            }
-        case (.oneOverSecondary, .secondary), (.twoOverSecondary, .secondary):
-            precondition(splitBehavior == .overlay)
-            return .secondaryOnly
-        case (.twoDisplaceSecondary, .secondary):
-            precondition(splitBehavior == .displace)
-            return .oneBesideSecondary
-        case (.secondaryOnly, .secondary), (.twoDisplaceSecondary, .primary), (.twoDisplaceSecondary, .supplementary), (.twoOverSecondary, .primary), (.twoOverSecondary, .supplementary), (.oneOverSecondary, .supplementary), (.twoBesideSecondary, _), (.oneBesideSecondary, .supplementary), (.oneBesideSecondary, .secondary):
-            return proposedDisplayMode
-        @unknown default:
-            return proposedDisplayMode
-        }
-    }
-
     // MARK: - FirstResponderManagement
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {
-        presentedViewController ?? innerSplitViewController
+        if let presented = presentedViewController {
+            return presented
+        }
+
+        switch innerSplitViewController.focusedColumn {
+        case .none:          return primaryNavigationController // The split view is collapsed onto this navigation controller.
+        case .primary:       return primaryList
+        case .supplementary: return supplementaryList
+        case .secondary:     return secondaryList
+        case .compact:       preconditionFailure("Unexpectedly found compact column focused.")
+        @unknown default:    return nil
+        }
     }
 
     // MARK: - Data
