@@ -12,7 +12,8 @@ import KeyboardKit
 class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
 
-    // The primary and supplementary would ideally use the sidebar and sidebarPlain styles. However these seem a bit half baked.
+    // The primary and supplementary would ideally use the sidebar and sidebarPlain styles.
+    // However these have had issues throughout the iOS 14 beta.
     // In Xcode 12 beta 4 using sidebar always crashed as soon as the view appears:
     // *** Assertion failure in -[UIListContentConfiguration _enforcesMinimumHeight], UIListContentConfiguration.m:470
     // Unknown style: 10
