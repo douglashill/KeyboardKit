@@ -3,7 +3,8 @@
 import UIKit
 import KeyboardKit
 
-class TListViewController: FirstResponderViewController, UICollectionViewDelegate, KeyboardCollectionViewDelegate {
+/// Manages a view that shows list of strings set using the `data` property. Intended for use in `TripleColumnSplitViewController`.
+class TripleColumnListViewController: FirstResponderViewController, UICollectionViewDelegate, KeyboardCollectionViewDelegate {
     init(appearance: UICollectionLayoutListConfiguration.Appearance) {
         self.appearance = appearance
         super.init()
@@ -12,7 +13,7 @@ class TListViewController: FirstResponderViewController, UICollectionViewDelegat
     let appearance: UICollectionLayoutListConfiguration.Appearance
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>? = nil
 
-    weak var delegate: TListViewControllerDelegate?
+    weak var delegate: TripleColumnListViewControllerDelegate?
 
     private lazy var collectionView: UICollectionView = {
         var listConfig = UICollectionLayoutListConfiguration(appearance: appearance)
@@ -106,6 +107,6 @@ class TListViewController: FirstResponderViewController, UICollectionViewDelegat
     }
 }
 
-protocol TListViewControllerDelegate: NSObjectProtocol {
-    func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool)
+protocol TripleColumnListViewControllerDelegate: NSObjectProtocol {
+    func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool)
 }

@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewControllerDelegate, TListViewControllerDelegate {
+class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewControllerDelegate, TripleColumnListViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
 
     // The primary and supplementary would ideally use the sidebar and sidebarPlain styles. However these seem a bit half baked.
@@ -14,9 +14,9 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     // In beta 6 the crashing has stopped but these styles don’t always look good. When collapsed the primary with
     // sidebar style uses a blue selection highlight but does not invert the content colour.
     // Having some highlight stronger than others implies that might be where keyboard focus is, but this isn’t the case.
-    private let primaryList = TListViewController(appearance: .insetGrouped)
-    private let supplementaryList = TListViewController(appearance: .insetGrouped)
-    private let secondaryList = TListViewController(appearance: .insetGrouped)
+    private let primaryList = TripleColumnListViewController(appearance: .insetGrouped)
+    private let supplementaryList = TripleColumnListViewController(appearance: .insetGrouped)
+    private let secondaryList = TripleColumnListViewController(appearance: .insetGrouped)
 
     private let primaryNavigationController: KeyboardNavigationController
     private let supplementaryNavigationController: KeyboardNavigationController
@@ -169,7 +169,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
 
     // MARK: - TListViewControllerDelegate
 
-    func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool) {
+    func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool) {
         let nextColumn: UISplitViewController.Column
         if listViewController == primaryList {
             nextColumn = .supplementary
