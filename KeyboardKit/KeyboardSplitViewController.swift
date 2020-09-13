@@ -209,11 +209,9 @@ open class KeyboardSplitViewController: UISplitViewController {
         true
     }
 
-    // TODO: Localised titles
-
     private lazy var tabCommands: [UIKeyCommand] = [
-        UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping), title: "Focus Next Column"),
-        UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping), title: "Focus Previous Column"),
+        UIKeyCommand(.tab, action: #selector(moveFocusInLeadingDirectionWithWrapping)),
+        UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping)),
     ]
     private lazy var rightArrowKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.rightArrow, action: #selector(moveFocusRight)),
