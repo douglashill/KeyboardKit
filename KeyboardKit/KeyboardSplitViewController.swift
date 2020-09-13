@@ -4,6 +4,13 @@ import UIKit
 
 /// A split view controller that supports navigating between columns using tab or arrows keys on a hardware keyboard.
 ///
+/// This class does not read or set the first responder itself, because it would not know which descendant
+/// within a column should be first responder. Instead instances of this class have a `focusedColumn` property.
+/// This is simply tracking the state and does nothing on its own. To actually update the first responder the
+/// `delegate` of the split view controller should conform to `KeyboardSplitViewControllerDelegate`. In the
+/// delegate’s implementation of `didChangeFocusedColumn` it should update the first responder based on the
+/// split view controller’s `focusedColumn`.
+///
 /// This subclass only support iOS 14 split view controllers that are initialised with a `style` and have their
 /// view controllers set as columns. Using the `.unspecified` style is not supported.
 ///
@@ -100,7 +107,6 @@ open class KeyboardSplitViewController: UISplitViewController {
     /// This property may be set, which would typically be done to sync up the split view with changes to the first responder.
     /// Setting this property will make no attempt to show the focused column
     /// or validate the column is already visible, and the delegate will not called with `didChangeFocusedColumn`.
-    ///
     public var focusedColumn: Column? {
         didSet {
             precondition(focusedColumn != .compact, "An attempt was made to focus the compact column. The focused column should be nil when collapsed.")
@@ -514,8 +520,8 @@ public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelega
 /*
  Known issue with UISplitViewController
 
- You can see this problem by focusing the primary on an iPad in portrait or major split view
- and then pressing shift-tab three times quickly.
+ You can see this problem in a triple column split view by focusing the primary on an
+ iPad in portrait or major split view and then pressing shift-tab three times quickly.
 
  If you tell UISVC to show(.supplementary) while it is transitioning from twoOverSecondary to
  secondaryOnly, it will initially say that it will transition to twoOverSecondary. However shortly
@@ -524,10 +530,10 @@ public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelega
  oneOverSecondary but since it started at twoOverSecondary maybe it thinks it can take a shortcut
  to show the supplementary and then decides actually it can’t for some reason.
 
- The problem is that if you call show(.primary) in this window between the twoOverSecondary callback
- and the deferred oneOverSecondary callback, the UISVC does nothing. Presumably it thinks it’s already
- in or heading to twoOverSecondary and therefore the primary is or will be visible, so there’s nothing
- to do.
+ The problem is that if you call show(.primary) in this window between the twoOverSecondary
+ callback and the deferred oneOverSecondary callback, the UISVC does nothing. Presumably it
+ thinks it’s already in or heading to twoOverSecondary and therefore the primary is or will
+ be visible, so there’s nothing to do.
 
  TODO: File a feedback
 

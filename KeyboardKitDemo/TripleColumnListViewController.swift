@@ -13,6 +13,7 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
         super.init()
     }
 
+    /// The data displayed by the list as an array of the text for each item.
     var items: [String] = [] {
         didSet {
             if let dataSource = dataSource {
@@ -21,11 +22,14 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
         }
     }
 
+    /// The delegate to be notified when the selection changes in the list.
     weak var delegate: TripleColumnListViewControllerDelegate?
 
+    /// The list appearance passed at initialisation.
     let appearance: UICollectionLayoutListConfiguration.Appearance
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>? = nil
 
+    /// The index of the selected item in the list.
     var selectedIndex = 0
 
     private func updateSelectedIndexFromCollectionView() {
@@ -72,6 +76,7 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        // This seems the most robust way to ensure the collection view always has a selected item.
         collectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0), animated: false, scrollPosition: [])
     }
 
@@ -99,13 +104,14 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     }
 
     func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool {
-        // For this demo, we simply require all three lists to always have a selection.
+        // For this demo, we require all three lists to always have a selection.
         false
     }
 }
 
 // MARK: -
 
+/// An object to be notified of selection changes in a list.
 protocol TripleColumnListViewControllerDelegate: NSObjectProtocol {
     func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool)
 }

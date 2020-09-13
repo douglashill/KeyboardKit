@@ -108,11 +108,13 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.addSubview(innerSplitViewController.view)
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
         innerSplitViewController.view.frame = view.bounds
     }
 

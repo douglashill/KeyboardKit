@@ -85,7 +85,7 @@ extension UIResponder {
             }
 
             if canBecomeFirstResponder && isSetUp {
-                becomeFirstResponderOrCrash()
+                reallyBecomeFirstResponder()
                 return true
             } else {
                 return false
@@ -93,8 +93,10 @@ extension UIResponder {
         }
     }
 
-    // UIKit does an annoying thing where during transitions it returns NO to becomeFirstResponder and then becomes first responder anyway after a delay. I can’t keep the state in sync if that happens.
-    func becomeFirstResponderOrCrash() {
+    /// UIKit does an annoying thing where during transitions it returns NO to becomeFirstResponder
+    /// and then becomes first responder anyway after a delay. It’s hard to be in control of what’s
+    /// going on if that happens, so such situations should be caught and fixed up.
+    func reallyBecomeFirstResponder() {
         if becomeFirstResponder() {
             NotificationCenter.default.post(name: firstResponderDidChangeNotification, object: self)
             return

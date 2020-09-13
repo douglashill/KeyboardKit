@@ -13,8 +13,10 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         super.init()
     }
 
+    /// The data displayed by the list as an array of the text and image for each item.
     let items: [((String, UIImage?))]
 
+    /// The delegate to be notified when the selection changes in the list and to provide details about what the selection should be.
     weak var delegate: SidebarViewControllerDelegate?
 
     private lazy var collectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar)))
@@ -39,6 +41,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        // This seems the most robust way to ensure the collection view always has a selected item when required.
         if let delegate = delegate, delegate.shouldRequireSelectionInSidebarViewController(self) {
             collectionView.selectItem(at: IndexPath(item: delegate.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
         }
@@ -90,6 +93,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
 
 // MARK: -
 
+/// An object to assist with managing the selection in a sidebar.
 protocol SidebarViewControllerDelegate: NSObjectProtocol {
     /// Called when the selected item in the sidebar changes using arrow keys.
     func didShowSelectionAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController)

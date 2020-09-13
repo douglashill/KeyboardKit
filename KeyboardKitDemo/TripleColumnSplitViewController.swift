@@ -4,6 +4,11 @@ import UIKit
 import KeyboardKit
 
 /// Show three levels of static hierarchical data in lists occupying the three columns of a split view controller. Collapses to a navigation stack.
+///
+/// This class also demonstrates one possible way to show the focused column visually to the user:
+/// by showing the title in the navigation controller for the focused column darker than the titles
+/// in the other columns.
+///
 class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
 
@@ -67,11 +72,13 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.addSubview(innerSplitViewController.view)
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         innerSplitViewController.view.frame = view.bounds
     }
 
@@ -126,6 +133,9 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
     }
 
     func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
+        // TODO: Move this method into KeyboardSplitViewController.
+        // It will be a bit more work to infer the visibleColumn.
+
         enum ConcreteColumn {
             case primary
             case supplementary
@@ -230,7 +240,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
                 "Banana",
                 "Dragon fruit",
                 "Durian",
-                "Jack fruit",
+                "Jackfruit",
                 "Mango",
                 "Pear",
                 "Plum",
