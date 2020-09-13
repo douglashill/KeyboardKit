@@ -262,7 +262,7 @@ open class KeyboardSplitViewController: UISplitViewController {
     }
 
     private var canChangeFocusedColumn: Bool {
-        presentedViewController == nil && style == .doubleColumn || style == .tripleColumn && isCollapsed == false
+        presentedViewController == nil && (style == .doubleColumn || style == .tripleColumn) && isCollapsed == false
     }
 
     // MARK: -
