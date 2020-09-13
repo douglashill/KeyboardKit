@@ -107,9 +107,6 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
-    // TODO: One thing not supported currently is if the first responder is set to a column using anything other than the focusedColumn.
-    // This happens if you focus the sidebar, go into compact width (detail view gets focus) and then go back into expanded (focus is restored to sidebar, which feels a bit odd)
-    
     private func focusColumn(_ column: UISplitViewController.Column) {
         focusedColumn = column
         show(column)

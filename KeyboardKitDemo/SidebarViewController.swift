@@ -25,7 +25,6 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         super.init()
     }
 
-    // TODO: it might not like being created with zero frame. Might have to do the initial sizing trick.
     lazy var collectionView: UICollectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar)))
 
     override func loadView() {
@@ -58,7 +57,6 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
     }
 
     // TODO: Clear the selection when collapsing.
-    // TODO: Activate the selection (show detail VC) when expanding.
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
