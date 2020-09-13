@@ -87,38 +87,85 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         window.updateFirstResponder()
     }
 
-//    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
-//        // The default behaviour is to always show the secondary.
-//        // Since we have a first-class concept of user focus let’s use that.
-////        innerSplitViewController.focusedColumn ?? proposedTopColumn
-//        // TODO: Is this actually doing anything since the primary and secondary get combined?
-//
-//
-//        // The bit not working is the UISVC is already collapsed at this point
-//        // so focusedColumn is returning the primary. But really there is no clear meaning of focused column when collapsed.
-//
-//
-//        // Since we have a first-class concept of user focus let’s use that.
-//        if let focusedColumn = innerSplitViewController.focusedColumn, focusedColumn == .primary {
-//            // Sidebar is focused so just showing that is fine. No combining needed.
-////            primaryNavigationController.viewControllers = [sidebar]
-//            return .primary // This does work. The UISVC doesn’t push the secondary if we return this.
-//        } else {
-//            // Sidebar is not focused. Let UIKit push the secondary onto the primary’s navigation stack.
-//            return .secondary
-//        }
-//
-////        return proposedTopColumn
-//    }
-//
-//    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
-//        // If the primary was the top view controller when collapsed, keep it visible after expanding.
-//        if proposedDisplayMode == .secondaryOnly && primaryNavigationController.topViewController === sidebar {
-//            return .oneOverSecondary
-//        } else {
-//            return proposedDisplayMode
-//        }
-//    }
+    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+        innerSplitViewController.focusedColumn ?? proposedTopColumn
+    }
+
+    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
+        enum ConcreteColumn {
+            case primary
+            case supplementary
+            case secondary
+        }
+
+        enum ConcreteSplitBehavior {
+            case tile
+            case overlay
+            case displace
+
+            init?(splitBehavior: UISplitViewController.SplitBehavior) {
+                switch splitBehavior {
+                case .automatic:
+                    preconditionFailure("splitBehavior is automatic, which is not a concrete behavior.")
+                case .tile:
+                    self = .tile
+                case .overlay:
+                    self = .overlay
+                case .displace:
+                    self = .displace
+                @unknown default:
+                    return nil
+                }
+            }
+        }
+
+        let visibleColumn: ConcreteColumn
+        switch primaryNavigationController.topViewController {
+        case primaryList: visibleColumn = .primary
+        case supplementaryNavigationController: visibleColumn = .supplementary
+        case secondaryNavigationController: visibleColumn = .secondary
+        default:
+            preconditionFailure("Unexpected top view controller: \(String(describing: primaryNavigationController.topViewController))")
+        }
+
+        guard let splitBehavior = ConcreteSplitBehavior(splitBehavior: svc.splitBehavior) else {
+            return proposedDisplayMode
+        }
+
+        switch (proposedDisplayMode, visibleColumn) {
+        case (.automatic, _):
+            preconditionFailure("proposedDisplayMode is automatic, which is not a concrete mode.")
+        case (.secondaryOnly, .primary), (.oneBesideSecondary, .primary), (.oneOverSecondary, .primary):
+            // TODO: Some of this is redundant. E.g. oneOverSecondary must mean the behaviour is overlay so we could go straight to returning twoOverSecondary.
+            switch splitBehavior {
+            case .tile:
+                return .twoBesideSecondary
+            case .overlay:
+                return .twoOverSecondary
+            case .displace:
+                return .twoDisplaceSecondary
+            }
+        case (.secondaryOnly, .supplementary):
+            switch splitBehavior {
+            case .tile:
+                return .oneBesideSecondary
+            case .overlay:
+                return .oneOverSecondary
+            case .displace:
+                return .oneBesideSecondary
+            }
+        case (.oneOverSecondary, .secondary), (.twoOverSecondary, .secondary):
+            precondition(splitBehavior == .overlay)
+            return .secondaryOnly
+        case (.twoDisplaceSecondary, .secondary):
+            precondition(splitBehavior == .displace)
+            return .oneBesideSecondary
+        case (.secondaryOnly, .secondary), (.twoDisplaceSecondary, .primary), (.twoDisplaceSecondary, .supplementary), (.twoOverSecondary, .primary), (.twoOverSecondary, .supplementary), (.oneOverSecondary, .supplementary), (.twoBesideSecondary, _), (.oneBesideSecondary, .supplementary), (.oneBesideSecondary, .secondary):
+            return proposedDisplayMode
+        @unknown default:
+            return proposedDisplayMode
+        }
+    }
 
     // MARK: - TListViewControllerDelegate
 
@@ -333,4 +380,15 @@ private class TListViewController: FirstResponderViewController, UICollectionVie
 
 private protocol TListViewControllerDelegate: NSObjectProtocol {
     func didChangeSelectedItemsInListViewController(_ listViewController: TListViewController, isExplicitActivation: Bool)
+}
+
+private extension String {
+    /// Avoids wrapping the string in ‘Optional(...)’ when not nil.
+    init<T>(describing instance: Optional<T>) {
+        if let value = instance {
+            self.init(describing: value)
+        } else {
+            self = "nil"
+        }
+    }
 }

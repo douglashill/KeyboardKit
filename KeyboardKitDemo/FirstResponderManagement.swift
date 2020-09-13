@@ -96,6 +96,13 @@ extension UIResponder {
     // UIKit does an annoying thing where during transitions it returns NO to becomeFirstResponder and then becomes first responder anyway after a delay. I can’t keep the state in sync if that happens.
     func becomeFirstResponderOrCrash() {
         if becomeFirstResponder() {
+            let desc: String
+            if self is UIView {
+                desc = self.value(forKeyPath: "viewDelegate.title") as! String
+            } else {
+                desc = self.description
+            }
+            print("Moved first responder to \(desc)")
 
             // As a POC this is OK.  So I might make this function @objc so it can be overridden.
             // And add a parameter  that trickles down from UIWindow.updateFirstResponder

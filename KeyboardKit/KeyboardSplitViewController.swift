@@ -107,15 +107,38 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
     }
 
+    func desc(_ column: UISplitViewController.Column?) -> String {
+        switch column {
+        case .none:
+            return "nil"
+        case .primary:
+            return "primary"
+        case .supplementary:
+            return "supplementary"
+        case .secondary:
+            return "secondary"
+        case .compact:
+            return "compact"
+        @unknown default:
+            preconditionFailure("Unknown column.")
+        }
+    }
+
     private func focusColumn(_ column: UISplitViewController.Column) {
+        let columnDescription = desc(column)
+        print("Started focusing column \(columnDescription)")
         focusedColumn = column
+        print("Set focusedColumn to \(columnDescription). Calling show(.\(columnDescription))")
         show(column)
+        print("Called show(.\(columnDescription))")
         keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
+        print("Called delegate. Finished focusing column \(columnDescription)")
     }
 
     private func validateFocusedColumnAfterDisplayStateChange() {
         let old = focusedColumn
         focusedColumn = validatedFocusedColumn()
+        print("Validated \(desc(old)) to \(desc(focusedColumn))")
         if focusedColumn != old {
             keyboardDelegate?.didChangeFocusedColumn(inSplitViewController: self)
         }
@@ -473,6 +496,34 @@ open class KeyboardSplitViewController: UISplitViewController {
         }
 
         func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
+
+
+            func desc(_ mode: UISplitViewController.DisplayMode?) -> String {
+                switch mode {
+                case .none:
+                    return "nil"
+                case .secondaryOnly:
+                    return "secondaryOnly"
+                case .automatic:
+                    return "automatic"
+                case .oneBesideSecondary:
+                    return "oneBesideSecondary"
+                case .oneOverSecondary:
+                    return "oneOverSecondary"
+                case .twoBesideSecondary:
+                    return "twoBesideSecondary"
+                case .twoOverSecondary:
+                    return "twoOverSecondary"
+                case .twoDisplaceSecondary:
+                    return "twoDisplaceSecondary"
+                @unknown default:
+                    preconditionFailure("Unknown display mode.")
+                }
+            }
+
+
+
+            print("willChange from \(desc(currentOrFutureDisplayMode)) to \(desc(displayMode))")
             currentOrFutureDisplayMode = displayMode
             didChangeState?()
             externalDelegate?.splitViewController?(svc, willChangeTo: displayMode)
