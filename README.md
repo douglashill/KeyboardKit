@@ -61,7 +61,7 @@ The public API is currently kept minimal. Exposing more API without first unders
 
 ## Requirements
 
-KeyboardKit supports from iOS 11.0 onwards. The latest Xcode 11.x is required.
+KeyboardKit supports from iOS 12.0 onwards. The latest Xcode 12.x is required.
 
 KeyboardKit is written in Swift with a very small amount of Objective-C.
 
