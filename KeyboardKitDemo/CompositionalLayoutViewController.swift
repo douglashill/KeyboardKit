@@ -80,7 +80,7 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         content.textProperties.alignment = .center
         cell.contentConfiguration = content
 
-        var background = UIBackgroundConfiguration.listPlainCell()
+        var background = UIBackgroundConfiguration.listGroupedCell()
         background.cornerRadius = 8
         cell.backgroundConfiguration = background
 
