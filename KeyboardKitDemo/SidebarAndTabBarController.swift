@@ -90,7 +90,7 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
         ]
 
         for viewController in viewControllers {
-            viewController.navigationItem.leftBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .close, target: nil, action: #selector(dismissModalTabBarController))
+            viewController.navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dismissModalTabBarController))
         }
 
         let tabViewController = KeyboardTabBarController()
