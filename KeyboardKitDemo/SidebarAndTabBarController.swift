@@ -67,6 +67,13 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
         UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
     ]
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(showTripleColumn) || action == #selector(showTabs) {
+            return presentedViewController == nil
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+
     @objc private func showTripleColumn() {
         let tripleColumnViewController = TripleColumnSplitViewController()
         tripleColumnViewController.modalPresentationStyle = .fullScreen
