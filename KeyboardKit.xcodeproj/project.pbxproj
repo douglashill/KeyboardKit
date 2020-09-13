@@ -17,7 +17,7 @@
 		A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */; };
 		A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */; };
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
-		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
+		A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* TableViewController.swift */; };
 		A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */; };
 		A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */; };
 		A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542D89B23A01DC8007E68C3 /* PointAnimator.swift */; };
@@ -123,7 +123,7 @@
 		A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTabBarController.swift; path = KeyboardKit/KeyboardTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardCollectionView.swift; path = KeyboardKit/KeyboardCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
-		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
+		A53AE01C23786CDC00B07957 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = KeyboardKitDemo/TableViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayoutViewController.swift; path = KeyboardKitDemo/FlowLayoutViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderManagement.swift; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 				A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */,
 				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */,
-				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
+				A53AE01C23786CDC00B07957 /* TableViewController.swift */,
 				A5666C5324DECCBE00524C23 /* ListViewController.swift */,
 				A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */,
 				A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */,
@@ -647,7 +647,7 @@
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
-				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
+				A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
 				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
