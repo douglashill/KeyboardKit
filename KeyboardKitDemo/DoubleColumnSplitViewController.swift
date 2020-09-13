@@ -4,7 +4,7 @@ import UIKit
 import KeyboardKit
 
 /// Shows an array of content views in a sidebar in regular widths, collapsing to using a navigation stack in compact widths.
-class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate {
+class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
     private let primaryNavigationController: KeyboardNavigationController
     private let sidebar: SidebarViewController
