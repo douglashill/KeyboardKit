@@ -141,18 +141,14 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        viewIfLoaded?.window?.updateFirstResponder()
-    }
-
-    func splitViewControllerDidExpand(_ svc: UISplitViewController) {
-        viewIfLoaded?.window?.updateFirstResponder()
-    }
-
-    func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
         // This can be called during scene connection before the view loads.
         // If we force the view to load here, then we end up with an exception:
         // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
         viewIfLoaded?.window?.updateFirstResponder()
+    }
+
+    func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
+        sidebar.collectionView.selectItem(at: nil, animated: false, scrollPosition: [])
     }
 
     func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
