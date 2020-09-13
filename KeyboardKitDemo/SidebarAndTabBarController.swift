@@ -64,12 +64,36 @@ class SplitContainer: UIViewController, SidebarViewControllerDelegate, KeyboardS
 
     private let modalExampleKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(title: "Triple Column Split", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
+        UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
     ]
 
     @objc private func showTripleColumn() {
         let tripleColumnViewController = TripleColumnSplitViewController()
         tripleColumnViewController.modalPresentationStyle = .fullScreen
         self.present(tripleColumnViewController, animated: true)
+    }
+
+    @objc private func showTabs() {
+        let viewControllers: [UIViewController] = [
+            ListViewController(),
+            FlowLayoutViewController(),
+            CirclesScrollViewController(),
+            PagingScrollViewController(),
+            TextViewController(),
+        ]
+
+        for viewController in viewControllers {
+            viewController.navigationItem.leftBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .close, target: nil, action: #selector(dismissModalTabBarController))
+        }
+
+        let tabViewController = KeyboardTabBarController()
+        tabViewController.viewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
+        self.present(tabViewController, animated: true)
+    }
+
+    @objc private func dismissModalTabBarController() {
+        precondition(presentedViewController is KeyboardTabBarController)
+        dismiss(animated: true)
     }
 
     override var title: String? {
