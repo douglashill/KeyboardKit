@@ -36,18 +36,6 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         navigationController!.navigationBar.prefersLargeTitles = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        // Without this after going from 50% split to major split on 11-inch iPad in landscape, the view
-        // appears about 100 points wide (with a big black region to the right) until you first scroll.
-        let originalFrame = navigationController!.view.frame
-        var frame = originalFrame
-        frame.size.width += 1
-        navigationController!.view.frame = frame
-        navigationController!.view.frame = originalFrame
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
