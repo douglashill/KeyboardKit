@@ -3,7 +3,8 @@
 import UIKit
 import KeyboardKit
 
-class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewControllerDelegate, TripleColumnListViewControllerDelegate {
+/// Show three levels of static hierarchical data in lists occupying the three columns of a split view controller. Collapses to a navigation stack.
+class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
 
     // The primary and supplementary would ideally use the sidebar and sidebarPlain styles. However these seem a bit half baked.
@@ -74,100 +75,7 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         innerSplitViewController.view.frame = view.bounds
     }
 
-    // MARK: - KeyboardSplitViewControllerDelegate
-
-    func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        // The collapse callback might be called during scene connection before the view loads.
-        // If we force the view to load here, then we end up with an exception:
-        // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
-        guard let window = viewIfLoaded?.window else {
-            return
-        }
-
-        window.updateFirstResponder()
-    }
-
-    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
-        innerSplitViewController.focusedColumn ?? proposedTopColumn
-    }
-
-    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
-        enum ConcreteColumn {
-            case primary
-            case supplementary
-            case secondary
-        }
-
-        enum ConcreteSplitBehaviour {
-            case tile
-            case overlay
-            case displace
-
-            init?(splitBehavior: UISplitViewController.SplitBehavior) {
-                switch splitBehavior {
-                case .automatic:
-                    preconditionFailure("splitBehavior is automatic, which is not a concrete behaviour.")
-                case .tile:
-                    self = .tile
-                case .overlay:
-                    self = .overlay
-                case .displace:
-                    self = .displace
-                @unknown default:
-                    return nil
-                }
-            }
-        }
-
-        let visibleColumn: ConcreteColumn
-        switch primaryNavigationController.topViewController {
-        case primaryList: visibleColumn = .primary
-        case supplementaryNavigationController: visibleColumn = .supplementary
-        case secondaryNavigationController: visibleColumn = .secondary
-        default:
-            preconditionFailure("Unexpected top view controller: \(primaryNavigationController.topViewController?.description ?? "nil")")
-        }
-
-        guard let splitBehavior = ConcreteSplitBehaviour(splitBehavior: svc.splitBehavior) else {
-            return proposedDisplayMode
-        }
-
-        switch (proposedDisplayMode, visibleColumn) {
-        case (.automatic, _):
-            preconditionFailure("proposedDisplayMode is automatic, which is not a concrete mode.")
-        case (.secondaryOnly, .primary), (.oneBesideSecondary, .primary), (.oneOverSecondary, .primary):
-            // TODO: Some of this is redundant. E.g. oneOverSecondary must mean the behaviour is overlay so we could go straight to returning twoOverSecondary.
-            switch splitBehavior {
-            case .tile:
-                return .twoBesideSecondary
-            case .overlay:
-                return .twoOverSecondary
-            case .displace:
-                return .twoDisplaceSecondary
-            }
-        case (.secondaryOnly, .supplementary):
-            switch splitBehavior {
-            case .tile:
-                return .oneBesideSecondary
-            case .overlay:
-                return .oneOverSecondary
-            case .displace:
-                return .oneBesideSecondary
-            }
-        case (.oneOverSecondary, .secondary), (.twoOverSecondary, .secondary):
-            precondition(splitBehavior == .overlay)
-            return .secondaryOnly
-        case (.twoDisplaceSecondary, .secondary):
-            precondition(splitBehavior == .displace)
-            return .oneBesideSecondary
-        case (.secondaryOnly, .secondary), (.twoDisplaceSecondary, .primary), (.twoDisplaceSecondary, .supplementary), (.twoOverSecondary, .primary), (.twoOverSecondary, .supplementary), (.oneOverSecondary, .supplementary), (.twoBesideSecondary, _), (.oneBesideSecondary, .supplementary), (.oneBesideSecondary, .secondary):
-            return proposedDisplayMode
-        @unknown default:
-            return proposedDisplayMode
-        }
-    }
-
-    // MARK: - TListViewControllerDelegate
+    // MARK: - TripleColumnListViewControllerDelegate
 
     func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool) {
         let nextColumn: UISplitViewController.Column
@@ -202,17 +110,83 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
         }
     }
 
-    private func updateListData() {
-        primaryList.title = "Food"
-        primaryList.data = self.data.map { $0.title }
+    // MARK: - KeyboardSplitViewControllerDelegate
 
-        let supplementaryData = self.data[primaryList.selectedIndex]
-        supplementaryList.title = supplementaryData.title
-        supplementaryList.data = supplementaryData.items.map { $0.title }
+    func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
+        // The collapse callback might be called during scene connection before the view loads.
+        // If we force the view to load here, then we end up with an exception:
+        // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
+        viewIfLoaded?.window?.updateFirstResponder()
+    }
 
-        let secondaryData = self.data[primaryList.selectedIndex].items[supplementaryList.selectedIndex]
-        secondaryList.title = secondaryData.title
-        secondaryList.data = secondaryData.items
+    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+        // The default behaviour is to always show the secondary.
+        // Since we have a first-class concept of user focus let’s use that.
+        innerSplitViewController.focusedColumn ?? proposedTopColumn
+    }
+
+    func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
+        enum ConcreteColumn {
+            case primary
+            case supplementary
+            case secondary
+        }
+
+        enum ConcreteSplitBehaviour {
+            case tile
+            case overlay
+            case displace
+
+            init?(splitBehavior: UISplitViewController.SplitBehavior) {
+                switch splitBehavior {
+                case .automatic:  preconditionFailure("splitBehavior is automatic, which is not a concrete behaviour.")
+                case .tile:       self = .tile
+                case .overlay:    self = .overlay
+                case .displace:   self = .displace
+                @unknown default: return nil
+                }
+            }
+        }
+
+        let visibleColumn: ConcreteColumn
+        switch primaryNavigationController.topViewController {
+        case primaryList:                       visibleColumn = .primary
+        case supplementaryNavigationController: visibleColumn = .supplementary
+        case secondaryNavigationController:     visibleColumn = .secondary
+        default:                                preconditionFailure("Unexpected top view controller: \(primaryNavigationController.topViewController?.description ?? "nil")")
+        }
+
+        guard let splitBehavior = ConcreteSplitBehaviour(splitBehavior: svc.splitBehavior) else {
+            return proposedDisplayMode
+        }
+
+        switch (proposedDisplayMode, visibleColumn) {
+        case (.automatic, _):
+            preconditionFailure("proposedDisplayMode is automatic, which is not a concrete mode.")
+        case (.secondaryOnly, .primary), (.oneBesideSecondary, .primary), (.oneOverSecondary, .primary):
+            // TODO: Some of this is redundant. E.g. oneOverSecondary must mean the behaviour is overlay so we could go straight to returning twoOverSecondary.
+            switch splitBehavior {
+            case .tile:     return .twoBesideSecondary
+            case .overlay:  return .twoOverSecondary
+            case .displace: return .twoDisplaceSecondary
+            }
+        case (.secondaryOnly, .supplementary):
+            switch splitBehavior {
+            case .tile:     return .oneBesideSecondary
+            case .overlay:  return .oneOverSecondary
+            case .displace: return .oneBesideSecondary
+            }
+        case (.oneOverSecondary, .secondary), (.twoOverSecondary, .secondary):
+            precondition(splitBehavior == .overlay)
+            return .secondaryOnly
+        case (.twoDisplaceSecondary, .secondary):
+            precondition(splitBehavior == .displace)
+            return .oneBesideSecondary
+        case (.secondaryOnly, .secondary), (.twoDisplaceSecondary, .primary), (.twoDisplaceSecondary, .supplementary), (.twoOverSecondary, .primary), (.twoOverSecondary, .supplementary), (.oneOverSecondary, .supplementary), (.twoBesideSecondary, _), (.oneBesideSecondary, .supplementary), (.oneBesideSecondary, .secondary):
+            return proposedDisplayMode
+        @unknown default:
+            return proposedDisplayMode
+        }
     }
 
     // MARK: - FirstResponderManagement
@@ -222,6 +196,19 @@ class TripleColumnSplitViewController: UIViewController, KeyboardSplitViewContro
     }
 
     // MARK: - Data
+
+    private func updateListData() {
+        primaryList.title = "Food"
+        primaryList.items = self.data.map { $0.title }
+
+        let supplementaryData = self.data[primaryList.selectedIndex]
+        supplementaryList.title = supplementaryData.title
+        supplementaryList.items = supplementaryData.items.map { $0.title }
+
+        let secondaryData = self.data[primaryList.selectedIndex].items[supplementaryList.selectedIndex]
+        secondaryList.title = secondaryData.title
+        secondaryList.items = secondaryData.items
+    }
 
     private let data: [(title: String, items: [(title: String, items: [String])])] = [
         (title: "Nuts and seeds", items: [

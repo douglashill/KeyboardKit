@@ -5,27 +5,19 @@ import KeyboardKit
 
 /// Shows a sidebar list.
 ///
-/// Intended for private use in `DoubleColumnSplitViewController`. Not intended for any other use.
+/// Intended for private use in `DoubleColumnSplitViewController`.
 class SidebarViewController: FirstResponderViewController, UICollectionViewDataSource, KeyboardCollectionViewDelegate {
-    let items: [((String, UIImage?))]
-    weak var delegate: SidebarViewControllerDelegate?
-
-    private lazy var cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
-        cell.contentConfiguration = {
-            var config = cell.defaultContentConfiguration()
-            config.text = item.0
-            config.image = item.1
-            return config
-        }()
-    }
-
     init(items: [(String, UIImage?)]) {
         self.items = items
 
         super.init()
     }
 
-    lazy var collectionView: UICollectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar)))
+    let items: [((String, UIImage?))]
+
+    weak var delegate: SidebarViewControllerDelegate?
+
+    private lazy var collectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebar)))
 
     override func loadView() {
         view = collectionView
@@ -62,6 +54,19 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         if let delegate = delegate, delegate.shouldRequireSelectionInSidebarViewController(self) {
             collectionView.selectItem(at: IndexPath(item: delegate.selectedIndexInSidebarViewController(self), section: 0), animated: false, scrollPosition: [])
         }
+    }
+
+    func clearSelection() {
+        collectionView.selectItem(at: nil, animated: false, scrollPosition: [])
+    }
+
+    private lazy var cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
+        cell.contentConfiguration = {
+            var config = cell.defaultContentConfiguration()
+            config.text = item.0
+            config.image = item.1
+            return config
+        }()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

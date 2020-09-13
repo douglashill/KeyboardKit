@@ -3,29 +3,36 @@
 import UIKit
 import KeyboardKit
 
-/// Manages a view that shows list of strings set using the `data` property. Intended for use in `TripleColumnSplitViewController`.
-class TripleColumnListViewController: FirstResponderViewController, UICollectionViewDelegate, KeyboardCollectionViewDelegate {
+/// Shows a list of static strings set using the `items` property.
+///
+/// Intended for private use in `TripleColumnSplitViewController`.
+class TripleColumnListViewController: FirstResponderViewController, KeyboardCollectionViewDelegate {
     init(appearance: UICollectionLayoutListConfiguration.Appearance) {
         self.appearance = appearance
+
         super.init()
     }
 
-    let appearance: UICollectionLayoutListConfiguration.Appearance
-    private var dataSource: UICollectionViewDiffableDataSource<Int, String>? = nil
+    var items: [String] = [] {
+        didSet {
+            if let dataSource = dataSource {
+                reloadDataWithDataSource(dataSource)
+            }
+        }
+    }
 
     weak var delegate: TripleColumnListViewControllerDelegate?
 
-    private lazy var collectionView: UICollectionView = {
-        var listConfig = UICollectionLayoutListConfiguration(appearance: appearance)
-        let layout = UICollectionViewCompositionalLayout.list(using: listConfig)
-        return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
-    }()
+    let appearance: UICollectionLayoutListConfiguration.Appearance
+    private var dataSource: UICollectionViewDiffableDataSource<Int, String>? = nil
 
     var selectedIndex = 0
 
     private func updateSelectedIndexFromCollectionView() {
         selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item ?? 0
     }
+
+    private lazy var collectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: appearance)))
 
     override func loadView() {
         // If the collection view starts off with zero frame is briefly shows as black when appearing.
@@ -68,19 +75,11 @@ class TripleColumnListViewController: FirstResponderViewController, UICollection
         collectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0), animated: false, scrollPosition: [])
     }
 
-    var data: [String] = [] {
-        didSet {
-            if let dataSource = dataSource {
-                reloadDataWithDataSource(dataSource)
-            }
-        }
-    }
-
     private func reloadDataWithDataSource(_ dataSource: UICollectionViewDiffableDataSource<Int, String>) {
         dataSource.apply({
             var snapshot = NSDiffableDataSourceSnapshot<Int, String>()
             snapshot.appendSections([0])
-            snapshot.appendItems(data)
+            snapshot.appendItems(items)
             return snapshot
         }(), animatingDifferences: false)
     }
@@ -100,12 +99,12 @@ class TripleColumnListViewController: FirstResponderViewController, UICollection
     }
 
     func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool {
-        // Not allowing clearing selection feels better for sidebars because usually want
-        // to force something to be selected. This also means the user can dismiss an
-        // overlaid or displacing sidebar with one press of the escape key instead of two.
+        // For this demo, we simply require all three lists to always have a selection.
         false
     }
 }
+
+// MARK: -
 
 protocol TripleColumnListViewControllerDelegate: NSObjectProtocol {
     func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool)

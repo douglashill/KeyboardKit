@@ -6,9 +6,37 @@ import KeyboardKit
 /// Shows an array of content views in a sidebar in regular widths, collapsing to using a navigation stack in compact widths.
 class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
-    private let primaryNavigationController: KeyboardNavigationController
     private let sidebar: SidebarViewController
+    private let primaryNavigationController: KeyboardNavigationController
     private let contentViewControllers: [KeyboardNavigationController]
+
+    @available(*, unavailable) override var splitViewController: UISplitViewController? { nil }
+    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
+
+    init(viewControllers: [UIViewController], initialSelectedIndex: Int = 0) {
+        precondition(viewControllers.isEmpty == false)
+
+        innerSplitViewController = KeyboardSplitViewController(style: .doubleColumn)
+
+        contentViewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
+        _selectedViewControllerIndex = initialSelectedIndex
+
+        sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
+        primaryNavigationController = KeyboardNavigationController(rootViewController: sidebar)
+        innerSplitViewController.setViewController(primaryNavigationController, for: .primary)
+
+        super.init(nibName: nil, bundle: nil)
+
+        innerSplitViewController.delegate = self
+        sidebar.delegate = self
+
+        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modal Examples", menu: UIMenu(title: "", children: modalExampleKeyCommands))
+
+        addChild(innerSplitViewController)
+        innerSplitViewController.didMove(toParent: self)
+
+        setSelectedViewControllerIndex(initialSelectedIndex, shouldTransitionToDetail: false)
+    }
 
     private var _selectedViewControllerIndex: Int
     func getSelectedViewControllerIndex() -> Int { _selectedViewControllerIndex }
@@ -22,36 +50,6 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         } else {
             innerSplitViewController.setViewController(newDetailViewController, for: .secondary)
         }
-    }
-
-    @available(*, unavailable) override var splitViewController: UISplitViewController? { nil }
-    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
-
-    init(viewControllers: [UIViewController], initialSelectedIndex: Int = 0) {
-        precondition(viewControllers.isEmpty == false)
-
-        contentViewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
-        _selectedViewControllerIndex = initialSelectedIndex
-
-        let splitViewController = KeyboardSplitViewController(style: .doubleColumn)
-
-        sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
-        primaryNavigationController = KeyboardNavigationController(rootViewController: sidebar)
-        splitViewController.setViewController(primaryNavigationController, for: .primary)
-
-        innerSplitViewController = splitViewController
-
-        super.init(nibName: nil, bundle: nil)
-
-        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modal Examples", menu: UIMenu(title: "", children: modalExampleKeyCommands))
-
-        sidebar.delegate = self
-        splitViewController.delegate = self
-
-        addChild(splitViewController)
-        splitViewController.didMove(toParent: self)
-
-        setSelectedViewControllerIndex(initialSelectedIndex, shouldTransitionToDetail: false)
     }
 
     override var keyCommands: [UIKeyCommand]? {
@@ -124,7 +122,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         // This does nothing visible when collapsed but means if it later expands the secondary is already correct.
         setSelectedViewControllerIndex(index, shouldTransitionToDetail: false)
     }
-    
+
     func didActivateSelectionAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController) {
         setSelectedViewControllerIndex(index, shouldTransitionToDetail: true)
     }
@@ -141,41 +139,22 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
     // MARK: - KeyboardSplitViewControllerDelegate
 
     func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
-        // This can be called during scene connection before the view loads.
+        // The collapse callback might be called during scene connection before the view loads.
         // If we force the view to load here, then we end up with an exception:
         // > Mutating UISplitViewController with -setView: is not allowed during a delegate callback
         viewIfLoaded?.window?.updateFirstResponder()
     }
 
     func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
-        sidebar.collectionView.selectItem(at: nil, animated: false, scrollPosition: [])
+        sidebar.clearSelection()
     }
 
     func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
         // The default behaviour is to always show the secondary.
         // Since we have a first-class concept of user focus let’s use that.
-//        innerSplitViewController.focusedColumn ?? proposedTopColumn
-        // TODO: Is this actually doing anything since the primary and secondary get combined?
-
-
-        // The bit not working is the UISVC is already collapsed at this point
-        // so focusedColumn is returning the primary. But really there is no clear meaning of focused column when collapsed.
-
-
-        // Since we have a first-class concept of user focus let’s use that.
-        if let focusedColumn = innerSplitViewController.focusedColumn, focusedColumn == .primary {
-            // Sidebar is focused so just showing that is fine. No combining needed.
-//            primaryNavigationController.viewControllers = [sidebar]
-            return .primary // This does work. The UISVC doesn’t push the secondary if we return this.
-        } else {
-            // Sidebar is not focused. Let UIKit push the secondary onto the primary’s navigation stack.
-            return .secondary
-        }
-
-//        return proposedTopColumn
+        innerSplitViewController.focusedColumn ?? proposedTopColumn
     }
 
-    // This works!
     func splitViewController(_ svc: UISplitViewController, displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode) -> UISplitViewController.DisplayMode {
         // If the primary was the top view controller when collapsed, keep it visible after expanding.
         if proposedDisplayMode == .secondaryOnly && primaryNavigationController.topViewController === sidebar {
