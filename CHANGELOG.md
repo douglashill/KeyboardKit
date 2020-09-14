@@ -1,5 +1,17 @@
 # KeyboardKit change log
 
+- 2020-09-??
+    - Breaking change: Xcode 12 is now required.
+    - Breaking change: Increases the deployment target from iOS 11.0 to iOS 12.0.
+    - The demo app now requires iOS 14.
+    - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view. 
+    - Adds warning logging when trying to set the `primaryAction` or `menu` or a `KeyboardBarButton` since those can’t be activated with a keyboard.
+    - Adds `KeyboardCollectionViewDelegate` and `KeyboardTableViewDelegate` to be notified of selection changes using arrow keys and to disallow clearing selection with escape.
+    - Adds an overhaul of the demo app to use a sidebar (or navigation stack) as the root view. The tab bar example has been moved to a modal.
+    - Adds more sophisticated first responder management in the demo app. 
+    - Adds an example showing a list with `UICollectionView`.
+    - Adds an example showing `UICollectionViewCompositionalLayout` with nested groups.
+    - Adds an example showing a triple column split view (available as a modal).
 - 2020-08-19
     - Resolves project settings warnings with Xcode 12.
     - Adds support for selection wrapping in any `UICollectionViewLayout`. 

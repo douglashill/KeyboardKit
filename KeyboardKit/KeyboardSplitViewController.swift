@@ -99,11 +99,13 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
     ///
     /// This will be nil when the split view is collapsed.
     ///
-    /// Do not use this to find the focused view controller. Use `focusedViewController` instead.
+    /// You can’t simply find the focused view controller with `viewController(for: focusedColumn)`
+    /// because there might be a compact column or the supplementary and secondary view controllers
+    /// may have been collapsed onto the primary navigation controller.
     ///
-    /// This property may be set, which would typically be done to sync up the split view with changes to the first responder.
-    /// Setting this property will make no attempt to show the focused column
-    /// or validate the column is already visible, and the delegate will not called with `didChangeFocusedColumn`.
+    /// This property may be set, which would typically be done to sync the split view with changes to the
+    /// first responder. Setting this property will make no attempt to show the focused column or validate
+    /// the column is already visible, and the delegate will not called with `didChangeFocusedColumn`.
     public var focusedColumn: Column? {
         didSet {
             precondition(focusedColumn != .compact, "An attempt was made to focus the compact column. The focused column should be nil when collapsed.")
