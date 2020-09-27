@@ -69,7 +69,7 @@ Both Swift and Objective-C apps are supported. Since KeyboardKit uses Swift, itâ
 
 ## Installation
 
-### Recommended
+### Direct
 
 1. Clone this repository.
 2. Drag `KeyboardKit.xcodeproj` into your Xcode project.

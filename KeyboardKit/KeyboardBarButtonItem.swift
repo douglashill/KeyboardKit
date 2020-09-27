@@ -61,7 +61,7 @@ private extension UIBarButtonItem.SystemItem {
         // Sources: https://forums.developer.apple.com/thread/119584 and https://stackoverflow.com/questions/56963348/uikeycommand-for-the-enter-key-on-mac-keyboards-numeric-keypad.
         case .done:        return (.command, .returnOrEnter)
         case .save:        return (.command, "s")
-        case .action:      return (.command, "i") // Safari uses this for Email This Page. Perhaps something else would be better.
+        case .action:      return (.command, "i") // Safari uses this for Email This Page. Also indirectly recommended in https://developer.apple.com/wwdc20/10117.
         case .edit:        return (.command, "e")
         case .add:         return (.command, "n")
         case .compose:     return (.command, "n")
