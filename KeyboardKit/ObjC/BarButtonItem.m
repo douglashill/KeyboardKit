@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // The two below won’t work anyway because primaryAction and menu aren’t supported, but might as well capture the system item for completeness.
 
+// Remove this when Catalyst moves to the iOS 14 SDK (when macOS Big Sur is out)
+#ifdef __IPHONE_14_0
 - (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem primaryAction:(nullable UIAction *)primaryAction API_AVAILABLE(ios(14.0)) {
     self = [super initWithBarButtonSystemItem:systemItem primaryAction:primaryAction];
     if (self == nil) return nil;
@@ -32,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self wasInitialisedWithSystemItem:systemItem];
     return self;
 }
+#endif
 
 - (void)wasInitialisedWithSystemItem:(UIBarButtonSystemItem)systemItem {
     // For the Swift subclass.

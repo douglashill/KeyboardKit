@@ -57,6 +57,8 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
         self.systemItem = systemItem
     }
 
+    // Remove this when Catalyst moves to the iOS 14 SDK (when macOS Big Sur is out)
+    #if !targetEnvironment(macCatalyst)
     @available(iOS 14.0, *)
     open override var primaryAction: UIAction? {
         didSet {
@@ -74,6 +76,7 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
             }
         }
     }
+    #endif
 }
 
 private extension UIBarButtonItem.SystemItem {
