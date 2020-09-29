@@ -75,6 +75,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
         // point it might not be possible to set up the first responder correctly. Even if the split
         // view controller view is in the window, the views of the column view controllers might not
         // be in the window. Therefore post an update here once setup has finished.
+        // This might be unnecessary after willChangeToDisplayMode changed to use dispatch_async.
         validateFocusedColumnAfterDisplayStateChange()
     }
 
@@ -457,7 +458,27 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
 
         func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
             currentOrFutureDisplayMode = displayMode
-            owner.validateFocusedColumnAfterDisplayStateChange()
+
+            /*
+             If we validated immediately, then when tapping back button when in secondary-only on iPad portrait
+             (and probably in other cases too) this willChangeTo callback is too soon so the primary view is not
+             in the hierarchy yet. This is smoothed over in the demo app by FirstResponderViewController
+             updating the first responder whenever it appears or disappears but should work without that.
+
+             We don’t want to use the completion of the transitionCoordinator because that would run after the
+             animation, so would feel slow. Keyboard focus should move immediately in transitions.
+
+             This issue does not occur when using arrow keys because we first set the final focusedColumn then
+             change the display mode. The callback in the middle of this will be ignored because we already
+             have the correct focusedColumn. But then the actual delegate callback happens last, after the view
+             has been added so it’s fine.
+
+             We are relying on UIKit adding the views for the incoming column synchronously, but if it didn’t
+             do this the same issue would likely trigger when calling show/hide so would be noticed quickly.
+             */
+            DispatchQueue.main.async {
+                self.owner.validateFocusedColumnAfterDisplayStateChange()
+            }
             externalDelegate?.splitViewController?(svc, willChangeTo: displayMode)
         }
 
