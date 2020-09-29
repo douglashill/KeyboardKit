@@ -69,12 +69,15 @@ private func delegateSaysPresentationControllerShouldDismiss(_ presentationContr
         return should
     }
 
+    // Since Catalyst did not start until iOS 13 this warns even though the deployment target is iOS 12.
+    #if !targetEnvironment(macCatalyst)
     if
         let popoverPresentationController = presentationController as? UIPopoverPresentationController,
         let should = popoverPresentationController.delegate?.popoverPresentationControllerShouldDismissPopover?(popoverPresentationController)
     {
         return should
     }
+    #endif
 
     return true
 }
@@ -98,9 +101,12 @@ private func tellDelegatePresentationControllerDidDismiss(_ presentationControll
         presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 
+    // Since Catalyst did not start until iOS 13 this warns even though the deployment target is iOS 12.
+    #if !targetEnvironment(macCatalyst)
     if let popoverPresentationController = presentationController as? UIPopoverPresentationController {
         popoverPresentationController.delegate?.popoverPresentationControllerDidDismissPopover?(popoverPresentationController)
     }
+    #endif
 }
 
 private extension UIModalPresentationStyle {
