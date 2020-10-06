@@ -11,7 +11,7 @@ import UIKit
 /// delegate’s implementation of `didChangeFocusedColumn` it should update the first responder based on the
 /// split view controller’s `focusedColumn`.
 ///
-/// This subclass only support iOS 14 split view controllers that are initialised with a `style` and have their
+/// This subclass only supports iOS 14 split view controllers that are initialised with a `style` and have their
 /// view controllers set as columns. Using the `.unspecified` style is not supported.
 ///
 /// This class requires certain delegate callbacks from the split view. Therefore an intermediate delegate

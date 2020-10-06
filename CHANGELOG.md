@@ -5,7 +5,7 @@
     - Breaking change: Increases the deployment target from iOS 11.0 to iOS 12.0.
     - The demo app now requires iOS 14.
     - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view. 
-    - Adds warning logging when trying to set the `primaryAction` or `menu` or a `KeyboardBarButton` since those can’t be activated with a keyboard.
+    - Adds warning logging when trying to set the `primaryAction` or `menu` on a `KeyboardBarButton` since those can’t be activated with a keyboard.
     - Adds `KeyboardCollectionViewDelegate` and `KeyboardTableViewDelegate` to be notified of selection changes using arrow keys and to disallow clearing selection with escape.
     - Adds an overhaul of the demo app to use a sidebar (or navigation stack) as the root view. The tab bar example has been moved to a modal.
     - Adds more sophisticated first responder management in the demo app. 

@@ -19,7 +19,7 @@ import UIKit
 ///
 /// Bar button items that use `primaryAction` (a `UIAction`) are not supported because `UIAction` does not provide access to its `handler`.
 ///
-/// Bar button items that use `menu` (a `UIMenu`) are not supported because the menu would not accessible with a keyboard.
+/// Bar button items that use `menu` (a `UIMenu`) are not supported because the menu would not be accessible with a keyboard.
 /// Instead since `UIKeyCommand` is a menu element it makes more sense to create the menu contents using `UIKeyCommand` and
 /// also expose these same command objects in an override of `keyCommands`.
 ///
@@ -70,7 +70,7 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     open override var menu: UIMenu? {
         didSet {
             if menu != nil {
-                NSLog("[KeyboardKit] Warning: Setting the menu of a KeyboardBarButtonItem. The menu will not be accessible from a keyboard. The recommend design is to use UIKeyCommand for each item in the menu and expose these same commands via an override of keyCommands.");
+                NSLog("[KeyboardKit] Warning: Setting the menu of a KeyboardBarButtonItem. The menu will not be accessible from a keyboard. The recommend design is to use a UIKeyCommand for each item in the menu and expose these same commands via an override of keyCommands.");
             }
         }
     }
