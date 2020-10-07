@@ -8,7 +8,6 @@ import KeyboardKit
 /// This class also demonstrates one possible way to show the focused column visually to the user:
 /// by showing the title in the navigation controller for the focused column darker than the titles
 /// in the other columns.
-///
 class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate {
     private let innerSplitViewController: KeyboardSplitViewController
 

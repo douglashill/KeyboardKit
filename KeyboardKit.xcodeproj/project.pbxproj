@@ -237,6 +237,7 @@
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5D20F3D23787DA80057A8EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollView.swift; sourceTree = "<group>"; };
+		A5D6269A252E516D00D57A61 /* KeyboardSplitViewController.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = KeyboardSplitViewController.md; sourceTree = "<group>"; };
 		A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWindow.swift; sourceTree = "<group>"; };
 		A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewKeyHandler.swift; sourceTree = "<group>"; };
 		A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableResponder.swift; sourceTree = "<group>"; };
@@ -349,6 +350,7 @@
 				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
+				A5D6269A252E516D00D57A61 /* KeyboardSplitViewController.md */,
 				A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
 				A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */,

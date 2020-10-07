@@ -14,6 +14,8 @@ import UIKit
 /// delegate’s implementation of `didChangeFocusedColumn` it should update the first responder based on the
 /// split view controller’s `focusedColumn`.
 ///
+/// To read more about how to set up this class, please see the documentation in `KeyboardSplitViewController.md`.
+///
 /// This subclass only supports iOS 14 split view controllers that are initialised with a `style` and have their
 /// view controllers set as columns. Using the `.unspecified` style is not supported.
 ///
