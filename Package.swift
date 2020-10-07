@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "KeyboardKit",
     defaultLocalization: "en",
-    platforms: [.iOS(.v11)],
+    platforms: [.iOS(.v12)],
     products: [
         .library(
             name: "KeyboardKit",
@@ -23,7 +23,7 @@ let package = Package(
             name: "KeyboardKit",
             dependencies: ["KeyboardKitObjC"],
             path: "KeyboardKit",
-            exclude: ["Info.plist", "ObjC", "UpdateLocalisedStringKeys.swift"]
+            exclude: ["Info.plist", "ObjC", "UpdateLocalisedStringKeys.swift", "KeyboardSplitViewController.md"]
         ),
         .testTarget(
             name: "KeyboardKitTests",
