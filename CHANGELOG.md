@@ -1,8 +1,8 @@
 # KeyboardKit change log
 
-- 2020-09-??
+- 2020-10-07
     - Breaking change: Xcode 12 is now required.
-    - Breaking change: Increases the deployment target from iOS 11.0 to iOS 12.0.
+    - Breaking change: Increases the deployment target from iOS 11 to iOS 12.
     - The demo app now requires iOS 14.
     - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view. 
     - Adds warning logging when trying to set the `primaryAction` or `menu` on a `KeyboardBarButton` since those can’t be activated with a keyboard.
