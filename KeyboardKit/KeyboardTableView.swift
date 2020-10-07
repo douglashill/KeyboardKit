@@ -39,6 +39,31 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
     }
 }
 
+/// A table view’s `delegate` can conform to this protocol to receive callbacks about keyboard-specific events.
+///
+/// This can be used with either `KeyboardTableView` or `KeyboardTableViewController`.
+///
+/// When selection is activated with return or space, the regular delegate method `tableView(_:didSelectRowAt:)` is called.
+public protocol KeyboardTableViewDelegate: UITableViewDelegate {
+    /// Called when a keyboard is used to change the selected rows.
+    ///
+    /// This happens in response to arrow keys, escape and ⌘A.
+    /// The rows show as selected but `tableView(_:didSelectRowAt:)` is not
+    /// called unless return or space is pressed while a single row shows selection.
+    ///
+    /// The new selected rows can be read using `tableView.indexPathsForSelectedRows`.
+    ///
+    /// Typically this callback would be used for changes in a table view in a sidebar to update the
+    /// content in a detail view. This callback should typically be ignored when a split view controller
+    /// is collapsed because updating a detail view that isn’t visible may be wasteful.
+    func tableViewDidChangeSelectedRowsUsingKeyboard(_ tableView: UITableView)
+
+    /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
+    func tableViewShouldClearSelection(_ tableView: UITableView) -> Bool
+}
+
 /// Provides key commands for a table view and implements the actions of those key commands.
 /// In order to receive those actions the object must be added to the responder chain
 /// by the owner overriding `nextResponder`. Then implement `nextResponderForResponder`
@@ -97,6 +122,9 @@ extension UITableView {
 }
 
 extension UITableView: SelectableCollection {
+    private var keyboardDelegate: KeyboardTableViewDelegate? {
+        delegate as? KeyboardTableViewDelegate
+    }
 
     func numberOfItems(inSection section: Int) -> Int {
         numberOfRows(inSection: section)
@@ -110,6 +138,10 @@ extension UITableView: SelectableCollection {
         isEditing ? allowsMultipleSelectionDuringEditing : allowsMultipleSelection
     }
 
+    var shouldAllowEmptySelection: Bool? {
+        keyboardDelegate?.tableViewShouldClearSelection(self)
+    }
+
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
         delegate?.tableView?(self, shouldHighlightRowAt: indexPath) ?? true
     }
@@ -120,6 +152,10 @@ extension UITableView: SelectableCollection {
 
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
         selectRow(at: indexPath, animated: animated, scrollPosition: .init(scrollPosition))
+    }
+
+    func notifyDelegateOfSelectionChange() {
+        keyboardDelegate?.tableViewDidChangeSelectedRowsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {

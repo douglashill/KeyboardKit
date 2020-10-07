@@ -47,8 +47,9 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
 
             contentView.layer.cornerRadius = 25
             contentView.layer.cornerCurve = .continuous
-            contentView.layer.borderColor = UIColor.label.cgColor
             contentView.backgroundColor = .secondarySystemGroupedBackground
+
+            updateColours()
         }
 
         required init?(coder decoder: NSCoder) { preconditionFailure() }
@@ -57,6 +58,18 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
             didSet {
                 contentView.layer.borderWidth = isSelected ? 2 : 0
             }
+        }
+
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                updateColours()
+            }
+        }
+
+        private func updateColours() {
+            contentView.layer.borderColor = UIColor.label.cgColor
         }
     }
 }

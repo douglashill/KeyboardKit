@@ -46,6 +46,8 @@ class PagingScrollViewController: FirstResponderViewController {
         for view in views {
             scrollView.addSubview(view)
         }
+
+        updateColours()
     }
 
     override func viewWillLayoutSubviews() {
@@ -60,6 +62,20 @@ class PagingScrollViewController: FirstResponderViewController {
         for view in views {
             view.frame = CGRect(x: x, y: safeBounds.minY, width: scrollView.bounds.width, height: safeBounds.height)
             x += scrollView.bounds.width
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateColours()
+        }
+    }
+
+    private func updateColours() {
+        for view in views {
+            view.layer.borderColor = UIColor.label.cgColor
         }
     }
 }

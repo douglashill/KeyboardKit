@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A521CE5424D61B5C00EBB34D /* CompositionalLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */; };
 		A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */; };
 		A53ADFF62375AA1700B07957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53ADFF52375AA1700B07957 /* Assets.xcassets */; };
 		A53ADFF92375AA1700B07957 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */; };
@@ -16,20 +17,23 @@
 		A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */; };
 		A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */; };
 		A53AE01B23786CD000B07957 /* KeyboardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01623786CD000B07957 /* KeyboardTableView.swift */; };
-		A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */; };
+		A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01C23786CDC00B07957 /* TableViewController.swift */; };
 		A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */; };
-		A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */; };
+		A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */; };
 		A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542D89B23A01DC8007E68C3 /* PointAnimator.swift */; };
 		A54EFB1023AADEB8001776A2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54EFB0F23AADEB8001776A2 /* TextInput.swift */; };
 		A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */; };
 		A55D7AF223C1108300302D79 /* KeyboardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */; };
 		A55D7AF423C1108300302D79 /* KeyboardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AE0052375AAAE00B07957 /* KeyboardKit.framework */; };
+		A5666C5424DECCBE00524C23 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5666C5324DECCBE00524C23 /* ListViewController.swift */; };
+		A56A4D65250E34A500A55939 /* TripleColumnListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */; };
 		A56FFD532398718100E13773 /* KeyboardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD522398718100E13773 /* KeyboardNavigationController.swift */; };
 		A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */; };
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
+		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
 		A5B7C113242F9EA900B48595 /* ClassicDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C112242F9EA900B48595 /* ClassicDemoViewController.m */; };
@@ -45,6 +49,9 @@
 		A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */; };
 		A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */; };
 		A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */; };
+		A5E3D37A24C39041008C1FDB /* DoubleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */; };
+		A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37824C39041008C1FDB /* SidebarViewController.swift */; };
+		A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */; };
 		A5E5389B239B036F004A2EE2 /* LocalisedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */; };
 		A5E5389D239B036F004A2EE2 /* LocalisedStringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */; };
 		A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */; };
@@ -104,6 +111,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutViewController.swift; sourceTree = "<group>"; };
 		A53ADFE92375AA1600B07957 /* KeyboardKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A53ADFF52375AA1700B07957 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,9 +123,9 @@
 		A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTabBarController.swift; path = KeyboardKit/KeyboardTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardCollectionView.swift; path = KeyboardKit/KeyboardCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01623786CD000B07957 /* KeyboardTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardTableView.swift; path = KeyboardKit/KeyboardTableView.swift; sourceTree = SOURCE_ROOT; };
-		A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleListViewController.swift; path = KeyboardKitDemo/SimpleListViewController.swift; sourceTree = SOURCE_ROOT; };
+		A53AE01C23786CDC00B07957 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = KeyboardKitDemo/TableViewController.swift; sourceTree = SOURCE_ROOT; };
 		A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayoutViewController.swift; path = KeyboardKitDemo/FlowLayoutViewController.swift; sourceTree = SOURCE_ROOT; };
-		A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderViewController.swift; sourceTree = "<group>"; };
+		A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderManagement.swift; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
 		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ResponderChainDebugging.m; path = ObjC/ResponderChainDebugging.m; sourceTree = "<group>"; };
 		A54EFB0F23AADEB8001776A2 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
@@ -126,8 +134,10 @@
 		A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKitTests.swift; sourceTree = "<group>"; };
 		A55D7AF323C1108300302D79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keyboard-Kit.podspec"; sourceTree = "<group>"; };
+		A5666C5324DECCBE00524C23 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A5671D5F2420CD1E0061B9DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A5693A3B24B232A000F82CB6 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnListViewController.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BarButtonItem.h; path = ObjC/BarButtonItem.h; sourceTree = "<group>"; };
@@ -211,6 +221,7 @@
 		A57A9AF12421963D005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
 		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -226,9 +237,13 @@
 		A5CEF298239837EC0099A19D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A5D20F3D23787DA80057A8EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollView.swift; sourceTree = "<group>"; };
+		A5D6269A252E516D00D57A61 /* KeyboardSplitViewController.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = KeyboardSplitViewController.md; sourceTree = "<group>"; };
 		A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWindow.swift; sourceTree = "<group>"; };
 		A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewKeyHandler.swift; sourceTree = "<group>"; };
 		A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectableResponder.swift; sourceTree = "<group>"; };
+		A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleColumnSplitViewController.swift; sourceTree = "<group>"; };
+		A5E3D37824C39041008C1FDB /* SidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
+		A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSplitViewController.swift; sourceTree = "<group>"; };
 		A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStrings.swift; sourceTree = "<group>"; };
 		A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalisedStringKeys.swift; sourceTree = "<group>"; };
 		A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateLocalisedStringKeys.swift; sourceTree = "<group>"; };
@@ -305,12 +320,18 @@
 			children = (
 				A5D20F3D23787DA80057A8EE /* main.swift */,
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
-				A53EA62A239F04E80065C8EB /* FirstResponderViewController.swift */,
-				A53AE01C23786CDC00B07957 /* SimpleListViewController.swift */,
+				A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */,
+				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
+				A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */,
+				A53AE01C23786CDC00B07957 /* TableViewController.swift */,
+				A5666C5324DECCBE00524C23 /* ListViewController.swift */,
+				A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */,
 				A53AE01E23786CDC00B07957 /* FlowLayoutViewController.swift */,
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
+				A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */,
+				A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
 				A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */,
 				A53ADFFA2375AA1700B07957 /* Info.plist */,
@@ -329,6 +350,8 @@
 				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
+				A5D6269A252E516D00D57A61 /* KeyboardSplitViewController.md */,
+				A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
 				A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */,
 				A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */,
@@ -616,13 +639,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */,
+				A521CE5424D61B5C00EBB34D /* CompositionalLayoutViewController.swift in Sources */,
 				A53AE02223786CDC00B07957 /* FlowLayoutViewController.swift in Sources */,
+				A5666C5424DECCBE00524C23 /* ListViewController.swift in Sources */,
 				A5D20F3E23787DA80057A8EE /* main.swift in Sources */,
+				A5E3D37A24C39041008C1FDB /* DoubleColumnSplitViewController.swift in Sources */,
+				A56A4D65250E34A500A55939 /* TripleColumnListViewController.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
-				A53EA62B239F04E80065C8EB /* FirstResponderViewController.swift in Sources */,
-				A53AE02023786CDC00B07957 /* SimpleListViewController.swift in Sources */,
+				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
+				A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
+				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,6 +672,7 @@
 				A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
+				A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */,
 				A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */,
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
@@ -851,6 +881,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -906,6 +937,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -923,7 +955,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -943,7 +975,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -968,7 +1000,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = KeyboardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -998,7 +1029,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = KeyboardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1020,7 +1050,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1039,7 +1068,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1060,7 +1088,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitClassicDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1079,7 +1106,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitClassicDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -54,6 +54,31 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
     }
 }
 
+/// A collection view’s `delegate` can conform to this protocol to receive callbacks about keyboard-specific events.
+///
+/// This can be used with either `KeyboardCollectionView` or `KeyboardCollectionViewController`.
+///
+/// When selection is activated with return or space, the regular delegate method `collectionView(_:didSelectItemAt:)` is called.
+public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
+    /// Called when a keyboard is used to change the selected items.
+    ///
+    /// This happens in response to arrow keys, escape and ⌘A.
+    /// The items show as selected but `collectionView(_:didSelectItemAt:)` is not
+    /// called unless return or space is pressed while a single item shows selection.
+    ///
+    /// The new selected items can be read using `collectionView.indexPathsForSelectedItems`.
+    ///
+    /// Typically this callback would be used for changes in a collection view in a sidebar to update the
+    /// content in a detail view. This callback should typically be ignored when a split view controller
+    /// is collapsed because updating a detail view that isn’t visible may be wasteful.
+    func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView)
+
+    /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
+    func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool
+}
+
 extension UICollectionView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
         shouldAllowSelection == false
@@ -65,6 +90,9 @@ extension UICollectionView {
 }
 
 extension UICollectionView: SelectableCollection {
+    private var keyboardDelegate: KeyboardCollectionViewDelegate? {
+        delegate as? KeyboardCollectionViewDelegate
+    }
 
     var shouldAllowSelection: Bool {
         allowsSelection
@@ -74,8 +102,19 @@ extension UICollectionView: SelectableCollection {
         allowsMultipleSelection
     }
 
+    var shouldAllowEmptySelection: Bool? {
+        // shouldDeselectItemAtIndexPath is not considered appropriate because it is explicitly documented as
+        // “called when the user taps on an already-selected item in multi-select mode”
+        // and also there is no equivalent for UITableView.
+        keyboardDelegate?.collectionViewShouldClearSelectionUsingKeyboard(self)
+    }
+
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool {
         delegate?.collectionView?(self, shouldHighlightItemAt: indexPath) ?? true
+    }
+
+    func notifyDelegateOfSelectionChange() {
+        keyboardDelegate?.collectionViewDidChangeSelectedItemsUsingKeyboard(self)
     }
 
     func activateSelection(at indexPath: IndexPath) {
