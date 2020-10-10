@@ -42,7 +42,7 @@
 | Rewind                                             | ⌘←                          | `KeyboardBarButtonItem` with `SystemItem.rewind` in `KeyboardNavigationController`                                                                                                                                                              |                                                                                                                                                                                                    |
 | Fast forward                                       | ⌘→                          | `KeyboardBarButtonItem` with `SystemItem.fastForward` in `KeyboardNavigationController`                                                                                                                                                         |                                                                                                                                                                                                    |
 
-## Working with text
+## Advanced text navigation
 
 | Feature                                            | Key input                   | Available with       |
 | -------------------------------------------------- | --------------------------- | -------------------- |
