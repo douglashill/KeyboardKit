@@ -8,25 +8,18 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Features
 
-- Keyboard support for:
-    - [Keyboard navigation and selection](/Features.md#navigation-and-selection)
-    - [Key equivalents for buttons](Features.md#key-equivalents-for-buttons)
-    - [Advanced text navigation](Features.md#advanced-text-navigation)
-    - [Window management](Features.md#window-management)
+- [Keyboard navigation and selection](/Features.md#navigation-and-selection)
+- [Key equivalents for buttons](Features.md#key-equivalents-for-buttons)
+- [Advanced text navigation](Features.md#advanced-text-navigation)
+- [Keyboard window management](Features.md#window-management)
 - [39 localisations](Features.md#localisation)
 - [Clean implementation](Features.md#clean-implementation)
-
-## Status
-
-The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
 
 ## Requirements
 
 KeyboardKit supports from iOS 12.0 onwards. The latest Xcode 12.x is required.
 
-KeyboardKit is written in Swift with a very small amount of Objective-C.
-
-Both Swift and Objective-C apps are supported. Since KeyboardKit uses Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
+Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
 ## Installation
 
@@ -100,6 +93,12 @@ tabBarController.viewControllers = [
 In order to receive key commands, an object must be on the [responder chain](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events).
 
 You can see more in the KeyboardKitDemo app, and each class includes API documentation in their Swift source file.
+
+## Approach to API and testing
+
+The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
+
+KeyboardKit does not have many automated tests. This is a deliberate choice coming from considering where time spent on the project is most valuable. If functionality starts breaking then automated tests must be added, but until that point is hit I think time is better invested elsewhere.
 
 ## Credits
 

@@ -1,6 +1,10 @@
 # KeyboardKit features
 
+KeyboardKit allows your users to use a hardware keyboard to perform the many actions listed below.
+
 ## Navigation and selection
+
+KeyboardKit provides support for navigating in split views, collection views, table views, other scroll views, and more.  This is not based on the UIKit focus engine available on tvOS and Mac Catalyst — instead it uses the cell selection state of collection views and table views.
 
 | Feature                                            | Key input                   | Available with                                                                                                                                                                                                                                  | Notes                                                                                                                                                                                              |
 | -------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -24,6 +28,8 @@
 
 ## Key equivalents for buttons
 
+The actions of bar button items can be activated from a keyboard simply by using `KeyboardNavigationController` and `KeyboardBarButtonItem` instead of `UINavigationController` and `UIBarButtonItem`. Most system items have key inputs set by default. Custom inputs can be set using the `keyEquivalent` property of `KeyboardBarButtonItem`.
+
 | Feature                                            | Key input                   | Available with                                                                                                                                                                                                                                  | Notes                                                                                                                                                                                              |
 | -------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Delete                                             | ⌘ delete                    | `KeyboardBarButtonItem` with `SystemItem.trash` in `KeyboardNavigationController`                                                                                                                                                               |                                                                                                                                                                                                    |
@@ -44,6 +50,8 @@
 
 ## Advanced text navigation
 
+`KeyboardTextView` provides keyboard access to quick navigation based on searching for text. These are all standard features of `NSTextView` in AppKit, and some Mac users find these commands are a huge productivity boost.
+
 | Feature                                            | Key input                   | Available with       |
 | -------------------------------------------------- | --------------------------- | -------------------- |
 | Find next                                          | ⌘G                          | `KeyboardTextView`   |
@@ -52,6 +60,8 @@
 | Use selection for find                             | ⌘E                          | `KeyboardTextView`   |
 
 ## Window management
+
+Key commands for working with windows are provided for iPad. These are not needed with Mac Catalyst because the system provides this functionality by default on Mac.
 
 | Feature                                            | Key input                   | Available with                                                                                                                                                                                                                                  | Notes                                                                                                                                                                                              |
 | -------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
