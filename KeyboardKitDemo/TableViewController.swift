@@ -46,9 +46,13 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
 
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.refreshControl = refreshControl
+        // UIRefreshControl is not available when optimised for Mac. Crashes at runtime.
+        // https://steipete.com/posts/forbidden-controls-in-catalyst-mac-idiom/
+        if traitCollection.userInterfaceIdiom != .mac {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            tableView.refreshControl = refreshControl
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

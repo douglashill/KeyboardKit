@@ -253,6 +253,7 @@
 		A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardApplication.swift; sourceTree = "<group>"; };
 		A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
 		A5E538C5239BFB85004A2EE2 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		A5FC16BC2532364200E5E30C /* KeyboardKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyboardKitDemo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +321,7 @@
 		A53ADFEB2375AA1600B07957 /* KeyboardKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A5FC16BC2532364200E5E30C /* KeyboardKitDemo.entitlements */,
 				A5D20F3D23787DA80057A8EE /* main.swift */,
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */,
@@ -954,6 +956,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeyboardKitDemo/KeyboardKitDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
@@ -964,8 +967,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -974,6 +978,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeyboardKitDemo/KeyboardKitDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
@@ -984,8 +989,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

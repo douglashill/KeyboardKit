@@ -1,8 +1,5 @@
 // Douglas Hill, July 2020
 
-// Remove this when Catalyst moves to the iOS 14 SDK (when macOS Big Sur is out).
-#if !targetEnvironment(macCatalyst)
-
 import UIKit
 
 /// A split view controller that supports navigating between columns using tab or arrows keys on a hardware keyboard.
@@ -553,5 +550,3 @@ public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelega
  TODO: File a feedback
 
  */
-
-#endif
