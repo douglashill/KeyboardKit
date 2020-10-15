@@ -98,7 +98,7 @@ You can see more in the KeyboardKitDemo app, and each class includes API documen
 
 The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
 
-KeyboardKit does not have many automated tests. This is a deliberate choice coming from considering where time spent on the project is most valuable. If functionality starts breaking then automated tests must be added, but until that point is hit I think time is better invested elsewhere.
+KeyboardKit does not have many automated tests yet. This is a deliberate choice to invest time on the project where it is most valuable. If functionality is ever reported to be breaking then automated tests should be added at that point.
 
 ## Credits
 
