@@ -17,6 +17,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         precondition(viewControllers.isEmpty == false)
 
         innerSplitViewController = KeyboardSplitViewController(style: .doubleColumn)
+        innerSplitViewController.primaryBackgroundStyle = .sidebar
 
         contentViewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
         _selectedViewControllerIndex = initialSelectedIndex
