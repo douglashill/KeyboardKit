@@ -93,6 +93,14 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
 
         let tabViewController = KeyboardTabBarController()
         tabViewController.viewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
+
+        #if targetEnvironment(macCatalyst)
+        // For some reason `dismissModalTabBarController` does not get delivered when this uses the default sheet presentation
+        // on Mac Catalyst. I’d use ResponderChainDebugging.m to debug this, but that also doesn’t work on Mac Catalyst.
+        // This was tested building with the iOS 14.2 SDK (Xcode 12.2) and running on macOS 11.0.1.
+        tabViewController.modalPresentationStyle = .fullScreen
+        #endif
+
         self.present(tabViewController, animated: true)
     }
 

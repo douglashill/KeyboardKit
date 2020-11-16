@@ -7,6 +7,8 @@
 
  (lldb) settings set target.language objc
  (lldb) e (void)[UIResponder kbd_debugPrintResponderChain]
+
+ This does not work on Mac Catalyst for some reason.
  */
 
 @implementation UIResponder (KBDDebug)
@@ -14,6 +16,8 @@
 static UIResponder *foundFirstResponder;
 
 /// The first responder or nil if there is no first responder.
+///
+/// For some reason this does not work on Mac Catalyst even though basically the same thing in TextInput.swift works fine.
 + (UIResponder *)kbd_firstResponder {
     [UIApplication.sharedApplication sendAction:@selector(kbd_debug_findFirstResponder:) to:nil from:nil forEvent:nil];
     return foundFirstResponder;
