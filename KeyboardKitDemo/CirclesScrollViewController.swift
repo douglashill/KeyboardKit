@@ -28,6 +28,9 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
         scrollView.maximumZoomScale = 5
         scrollView.minimumZoomScale = 0.5
         scrollView.contentSize = contentView.bounds.size
+
+        // Disable the navigation bar background disappearing when scrolling to the top because that looks bad in this case.
+        navigationController!.navigationBar.scrollEdgeAppearance = navigationController!.navigationBar.standardAppearance
     }
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

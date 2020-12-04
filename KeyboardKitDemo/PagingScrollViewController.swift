@@ -28,6 +28,7 @@ class PagingScrollViewController: FirstResponderViewController {
         label.layer.borderWidth = 2
         label.layer.cornerRadius = 20
         label.layer.cornerCurve = .continuous
+        label.clipsToBounds = true
         return label
     }
 
@@ -46,6 +47,10 @@ class PagingScrollViewController: FirstResponderViewController {
         for view in views {
             scrollView.addSubview(view)
         }
+
+        // Even though this scroll view doesn’t scroll vertically the navigation bar background would still
+        // disappear when pulling down. Fix this by making the navigation bar background always transparent.
+        navigationController!.navigationBar.standardAppearance.configureWithTransparentBackground()
 
         updateColours()
     }
