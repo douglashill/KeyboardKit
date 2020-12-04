@@ -1,5 +1,5 @@
 // Douglas Hill, November 2019
-// The concepts implemented in this file were originally developed for PSPDFKit: <https://pspdfkit.com>
+// Some concepts implemented in this file were originally developed for PSPDFKit: <https://pspdfkit.com>
 
 import UIKit
 
@@ -18,6 +18,17 @@ extension UIResponder {
         }
 
         return view.isUserInteractionEnabled && view is UITextInput
+    }
+
+    var isInResponderChain: Bool {
+        var maybeResponderInChain = UIResponder.firstResponder
+        while let responderInChain = maybeResponderInChain {
+            if responderInChain === self {
+                return true
+            }
+            maybeResponderInChain = responderInChain.next
+        }
+        return false
     }
 
     /// The first responder or nil if there is no first responder.

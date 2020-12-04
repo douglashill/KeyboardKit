@@ -75,6 +75,11 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
+        // See the comment in SelectableCollectionKeyHandler.keyCommands.
+        guard isInResponderChain else {
+            return commands
+        }
+
         if scrollView.isScrollEnabled {
 
             if UIResponder.isTextInputActive == false {
@@ -102,15 +107,21 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // For why isInResponderChain is used, see the comment in SelectableCollectionKeyHandler.keyCommands.
         switch action {
-
         case scrollAction:
-            if let keyCommand = sender as? UIKeyCommand {
+            if isInResponderChain, let keyCommand = sender as? UIKeyCommand {
                 return targetContentOffsetForKeyCommand(keyCommand) != nil
             } else {
                 return false
             }
 
+            case #selector(UIScrollView.kbd_zoomIn),
+                 #selector(UIScrollView.kbd_zoomOut),
+                 #selector(UIScrollView.kbd_resetZoom),
+                 #selector(UIScrollView.kbd_refresh):
+                return isInResponderChain
+                
         default:
             return super.canPerformAction(action, withSender: sender)
         }

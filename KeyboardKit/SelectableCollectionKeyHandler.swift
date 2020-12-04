@@ -74,7 +74,21 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if collection.shouldAllowSelection && UIResponder.isTextInputActive == false {
+        /*
+         The documentation at https://developer.apple.com/documentation/uikit/uikeycommand states:
+
+         > the system looks for an object in the responder chain with a key command object that matches the pressed keys
+
+         However when the first responder is in the secondary column of a `UISplitViewController`, UIKit will query
+         and perform the actions of key commands coming from the primary column of the split view. UIKit does not
+         achieve this by modifying the path of the responder chain to go through the primary. No responder in the
+         primary is in the responder chain. UIKit is not behaving as documented. This was tested with iOS 14.2.
+
+         This behaviour would be useful in some cases such as activating navigation bar buttons via keyboard, but
+         for arrows keys it breaks the concept of keyboard focus. Therefore we work around this by blocking all
+         key commands when not on the responder chain using the `isInResponderChain` helper.
+         */
+        if collection.shouldAllowSelection && UIResponder.isTextInputActive == false && isInResponderChain {
             commands += selectionKeyCommands
             if collection.shouldAllowEmptySelection ?? true {
                 commands += deselectionKeyCommands
@@ -85,10 +99,10 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // For why isInResponderChain is used, see the comment in keyCommands above.
         switch action {
-
         case #selector(updateSelectionFromKeyCommand):
-            if let keyCommand = sender as? UIKeyCommand {
+            if isInResponderChain, let keyCommand = sender as? UIKeyCommand {
                 return targetSelectedIndexPathForKeyCommand(keyCommand) != nil
             } else {
                 return false
@@ -98,10 +112,10 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return collection.shouldAllowMultipleSelection
 
         case #selector(clearSelection):
-            return (collection.indexPathsForSelectedItems ?? []).isEmpty == false
+            return (collection.indexPathsForSelectedItems ?? []).isEmpty == false && isInResponderChain
 
         case #selector(activateSelection):
-            return collection.indexPathsForSelectedItems?.count == 1
+            return collection.indexPathsForSelectedItems?.count == 1 && isInResponderChain
 
         default:
             return super.canPerformAction(action, withSender: sender)

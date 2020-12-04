@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- 2020-12-05
+    - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.  
 - 2020-10-07
     - Breaking change: Xcode 12 is now required.
     - Breaking change: Increases the deployment target from iOS 11 to iOS 12.
