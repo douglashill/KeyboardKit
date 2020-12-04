@@ -27,6 +27,11 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
             preconditionFailure()
         }
     }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
+        false
+    }
 }
 
 /// A collection view controller that supports navigation and selection using a hardware keyboard.
@@ -51,6 +56,11 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
         } else {
             preconditionFailure()
         }
+    }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
+        false
     }
 }
 

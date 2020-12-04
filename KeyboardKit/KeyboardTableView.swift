@@ -19,6 +19,11 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         return super.next
     }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
+        false
+    }
 }
 
 /// A table view controller that supports navigation and selection using a hardware keyboard.
@@ -36,6 +41,11 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         return super.next
+    }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
+        false
     }
 }
 

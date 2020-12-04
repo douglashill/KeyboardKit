@@ -34,4 +34,12 @@ open class KeyboardTabBarController: UITabBarController {
 
         selectedIndex = targetTabNumber - 1
     }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system because otherwise on Mac Catalyst you can press down to ‘focus’ the tab
+        // bar, which lets you move a focus ring on the tabs with the left and right arrows but there is no
+        // way I could find to act on that focus (i.e. select the tab). It’s more Mac-like to use cmd + number
+        // anyway. This was tested building with the iOS 14.2 SDK (Xcode 12.2) and running on macOS 11.0.1.
+        false
+    }
 }
