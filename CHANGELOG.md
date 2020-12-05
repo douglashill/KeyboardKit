@@ -1,6 +1,9 @@
 # KeyboardKit change log
 
 - 2020-12-05
+    - Xcode 12.2 is now required.
+    - Add support for Mac Catalyst in the demo app (optimised for Mac). 
+    - Fixes the UIKit focus system interfering with selection on Mac Catalyst. 
     - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.  
 - 2020-10-07
     - Breaking change: Xcode 12 is now required.

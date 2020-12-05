@@ -17,7 +17,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Requirements
 
-KeyboardKit supports from iOS 12.0 onwards. The latest Xcode 12.x is required.
+KeyboardKit supports iOS 12.0 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported. The latest Xcode 12.x is required.
 
 Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
