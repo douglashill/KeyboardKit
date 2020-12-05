@@ -6,6 +6,31 @@ class KeyboardKitDemoUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
+
+    func testUpAndDownArrowsDoNotGoToPrimaryWhenSecondaryIsFirstResponder() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        // `typeText` only works on Catalyst. On iPad calling this fails with “Neither element nor any descendant has keyboard focus”
+        // even if you call it on the element that is first responder. I guess only software keyboard typing is supported on iOS.
+        // Reported as FB8936487 - Should be possible to test hardware keyboard input on iOS/iPadOS.
+        // On Mac it doesn’t seem to matter which element you call typeText on so I’m just using the app element.
+
+        XCTAssertTrue(app.tables.element.exists)
+        app.typeText(.downArrow)
+        XCTAssertTrue(app.collectionViews["list collection view"].exists)
+        app.typeText(.downArrow)
+        XCTAssertTrue(app.collectionViews["compositional layout collection view"].exists)
+        app.typeText(.downArrow)
+        XCTAssertTrue(app.collectionViews["flow layout collection view"].exists)
+        app.typeText(.downArrow)
+        XCTAssertTrue(app.scrollViews["circles scroll view"].exists)
+        app.typeText(.downArrow)
+        XCTAssertTrue(app.scrollViews["paging scroll view"].exists)
+        app.typeText(.rightArrow)
+        app.typeText(.upArrow)
+        XCTAssertTrue(app.scrollViews["paging scroll view"].exists, "Up arrow should have done nothing. It should not have been handled by the sidebar.")
+    }
 }
 
 // MARK: - Helpers
