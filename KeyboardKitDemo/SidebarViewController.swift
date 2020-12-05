@@ -30,6 +30,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.accessibilityIdentifier = "sidebar"
     }
 
     override func viewWillAppear(_ animated: Bool) {

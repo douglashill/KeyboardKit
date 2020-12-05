@@ -31,6 +31,7 @@ class ListViewController: FirstResponderViewController, UICollectionViewDelegate
         super.viewDidLoad()
 
         collectionView.delegate = self
+        collectionView.accessibilityIdentifier = "list collection view"
 
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, stringItem in
             let isHeader = indexPath.item == 0

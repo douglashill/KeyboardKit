@@ -43,6 +43,7 @@ class PagingScrollViewController: FirstResponderViewController {
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.accessibilityIdentifier = "paging scroll view"
 
         for view in views {
             scrollView.addSubview(view)

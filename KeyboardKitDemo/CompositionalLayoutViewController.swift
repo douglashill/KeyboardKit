@@ -62,6 +62,7 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.dataSource = self
         collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.accessibilityIdentifier = "compositional layout collection view"
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {

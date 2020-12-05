@@ -29,6 +29,7 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.dataSource = self
         collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.accessibilityIdentifier = "flow layout collection view"
     }
 
     private let numberOfItems = 47
