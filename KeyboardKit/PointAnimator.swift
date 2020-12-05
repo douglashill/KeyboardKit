@@ -216,7 +216,7 @@ class PointAnimator {
         }
 
         // The velocity of the animation in the middle, after it ramps up and before it ramps down.
-        // This is calculated so that the animation reaches at `endPoint` with zero velocity at `endTime`.
+        // This is calculated so that the animation reaches `endPoint` with zero velocity at `endTime`.
         var middleVelocity: CGPoint {
             let top = 2 * positionChange - startVelocity * offsetToEndOfPhase1
             let bottom = duration + offsetToEndOfPhase2 - offsetToEndOfPhase1

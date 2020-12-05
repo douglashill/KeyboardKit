@@ -18,6 +18,8 @@ open class KeyboardTabBarController: UITabBarController {
         var commands = super.keyCommands ?? []
 
         if presentedViewController == nil, let items = tabBar.items {
+            precondition(items.count == viewControllers?.count, "More tab is not supported.")
+
             commands += items.prefix(9).enumerated().map { index, tabBarItem in
                 UIKeyCommand((.command, String(index + 1)), action: #selector(selectTabByNumberFromKeyCommand), title: tabBarItem.title)
             }
