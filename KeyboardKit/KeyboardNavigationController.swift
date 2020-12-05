@@ -66,10 +66,9 @@ open class KeyboardNavigationController: UINavigationController {
 
         return super.canPerformAction(action, withSender: sender)
     }
-}
 
-private extension UINavigationController {
-
+    // Important to not put this on all UINavigationController instances via an extension because those
+    // instances lack our override of canPerformAction so could allow the action incorrectly.
     @objc func kbd_goBackFromKeyCommand(_ keyCommand: UIKeyCommand) {
         let allowsPop = navigationBar.delegate?.navigationBar?(navigationBar, shouldPop: topViewController!.navigationItem) ?? true
         guard allowsPop else {
