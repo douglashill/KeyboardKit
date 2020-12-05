@@ -1,13 +1,14 @@
 # KeyboardKit change log
 
-- 2020-12-05
+- 4.0.0
     - Xcode 12.2 is now required.
     - Add support for Mac Catalyst in the demo app (optimised for Mac). 
     - Fixes the UIKit focus system interfering with selection on Mac Catalyst. 
+- 3.0.2
     - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.  
-- 2020-10-07
-    - Breaking change: Xcode 12 is now required.
-    - Breaking change: Increases the deployment target from iOS 11 to iOS 12.
+- 3.0.0 / 3.0.1
+    - Xcode 12 is now required.
+    - Increases the deployment target from iOS 11 to iOS 12.
     - The demo app now requires iOS 14.
     - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view. 
     - Adds warning logging when trying to set the `primaryAction` or `menu` on a `KeyboardBarButton` since those can’t be activated with a keyboard.
@@ -17,20 +18,19 @@
     - Adds an example showing a list with `UICollectionView`.
     - Adds an example showing `UICollectionViewCompositionalLayout` with nested groups.
     - Adds an example showing a triple column split view (available as a modal).
-- 2020-08-19
+- 2.1.0
     - Resolves project settings warnings with Xcode 12.
     - Adds support for selection wrapping in any `UICollectionViewLayout`. 
     - Adds selecting the last item initially with `UICollectionViewCompositionalLayout` when pressing the up arrow with vertical scrolling or the trailing arrow with a horizontal scrolling.
     - Fixes selection in collection views not working as expected when there are supplementary views, decoration views, cells with an alpha of zero, or items for which the delegate returns false to `collectionView(_:shouldHighlightItemAt:)`. This issue affected  `UICollectionLayoutListConfiguration`.
     - Fixes selection in collection views sometimes shifting into an adjacent row or column when there is no padding between items.
     - Fixes the back command not working with nested `UINavigationControllers`s.
-- 2020-07-12
+- 2.0.1
     - Adds support for Swift Packager Manager. 
-- 2020-04-26
-    - Breaking change: Xcode 11.4 is now required.
-    - Breaking change: KeyboardKit scroll views will no longer send their delegate `scrollViewDidEndScrollingAnimation(_:)` after keyboard-driven animations end. Instead, the scroll view’s delegate can conform to `KeyboardScrollingDelegate` to receive callbacks when keyboard-driven scrolling animations start or finish.
-- 2020-04-05
-    - Fixes scroll views with `isPagingEnabled` set ending up off page boundaries if starting keyboard scrolling while the scrolling view was in-between pages while decelerating from touch scrolling.
-- 2020-04-04
+- 2.0.0
+    - Xcode 11.4 is now required.
+    - KeyboardKit scroll views will no longer send their delegate `scrollViewDidEndScrollingAnimation(_:)` after keyboard-driven animations end. Instead, the scroll view’s delegate can conform to `KeyboardScrollingDelegate` to receive callbacks when keyboard-driven scrolling animations start or finish.
+- 1.2.1
     - Changes Page Up and Page Down to semantic directions so they will scroll horizontally in a scroll view that can only scroll horizontally.
+    - Fixes scroll views with `isPagingEnabled` set ending up off page boundaries if starting keyboard scrolling while the scrolling view was in-between pages while decelerating from touch scrolling.
     - Fixes keyboard scrolling resulting in an incorrect scroll position when content size is smaller than the bounds (seen as unwanted scrolling in the non-scrolling direction).
