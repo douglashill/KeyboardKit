@@ -94,7 +94,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
 
     // TODO: See if the `delete:` action from UIResponderStandardEditActions can be leveraged.
-    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(UITableView.kbd_deleteSelectedRows), title: localisedString(.delete))
+    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(kbd_deleteSelectedRows), title: localisedString(.delete))
 
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -118,6 +118,12 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         } else {
             preconditionFailure()
         }
+    }
+
+    // This must be on the key handler not on the table view because in the case of a KeyboardTableViewController
+    // being first responder the table view would not be on the responder chain so would not receive the message.
+    @objc func kbd_deleteSelectedRows(_ keyCommand: UIKeyCommand) {
+        tableView.deleteSelectedRows()
     }
 }
 
@@ -250,7 +256,7 @@ private extension UITableView {
         return true
     }
 
-    @objc func kbd_deleteSelectedRows(_ keyCommand: UIKeyCommand) {
+    func deleteSelectedRows() {
         guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
             return
         }
