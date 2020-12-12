@@ -93,19 +93,6 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: tableView, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
 
-    // TODO: See if the `delete:` action from UIResponderStandardEditActions can be leveraged.
-    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(kbd_deleteSelectedRows), title: localisedString(.delete))
-
-    override var keyCommands: [UIKeyCommand]? {
-        var commands = super.keyCommands ?? []
-
-        if tableView.canDeleteSelectedRows {
-            commands.append(deleteCommand)
-        }
-
-        return commands
-    }
-
     override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
@@ -120,8 +107,29 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         }
     }
 
+    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(kbd_deleteSelectedRows), title: localisedString(.delete))
+
+    override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        if tableView.canDeleteSelectedRows {
+            commands.append(deleteCommand)
+        }
+
+        return commands
+    }
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(kbd_deleteSelectedRows) {
+            return tableView.canDeleteSelectedRows
+        } else {
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+
     // This must be on the key handler not on the table view because in the case of a KeyboardTableViewController
     // being first responder the table view would not be on the responder chain so would not receive the message.
+
     @objc func kbd_deleteSelectedRows(_ keyCommand: UIKeyCommand) {
         tableView.deleteSelectedRows()
     }
@@ -229,10 +237,8 @@ extension UITableView: SelectableCollection {
 private extension UITableView {
 
     var canDeleteSelectedRows: Bool {
-        // TODO: Maybe don’t check so thoroughly here and just allow the key command to be there and do nothing if there is nothing to delete.
-
         guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
-            // You could say you can delete all zero selected rows but makes more sense to say no selected rows means no deletion.
+            // No selected rows means no deletion.
             return false
         }
 
