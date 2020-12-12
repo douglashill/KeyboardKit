@@ -27,10 +27,6 @@ open class KeyboardWindowScene: UIWindowScene {
 
         return commands
     }
-}
-
-@available(iOS 13.0, *)
-private extension UIWindowScene {
 
     /// Cycles the key window through the visible window scenes. Expects there to be one window per window scene.
     /// Does nothing if the windows can’t be looked up.

@@ -33,9 +33,6 @@ open class KeyboardApplication: UIApplication {
 
         return commands
     }
-}
-
-private extension UIApplication {
 
     @available(iOS 13.0, *)
     @objc func kbd_createNewWindowScene(_ sender: UIKeyCommand) {

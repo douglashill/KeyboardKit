@@ -31,19 +31,6 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         super.next
     }
-}
-
-extension UITextView {
-    override var kbd_isArrowKeyScrollingEnabled: Bool {
-        isEditable == false
-    }
-
-    override var kbd_isSpaceBarScrollingEnabled: Bool {
-        isEditable == false
-    }
-}
-
-private extension UITextView {
 
     /// Selects the next instance of the text that was previously searched for, starting from the current selection
     /// or insertion point. Wraps to search from the start if needed. Scrolls to make the selection visible.
@@ -109,6 +96,16 @@ private extension UITextView {
         // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
         let targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: 0, bottom: -10, right: 0))
         scrollRectToVisible(targetRectangle, animated: false)
+    }
+}
+
+extension UITextView {
+    override var kbd_isArrowKeyScrollingEnabled: Bool {
+        isEditable == false
+    }
+
+    override var kbd_isSpaceBarScrollingEnabled: Bool {
+        isEditable == false
     }
 }
 

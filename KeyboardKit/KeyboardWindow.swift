@@ -22,9 +22,6 @@ open class KeyboardWindow: UIWindow {
 
         return commands
     }
-}
-
-private extension UIWindow {
 
     @objc func kbd_dismissTopmostModalViewIfPossible(_ sender: Any?) {
         guard

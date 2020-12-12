@@ -54,22 +54,22 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
     private lazy var zoomingCommands: [UIKeyCommand] = [
         // This is to show up as + in the UI. Don’t expect users to press this one because it needs shift.
-        UIKeyCommand((.command, "+"), action: #selector(UIScrollView.kbd_zoomIn), title: localisedString(.scrollView_zoomIn)),
+        UIKeyCommand((.command, "+"), action: #selector(kbd_zoomIn), title: localisedString(.scrollView_zoomIn)),
         // This is the one users are expected to press. We don’t want to show = in the UI.
-        UIKeyCommand((.command, "="), action: #selector(UIScrollView.kbd_zoomIn)),
+        UIKeyCommand((.command, "="), action: #selector(kbd_zoomIn)),
 
         // This is a minus sign, not a hyphen, to align nicely in the UI.
-        UIKeyCommand((.command, "−"), action: #selector(UIScrollView.kbd_zoomOut), title: localisedString(.scrollView_zoomOut)),
+        UIKeyCommand((.command, "−"), action: #selector(kbd_zoomOut), title: localisedString(.scrollView_zoomOut)),
         // This is the one users are expected to press. This is a hyphen.
-        UIKeyCommand((.command, "-"), action: #selector(UIScrollView.kbd_zoomOut)),
+        UIKeyCommand((.command, "-"), action: #selector(kbd_zoomOut)),
         // You can hold shift and press the =/+ key and it still zooms in, so match that for zooming out with the -/_ key.
-        UIKeyCommand((.command, "_"), action: #selector(UIScrollView.kbd_zoomOut)),
+        UIKeyCommand((.command, "_"), action: #selector(kbd_zoomOut)),
 
-        UIKeyCommand((.command, "0"), action: #selector(UIScrollView.kbd_resetZoom), title: localisedString(.scrollView_zoomReset)),
+        UIKeyCommand((.command, "0"), action: #selector(kbd_resetZoom), title: localisedString(.scrollView_zoomReset)),
     ]
 
     private lazy var refreshingCommands = [
-        UIKeyCommand((.command, "r"), action: #selector(UIScrollView.kbd_refresh), title: localisedString(.refresh))
+        UIKeyCommand((.command, "r"), action: #selector(kbd_refresh), title: localisedString(.refresh))
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -116,15 +116,31 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
                 return false
             }
 
-            case #selector(UIScrollView.kbd_zoomIn),
-                 #selector(UIScrollView.kbd_zoomOut),
-                 #selector(UIScrollView.kbd_resetZoom),
-                 #selector(UIScrollView.kbd_refresh):
-                return isInResponderChain
-                
+        case #selector(kbd_zoomIn), #selector(kbd_zoomOut), #selector(kbd_resetZoom):
+            return isInResponderChain && scrollView.isZoomingEnabled
+
+        case #selector(kbd_refresh):
+            return isInResponderChain && scrollView.canRefresh
+
         default:
             return super.canPerformAction(action, withSender: sender)
         }
+    }
+
+    @objc func kbd_resetZoom(_ keyCommand: UIKeyCommand) {
+        scrollView.resetZoom()
+    }
+
+    @objc func kbd_zoomIn(_ keyCommand: UIKeyCommand) {
+        scrollView.zoom(isZoomingIn: true)
+    }
+
+    @objc func kbd_zoomOut(_ keyCommand: UIKeyCommand) {
+        scrollView.zoom(isZoomingIn: false)
+    }
+
+    @objc func kbd_refresh(_ keyCommand: UIKeyCommand) {
+        scrollView.refresh()
     }
 
     // MARK: - Scroll view delegate interception
@@ -543,24 +559,16 @@ private extension UIScrollView {
         pinchGestureRecognizer != nil
     }
 
-    var shouldAnimate: Bool {
+    private var shouldAnimate: Bool {
         UIAccessibility.isReduceMotionEnabled == false
     }
 
-    @objc func kbd_resetZoom(_ keyCommand: UIKeyCommand) {
+    func resetZoom() {
         setZoomScale(1, animated: shouldAnimate)
     }
 
-    @objc func kbd_zoomIn(_ keyCommand: UIKeyCommand) {
-        zoom(isZoomingIn: true)
-    }
-
-    @objc func kbd_zoomOut(_ keyCommand: UIKeyCommand) {
-        zoom(isZoomingIn: false)
-    }
-
     /// Zooms in or out by one step with animation. Snaps to an even logarithmic scale over the zoom range. Also snaps to a scale of 1.
-    private func zoom(isZoomingIn: Bool) {
+    func zoom(isZoomingIn: Bool) {
         guard minimumZoomScale < maximumZoomScale else {
             // UIScrollView doesn’t crash in this case so let’s not either.
             return
@@ -611,7 +619,7 @@ private extension UIScrollView {
         refreshControl?.allControlEvents.contains(.valueChanged) ?? false
     }
 
-    @objc func kbd_refresh(_ keyCommand: UIKeyCommand) {
+    func refresh() {
         guard let refreshControl = refreshControl, refreshControl.isRefreshing == false else {
             return
         }
