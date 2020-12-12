@@ -3,7 +3,33 @@
 import UIKit
 
 /// An application that supports creating new windows and showing settings using commands from a hardware keyboard.
-/// Subclasses of UIApplication can be passed into UIApplicationMain.
+///
+/// To use this subclass of `UIApplication`, pass it as the third argument of `UIApplicationMain`. This can either
+/// be placed at the top level of a file named `main.swift` like this:
+///
+/// ```
+/// UIApplicationMain(
+///     CommandLine.argc,
+///     CommandLine.unsafeArgv,
+///     NSStringFromClass(KeyboardApplication.self),
+///     NSStringFromClass(YourAppDelegate.self)
+/// )
+/// ```
+///
+/// Or in any Swift file by using `@main`. For example, like this:
+///
+/// ```
+/// @main extension KeyboardApplication {
+///     static func main() {
+///         UIApplicationMain(
+///             CommandLine.argc,
+///             CommandLine.unsafeArgv,
+///             NSStringFromClass(self),
+///             NSStringFromClass(YourAppDelegate.self)
+///         )
+///     }
+/// }
+/// ```
 open class KeyboardApplication: UIApplication {
 
     public override var canBecomeFirstResponder: Bool {
