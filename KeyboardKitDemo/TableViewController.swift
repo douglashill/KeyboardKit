@@ -11,19 +11,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     }
 
     private let cellReuseIdentifier = "a"
-    private let numberFormatter1: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .spellOut
-        return formatter
-    }()
-    private let numberFormatter2: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }()
     private lazy var tableView = KeyboardTableView()
-
-    var numberFormatter: NumberFormatter!
 
     override func loadView() {
         view = tableView
@@ -33,8 +21,6 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        numberFormatter = numberFormatter1
 
         bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
 
@@ -55,21 +41,30 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         }
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        3
-    }
+    private static let freshData: [String] = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+
+        var d: [String] = []
+        for index in 0..<50 {
+            d.append(formatter.string(from: NSNumber(value: index + 1))!)
+        }
+        return d
+    }()
+
+    private var data: [String] = freshData
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Section \(numberFormatter.string(from: NSNumber(value: section + 1))!)"
+        "Section \(section + 1)"
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        33
+        data.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        cell.textLabel?.text = numberFormatter.string(from: NSNumber(value: indexPath.row + 1))
+        cell.textLabel?.text = data[indexPath.row]
         return cell
     }
 
@@ -93,10 +88,17 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
     @objc private func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.numberFormatter = (self.numberFormatter === self.numberFormatter1) ? self.numberFormatter2 : self.numberFormatter1
+            self.data = TableViewController.freshData
             self.tableView.reloadData()
             sender.endRefreshing()
         }
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        precondition(editingStyle == .delete)
+
+        data.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
