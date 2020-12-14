@@ -2,6 +2,7 @@
 
 - 4.0.1
     - Fixes the Back command being available incorrectly when the responder chain contains both a `KeyboardNavigationController` and another `UINavigationController` that is not a `KeyboardNavigationController`.
+    - Fixes `KeyboardSplitViewController` disabling collapsing into the `compact` column.
 - 4.0.0
     - Xcode 12.2 is now required.
     - Add support for Mac Catalyst in the demo app (optimised for Mac). 

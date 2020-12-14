@@ -492,9 +492,9 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
         }
 
         func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
-            // The default behaviour is to always show the secondary.
+            // The default behaviour is to show the secondary if there is no compact column.
             // Since we have a first-class concept of user focus let’s use that.
-            let ourProposedTopColumn = owner.focusedColumn ?? proposedTopColumn
+            let ourProposedTopColumn = proposedTopColumn == .compact ? proposedTopColumn : owner.focusedColumn ?? proposedTopColumn
             return externalDelegate?.splitViewController?(svc, topColumnForCollapsingToProposedTopColumn: ourProposedTopColumn) ?? ourProposedTopColumn
         }
     }
