@@ -263,11 +263,12 @@ private extension UITableView {
 
         let indexPathsToDelete = indexPathsForSelectedRows
 
-        let newSelectedIndexPath = selectableIndexPathAfterIndexPath(indexPathsForSelectedRows.first!)
-        // TODO: End up selecting the last index path if deleting the bottom row.
+        let newSelectedIndexPath = selectableIndexPathAfterIndexPath(indexPathsForSelectedRows.last!) ?? selectableIndexPathBeforeIndexPath(indexPathsForSelectedRows.first!)
+
         selectRow(at: newSelectedIndexPath, animated: false, scrollPosition: .none)
 
         for indexPath in indexPathsToDelete {
+            // This is a precaution because canDeleteSelectedRows should have blocked this action if any row had a different editing style.
             guard delegate?.tableView?(self, editingStyleForRowAt: indexPath) ?? .delete == .delete else {
                 continue
             }

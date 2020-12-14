@@ -1,6 +1,7 @@
 # KeyboardKit change log
 
 - 4.0.1
+    - Improves table view deletion by selecting the new bottom row after deleting the bottom row.
     - Fixes the Delete command not being available in `KeyboardTableViewController` when the view controller was first responder rather than the table view.
     - Fixes the Back command being available incorrectly when the responder chain contains both a `KeyboardNavigationController` and another `UINavigationController` that is not a `KeyboardNavigationController`.
     - Fixes `KeyboardSplitViewController` disabling collapsing into the `compact` column.
