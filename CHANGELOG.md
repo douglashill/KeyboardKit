@@ -1,6 +1,7 @@
 # KeyboardKit change log
 
 - 4.1.0
+    - Adds calling the `UITabBarControllerDelegate` methods `shouldSelect` and `didSelect` when changing tab using a keyboard in `KeyboardTabBarController`.
     - Adds deleting rows using the delete key in the table view example in the demo app.
     - Improves demo app by making the large title visible initially in the sidebar without needing to manually scroll it a tiny little bit.
 - 4.0.1

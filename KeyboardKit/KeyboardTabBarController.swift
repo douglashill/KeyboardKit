@@ -34,7 +34,19 @@ open class KeyboardTabBarController: UITabBarController {
             return
         }
 
-        selectedIndex = targetTabNumber - 1
+        let incomingIndex = targetTabNumber - 1
+        let incomingViewController = viewControllers![incomingIndex]
+
+        // To match the callbacks tapping the tabs, call the delegate even if selecting the already selected tab.
+
+        guard delegate?.tabBarController?(self, shouldSelect: incomingViewController) ?? true else {
+            return
+        }
+
+        selectedIndex = incomingIndex
+
+        precondition(selectedViewController == incomingViewController)
+        self.delegate?.tabBarController?(self, didSelect: incomingViewController)
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
