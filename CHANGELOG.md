@@ -2,6 +2,7 @@
 
 - 4.1.0
     - Adds deleting rows using the delete key in the table view example in the demo app.
+    - Improves demo app by making the large title visible initially in the sidebar without needing to manually scroll it a tiny little bit.
 - 4.0.1
     - Improves table view deletion by selecting the new bottom row after deleting the bottom row.
     - Fixes the Delete command not being available in `KeyboardTableViewController` when the view controller was first responder rather than the table view.

@@ -37,6 +37,8 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         super.viewWillAppear(animated)
 
         navigationController!.navigationBar.prefersLargeTitles = true
+        // Fix large title not being shown until the user scrolls a little bit. Thanks to https://stackoverflow.com/a/53165371
+        navigationController!.navigationBar.sizeToFit()
     }
 
     override func viewDidLayoutSubviews() {
