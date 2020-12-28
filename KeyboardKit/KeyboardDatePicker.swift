@@ -44,7 +44,7 @@ open class KeyboardDatePicker: UIDatePicker {
     // MARK: - Change day
 
     private var canGoLeft: Bool {
-        true
+        canAdjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? +1 : -1, to: .day)
     }
 
     @objc private func kdb_goLeft(_ sender: AnyObject?) {
@@ -52,7 +52,7 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     private var canGoRight: Bool {
-        true
+        canAdjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? -1 : +1, to: .day)
     }
 
     @objc private func kdb_goRight(_ sender: AnyObject?) {
@@ -62,7 +62,7 @@ open class KeyboardDatePicker: UIDatePicker {
     // MARK: - Change week
 
     private var canGoUp: Bool {
-        true
+        canAdjustDate(byAdding: -1, to: .weekOfMonth)
     }
 
     @objc private func kdb_goUp(_ sender: AnyObject?) {
@@ -70,7 +70,7 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     private var canGoDown: Bool {
-        true
+        canAdjustDate(byAdding: +1, to: .weekOfMonth)
     }
 
     @objc private func kdb_goDown(_ sender: AnyObject?) {
@@ -78,6 +78,21 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     // MARK: -
+
+    private func canAdjustDate(byAdding value: Int, to component: Calendar.Component) -> Bool {
+        guard var adjustedDate = calendar.date(byAdding: component, value: value, to: date) else {
+            return false
+        }
+
+        if let minimumDate = self.minimumDate {
+            adjustedDate = max(adjustedDate, minimumDate)
+        }
+        if let maximumDate = self.maximumDate {
+            adjustedDate = min(adjustedDate, maximumDate)
+        }
+
+        return adjustedDate != date
+    }
 
     private func adjustDate(byAdding value: Int, to component: Calendar.Component) {
         if let adjustedDate = calendar.date(byAdding: component, value: value, to: date) {
