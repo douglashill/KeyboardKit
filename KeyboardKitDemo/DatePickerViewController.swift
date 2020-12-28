@@ -29,8 +29,8 @@ class DatePickerViewController: FirstResponderViewController {
 
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
-        datePicker.minimumDate = datePicker.calendar.date(byAdding: .month, value: -1, to: datePicker.date)
-        datePicker.maximumDate = datePicker.calendar.date(byAdding: .month, value: +1, to: datePicker.date)
+        datePicker.minimumDate = datePicker.calendar.date(byAdding: .year, value: -5, to: datePicker.date)
+        datePicker.maximumDate = datePicker.calendar.date(byAdding: .year, value: +5, to: datePicker.date)
     }
 
     override var kd_preferredFirstResponderInHierarchy: UIResponder? {

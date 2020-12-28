@@ -16,6 +16,10 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand(.rightArrow, action: #selector(kdb_adjustDate)),
         UIKeyCommand(.upArrow, action: #selector(kdb_adjustDate)),
         UIKeyCommand(.downArrow, action: #selector(kdb_adjustDate)),
+        UIKeyCommand((.alternate, .leftArrow), action: #selector(kdb_adjustDate)),
+        UIKeyCommand((.alternate, .rightArrow), action: #selector(kdb_adjustDate)),
+        UIKeyCommand((.alternate, .upArrow), action: #selector(kdb_adjustDate)),
+        UIKeyCommand((.alternate, .downArrow), action: #selector(kdb_adjustDate)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -58,12 +62,22 @@ open class KeyboardDatePicker: UIDatePicker {
 
         var isRtL: Bool { effectiveUserInterfaceLayoutDirection == .rightToLeft }
 
-        switch keyCommand.input! {
-        case .upArrow: return .decrementWeek
-        case .downArrow: return .incrementWeek
-        case .leftArrow: return isRtL ? .incrementDay : .decrementDay
-        case .rightArrow: return isRtL ? .decrementDay : .incrementDay
-        default: preconditionFailure("Unexpected input on key command for adjusting date.")
+        if keyCommand.modifierFlags.contains(.alternate) {
+            switch keyCommand.input! {
+            case .upArrow: return .decrementYear
+            case .downArrow: return .incrementYear
+            case .leftArrow: return isRtL ? .incrementMonth : .decrementMonth
+            case .rightArrow: return isRtL ? .decrementMonth : .incrementMonth
+            default: preconditionFailure("Unexpected input on key command for adjusting date.")
+            }
+        } else {
+            switch keyCommand.input! {
+            case .upArrow: return .decrementWeek
+            case .downArrow: return .incrementWeek
+            case .leftArrow: return isRtL ? .incrementDay : .decrementDay
+            case .rightArrow: return isRtL ? .decrementDay : .incrementDay
+            default: preconditionFailure("Unexpected input on key command for adjusting date.")
+            }
         }
     }
 }
