@@ -20,22 +20,12 @@ class FirstResponderViewController: UIViewController {
         true
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        view.window?.updateFirstResponder()
-//    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.window?.updateFirstResponder()
 
         windowIWasIn = view.window
     }
-
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        windowIWasIn?.updateFirstResponder()
-//    }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
