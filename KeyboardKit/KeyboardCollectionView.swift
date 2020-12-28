@@ -21,7 +21,7 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
-        } else if responder == scrollViewKeyHandler {
+        } else if responder === scrollViewKeyHandler {
             return super.next
         } else {
             preconditionFailure()
@@ -51,7 +51,7 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
-        } else if responder == scrollViewKeyHandler {
+        } else if responder === scrollViewKeyHandler {
             return super.next
         } else {
             preconditionFailure()

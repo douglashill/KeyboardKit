@@ -100,7 +100,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
-        } else if responder == scrollViewKeyHandler {
+        } else if responder === scrollViewKeyHandler {
             return super.next
         } else {
             preconditionFailure()
