@@ -11,76 +11,28 @@ open class KeyboardDatePicker: UIDatePicker {
         true
     }
 
+    private lazy var adjustmentCommands: [UIKeyCommand] = [
+        UIKeyCommand(.leftArrow, action: #selector(kdb_adjustDate)),
+        UIKeyCommand(.rightArrow, action: #selector(kdb_adjustDate)),
+        UIKeyCommand(.upArrow, action: #selector(kdb_adjustDate)),
+        UIKeyCommand(.downArrow, action: #selector(kdb_adjustDate)),
+    ]
+
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if canGoUp {
-            commands.append(UIKeyCommand(.upArrow, action: #selector(kdb_goUp)))
-        }
-        if canGoDown {
-            commands.append(UIKeyCommand(.downArrow, action: #selector(kdb_goDown)))
-        }
-        if canGoLeft {
-            commands.append(UIKeyCommand(.leftArrow, action: #selector(kdb_goLeft)))
-        }
-        if canGoRight {
-            commands.append(UIKeyCommand(.rightArrow, action: #selector(kdb_goRight)))
-        }
+        commands.append(contentsOf: adjustmentCommands)
 
         return commands
     }
 
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        switch action {
-        case #selector(kdb_goUp): return canGoUp
-        case #selector(kdb_goDown): return canGoDown
-        case #selector(kdb_goLeft): return canGoLeft
-        case #selector(kdb_goRight): return canGoRight
-        default:
+        guard action == #selector(kdb_adjustDate), let keyCommand = sender as? UIKeyCommand else {
             return super.canPerformAction(action, withSender: sender)
         }
-    }
 
-    // MARK: - Change day
-
-    private var canGoLeft: Bool {
-        canAdjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? +1 : -1, to: .day)
-    }
-
-    @objc private func kdb_goLeft(_ sender: AnyObject?) {
-        adjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? +1 : -1, to: .day)
-    }
-
-    private var canGoRight: Bool {
-        canAdjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? -1 : +1, to: .day)
-    }
-
-    @objc private func kdb_goRight(_ sender: AnyObject?) {
-        adjustDate(byAdding: effectiveUserInterfaceLayoutDirection == .rightToLeft ? -1 : +1, to: .day)
-    }
-
-    // MARK: - Change week
-
-    private var canGoUp: Bool {
-        canAdjustDate(byAdding: -1, to: .weekOfMonth)
-    }
-
-    @objc private func kdb_goUp(_ sender: AnyObject?) {
-        adjustDate(byAdding: -1, to: .weekOfMonth)
-    }
-
-    private var canGoDown: Bool {
-        canAdjustDate(byAdding: +1, to: .weekOfMonth)
-    }
-
-    @objc private func kdb_goDown(_ sender: AnyObject?) {
-        adjustDate(byAdding: +1, to: .weekOfMonth)
-    }
-
-    // MARK: -
-
-    private func canAdjustDate(byAdding value: Int, to component: Calendar.Component) -> Bool {
-        guard var adjustedDate = calendar.date(byAdding: component, value: value, to: date) else {
+        let adjustment = adjustmentForKeyCommand(keyCommand)
+        guard var adjustedDate = calendar.date(byAdding: adjustment.component, value: adjustment.valueChange, to: date) else {
             return false
         }
 
@@ -94,9 +46,59 @@ open class KeyboardDatePicker: UIDatePicker {
         return adjustedDate != date
     }
 
-    private func adjustDate(byAdding value: Int, to component: Calendar.Component) {
-        if let adjustedDate = calendar.date(byAdding: component, value: value, to: date) {
+    @objc private func kdb_adjustDate(_ sender: UIKeyCommand) {
+        let adjustment = adjustmentForKeyCommand(sender)
+        if let adjustedDate = calendar.date(byAdding: adjustment.component, value: adjustment.valueChange, to: date) {
             setDate(adjustedDate, animated: true)
+        }
+    }
+
+    private func adjustmentForKeyCommand(_ keyCommand: UIKeyCommand) -> Adjustment {
+        precondition(keyCommand.action == #selector(kdb_adjustDate))
+
+        var isRtL: Bool { effectiveUserInterfaceLayoutDirection == .rightToLeft }
+
+        switch keyCommand.input! {
+        case .upArrow: return .decrementWeek
+        case .downArrow: return .incrementWeek
+        case .leftArrow: return isRtL ? .incrementDay : .decrementDay
+        case .rightArrow: return isRtL ? .decrementDay : .incrementDay
+        default: preconditionFailure("Unexpected input on key command for adjusting date.")
+        }
+    }
+}
+
+// MARK: -
+
+private enum Adjustment {
+    case incrementDay
+    case decrementDay
+    case incrementWeek
+    case decrementWeek
+    case incrementMonth
+    case decrementMonth
+    case incrementYear
+    case decrementYear
+
+    var valueChange: Int {
+        switch self {
+        case .incrementDay, .incrementWeek, .incrementMonth, .incrementYear:
+            return +1
+        case .decrementDay, .decrementWeek, .decrementMonth, .decrementYear:
+            return -1
+        }
+    }
+
+    var component: Calendar.Component {
+        switch self {
+        case .incrementDay, .decrementDay:
+            return .day
+        case .incrementWeek, .decrementWeek:
+            return .weekOfMonth
+        case .incrementMonth, .decrementMonth:
+            return .month
+        case .incrementYear, .decrementYear:
+            return .year
         }
     }
 }
