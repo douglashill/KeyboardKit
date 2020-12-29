@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes spatial arrow key selection in collections views not respecting `flipsHorizontallyInOppositeLayoutDirection`, `developmentLayoutDirection` and the way `UICollectionViewCompositionalLayout` and `UICollectionViewFlowLayout` can flip even when these properties specify that flipping should not occur. 
 - 4.1.0
     - Adds calling the `UITabBarControllerDelegate` methods `shouldSelect` and `didSelect` when changing tab using a keyboard in `KeyboardTabBarController`.
     - Adds deleting rows using the delete key in the table view example in the demo app.

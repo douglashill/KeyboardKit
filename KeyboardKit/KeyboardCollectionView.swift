@@ -264,8 +264,33 @@ private extension UICollectionViewLayout {
         let centreOfOldSelection = attributesOfOldSelection.center
         let contentSize = collectionViewContentSize
 
+        var resolvedDirection = direction
+
+        /*
+         Automatic flipping works with some kind of coordinate space magic. It’s easiest to flip the search direction by flipping the navigation direction.
+
+         UICollectionViewCompositionalLayout seems to have a special case where it flips by default when in a right-to-left environment.
+         Here’s a little table of what it does (tested on iOS 14.3):
+
+         flipsHorizontallyInOppositeLayoutDirection |  no  yes   no  yes     no  yes   no  yes
+         developmentLayoutDirection                 |  ->   ->   <-   <-     ->   ->   <-   <-
+         effectiveUserInterfaceLayoutDirection      |  ->   ->   ->   ->     <-   <-   <-   <-
+         ------------------------------------------ | ----------------------------------------
+         ends up flipping?                          |  no   no   no  yes    yes  yes   no   no
+
+         The ‘if else if’ below effectively comprises an OR, but that’s hard/impossible to express in one condition with the availability check.
+         */
+        if flipsHorizontallyInOppositeLayoutDirection && collectionView!.effectiveUserInterfaceLayoutDirection != developmentLayoutDirection {
+            resolvedDirection = resolvedDirection.flippedHorizontally
+        } else if #available(iOS 13.0, *),
+                  self is UICollectionViewCompositionalLayout,
+                  developmentLayoutDirection == .leftToRight,
+                  collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            resolvedDirection = resolvedDirection.flippedHorizontally
+        }
+
         let rectangleToSearch: CGRect
-        switch (direction, step) {
+        switch (resolvedDirection, step) {
 
         case (.up, .closest):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
@@ -306,7 +331,7 @@ private extension UICollectionViewLayout {
             }
 
             let distance: CGFloat
-            switch (direction, step) {
+            switch (resolvedDirection, step) {
             case (.up, .closest):
                 distance = centreOfOldSelection.y - attributes.center.y
             case (.down , .end):
@@ -335,7 +360,7 @@ private extension UICollectionViewLayout {
             }
 
             let transverseDistance: CGFloat
-            switch direction {
+            switch resolvedDirection {
             case .up, .down: transverseDistance = abs(attributes.center.x - centreOfOldSelection.x)
             case .left, .right: transverseDistance = abs(attributes.center.y - centreOfOldSelection.y)
             }
@@ -363,6 +388,31 @@ private extension UICollectionViewFlowLayout {
             case backwards
         }
 
+        /*
+         UICollectionViewFlowLayout seems to handle right-to-left differently to normal. It seems to always follow the layout
+         direction unless flipsHorizontallyInOppositeLayoutDirection is true and developmentLayoutDirection is right-to-left.
+
+         Given that the spatial behaviour from the superclass implementation works fine, I think the underlying coordinate spaces
+         behave as normal, which is means the logic in flow layout is probably un-flipping CV’s flipping in some cases.
+
+         Here’s a table of how the layout direction ends up (tested on iOS 14.3):
+
+         flipsHorizontallyInOppositeLayoutDirection |  no  yes   no  yes     no  yes   no  yes     no  yes   no  yes     no  yes   no  yes
+         developmentLayoutDirection                 |  ->   ->   <-   <-     ->   ->   <-   <-     ->   ->   <-   <-     ->   ->   <-   <-
+         effectiveUserInterfaceLayoutDirection      |  ->   ->   ->   ->     <-   <-   <-   <-     ->   ->   ->   ->     <-   <-   <-   <-
+         scrollDirection                            |  ↕︎    ↕︎    ↕︎    ↕︎      ↕︎    ↕︎    ↕︎    ↕︎     <->  <->  <->  <->    <->  <->  <->  <->
+         ------------------------------------------ | ------------------------------------------------------------------------------------
+         ends up with layout direction              |  ->   ->   ->   <-     <-   <-   <-   ->     ->   ->   ->   <-    (*)   <-  (*)   ->
+
+         (*) The layout is arranged left-to-right but scrolling is set up for right-to-left (i.e. it starts at the far right end).
+         */
+        let actualLayoutDirection: UIUserInterfaceLayoutDirection
+        if flipsHorizontallyInOppositeLayoutDirection && developmentLayoutDirection == .rightToLeft {
+            actualLayoutDirection = collectionView!.effectiveUserInterfaceLayoutDirection.flipped
+        } else {
+            actualLayoutDirection = collectionView!.effectiveUserInterfaceLayoutDirection
+        }
+
         var updateBehaviour: UpdateBehaviour {
             switch (scrollDirection, direction) {
             case (.horizontal, .up):
@@ -370,13 +420,12 @@ private extension UICollectionViewFlowLayout {
             case (.horizontal, .down):
                 return .forwards
             case (.vertical, .left):
-                return collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft ? .forwards : .backwards
+                return actualLayoutDirection == .rightToLeft ? .forwards : .backwards
             case (.vertical, .right):
-                return collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft ? .backwards : .forwards
+                return actualLayoutDirection == .rightToLeft ? .backwards : .forwards
             case (.vertical, .up), (.vertical, .down), (.horizontal, .left), (.horizontal, .right):
                 return .spatial
             @unknown default:
-                // Don’t know. Let’s go with spatial.
                 return .spatial
             }
         }
@@ -407,11 +456,30 @@ private extension UICollectionViewFlowLayout {
     }
 }
 
+private extension UIUserInterfaceLayoutDirection {
+    var flipped: UIUserInterfaceLayoutDirection {
+        switch self {
+        case .leftToRight: return .rightToLeft
+        case .rightToLeft: return .leftToRight
+        @unknown default: return self
+        }
+    }
+}
+
 private extension NavigationDirection {
     var opposite: NavigationDirection {
         switch self {
         case .up: return .down
         case .down: return .up
+        case .left: return .right
+        case .right: return .left
+        }
+    }
+
+    var flippedHorizontally: NavigationDirection {
+        switch self {
+        case .up: return .up
+        case .down: return .down
         case .left: return .right
         case .right: return .left
         }
