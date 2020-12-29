@@ -20,6 +20,7 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand((.alternate, .rightArrow), action: #selector(kdb_adjustDate)),
         UIKeyCommand((.alternate, .upArrow), action: #selector(kdb_adjustDate)),
         UIKeyCommand((.alternate, .downArrow), action: #selector(kdb_adjustDate)),
+        UIKeyCommand((.command, "t"), action: #selector(kdb_goToNow)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -79,5 +80,9 @@ open class KeyboardDatePicker: UIDatePicker {
             default: preconditionFailure("Unexpected input on key command for adjusting date.")
             }
         }
+    }
+
+    @objc private func kdb_goToNow(_ sender: UIKeyCommand) {
+        setDate(Date(), animated: true)
     }
 }
