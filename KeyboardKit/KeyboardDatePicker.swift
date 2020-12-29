@@ -35,8 +35,8 @@ open class KeyboardDatePicker: UIDatePicker {
             return super.canPerformAction(action, withSender: sender)
         }
 
-        let adjustment = adjustmentForKeyCommand(keyCommand)
-        guard var adjustedDate = calendar.date(byAdding: adjustment.component, value: adjustment.valueChange, to: date) else {
+        let (value, component) = adjustmentForKeyCommand(keyCommand)
+        guard var adjustedDate = calendar.date(byAdding: component, value: value, to: date) else {
             return false
         }
 
@@ -51,68 +51,33 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     @objc private func kdb_adjustDate(_ sender: UIKeyCommand) {
-        let adjustment = adjustmentForKeyCommand(sender)
-        if let adjustedDate = calendar.date(byAdding: adjustment.component, value: adjustment.valueChange, to: date) {
+        let (value, component) = adjustmentForKeyCommand(sender)
+        if let adjustedDate = calendar.date(byAdding: component, value: value, to: date) {
             setDate(adjustedDate, animated: true)
         }
     }
 
-    private func adjustmentForKeyCommand(_ keyCommand: UIKeyCommand) -> Adjustment {
+    private func adjustmentForKeyCommand(_ keyCommand: UIKeyCommand) -> (valueChange: Int, component: Calendar.Component) {
         precondition(keyCommand.action == #selector(kdb_adjustDate))
 
         var isRtL: Bool { effectiveUserInterfaceLayoutDirection == .rightToLeft }
 
         if keyCommand.modifierFlags.contains(.alternate) {
             switch keyCommand.input! {
-            case .upArrow: return .decrementYear
-            case .downArrow: return .incrementYear
-            case .leftArrow: return isRtL ? .incrementMonth : .decrementMonth
-            case .rightArrow: return isRtL ? .decrementMonth : .incrementMonth
+            case .upArrow:    return (-1, .year)
+            case .downArrow:  return (+1, .year)
+            case .leftArrow:  return (isRtL ? +1 : -1, .month)
+            case .rightArrow: return (isRtL ? -1 : +1, .month)
             default: preconditionFailure("Unexpected input on key command for adjusting date.")
             }
         } else {
             switch keyCommand.input! {
-            case .upArrow: return .decrementWeek
-            case .downArrow: return .incrementWeek
-            case .leftArrow: return isRtL ? .incrementDay : .decrementDay
-            case .rightArrow: return isRtL ? .decrementDay : .incrementDay
+            case .upArrow:    return (-1, .weekOfMonth)
+            case .downArrow:  return (+1, .weekOfMonth)
+            case .leftArrow:  return (isRtL ? +1 : -1, .day)
+            case .rightArrow: return (isRtL ? -1 : +1, .day)
             default: preconditionFailure("Unexpected input on key command for adjusting date.")
             }
-        }
-    }
-}
-
-// MARK: -
-
-private enum Adjustment {
-    case incrementDay
-    case decrementDay
-    case incrementWeek
-    case decrementWeek
-    case incrementMonth
-    case decrementMonth
-    case incrementYear
-    case decrementYear
-
-    var valueChange: Int {
-        switch self {
-        case .incrementDay, .incrementWeek, .incrementMonth, .incrementYear:
-            return +1
-        case .decrementDay, .decrementWeek, .decrementMonth, .decrementYear:
-            return -1
-        }
-    }
-
-    var component: Calendar.Component {
-        switch self {
-        case .incrementDay, .decrementDay:
-            return .day
-        case .incrementWeek, .decrementWeek:
-            return .weekOfMonth
-        case .incrementMonth, .decrementMonth:
-            return .month
-        case .incrementYear, .decrementYear:
-            return .year
         }
     }
 }
