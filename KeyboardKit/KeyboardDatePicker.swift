@@ -2,9 +2,30 @@
 
 import UIKit
 
-/// A date picker that supports using a hardware keyboard arrow keys to change the date.
+/// A date picker that supports using hardware keyboard arrow keys to change the date.
 ///
-/// Only changing the day in an inline date or date & time picker is supported.
+/// The only supported style and mode combinations are:
+///
+/// - `UIDatePickerStyle.inline` and `UIDatePicker.Mode.date`
+/// - `UIDatePickerStyle.inline` and `UIDatePicker.Mode.dateAndTime`
+///
+/// Key commands will not be available with any other style and mode combinations
+/// such as using the `.wheels` style.
+///
+/// In these supported configurations, users can use the following key inputs when
+/// the date picker is the first responder:
+///
+/// - Arrow keys to spatially change the selected day.
+/// - Option + left/right arrow to change the month.
+/// - Option + up/down arrow to change the year.
+/// - Command + T to jump to today.
+///
+/// Actions that would set the date outside the range of `minimumDate` to `maximumDate`
+/// will not be handled, leaving these key inputs able to be handled by objects
+/// further along the responder chain.
+///
+/// All calendars with identifiers provided by Foundation are supported, including
+/// Gregorian, Buddhist, Chinese etc. Inputs are flipped for right-to-left layouts.
 @available(iOS 14.0, *)
 open class KeyboardDatePicker: UIDatePicker {
     public override var canBecomeFirstResponder: Bool {
@@ -26,9 +47,20 @@ open class KeyboardDatePicker: UIDatePicker {
     public override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands.append(contentsOf: adjustmentCommands)
+        if isInSupportedStyleAndMode {
+            commands.append(contentsOf: adjustmentCommands)
+        }
 
         return commands
+    }
+
+    private var isInSupportedStyleAndMode: Bool {
+        switch (datePickerStyle, datePickerMode) {
+        case (.inline, .date), (.inline, .dateAndTime):
+            return true
+        case (.inline, .time), (.inline, .countDownTimer), (.wheels, _), (.compact, _), (.automatic, _): fallthrough @unknown default:
+            return false
+        }
     }
 
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -36,7 +68,7 @@ open class KeyboardDatePicker: UIDatePicker {
             return super.canPerformAction(action, withSender: sender)
         }
 
-        guard let targetDate = targetDateForKeyCommand(keyCommand) else {
+        guard isInSupportedStyleAndMode, let targetDate = targetDateForKeyCommand(keyCommand) else {
             return false
         }
 

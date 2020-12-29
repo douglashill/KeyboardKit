@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Adds `KeyboardDatePicker` to let users use arrow keys to spatially change the selected date.
 - 4.1.1
     - Fixes spatial arrow key selection in collections views not respecting `flipsHorizontallyInOppositeLayoutDirection`, `developmentLayoutDirection` and the way `UICollectionViewCompositionalLayout` and `UICollectionViewFlowLayout` can flip even when these properties specify that flipping should not occur. 
 - 4.1.0

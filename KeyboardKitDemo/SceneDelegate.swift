@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             CirclesScrollViewController(),
             PagingScrollViewController(),
             TextViewController(),
+            DatePickerViewController(),
         ])
 
         rootViewController.title = "KeyboardKit"

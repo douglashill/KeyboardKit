@@ -70,6 +70,18 @@ Key commands for working with windows are provided for iPad. These are not neede
 | Cycle focused window | ⌘\`       | `KeyboardWindowScene` | Changes the key window. Only works with visible windows. There does not seem to be any API to activate a non-visible window scene without breaking the user’s spaces.       |
 | Open Settings        | ⌘,        | `KeyboardApplication` | Opens the Settings app using `UIApplicationOpenSettingsURLString`. This is disabled by default because there is no automatic way to know if the app will show any settings. |
 
+## Date picker
+
+`KeyboardDatePicker` lets users use arrow keys to spatially change the selected day. It supports the `.inline` style with the mode set to either `.date` or  `.dateAndTime`. This class requires iOS 14 or later. 
+
+| Feature      | Key input | Notes                                          |
+| ------------ | --------- | ---------------------------------------------- |
+| Change day   | ←, →      | Inputs are reversed for right-to-left layouts. |
+| Change week  | ↑, ↓      |                                                |
+| Change month | ⌥←, ⌥→    | Inputs are reversed for right-to-left layouts. |
+| Change year  | ⌥↑, ⌥↓    |                                                |
+| Go to today  | ⌘T        |                                                |
+
 ## Localisation
 
 **39 localisations**: KeyboardKit’s key command titles (for the discoverability panel on iPad or the menu bar on Mac) are localised into the main languages supported by iOS and macOS. The translations are [based on localisation glossaries provided by Apple](https://douglashill.co/localisation-using-apples-glossaries/), and they were refined by referencing text used in similar contexts in Apple’s software.
