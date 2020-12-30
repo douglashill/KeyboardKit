@@ -12,15 +12,15 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     private lazy var adjustmentCommands: [UIKeyCommand] = [
-        UIKeyCommand(.leftArrow, action: #selector(kdb_adjustDate)),
-        UIKeyCommand(.rightArrow, action: #selector(kdb_adjustDate)),
-        UIKeyCommand(.upArrow, action: #selector(kdb_adjustDate)),
-        UIKeyCommand(.downArrow, action: #selector(kdb_adjustDate)),
-        UIKeyCommand((.alternate, .leftArrow), action: #selector(kdb_adjustDate)),
-        UIKeyCommand((.alternate, .rightArrow), action: #selector(kdb_adjustDate)),
-        UIKeyCommand((.alternate, .upArrow), action: #selector(kdb_adjustDate)),
-        UIKeyCommand((.alternate, .downArrow), action: #selector(kdb_adjustDate)),
-        UIKeyCommand((.command, "t"), action: #selector(kdb_adjustDate)),
+        UIKeyCommand(.leftArrow, action: #selector(kbd_adjustDate)),
+        UIKeyCommand(.rightArrow, action: #selector(kbd_adjustDate)),
+        UIKeyCommand(.upArrow, action: #selector(kbd_adjustDate)),
+        UIKeyCommand(.downArrow, action: #selector(kbd_adjustDate)),
+        UIKeyCommand((.alternate, .leftArrow), action: #selector(kbd_adjustDate)),
+        UIKeyCommand((.alternate, .rightArrow), action: #selector(kbd_adjustDate)),
+        UIKeyCommand((.alternate, .upArrow), action: #selector(kbd_adjustDate)),
+        UIKeyCommand((.alternate, .downArrow), action: #selector(kbd_adjustDate)),
+        UIKeyCommand((.command, "t"), action: #selector(kbd_adjustDate)),
     ]
 
     public override var keyCommands: [UIKeyCommand]? {
@@ -32,7 +32,7 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        guard action == #selector(kdb_adjustDate), let keyCommand = sender as? UIKeyCommand else {
+        guard action == #selector(kbd_adjustDate), let keyCommand = sender as? UIKeyCommand else {
             return super.canPerformAction(action, withSender: sender)
         }
 
@@ -50,14 +50,14 @@ open class KeyboardDatePicker: UIDatePicker {
         return true
     }
 
-    @objc private func kdb_adjustDate(_ sender: UIKeyCommand) {
+    @objc private func kbd_adjustDate(_ sender: UIKeyCommand) {
         if let targetDate = targetDateForKeyCommand(sender) {
             setDate(targetDate, animated: true)
         }
     }
 
     private func targetDateForKeyCommand(_ keyCommand: UIKeyCommand) -> Date? {
-        precondition(keyCommand.action == #selector(kdb_adjustDate))
+        precondition(keyCommand.action == #selector(kbd_adjustDate))
 
         if keyCommand.modifierFlags == .command && keyCommand.input == "t" {
             return Date()
