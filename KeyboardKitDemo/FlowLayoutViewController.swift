@@ -1,4 +1,4 @@
-// Douglas Hill, May 2019
+// Douglas Hill, December 2019
 
 import KeyboardKit
 
@@ -39,16 +39,27 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! Cell
+        cell.label.text = "\(indexPath.item)"
+        return cell
     }
 
-    class Cell: UICollectionViewCell {
+    private class Cell: UICollectionViewCell {
+        let label = UILabel()
+
         override init(frame: CGRect) {
             super.init(frame: frame)
 
             contentView.layer.cornerRadius = 25
             contentView.layer.cornerCurve = .continuous
             contentView.backgroundColor = .secondarySystemGroupedBackground
+
+            contentView.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            ])
 
             updateColours()
         }
