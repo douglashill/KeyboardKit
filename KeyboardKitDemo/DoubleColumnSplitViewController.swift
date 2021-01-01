@@ -31,7 +31,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         innerSplitViewController.delegate = self
         sidebar.delegate = self
 
-        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modal Examples", menu: UIMenu(title: "", children: modalExampleKeyCommands))
+        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modals", menu: UIMenu(title: "", children: modalExampleKeyCommands))
 
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
