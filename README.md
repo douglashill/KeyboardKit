@@ -8,7 +8,9 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Features
 
-- [Keyboard navigation and selection](/Features.md#navigation-and-selection)
+- [Keyboard cell selection](/Features.md#cell-selection)
+- [Keyboard navigation](/Features.md#navigation)
+- [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming)
 - [Key equivalents for buttons](Features.md#key-equivalents-for-buttons)
 - [Advanced text navigation](Features.md#advanced-text-navigation)
 - [Keyboard window management](Features.md#window-management)
