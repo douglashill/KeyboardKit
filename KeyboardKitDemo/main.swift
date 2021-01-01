@@ -3,4 +3,4 @@
 import UIKit
 import KeyboardKit
 
-UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, NSStringFromClass(KeyboardApplication.self), nil)
+UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, NSStringFromClass(DemoApplication.self), nil)
