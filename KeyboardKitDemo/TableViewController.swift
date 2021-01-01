@@ -22,9 +22,12 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(showBookmarks))
+        // The keyboard equivalents for these buttons won’t work if the sidebar is first responder
+        // because this table view’s navigation controller won’t be on the responder chain.
 
-        let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: nil, action: #selector(testAction))
+        bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showBookmarks))
+
+        let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: self, action: #selector(testAction))
         testItem.keyEquivalent = ([.command, .alternate], "t")
         navigationItem.rightBarButtonItems = [testItem, bookmarksBarButtonItem!]
 
@@ -73,7 +76,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     }
 
     @objc private func testAction(_ sender: Any?) {
-        let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + option + T.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + option + T while the table view is focused.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
