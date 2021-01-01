@@ -12,6 +12,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 - [Key equivalents for buttons](Features.md#key-equivalents-for-buttons)
 - [Advanced text navigation](Features.md#advanced-text-navigation)
 - [Keyboard window management](Features.md#window-management)
+- [Keyboard date picker](Features.md#date-picker)
 - [39 localisations](Features.md#localisation)
 - [Clean implementation](Features.md#clean-implementation)
 

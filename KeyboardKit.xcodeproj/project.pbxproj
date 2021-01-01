@@ -32,7 +32,9 @@
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57633BE259A62490063269A /* KeyboardDatePicker.swift */; };
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
+		A590F5A2259A5C8F00781E5E /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */; };
 		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
@@ -152,6 +154,7 @@
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BarButtonItem.h; path = ObjC/BarButtonItem.h; sourceTree = "<group>"; };
 		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BarButtonItem.m; path = ObjC/BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
+		A57633BE259A62490063269A /* KeyboardDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDatePicker.swift; sourceTree = "<group>"; };
 		A57A9A7D242186B0005425F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
 		A57A9A7E242188CB005425F9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
 		A57A9A7F242189D1005425F9 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/KeyboardKit.strings"; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 		A57A9AEF2421963C005425F9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A57A9AF12421963D005425F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableCollectionKeyHandler.swift; sourceTree = "<group>"; };
+		A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 				A5CDD2182394396D00EFF38A /* CirclesScrollViewController.swift */,
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
+				A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */,
 				A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */,
 				A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
@@ -381,6 +386,7 @@
 				A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */,
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
+				A57633BE259A62490063269A /* KeyboardDatePicker.swift */,
 				A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */,
 				A542D89B23A01DC8007E68C3 /* PointAnimator.swift */,
 				A53AE01223786CD000B07957 /* KeyCommandCreation.swift */,
@@ -713,6 +719,7 @@
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
 				A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */,
+				A590F5A2259A5C8F00781E5E /* DatePickerViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
 				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
@@ -725,6 +732,7 @@
 			files = (
 				A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */,
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
+				A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,
