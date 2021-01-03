@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "تكبير";
 "scrollView_zoomOut" = "تصغير";
 "scrollView_zoomReset" = "الحجم الفعلي";
+"text_define" = "تعريف";
 "window_close" = "إغلاق النافذة";
 "window_cycle" = "تدوير عبر النوافذ";

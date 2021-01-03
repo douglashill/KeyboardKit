@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "확대";
 "scrollView_zoomOut" = "축소";
 "scrollView_zoomReset" = "실제 크기";
+"text_define" = "정의";
 "window_close" = "윈도우 닫기";
 "window_cycle" = "윈도우 순환";

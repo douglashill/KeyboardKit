@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Увеличить";
 "scrollView_zoomOut" = "Уменьшить";
 "scrollView_zoomReset" = "Реальный размер";
+"text_define" = "Определить";
 "window_close" = "Закрыть окно";
 "window_cycle" = "Круговое переключение окон";

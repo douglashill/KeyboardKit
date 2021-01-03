@@ -36,5 +36,6 @@
 "scrollView_zoomIn" = "Zoom înainte";
 "scrollView_zoomOut" = "Zoom înapoi";
 "scrollView_zoomReset" = "Dimensiune reală"; // More common in Apple strings files: Dimensiune efectivă
+"text_define" = "Definiție";
 "window_close" = "Închide fereastra";
 "window_cycle" = "Circulă între ferestre";

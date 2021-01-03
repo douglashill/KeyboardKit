@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Acercar";
 "scrollView_zoomOut" = "Alejar";
 "scrollView_zoomReset" = "Tamaño real";
+"text_define" = "Definir";
 "window_close" = "Cerrar ventana";
 "window_cycle" = "Recorrer ventanas";

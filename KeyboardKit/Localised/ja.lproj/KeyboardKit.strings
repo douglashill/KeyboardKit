@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "拡大";
 "scrollView_zoomOut" = "縮小";
 "scrollView_zoomReset" = "実際のサイズ";
+"text_define" = "定義";
 "window_close" = "ウインドウを閉じる";
 "window_cycle" = "ウインドウを巡回";

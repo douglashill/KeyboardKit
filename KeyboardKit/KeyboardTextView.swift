@@ -5,7 +5,8 @@ import UIKit
 /// A text view that supports hardware keyboard commands to use the selection for find, find previous/next, and jump to the selection.
 open class KeyboardTextView: UITextView, ResponderChainInjection {
 
-    private lazy var findKeyCommands: [UIKeyCommand] = [
+    private lazy var selectionActionKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(([.command, .control], "d"), action: #selector(kbd_define), title: localisedString(.text_define)),
         UIKeyCommand((.command, "g"), action: #selector(kbd_findNext), title: localisedString(.find_next)),
         UIKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous)),
         UIKeyCommand((.command, "e"), action: #selector(kbd_useSelectionForFind), title: localisedString(.find_useSelection)),
@@ -18,7 +19,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         var commands = super.keyCommands ?? []
 
         if isSelectable {
-            commands += findKeyCommands
+            commands += selectionActionKeyCommands
         }
 
         return commands
@@ -30,6 +31,31 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         super.next
+    }
+
+    @objc func kbd_define(_ sender: UIKeyCommand) {
+        // An attempt was made to use UIKit’s private showServiceForText API to get the superior Look Up UI that they don’t expose publicly but I couldn’t make it work.
+
+        guard
+            let selectedTextRange = selectedTextRange,
+            let selectedText = text(in: selectedTextRange),
+            selectedText.isEmpty == false,
+            let selectionRect = selectionRects(for: selectedTextRange).reduce(nil, { unionRect, textSelectionRect -> CGRect? in
+                unionRect == nil ? textSelectionRect.rect : unionRect!.union(textSelectionRect.rect)
+            }),
+            let topmostViewController = window?.topmostViewController,
+            // Consistency check that we get the same results searching upwards and downwards in the hierarchy.
+            isInHierarchyOfView(topmostViewController.view)
+        else {
+            return
+        }
+
+        let referenceLibrary = UIReferenceLibraryViewController(term: selectedText)
+        referenceLibrary.modalPresentationStyle = .popover
+        referenceLibrary.popoverPresentationController?.sourceView = self
+        referenceLibrary.popoverPresentationController?.sourceRect = selectionRect
+
+        topmostViewController.present(referenceLibrary, animated: true)
     }
 
     /// Selects the next instance of the text that was previously searched for, starting from the current selection
@@ -106,6 +132,34 @@ extension UITextView {
 
     override var kbd_isSpaceBarScrollingEnabled: Bool {
         isEditable == false
+    }
+}
+
+private extension UIWindow {
+    /// Returns the root view controller, or its presented view controller, or its presented view controller etc.
+    var topmostViewController: UIViewController? {
+        guard var viewController = rootViewController else {
+            return nil
+        }
+        while let presentedViewController = viewController.presentedViewController {
+            viewController = presentedViewController
+        }
+        return viewController
+    }
+}
+
+private extension UIView {
+    /// Whether the receiver is `parentView` or is a descendant (recursive child) of `parentView`.
+    /// In other words, whether `parentView` is an ancestor (recursive parent) of the receiver or is the receiver.
+    func isInHierarchyOfView(_ parentView: UIView) -> Bool {
+        var maybeView: UIView? = self
+        while let view = maybeView {
+            if view === parentView {
+                return true
+            }
+            maybeView = view.superview
+        }
+        return false
     }
 }
 

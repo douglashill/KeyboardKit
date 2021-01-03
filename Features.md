@@ -68,8 +68,11 @@ The refresh command (⌘R) is also available by setting up pull to refresh in th
 
 `KeyboardTextView` provides keyboard access to quick navigation based on searching for text. These are all standard features of `NSTextView` from AppKit, and some Mac users find these commands are a huge productivity boost.
 
+Showing a definition of the selected word is also possible. There is no public API to access the functionality of the Look Up menu item, so this command uses the more limited `UIReferenceLibraryViewController`.
+
 | Feature                | Key input |
 | ---------------------- | --------- |
+| Define                 | ⌃⌘D       |
 | Find next              | ⌘G        |
 | Find previous          | ⇧⌘G       |
 | Jump to selection      | ⌘J        |

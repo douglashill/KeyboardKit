@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Nagyítás";
 "scrollView_zoomOut" = "Kicsinyítés";
 "scrollView_zoomReset" = "Tényleges méret";
+"text_define" = "Definiálás";
 "window_close" = "Ablak bezárása";
 "window_cycle" = "Lépkedés az ablakok között";

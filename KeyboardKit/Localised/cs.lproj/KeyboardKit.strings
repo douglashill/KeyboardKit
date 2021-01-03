@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Zvětšit";
 "scrollView_zoomOut" = "Zmenšit";
 "scrollView_zoomReset" = "Skutečná velikost";
+"text_define" = "Definovat";
 "window_close" = "Zavřít okno";
 "window_cycle" = "Procházet okny";

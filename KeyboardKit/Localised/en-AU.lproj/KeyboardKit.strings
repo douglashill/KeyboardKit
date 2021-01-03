@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Zoom In";
 "scrollView_zoomOut" = "Zoom Out";
 "scrollView_zoomReset" = "Actual Size";
+"text_define" = "Define";
 "window_close" = "Close Window";
 "window_cycle" = "Cycle Through Windows";

@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Ingrandisci";
 "scrollView_zoomOut" = "Riduci";
 "scrollView_zoomReset" = "Dimensioni reali";
+"text_define" = "Definisci";
 "window_close" = "Chiudi finestra";
 "window_cycle" = "Scorri tra le finestre";

@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Lähennä";
 "scrollView_zoomOut" = "Loitonna";
 "scrollView_zoomReset" = "Todellinen koko";
+"text_define" = "Määritelmä";
 "window_close" = "Sulje ikkuna";
 "window_cycle" = "Käy ikkunoita läpi";

@@ -33,6 +33,7 @@ enum LocalisedStringKey: String {
     case scrollView_zoomIn
     case scrollView_zoomOut
     case scrollView_zoomReset
+    case text_define
     case window_close
     case window_cycle
 }

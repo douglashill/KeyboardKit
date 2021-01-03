@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Vergrößern";
 "scrollView_zoomOut" = "Verkleinern";
 "scrollView_zoomReset" = "Originalgröße";
+"text_define" = "Nachschlagen";
 "window_close" = "Fenster schließen";
 "window_cycle" = "Nächstes Fenster";

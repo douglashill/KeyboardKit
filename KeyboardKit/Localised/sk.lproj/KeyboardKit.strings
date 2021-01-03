@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Zväčšiť"; // This is most common in Apple strings files and seems to have a more appropriate meaning than the alternative Priblížiť (from Apple’s WebBrowser glossary file).
 "scrollView_zoomOut" = "Zmenšiť"; // This is most common in Apple strings files and seems to have a more appropriate meaning than the alternative Oddialiť (from Apple’s WebBrowser glossary file).
 "scrollView_zoomReset" = "Skutočná veľkosť";
+"text_define" = "Definovať";
 "window_close" = "Zatvoriť okno";
 "window_cycle" = "Prechádzať oknami";

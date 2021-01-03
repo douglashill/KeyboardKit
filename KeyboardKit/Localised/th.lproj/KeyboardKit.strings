@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "ซูมเข้า";
 "scrollView_zoomOut" = "ซูมออก";
 "scrollView_zoomReset" = "ขนาดจริง";
+"text_define" = "นิยาม";
 "window_close" = "ปิดหน้าต่าง";
 "window_cycle" = "วนดูหน้าต่าง";

@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Apropar";
 "scrollView_zoomOut" = "Allunyar";
 "scrollView_zoomReset" = "Mida real";
+"text_define" = "Definir";
 "window_close" = "Tancar la finestra";
 "window_cycle" = "Recórrer les finestres";

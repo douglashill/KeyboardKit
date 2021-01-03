@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Ampliar";
 "scrollView_zoomOut" = "Reduzir";
 "scrollView_zoomReset" = "Tamanho Real";
+"text_define" = "Definir";
 "window_close" = "Fechar Janela";
 "window_cycle" = "Percorrer Janelas";

@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Zoom avant";
 "scrollView_zoomOut" = "Zoom arrière";
 "scrollView_zoomReset" = "Taille réelle";
+"text_define" = "Définir";
 "window_close" = "Fermer la fenêtre";
 "window_cycle" = "Faire défiler les fenêtres";

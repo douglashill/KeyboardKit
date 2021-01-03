@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "הגדל";
 "scrollView_zoomOut" = "הקטן";
 "scrollView_zoomReset" = "גודל אמיתי";
+"text_define" = "חיפוש נרחב";
 "window_close" = "סגור חלון";
 "window_cycle" = "דפדף בין חלונות";

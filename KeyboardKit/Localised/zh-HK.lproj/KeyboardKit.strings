@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "放大";
 "scrollView_zoomOut" = "縮小";
 "scrollView_zoomReset" = "實際大小";
+"text_define" = "定義";
 "window_close" = "關閉視窗";
 "window_cycle" = "循環檢視視窗";

@@ -32,5 +32,6 @@
 "scrollView_zoomIn" = "Büyüt";
 "scrollView_zoomOut" = "Küçült";
 "scrollView_zoomReset" = "Gerçek Boyut";
+"text_define" = "Tanımla";
 "window_close" = "Pencereyi Kapat";
 "window_cycle" = "Pencereler Arasında Dolaş";
