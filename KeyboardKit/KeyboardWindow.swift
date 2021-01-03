@@ -25,7 +25,7 @@ open class KeyboardWindow: UIWindow {
 
     @objc func kbd_dismissTopmostModalViewIfPossible(_ sender: Any?) {
         guard
-            let topmost = topmostViewController,
+            let topmost = topmostPresentedViewController,
             topmost.isBeingPresented == false && topmost.isBeingDismissed == false,
             topmost.modalPresentationStyle.isDismissibleWithoutConfirmation
         else {
@@ -47,8 +47,11 @@ open class KeyboardWindow: UIWindow {
             tellDelegatePresentationControllerDidDismiss(presentationController)
         }
     }
+}
 
-    private var topmostViewController: UIViewController? {
+private extension UIWindow {
+    /// Follows presentedViewController to the end. Returns nil if the root view controller is not presenting anything.
+    var topmostPresentedViewController: UIViewController? {
         guard var viewController = rootViewController?.presentedViewController else {
             return nil
         }
