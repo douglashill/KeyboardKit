@@ -20,6 +20,11 @@ open class KeyboardNavigationController: UINavigationController {
     ]
 
     private lazy var rightToLeftBackKeyCommands = [
+        // Note that the system will incorrectly show this in the discoverability HUD as a leftwards pointing
+        // arrow. The discoverability HUD flips the arrow keys it displays when in a right-to-left layout, but
+        // the inputs on the actual events received are not flipped. This has been reported as FB8963593.
+        // This could potentially be worked around by providing a fake command for .leftArrow that is ignored
+        // in `kbd_goBackFromKeyCommand`. However this might block other key commands so could be undesirable.
         UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
         UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand)),
     ]
