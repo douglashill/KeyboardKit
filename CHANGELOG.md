@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 4.3.0
     - Adds a Define command in `KeyboardTextView` to show `UIReferenceLibraryViewController` for the selected text.
 - 4.2.0
     - Adds `KeyboardDatePicker` to let users use arrow keys to spatially change the selected date.
