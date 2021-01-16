@@ -168,6 +168,13 @@ extension UICollectionView: SelectableCollection {
         // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
         // nil data source and not implementing method was checked in canMoveItem so force here.
         dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
+
+        // Calling the method below can result in:
+
+        // *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason:
+        // 'UICollectionView must be updated via the UICollectionViewDiffableDataSource APIs when acting
+        // as the UICollectionView's dataSource: please do not call mutation APIs directly on UICollectionView.
+
         moveItem(at: indexPath, to: newIndexPath)
     }
 }

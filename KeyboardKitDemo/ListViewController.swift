@@ -85,6 +85,16 @@ class ListViewController: FirstResponderViewController, UICollectionViewDelegate
             return sectionSnapshot
         }(), to: 2)
 
+        dataSource.reorderingHandlers.canReorderItem = { _ in
+            true
+        }
+        dataSource.reorderingHandlers.willReorder = { _ in
+
+        }
+        dataSource.reorderingHandlers.didReorder = { _ in
+
+        }
+
         self.dataSource = dataSource
     }
 
