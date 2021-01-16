@@ -22,6 +22,10 @@
 "barButton_search" = "Buscar";
 "barButton_stop" = "Parar";
 "barButton_undo" = "Desfazer";
+"collection_moveDown" = "Mover para Baixo";
+"collection_moveLeft" = "Mover para a Esquerda";
+"collection_moveRight" = "Mover para a Direita";
+"collection_moveUp" = "Mover para Cima";
 "delete" = "Apagar";
 "find_jump" = "Saltar para Seleção";
 "find_next" = "Buscar Seguinte";

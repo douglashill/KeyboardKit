@@ -22,6 +22,10 @@
 "barButton_search" = "검색";
 "barButton_stop" = "중단";
 "barButton_undo" = "실행 취소";
+"collection_moveDown" = "아래로 이동";
+"collection_moveLeft" = "왼쪽으로 이동";
+"collection_moveRight" = "오른쪽으로 이동";
+"collection_moveUp" = "위로 이동";
 "delete" = "삭제";
 "find_jump" = "선택 부분으로 이동";
 "find_next" = "다음 찾기";

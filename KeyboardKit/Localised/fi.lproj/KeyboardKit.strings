@@ -22,6 +22,10 @@
 "barButton_search" = "Haku"; // The accessibility label is Etsi, which is also more common in Apple strings files. However iOS search fields show Haku.
 "barButton_stop" = "Seis"; // Possible alternatives: Lopeta (which Safari for Mac uses and is most common in Apple strings files) or Keskeytä.
 "barButton_undo" = "Peru";
+"collection_moveDown" = "Siirrä alas";
+"collection_moveLeft" = "Siirrä vasemmalle";
+"collection_moveRight" = "Siirrä oikealle";
+"collection_moveUp" = "Siirrä ylös";
 "delete" = "Poista";
 "find_jump" = "Siirry valintaan";
 "find_next" = "Etsi seuraava";

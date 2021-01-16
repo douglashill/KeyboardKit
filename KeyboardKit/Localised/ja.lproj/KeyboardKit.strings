@@ -22,6 +22,10 @@
 "barButton_search" = "検索";
 "barButton_stop" = "停止"; // This matches the iOS Safari stop button and is more common in Apple strings files. However the bar button accessibility label is 中止
 "barButton_undo" = "取り消す";
+"collection_moveDown" = "下に移動";
+"collection_moveLeft" = "左に移動";
+"collection_moveRight" = "右に移動";
+"collection_moveUp" = "上に移動";
 "delete" = "削除";
 "find_jump" = "選択部分へジャンプ";
 "find_next" = "次を検索";

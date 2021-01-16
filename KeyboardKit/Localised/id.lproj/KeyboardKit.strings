@@ -22,6 +22,10 @@
 "barButton_search" = "Cari";
 "barButton_stop" = "Berhenti";
 "barButton_undo" = "Urung";
+"collection_moveDown" = "Pindahkan ke Bawah"; // Possible alternative: Gerakkan ke Bawah
+"collection_moveLeft" = "Pindahkan ke Kiri";
+"collection_moveRight" = "Pindahkan ke Kanan";
+"collection_moveUp" = "Pindahkan ke Atas"; // Possible alternative: Gerakkan ke Atas
 "delete" = "Hapus";
 "find_jump" = "Lompat ke Pilihan";
 "find_next" = "Temukan Berikutnya";

@@ -22,6 +22,10 @@
 "barButton_search" = "חיפוש";
 "barButton_stop" = "עצור";
 "barButton_undo" = "בטל";
+"collection_moveDown" = "הזז מטה";
+"collection_moveLeft" = "עבור שמאלה";
+"collection_moveRight" = "עבור ימינה";
+"collection_moveUp" = "הזז מעלה";
 "delete" = "מחק";
 "find_jump" = "עבור אל הקטע הנבחר";
 "find_next" = "חפש את הבא";

@@ -22,6 +22,10 @@
 "barButton_search" = "بحث";
 "barButton_stop" = "إيقاف";
 "barButton_undo" = "تراجع";
+"collection_moveDown" = "تحريك لأسفل";
+"collection_moveLeft" = "تحريك لليسار";
+"collection_moveRight" = "تحريك لليمين";
+"collection_moveUp" = "تحريك لأعلى";
 "delete" = "حذف";
 "find_jump" = "انتقال سريع إلى التحديد";
 "find_next" = "بحث عن التالي";

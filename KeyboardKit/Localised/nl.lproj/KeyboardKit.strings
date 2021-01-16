@@ -22,6 +22,10 @@
 "barButton_search" = "Zoek";
 "barButton_stop" = "Stop";
 "barButton_undo" = "Herstel";
+"collection_moveDown" = "Verplaats naar beneden";
+"collection_moveLeft" = "Verplaats naar links"; // Possible alternative: Ga naar links
+"collection_moveRight" = "Verplaats naar rechts"; // Possible alternative: Ga naar rechts
+"collection_moveUp" = "Verplaats naar boven";
 "delete" = "Verwijder";
 "find_jump" = "Ga naar selectie";
 "find_next" = "Zoek volgende";

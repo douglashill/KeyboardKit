@@ -22,6 +22,10 @@
 "barButton_search" = "Szukaj";
 "barButton_stop" = "Zatrzymaj";
 "barButton_undo" = "Cofnij";
+"collection_moveDown" =  "Przesuń w dół"; // Possible alternatives: Przenieś w dół or Przesuń do dołu
+"collection_moveLeft" = "Przesuń w lewo";
+"collection_moveRight" = "Przesuń w prawo";
+"collection_moveUp" = "Przesuń w górę"; // Possible alternative: Przesuń do góry
 "delete" = "Usuń";
 "find_jump" = "Przejdź do zaznaczenia";
 "find_next" = "Znajdź następne";

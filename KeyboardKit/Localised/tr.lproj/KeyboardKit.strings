@@ -22,6 +22,10 @@
 "barButton_search" = "Ara";
 "barButton_stop" = "Durdur";
 "barButton_undo" = "Geri Al";
+"collection_moveDown" = "Aşağıya Taşı";
+"collection_moveLeft" = "Sola Taşı";
+"collection_moveRight" = "Sağa Taşı";
+"collection_moveUp" = "Yukarıya Taşı";
 "delete" = "Sil";
 "find_jump" = "Seçime Git";
 "find_next" = "Sonrakini Bul";

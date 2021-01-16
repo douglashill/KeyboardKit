@@ -22,6 +22,10 @@
 "barButton_search" = "Tìm kiếm";
 "barButton_stop" = "Dừng";
 "barButton_undo" = "Hoàn tác";
+"collection_moveDown" = "Di chuyển xuống"; // These four might be better skipping the Di.
+"collection_moveLeft" = "Di chuyển sang trái";
+"collection_moveRight" = "Di chuyển sang phải";
+"collection_moveUp" = "Di chuyển lên";
 "delete" = "Xóa";
 "find_jump" = "Chuyển đến lựa chọn";
 "find_next" = "Tìm mục tiếp theo";

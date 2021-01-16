@@ -22,6 +22,10 @@
 "barButton_search" = "Buscar";
 "barButton_stop" = "Aturar";
 "barButton_undo" = "Desfer";
+"collection_moveDown" = "Moure cap avall";
+"collection_moveLeft" = "Moure cap a l’esquerra";
+"collection_moveRight" = "Moure cap a la dreta";
+"collection_moveUp" = "Moure cap amunt";
 "delete" = "Eliminar";
 "find_jump" = "Anar a la selecció";
 "find_next" = "Buscar el següent";

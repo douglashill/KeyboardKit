@@ -22,6 +22,10 @@
 "barButton_search" = "Sök";
 "barButton_stop" = "Stoppa"; // Accessibility label is Stopp (noun), which is also more common in Apple strings files. Going with the verb instead, which also matches the Safari for Mac menu item.
 "barButton_undo" = "Ångra";
+"collection_moveDown" = "Flytta nedåt";
+"collection_moveLeft" = "Flytta åt vänster";
+"collection_moveRight" = "Flytta åt höger";
+"collection_moveUp" = "Flytta uppåt";
 "delete" = "Radera";
 "find_jump" = "Gå till markering";
 "find_next" = "Sök nästa";

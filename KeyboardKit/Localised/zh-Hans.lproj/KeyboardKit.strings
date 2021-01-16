@@ -22,6 +22,10 @@
 "barButton_search" = "搜索";
 "barButton_stop" = "停止";
 "barButton_undo" = "撤销";
+"collection_moveDown" = "下移";
+"collection_moveLeft" = "左移";
+"collection_moveRight" = "右移";
+"collection_moveUp" = "上移";
 "delete" = "删除";
 "find_jump" = "跳到所选内容";
 "find_next" = "查找下一个";

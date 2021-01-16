@@ -22,6 +22,10 @@
 "barButton_search" = "Traži";
 "barButton_stop" = "Zaustavi";
 "barButton_undo" = "Vrati"; // Matches the accessibility label in Pages on iOS. More common in Apple strings files: Poništi but that would be the same as Cancel.
+"collection_moveDown" = "Pomakni dolje"; // Possible alternative: Premjesti dolje
+"collection_moveLeft" = "Pomakni ulijevo";
+"collection_moveRight" = "Pomakni udesno";
+"collection_moveUp" = "Pomakni gore"; // Possible alternative: Premjesti gore
 "delete" = "Obriši";
 "find_jump" = "Idi na odabir";
 "find_next" = "Pronađi sljedeće";

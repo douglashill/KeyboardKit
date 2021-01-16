@@ -22,6 +22,10 @@
 "barButton_search" = "Suchen";
 "barButton_stop" = "Stoppen"; // This matches the Safari for Mac menu command. The accessibility label is Stopp and that would match the Mac Music app, but the usage here is stopping loading/refreshing rather than media playback.
 "barButton_undo" = "Widerrufen";
+"collection_moveDown" = "Nach unten bewegen";
+"collection_moveLeft" = "Nach links bewegen";
+"collection_moveRight" = "Nach rechts bewegen";
+"collection_moveUp" = "Nach oben bewegen";
 "delete" = "Löschen";
 "find_jump" = "Auswahl anzeigen";
 "find_next" = "Weitersuchen (vorwärts)";
