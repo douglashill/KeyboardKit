@@ -165,6 +165,10 @@ extension UICollectionView: SelectableCollection {
         dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
         moveItem(at: indexPath, to: newIndexPath)
     }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        delegate?.collectionView?(self, targetIndexPathForMoveFromItemAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
+    }
 }
 
 private extension UICollectionViewLayout {

@@ -52,10 +52,9 @@ protocol SelectableCollection: NSObjectProtocol {
     func canMoveItem(at indexPath: IndexPath) -> Bool
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath
 
     // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
-
-    // TODO: Honour targetIndexPathForMoveFromRowAtIndexPath and similar for UICV.
 }
 
 // MARK: -
@@ -152,7 +151,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             else {
                 return false
             }
-            return destinationIndexPathForMoveKeyCommand(keyCommand) != nil
+            return destinationIndexPathForMovingItem(at: selected[0], keyCommand: keyCommand) != nil
 
         default:
             return super.canPerformAction(action, withSender: sender)
@@ -169,12 +168,16 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     /// Index path to move the selection to or nil if move is not possible.
-    private func destinationIndexPathForMoveKeyCommand(_ sender: UIKeyCommand) -> IndexPath? {
-        let direction = sender.navigationDirection
+    private func destinationIndexPathForMovingItem(at sourceIndexPath: IndexPath, keyCommand: UIKeyCommand) -> IndexPath? {
+        let direction = keyCommand.navigationDirection
 
         // TODO: something for multiple selection (return an array).
 
-        return collection.indexPathInDirection(direction, step: .closestWithoutWrapping)
+        guard let proposed = collection.indexPathFromIndexPath(sourceIndexPath, inDirection: direction, step: .closestWithoutWrapping) else {
+            return nil
+        }
+
+        return collection.targetIndexPathForMoveFromItem(at: sourceIndexPath, toProposedIndexPath: proposed)
     }
 
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
@@ -213,7 +216,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     @objc private func kbd_move(_ sender: UIKeyCommand) {
         let source = collection.indexPathsForSelectedItems![0]
 
-        guard let destination = destinationIndexPathForMoveKeyCommand(sender) else {
+        guard let destination = destinationIndexPathForMovingItem(at: source, keyCommand: sender) else {
             return
         }
 

@@ -250,6 +250,10 @@ extension UITableView: SelectableCollection {
         dataSource!.tableView!(self, moveRowAt: indexPath, to: newIndexPath)
         moveRow(at: indexPath, to: newIndexPath)
     }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
+    }
 }
 
 // MARK: - Deletion
