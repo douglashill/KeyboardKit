@@ -32,16 +32,32 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         collectionView.accessibilityIdentifier = "flow layout collection view"
     }
 
-    private let numberOfItems = 47
+    private static let freshData: [String] = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+
+        var d: [String] = []
+        for index in 0..<50 {
+            d.append(formatter.string(from: NSNumber(value: index + 1))!)
+        }
+        return d
+    }()
+
+    private var data: [String] = freshData
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        numberOfItems
+        data.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! Cell
-        cell.label.text = "\(indexPath.item)"
+        cell.label.text = data[indexPath.item]
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let item = data.remove(at: sourceIndexPath.item)
+        data.insert(item, at: destinationIndexPath.item)
     }
 
     private class Cell: UICollectionViewCell {

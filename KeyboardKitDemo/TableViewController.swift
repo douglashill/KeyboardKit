@@ -29,7 +29,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
         let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: self, action: #selector(testAction))
         testItem.keyEquivalent = ([.command, .alternate], "t")
-        navigationItem.rightBarButtonItems = [testItem, bookmarksBarButtonItem!]
+        navigationItem.rightBarButtonItems = [editButtonItem, testItem, bookmarksBarButtonItem!]
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -48,7 +48,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
 
-        var d: [String] = []
+        var d: [String] = ["✻"]
         for index in 0..<50 {
             d.append(formatter.string(from: NSNumber(value: index + 1))!)
         }
@@ -67,12 +67,18 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
+        cell.textLabel!.text = data[indexPath.row]
+        print("Configuring cell for index \(indexPath.row) with text “\(data[indexPath.row])”.")
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(TableViewController(), animated: true)
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
     }
 
     @objc private func testAction(_ sender: Any?) {
@@ -102,6 +108,12 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
 
         data.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("Moving row from \(sourceIndexPath.row) to \(destinationIndexPath.row).")
+        let item = data.remove(at: sourceIndexPath.row)
+        data.insert(item, at: destinationIndexPath.row)
     }
 }
 

@@ -54,19 +54,28 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         collectionView.accessibilityIdentifier = "compositional layout collection view"
     }
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
-    }
+    private static let freshData: [String] = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+
+        var d: [String] = []
+        for index in 0..<50 {
+            d.append(formatter.string(from: NSNumber(value: index + 1))!)
+        }
+        return d
+    }()
+
+    private var data: [String] = freshData
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        47
+        data.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UICollectionViewListCell
 
         var content = cell.defaultContentConfiguration()
-        content.text = "\(indexPath.item)"
+        content.text = data[indexPath.item]
         content.textProperties.alignment = .center
         cell.contentConfiguration = content
 
@@ -75,5 +84,10 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         cell.backgroundConfiguration = background
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let item = data.remove(at: sourceIndexPath.item)
+        data.insert(item, at: destinationIndexPath.item)
     }
 }
