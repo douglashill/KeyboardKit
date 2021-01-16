@@ -56,7 +56,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        commands.append(contentsOf: modalExampleKeyCommands)
+        commands += modalExampleKeyCommands
 
         return commands
     }

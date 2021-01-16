@@ -13,12 +13,12 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         #else
         commands = [UIKeyCommand(([.command, .control], "d"), action: #selector(kbd_define), title: localisedString(.text_define))]
         #endif
-        commands.append(contentsOf: [
+        commands += [
             UIKeyCommand((.command, "g"), action: #selector(kbd_findNext), title: localisedString(.find_next)),
             UIKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous)),
             UIKeyCommand((.command, "e"), action: #selector(kbd_useSelectionForFind), title: localisedString(.find_useSelection)),
             UIKeyCommand((.command, "j"), action: #selector(kbd_jumpToSelection), title: localisedString(.find_jump)),
-        ])
+        ]
         return commands
     }()
 

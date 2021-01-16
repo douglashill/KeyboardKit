@@ -48,7 +48,7 @@ open class KeyboardDatePicker: UIDatePicker {
         var commands = super.keyCommands ?? []
 
         if isInSupportedStyleAndMode {
-            commands.append(contentsOf: adjustmentCommands)
+            commands += adjustmentCommands
         }
 
         return commands
