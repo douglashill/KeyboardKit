@@ -222,7 +222,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return
         }
 
-        // I have not tested with a diff-able data source.
+        // TODO: test with a diff-able data source.
 
         collection.kdb_moveItem(at: source, to: destination)
 
