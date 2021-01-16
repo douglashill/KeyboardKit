@@ -52,7 +52,6 @@ protocol SelectableCollection: NSObjectProtocol {
     func canMoveItem(at indexPath: IndexPath) -> Bool
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 
-    func reloadItems(at indexPaths: [IndexPath])
 
     // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
 

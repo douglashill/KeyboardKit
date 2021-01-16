@@ -250,10 +250,6 @@ extension UITableView: SelectableCollection {
         dataSource!.tableView!(self, moveRowAt: indexPath, to: newIndexPath)
         moveRow(at: indexPath, to: newIndexPath)
     }
-
-    func reloadItems(at indexPaths: [IndexPath]) {
-        reloadRows(at: indexPaths, with: .none)
-    }
 }
 
 // MARK: - Deletion
