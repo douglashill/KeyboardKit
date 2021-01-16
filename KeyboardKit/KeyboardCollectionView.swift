@@ -152,11 +152,16 @@ extension UICollectionView: SelectableCollection {
         collectionViewLayout.kbd_indexPathFromIndexPath(indexPath, inDirection: direction.rawValue, step: step.rawValue)
     }
 
+    var shouldAllowMoving: Bool {
+        dataSource?.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:))) ?? false
+    }
+
     func canMoveItem(at indexPath: IndexPath) -> Bool {
-        guard let dataSource = dataSource, dataSource.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:))) else {
-            return false
-        }
-        return dataSource.collectionView?(self, canMoveItemAt: indexPath) ?? true
+        dataSource!.collectionView?(self, canMoveItemAt: indexPath) ?? true
+    }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        delegate?.collectionView?(self, targetIndexPathForMoveFromItemAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
 
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
@@ -164,10 +169,6 @@ extension UICollectionView: SelectableCollection {
         // nil data source and not implementing method was checked in canMoveItem so force here.
         dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
         moveItem(at: indexPath, to: newIndexPath)
-    }
-
-    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        delegate?.collectionView?(self, targetIndexPathForMoveFromItemAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
 }
 

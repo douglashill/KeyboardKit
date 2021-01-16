@@ -49,10 +49,10 @@ protocol SelectableCollection: NSObjectProtocol {
     /// If `step` is `closestWithoutWrapping` then `indexPath` must not be nil.
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
 
+    var shouldAllowMoving: Bool { get }
     func canMoveItem(at indexPath: IndexPath) -> Bool
-    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
-
     func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 
     // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
 }
@@ -106,17 +106,17 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          for arrows keys it breaks the concept of keyboard focus. Therefore we work around this by blocking all
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
-        if collection.shouldAllowSelection && UIResponder.isTextInputActive == false && isInResponderChain {
-            commands += selectionKeyCommands
-            if collection.shouldAllowEmptySelection ?? true {
-                commands += deselectionKeyCommands
+        if collection.shouldAllowSelection && isInResponderChain {
+            if UIResponder.isTextInputActive == false {
+                commands += selectionKeyCommands
+                if collection.shouldAllowEmptySelection ?? true {
+                    commands += deselectionKeyCommands
+                }
+            }
+            if collection.shouldAllowMoving {
+                commands += moveKeyCommands
             }
         }
-
-        // TOOD: Are there high-level conditions on this being allowed?
-        // I think needs selection to be allowed but does not need text input to not be active.
-        // And data source needs to respond to move command.
-        commands += moveKeyCommands
 
         return commands
     }
@@ -141,9 +141,11 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return collection.indexPathsForSelectedItems?.count == 1 && isInResponderChain
 
         case #selector(kbd_move):
-            guard let keyCommand = sender as? UIKeyCommand,
-                  let selected = collection.indexPathsForSelectedItems,selected.isEmpty == false,
-                  // TEMP: Only support single item so initial move implementation is easier. Don’t support extending selection with keyboard yet anyway.
+            guard isInResponderChain,
+                  let keyCommand = sender as? UIKeyCommand,
+                  collection.shouldAllowMoving,
+                  let selected = collection.indexPathsForSelectedItems, selected.isEmpty == false,
+                  // TODO: Handle multiple selection.
                   selected.count == 1,
                   selected.allSatisfy({
                       collection.canMoveItem(at: $0)

@@ -237,11 +237,16 @@ extension UITableView: SelectableCollection {
         }
     }
 
+    var shouldAllowMoving: Bool {
+        dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) ?? false
+    }
+
     func canMoveItem(at indexPath: IndexPath) -> Bool {
-        guard let dataSource = dataSource, dataSource.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) else {
-            return false
-        }
-        return dataSource.tableView?(self, canMoveRowAt: indexPath) ?? true
+        dataSource!.tableView?(self, canMoveRowAt: indexPath) ?? true
+    }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
 
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
@@ -249,10 +254,6 @@ extension UITableView: SelectableCollection {
         // nil data source and not implementing method was checked in canMoveItem so force here.
         dataSource!.tableView!(self, moveRowAt: indexPath, to: newIndexPath)
         moveRow(at: indexPath, to: newIndexPath)
-    }
-
-    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
 }
 
