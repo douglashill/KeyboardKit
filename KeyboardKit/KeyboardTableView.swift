@@ -217,7 +217,7 @@ extension UITableView: SelectableCollection {
             case (.down, .closest):
                 // Select the first highlightable item after the current selection, or select the first highlightable
                 // item if there is no current selection or if the current selection is the last highlightable item.
-                if let oldSelection = indexPath, let target = selectableIndexPathAfterIndexPath(oldSelection) {
+                if let indexPath = indexPath, let target = selectableIndexPathAfterIndexPath(indexPath) {
                     return target
                 } else {
                     return firstSelectableIndexPath

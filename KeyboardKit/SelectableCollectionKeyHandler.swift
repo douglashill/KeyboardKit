@@ -43,6 +43,7 @@ protocol SelectableCollection: NSObjectProtocol {
     /// Whether the given item is fully visible, or if not if it’s above or below, or right or left of, the viewport.
     func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility
 
+    /// Returns the index path of the item found by moving the given step in the given direction from the item at the given index path.
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
 }
 
@@ -169,6 +170,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
 private extension SelectableCollection {
 
+    /// Returns the index path of the item found by moving the given step in the given direction from the currently selected item.
     func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
         let existingSelection = indexPathsForSelectedItems?.first
 
@@ -190,7 +192,7 @@ private extension SelectableCollection {
     func selectAndShowItemAtIndexPath(_ indexPath: IndexPath, extendSelection isExtendingSelection: Bool) {
         checkIndexPathIsInValidRange(indexPath)
 
-        // Looks better and feel more responsive if the selection updates without animation.
+        // Looks better and feels more responsive if the selection updates without animation.
         // The scrolling will have animation if the target is not fully visible.
 
         selectItem(at: nil, animated: false, scrollPosition: [])
