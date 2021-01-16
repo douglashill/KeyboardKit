@@ -241,12 +241,12 @@ extension UITableView: SelectableCollection {
         dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) ?? false
     }
 
-    func canMoveItem(at indexPath: IndexPath) -> Bool {
-        dataSource!.tableView?(self, canMoveRowAt: indexPath) ?? true
+    func canMoveItem(at indexPath: IndexPath) -> Bool? {
+        dataSource!.tableView?(self, canMoveRowAt: indexPath)
     }
 
-    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath? {
+        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath)
     }
 
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {

@@ -50,8 +50,8 @@ protocol SelectableCollection: NSObjectProtocol {
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
 
     var shouldAllowMoving: Bool { get }
-    func canMoveItem(at indexPath: IndexPath) -> Bool
-    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath
+    func canMoveItem(at indexPath: IndexPath) -> Bool?
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath?
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 
     // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
@@ -148,7 +148,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
                   // TODO: Handle multiple selection.
                   selected.count == 1,
                   selected.allSatisfy({
-                      collection.canMoveItem(at: $0)
+                      collection.canMoveItem(at: $0) ?? true
                   })
             else {
                 return false
@@ -179,7 +179,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return nil
         }
 
-        return collection.targetIndexPathForMoveFromItem(at: sourceIndexPath, toProposedIndexPath: proposed)
+        return collection.targetIndexPathForMoveFromItem(at: sourceIndexPath, toProposedIndexPath: proposed) ?? proposed
     }
 
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
