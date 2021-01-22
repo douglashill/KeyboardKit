@@ -53,8 +53,6 @@ protocol SelectableCollection: NSObjectProtocol {
     func canMoveItem(at indexPath: IndexPath) -> Bool?
     func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath?
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
-
-    // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
 }
 
 // MARK: -
@@ -71,7 +69,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
         [UIKeyModifierFlags(), .alternate].map { modifierFlags in
-            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand)) // I should prob prefix all these methods
+            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
         UIKeyCommand(.space, action: #selector(activateSelection)),
@@ -221,8 +219,6 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         guard let destination = destinationIndexPathForMovingItem(at: source, keyCommand: sender) else {
             return
         }
-
-        // TODO: test with a diff-able data source.
 
         collection.kdb_moveItem(at: source, to: destination)
 

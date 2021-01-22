@@ -2,44 +2,35 @@
 
 import KeyboardKit
 
-class ListViewController: KeyboardCollectionViewController {
-    init() {
-        var listConfig = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfig.headerMode = .firstItemInSection
-        let layout = UICollectionViewCompositionalLayout.list(using: listConfig)
-
-        super.init(collectionViewLayout: layout)
-
+class ListViewController: FirstResponderViewController, UICollectionViewDelegate {
+    override init() {
+        super.init()
         title = "List"
         tabBarItem.image = UIImage(systemName: "list.dash")
-        installsStandardGestureForInteractiveMovement = true
-    }
-
-    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
-
-    var windowIWasIn: UIWindow?
-
-    override var canBecomeFirstResponder: Bool {
-        true
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.window?.updateFirstResponder()
-
-        windowIWasIn = view.window
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        windowIWasIn?.updateFirstResponder()
     }
 
     private var dataSource: UICollectionViewDiffableDataSource<Int, String>? = nil
 
+    private lazy var collectionView: UICollectionView = {
+        var listConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfig.headerMode = .firstItemInSection
+        let layout = UICollectionViewCompositionalLayout.list(using: listConfig)
+        return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
+    }()
+
+    override func loadView() {
+        // If the collection view starts off with zero frame is briefly shows as black when appearing.
+        // I’ve only seen this happen with lists using UICollectionView, not in other compositional layouts.
+        super.loadView() // Hack: Load the default view to get the initial frame from UIKit.
+        let initialFrame = view.frame
+        view = collectionView
+        collectionView.frame = initialFrame
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.delegate = self
         collectionView.accessibilityIdentifier = "list collection view"
 
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, stringItem in
@@ -94,34 +85,16 @@ class ListViewController: KeyboardCollectionViewController {
             return sectionSnapshot
         }(), to: 2)
 
-        // Implementing this seems to be the minimum needed to enable reordering.
-        dataSource.reorderingHandlers.canReorderItem = { _ in
-            true
-        }
-
-//        dataSource.reorderingHandlers.willReorder = { _ in
-//
-//        }
-
-//        dataSource.reorderingHandlers.didReorder = { _ in
-//
-//        }
-
         self.dataSource = dataSource
     }
 
     // MARK: - UICollectionViewDelegate
 
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         indexPath.item != 0
     }
 
-    // This is not called. I can delete this.
-    override func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        indexPath.item != 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.pushViewController(ListViewController(), animated: true)
     }
 }

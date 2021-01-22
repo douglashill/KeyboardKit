@@ -48,7 +48,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
 
-        var d: [String] = ["✻"]
+        var d: [String] = []
         for index in 0..<50 {
             d.append(formatter.string(from: NSNumber(value: index + 1))!)
         }
@@ -68,7 +68,6 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
         cell.textLabel!.text = data[indexPath.row]
-        print("Configuring cell for index \(indexPath.row) with text “\(data[indexPath.row])”.")
         return cell
     }
 
