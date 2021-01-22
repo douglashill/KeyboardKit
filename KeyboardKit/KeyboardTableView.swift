@@ -6,13 +6,13 @@ import UIKit
 /// A table view that supports navigation and selection using a hardware keyboard.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
     private lazy var keyHandler = TableViewKeyHandler(tableView: self, owner: self)
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         keyHandler
     }
 
@@ -29,13 +29,13 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
 /// A table view controller that supports navigation and selection using a hardware keyboard.
 open class KeyboardTableViewController: UITableViewController, ResponderChainInjection {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
     private lazy var keyHandler = TableViewKeyHandler(tableView: tableView, owner: self)
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         keyHandler
     }
 

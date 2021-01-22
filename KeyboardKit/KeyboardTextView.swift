@@ -24,7 +24,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if isSelectable {
@@ -34,7 +34,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         return commands
     }
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         scrollViewKeyHandler
     }
 

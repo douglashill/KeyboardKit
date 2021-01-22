@@ -28,7 +28,7 @@ import UIKit
 /// Gregorian, Buddhist, Chinese etc. Inputs are flipped for right-to-left layouts.
 @available(iOS 14.0, *)
 open class KeyboardDatePicker: UIDatePicker {
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -44,7 +44,7 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand((.command, "t"), action: #selector(kbd_adjustDate)),
     ]
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if isInSupportedStyleAndMode {
@@ -63,7 +63,7 @@ open class KeyboardDatePicker: UIDatePicker {
         }
     }
 
-    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         guard action == #selector(kbd_adjustDate), let keyCommand = sender as? UIKeyCommand else {
             return super.canPerformAction(action, withSender: sender)
         }

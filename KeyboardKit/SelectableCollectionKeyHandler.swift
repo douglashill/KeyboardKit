@@ -72,7 +72,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         UIKeyCommand(.escape, action: #selector(clearSelection)),
     ]
 
-    public override var keyCommands: [UIKeyCommand]? {
+    override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         /*
@@ -99,7 +99,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         return commands
     }
 
-    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         // For why isInResponderChain is used, see the comment in keyCommands above.
         switch action {
         case #selector(updateSelectionFromKeyCommand):
@@ -140,7 +140,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         collection.selectAndShowItemAtIndexPath(indexPath, extendSelection: false)
     }
 
-    public override func selectAll(_ sender: Any?) {
+    override func selectAll(_ sender: Any?) {
         guard collection.shouldAllowMultipleSelection else {
             return
         }

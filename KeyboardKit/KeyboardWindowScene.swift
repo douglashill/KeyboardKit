@@ -7,7 +7,7 @@ import UIKit
 @available(iOS 13.0, *)
 open class KeyboardWindowScene: UIWindowScene {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -15,7 +15,7 @@ open class KeyboardWindowScene: UIWindowScene {
     // Leave cmd + W for closing a tab or modal within a window. Mac uses cmd + shift + W for close window when there are tabs.
     private lazy var closeCommand = UIKeyCommand(([.command, .shift], "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if UIApplication.shared.supportsMultipleScenes {

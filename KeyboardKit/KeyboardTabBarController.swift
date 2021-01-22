@@ -10,11 +10,11 @@ import UIKit
 /// because the More list and navigation controller don’t support keyboard input so would result in an inconsistent user experience.
 open class KeyboardTabBarController: UITabBarController {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if presentedViewController == nil, let items = tabBar.items {

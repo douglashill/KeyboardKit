@@ -72,7 +72,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         UIKeyCommand((.command, "r"), action: #selector(kbd_refresh), title: localisedString(.refresh))
     ]
 
-    public override var keyCommands: [UIKeyCommand]? {
+    override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         // See the comment in SelectableCollectionKeyHandler.keyCommands.

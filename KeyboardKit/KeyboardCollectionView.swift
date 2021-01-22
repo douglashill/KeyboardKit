@@ -7,14 +7,14 @@ import UIKit
 /// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: self, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
 
@@ -37,14 +37,14 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 /// A collection view controller that supports navigation and selection using a hardware keyboard.
 open class KeyboardCollectionViewController: UICollectionViewController, ResponderChainInjection {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: collectionView, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: collectionView, owner: self)
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
 

@@ -7,7 +7,7 @@ import UIKit
 /// Supports arrow keys, ⌥ + arrow keys, ⌘ + arrow keys, space bar, page up, page down, home and end.
 open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -44,7 +44,7 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
 
     private lazy var keyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
-    public override var next: UIResponder? {
+    open override var next: UIResponder? {
         keyHandler
     }
 

@@ -10,7 +10,7 @@ import UIKit
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
 open class KeyboardNavigationController: UINavigationController {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -36,7 +36,7 @@ open class KeyboardNavigationController: UINavigationController {
         }
     }
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if let topViewController = topViewController {

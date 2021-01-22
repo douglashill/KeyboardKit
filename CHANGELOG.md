@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes overriding some API from some KeyboardKit classes not being possible because it was marked `public` instead of `open`. 
 - 4.3.0
     - Adds a Define command in `KeyboardTextView` to show `UIReferenceLibraryViewController` for the selected text.
 - 4.2.0

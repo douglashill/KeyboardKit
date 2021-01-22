@@ -27,7 +27,7 @@ import UIKit
 open class KeyboardBarButtonItem: KBDBarButtonItem {
 
     /// The character and the modifier flags corresponding to the keys that must be pressed to trigger this bar button item’s action from a keyboard.
-    public var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
+    open var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
 
     private var systemItem: SystemItem?
 

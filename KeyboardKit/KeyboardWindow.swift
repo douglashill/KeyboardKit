@@ -6,7 +6,7 @@ import UIKit
 /// Calls the presentation controller delegate like for any other user-driven dismissal.
 open class KeyboardWindow: UIWindow {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -15,7 +15,7 @@ open class KeyboardWindow: UIWindow {
         UIKeyCommand((.command, "W"), action: #selector(kbd_dismissTopmostModalViewIfPossible)),
     ]
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         commands += dismissKeyCommands

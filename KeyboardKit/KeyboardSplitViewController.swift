@@ -109,7 +109,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
     /// This property may be set, which would typically be done to sync the split view with changes to the
     /// first responder. Setting this property will make no attempt to show the focused column or validate
     /// the column is already visible, and the delegate will not called with `didChangeFocusedColumn`.
-    public var focusedColumn: Column? {
+    open var focusedColumn: Column? {
         didSet {
             precondition(focusedColumn != .compact, "An attempt was made to focus the compact column. The focused column should be nil when collapsed.")
         }
@@ -180,7 +180,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
 
     // MARK: - Key commands
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
@@ -198,7 +198,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
         UIKeyCommand(.escape, action: #selector(dismissTemporaryColumn)),
     ]
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if canChangeFocusedColumn && UIResponder.isTextInputActive == false {

@@ -32,21 +32,21 @@ import UIKit
 /// ```
 open class KeyboardApplication: UIApplication {
 
-    public override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         true
     }
 
     /// Set this to true to add a key command that opens the settings app.
     /// Don’t do this if the app does not have any settings or permissions it asks for.
     /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.
-    public var canOpenSettings = false
+    open var canOpenSettings = false
 
     // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
     @available(iOS 13.0, *)
     private lazy var newWindowKeyCommand = UIKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
     private lazy var openSettingsKeyCommand = UIKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
 
-    public override var keyCommands: [UIKeyCommand]? {
+    open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if #available(iOS 13, *), supportsMultipleScenes {

@@ -5,9 +5,9 @@
 import Foundation
 
 extension URL {
-    public func appendingPathComponents(_ pathComponents: [String]) -> URL {
-        return pathComponents.enumerated().reduce(self) { url, pair in
-            return url.appendingPathComponent(pair.element, isDirectory: pair.offset + 1 < pathComponents.count)
+    func appendingPathComponents(_ pathComponents: [String]) -> URL {
+        pathComponents.enumerated().reduce(self) { url, pair in
+            url.appendingPathComponent(pair.element, isDirectory: pair.offset + 1 < pathComponents.count)
         }
     }
 }
