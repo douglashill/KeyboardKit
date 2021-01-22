@@ -30,6 +30,14 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         collectionView.dataSource = self
         collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.accessibilityIdentifier = "flow layout collection view"
+
+        // UIRefreshControl is not available when optimised for Mac. Crashes at runtime.
+        // https://steipete.com/posts/forbidden-controls-in-catalyst-mac-idiom/
+        if traitCollection.userInterfaceIdiom != .mac {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            collectionView.refreshControl = refreshControl
+        }
     }
 
     private static let freshData: [String] = {
@@ -58,6 +66,14 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = data.remove(at: sourceIndexPath.item)
         data.insert(item, at: destinationIndexPath.item)
+    }
+
+    @objc private func refresh(_ sender: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.data = FlowLayoutViewController.freshData
+            self.collectionView.reloadData()
+            sender.endRefreshing()
+        }
     }
 
     private class Cell: UICollectionViewCell {
