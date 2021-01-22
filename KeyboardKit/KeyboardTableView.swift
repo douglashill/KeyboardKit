@@ -4,8 +4,23 @@
 import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
-/// 
-/// Moving items is not supported when using a `UITableViewDiffableDataSource`.
+///
+/// # Reordering
+///
+/// If the app enables reordering then KeyboardKit allows users to move rows using
+/// the option + command + up and option + command + down key combinations.
+/// This will swap the selected row with the row immediately above or below it.
+///
+/// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering,
+/// the table view’s `dataSource` must implement `tableView(_:moveRowAt:to:)`. To disable
+/// moving certain rows, the data source should implement `tableView(_:canMoveRowAt:)`.
+/// If this is not implemented then moving will be allowed. To alter the destination
+/// index path of a move operation, the table view’s `delegate` should implement
+/// `tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:)`.
+///
+/// Moving rows using a hardware keyboard is not supported when using a `UITableViewDiffableDataSource`.
+///
+/// Moving sections using a hardware keyboard is not supported.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -29,6 +44,9 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
 }
 
 /// A table view controller that supports navigation and selection using a hardware keyboard.
+///
+/// See `KeyboardTableView` for further details. There is no difference in
+/// functionality between the view subclass and the view controller subclass.
 open class KeyboardTableViewController: UITableViewController, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {

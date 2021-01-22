@@ -5,8 +5,25 @@ import UIKit
 /// A collection view that supports navigation and selection using a hardware keyboard.
 ///
 /// Wrapping the selection on reaching the end of a row or column is only supported with `UICollectionViewFlowLayout`.
+///
 /// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
-/// Moving items is not supported when using a `UICollectionViewDiffableDataSource`.
+///
+/// # Reordering
+///
+/// If the app enables reordering then KeyboardKit allows users to move items using
+/// option + command + arrow keys. This will swap the selected item with the closest
+/// item in the specified direction.
+///
+/// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering, the
+/// collection view’s `dataSource` must implement `collectionView(_:moveItemAt:to:)`. To disable
+/// moving certain items, the data source should implement `collectionView(_:canMoveItemAt:)`.
+/// If this is not implemented then moving will be allowed. To alter the destination
+/// index path of a move operation, the collection view’s `delegate` should implement
+/// `collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)`.
+///
+/// Moving items using a hardware keyboard is not supported when using a `UICollectionViewDiffableDataSource`.
+///
+/// Moving sections using a hardware keyboard is not supported.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -37,6 +54,9 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 }
 
 /// A collection view controller that supports navigation and selection using a hardware keyboard.
+///
+/// See `KeyboardCollectionView` for further details. There is no difference in
+/// functionality between the view subclass and the view controller subclass.
 open class KeyboardCollectionViewController: UICollectionViewController, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
