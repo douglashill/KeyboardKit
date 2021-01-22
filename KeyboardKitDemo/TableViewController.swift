@@ -44,30 +44,34 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         }
     }
 
-    private static let freshData: [String] = {
+    private static let freshData: [[String]] = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
 
         var d: [String] = []
-        for index in 0..<50 {
+        for index in 0..<23 {
             d.append(formatter.string(from: NSNumber(value: index + 1))!)
         }
-        return d
+        return [d, d, d]
     }()
 
-    private var data: [String] = freshData
+    private var data: [[String]] = freshData
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        data.count
+    }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         "Section \(section + 1)"
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.count
+        data[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        cell.textLabel!.text = data[indexPath.row]
+        cell.textLabel!.text = data[indexPath.section][indexPath.row]
         return cell
     }
 
@@ -105,13 +109,13 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         precondition(editingStyle == .delete)
 
-        data.remove(at: indexPath.row)
+        data[indexPath.section].remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = data.remove(at: sourceIndexPath.row)
-        data.insert(item, at: destinationIndexPath.row)
+        let item = data[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        data[destinationIndexPath.section].insert(item, at: destinationIndexPath.row)
     }
 }
 

@@ -15,6 +15,7 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         flowLayout.itemSize = CGSize(width: 150, height: 150)
         flowLayout.minimumInteritemSpacing = 20
         flowLayout.minimumLineSpacing = 20
+        flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
 
         return KeyboardCollectionView(frame: .zero, collectionViewLayout: flowLayout)
     }()
@@ -40,32 +41,36 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         }
     }
 
-    private static let freshData: [String] = {
+    private static let freshData: [[String]] = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
 
         var d: [String] = []
-        for index in 0..<50 {
+        for index in 0..<28 {
             d.append(formatter.string(from: NSNumber(value: index + 1))!)
         }
-        return d
+        return [d, d, d]
     }()
 
-    private var data: [String] = freshData
+    private var data: [[String]] = freshData
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        data.count
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        data[section].count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! Cell
-        cell.label.text = data[indexPath.item]
+        cell.label.text = data[indexPath.section][indexPath.item]
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = data.remove(at: sourceIndexPath.item)
-        data.insert(item, at: destinationIndexPath.item)
+        let item = data[sourceIndexPath.section].remove(at: sourceIndexPath.item)
+        data[destinationIndexPath.section].insert(item, at: destinationIndexPath.item)
     }
 
     @objc private func refresh(_ sender: UIRefreshControl) {

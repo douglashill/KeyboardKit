@@ -62,7 +62,7 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         }
     }
 
-    private static let freshData: [String] = {
+    private static let freshData: [[String]] = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
 
@@ -70,20 +70,24 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         for index in 0..<50 {
             d.append(formatter.string(from: NSNumber(value: index + 1))!)
         }
-        return d
+        return [d, d, d]
     }()
 
-    private var data: [String] = freshData
+    private var data: [[String]] = freshData
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        data.count
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        data[section].count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UICollectionViewListCell
 
         var content = cell.defaultContentConfiguration()
-        content.text = data[indexPath.item]
+        content.text = data[indexPath.section][indexPath.item]
         content.textProperties.alignment = .center
         cell.contentConfiguration = content
 
@@ -95,8 +99,8 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = data.remove(at: sourceIndexPath.item)
-        data.insert(item, at: destinationIndexPath.item)
+        let item = data[sourceIndexPath.section].remove(at: sourceIndexPath.item)
+        data[destinationIndexPath.section].insert(item, at: destinationIndexPath.item)
     }
 
     @objc private func refresh(_ sender: UIRefreshControl) {
