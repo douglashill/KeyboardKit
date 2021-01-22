@@ -110,7 +110,6 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("Moving row from \(sourceIndexPath.row) to \(destinationIndexPath.row).")
         let item = data.remove(at: sourceIndexPath.row)
         data.insert(item, at: destinationIndexPath.row)
     }
