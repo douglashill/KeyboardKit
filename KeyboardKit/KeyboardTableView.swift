@@ -4,6 +4,8 @@
 import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
+/// 
+/// Moving items is not supported when using a `UITableViewDiffableDataSource`.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -238,7 +240,14 @@ extension UITableView: SelectableCollection {
     }
 
     var shouldAllowMoving: Bool {
-        dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) ?? false
+        guard let dataSource = dataSource else {
+            return false
+        }
+        // Diff-able data sources are not supported. See the comment in the implementation of shouldAllowMoving for UICollectionView.
+        if NSStringFromClass(type(of: dataSource)).contains("UITableViewDiffableDataSource") {
+            return false
+        }
+        return dataSource.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:)))
     }
 
     func canMoveItem(at indexPath: IndexPath) -> Bool? {

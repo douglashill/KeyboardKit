@@ -3,8 +3,10 @@
 import UIKit
 
 /// A collection view that supports navigation and selection using a hardware keyboard.
+///
 /// Wrapping the selection on reaching the end of a row or column is only supported with `UICollectionViewFlowLayout`.
 /// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
+/// Moving items is not supported when using a `UICollectionViewDiffableDataSource`.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -153,7 +155,43 @@ extension UICollectionView: SelectableCollection {
     }
 
     var shouldAllowMoving: Bool {
-        dataSource?.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:))) ?? false
+        guard let dataSource = dataSource else {
+            return false
+        }
+        /*
+         Diff-able data sources are not supported. Several factors make this very difficult to support.
+
+         Firstly, can’t call `moveItem(at:to:)` on a collection view using a diff-able data source. Doing so results in
+
+         *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason:
+         'UICollectionView must be updated via the UICollectionViewDiffableDataSource APIs when acting
+         as the UICollectionView's dataSource: please do not call mutation APIs directly on UICollectionView.
+
+         This makes sense but means KeyboardKit needs to detect this case so it can use the diff-able data source API
+         instead. (And call the reordering handlers to let the app know about the change.)
+
+         However the diff-able data source type is generic in Swift and the way generics work in Swift there is no
+         way to cast to a generic type. You need to know the specialised type, and KeyboardKit couldn’t do this
+         without adding some API that apps need to use. Something like making KeyboardCollectionView and
+         KeyboardCollectionViewController generic or have a generic property. It sounds like annoying to deal with.
+
+         An additional complication is that the diff-able data source API is different in Swift and Objective-C.
+         You end up with a different class as the data source depending on which language you use to create it.
+
+         So KeyboardKit would need three implementations of moving: regular data source, Objective-C diff-able data source,
+         and Swift diff-able data source. The Swift one could not work out-of-the-box.
+
+         In Swift, the Swift one is called `UICollectionViewDiffableDataSource<SectionIdentifierType, ItemIdentifierType>`.
+         In Objective-C, the Swift one is called `_TtGC5UIKit34UICollectionViewDiffableDataSourceSiSS_`.
+         In Objective-C, the Objective-C one is called `UICollectionViewDiffableDataSource`.
+         In Swift, the Objective-C one is called `UICollectionViewDiffableDataSourceReference`.
+
+         We check the type using the Objective-C runtime, we need to search for the name as it appears in Objective-C.
+         */
+        if NSStringFromClass(type(of: dataSource)).contains("UICollectionViewDiffableDataSource") {
+            return false
+        }
+        return dataSource.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:)))
     }
 
     func canMoveItem(at indexPath: IndexPath) -> Bool? {
@@ -168,13 +206,6 @@ extension UICollectionView: SelectableCollection {
         // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
         // nil data source and not implementing method was checked in canMoveItem so force here.
         dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
-
-        // Calling the method below can result in:
-
-        // *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason:
-        // 'UICollectionView must be updated via the UICollectionViewDiffableDataSource APIs when acting
-        // as the UICollectionView's dataSource: please do not call mutation APIs directly on UICollectionView.
-
         moveItem(at: indexPath, to: newIndexPath)
     }
 }
