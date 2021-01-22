@@ -202,7 +202,7 @@ extension UITableView: SelectableCollection {
 
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
             switch (direction, step) {
-            case (.up, .closest):
+            case (.up, .closestWithWrapping):
                 // Select the first highlightable item before the current selection, or select the last highlightable
                 // item if there is no current selection or if the current selection is the first highlightable item.
                 if let indexPath = indexPath, let target = selectableIndexPathBeforeIndexPath(indexPath) {
@@ -211,10 +211,13 @@ extension UITableView: SelectableCollection {
                     return lastSelectableIndexPath
                 }
 
+            case (.up, .closestWithoutWrapping):
+                return selectableIndexPathBeforeIndexPath(indexPath!)
+
             case (.up, .end):
                 return firstSelectableIndexPath
 
-            case (.down, .closest):
+            case (.down, .closestWithWrapping):
                 // Select the first highlightable item after the current selection, or select the first highlightable
                 // item if there is no current selection or if the current selection is the last highlightable item.
                 if let indexPath = indexPath, let target = selectableIndexPathAfterIndexPath(indexPath) {
@@ -223,12 +226,33 @@ extension UITableView: SelectableCollection {
                     return firstSelectableIndexPath
                 }
 
+            case (.down, .closestWithoutWrapping):
+                return selectableIndexPathAfterIndexPath(indexPath!)
+
             case (.down, .end):
                 return lastSelectableIndexPath
 
             case (.left, _), (.right, _):
                 return nil
         }
+    }
+
+    func canMoveItem(at indexPath: IndexPath) -> Bool {
+        guard let dataSource = dataSource, dataSource.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) else {
+            return false
+        }
+        return dataSource.tableView?(self, canMoveRowAt: indexPath) ?? true
+    }
+
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
+        // nil data source and not implementing method was checked in canMoveItem so force here.
+        dataSource!.tableView!(self, moveRowAt: indexPath, to: newIndexPath)
+        moveRow(at: indexPath, to: newIndexPath)
+    }
+
+    func reloadItems(at indexPaths: [IndexPath]) {
+        reloadRows(at: indexPaths, with: .none)
     }
 }
 

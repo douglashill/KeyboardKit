@@ -13,8 +13,10 @@ enum NavigationDirection: Int {
 }
 
 enum NavigationStep: Int {
-    /// Step to the next closest item in the specified direction.
-    case closest
+    /// Step to the next closest item in the specified direction. If reaching the end, starts searching again on the far side.
+    case closestWithWrapping
+    /// Step to the next closest item in the specified direction. Return nil if at the end.
+    case closestWithoutWrapping
     /// Step to the far end in the specified direction, such as the very top or bottom.
     case end
 }
@@ -44,7 +46,17 @@ protocol SelectableCollection: NSObjectProtocol {
     func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility
 
     /// Returns the index path of the item found by moving the given step in the given direction from the item at the given index path.
+    /// If `step` is `closestWithoutWrapping` then `indexPath` must not be nil.
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
+
+    func canMoveItem(at indexPath: IndexPath) -> Bool
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
+
+    func reloadItems(at indexPaths: [IndexPath])
+
+    // TODO: Look into how reordering with drag and drop works. Does that still need these methods implemented?
+
+    // TODO: Honour targetIndexPathForMoveFromRowAtIndexPath and similar for UICV.
 }
 
 // MARK: -
@@ -61,7 +73,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
         [UIKeyModifierFlags(), .alternate].map { modifierFlags in
-            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
+            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand)) // I should prob prefix all these methods
         }
     } + [
         UIKeyCommand(.space, action: #selector(activateSelection)),
@@ -71,6 +83,11 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     private lazy var deselectionKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.escape, action: #selector(clearSelection)),
     ]
+
+    private lazy var moveKeyCommands: [UIKeyCommand] = allArrowKeyInputs.map { input in
+        // TODO: Titles
+        UIKeyCommand(([.alternate, .command], input), action: #selector(kbd_move))
+    }
 
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -96,6 +113,11 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             }
         }
 
+        // TOOD: Are there high-level conditions on this being allowed?
+        // I think needs selection to be allowed but does not need text input to not be active.
+        // And data source needs to respond to move command.
+        commands += moveKeyCommands
+
         return commands
     }
 
@@ -118,6 +140,19 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         case #selector(activateSelection):
             return collection.indexPathsForSelectedItems?.count == 1 && isInResponderChain
 
+        case #selector(kbd_move):
+            guard let keyCommand = sender as? UIKeyCommand,
+                  let selected = collection.indexPathsForSelectedItems,selected.isEmpty == false,
+                  // TEMP: Only support single item so initial move implementation is easier. Don’t support extending selection with keyboard yet anyway.
+                  selected.count == 1,
+                  selected.allSatisfy({
+                      collection.canMoveItem(at: $0)
+                  })
+            else {
+                return false
+            }
+            return destinationIndexPathForMoveKeyCommand(keyCommand) != nil
+
         default:
             return super.canPerformAction(action, withSender: sender)
         }
@@ -130,6 +165,15 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         // TODO: something for multiple selection like extension/contraction of the selected range
 
         return collection.indexPathInDirection(direction, step: step)
+    }
+
+    /// Index path to move the selection to or nil if move is not possible.
+    private func destinationIndexPathForMoveKeyCommand(_ sender: UIKeyCommand) -> IndexPath? {
+        let direction = sender.navigationDirection
+
+        // TODO: something for multiple selection (return an array).
+
+        return collection.indexPathInDirection(direction, step: .closestWithoutWrapping)
     }
 
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
@@ -163,6 +207,26 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return
         }
         collection.activateSelection(at: indexPathForSingleSelectedItem)
+    }
+
+    @objc private func kbd_move(_ sender: UIKeyCommand) {
+        let source = collection.indexPathsForSelectedItems![0]
+
+        guard let destination = destinationIndexPathForMoveKeyCommand(sender) else {
+            return
+        }
+
+        // I have not tested with a diff-able data source.
+
+        collection.kdb_moveItem(at: source, to: destination)
+
+        switch collection.cellVisibility(atIndexPath: destination) {
+        case .fullyVisible:
+            break
+        case .notFullyVisible(let scrollPosition):
+            collection.scrollToItem(at: destination, at: scrollPosition, animated: true)
+            collection.flashScrollIndicators()
+        }
     }
 }
 
@@ -332,7 +396,7 @@ private extension UIKeyCommand {
         if modifierFlags.contains(.alternate) {
             return .end
         } else {
-            return .closest
+            return .closestWithWrapping
         }
     }
 }
