@@ -14,7 +14,7 @@ Arrow keys can be used to change selection in table views and collection views. 
 | Clear selection                                      | esc           | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                       |
 | Activate selection                                   | return, space | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | This will notify the delegate with `didSelectRowAtIndexPath:`.                        |
 | Delete selection                                     | delete        | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. |
-| Move selected item up, down, left or right (reorder) | ⌥⌘ arrow      | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks.                                            |
+| Move selected item up, down, left or right (reorder) | ⌥⌘ arrow      | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. |
 
 ## Navigation
 
