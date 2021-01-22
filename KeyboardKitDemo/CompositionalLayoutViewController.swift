@@ -33,21 +33,10 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
             return section
         }()
 
-        let orthogonalScrollingSection = { () -> NSCollectionLayoutSection in
-            let itemThatFillGroup = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-            let fixedSizeGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(150), heightDimension: .absolute(150)), subitems: [itemThatFillGroup])
-            let section = NSCollectionLayoutSection(group: fixedSizeGroup)
-            section.orthogonalScrollingBehavior = .continuous
-            section.interGroupSpacing = 8
-            return section
-        }()
-
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 12
 
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { sectionIndex, environment -> NSCollectionLayoutSection? in
-            sectionIndex == 1 ? orthogonalScrollingSection : nestedGroupsSection
-        }, configuration: config)
+        let layout = UICollectionViewCompositionalLayout(section: nestedGroupsSection, configuration: config)
 
         return KeyboardCollectionView(frame: .zero, collectionViewLayout: layout)
     }()
