@@ -11,8 +11,8 @@ import UIKit
 /// # Reordering
 ///
 /// If the app enables reordering then KeyboardKit allows users to move items using
-/// option + command + arrow keys. This will swap the selected item with the closest
-/// item in the specified direction.
+/// option + command + arrow keys. This will move the selected item into the position
+/// of the closest item in the specified direction.
 ///
 /// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering, the
 /// collection view’s `dataSource` must implement `collectionView(_:moveItemAt:to:)`. To disable
@@ -206,7 +206,7 @@ extension UICollectionView: SelectableCollection {
          In Objective-C, the Objective-C one is called `UICollectionViewDiffableDataSource`.
          In Swift, the Objective-C one is called `UICollectionViewDiffableDataSourceReference`.
 
-         We check the type using the Objective-C runtime, we need to search for the name as it appears in Objective-C.
+         We check the type using the Objective-C runtime, so we need to search for the name as it appears in Objective-C.
          */
         if NSStringFromClass(type(of: dataSource)).contains("UICollectionViewDiffableDataSource") {
             return false
@@ -315,10 +315,10 @@ private extension UICollectionViewLayout {
         }
 
         switch step {
-        case .end, .closestWithoutWrapping:
+        case .end, .closestForMoving:
             // Already at end so can’t do any more.
             return nil
-        case .closestWithWrapping:
+        case .closest:
             // Wrap around.
             let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction.opposite, step: .end)
             // If we wrapped around to the same object, return nil so we don’t steal this event without doing anything.
@@ -369,22 +369,22 @@ private extension UICollectionViewLayout {
         let rectangleToSearch: CGRect
         switch (resolvedDirection, step) {
 
-        case (.up, .closestWithWrapping), (.up, .closestWithoutWrapping):
+        case (.up, .closest), (.up, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
         case (.down, .end):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: contentSize.height - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
 
-        case (.down, .closestWithWrapping), (.down, .closestWithoutWrapping):
+        case (.down, .closest), (.down, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
         case (.up, .end):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: 0 + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
 
-        case (.left, .closestWithWrapping), (.left, .closestWithoutWrapping):
+        case (.left, .closest), (.left, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         case (.right, .end):
             rectangleToSearch = CGRect(x: contentSize.width - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
 
-        case (.right, .closestWithWrapping), (.right, .closestWithoutWrapping):
+        case (.right, .closest), (.right, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         case (.left, .end):
             rectangleToSearch = CGRect(x: 0 + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
@@ -402,29 +402,30 @@ private extension UICollectionViewLayout {
             guard attributes.isHidden == false
                     && attributes.alpha > 0
                     && attributes.representedElementCategory == .cell
-                    && collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath)
+                    // For moving the destination does not need to be selectable. For selection it obviously does.
+                    && (step == .closestForMoving || collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath))
             else {
                 continue
             }
 
             let distance: CGFloat
             switch (resolvedDirection, step) {
-            case (.up, .closestWithWrapping), (.up, .closestWithoutWrapping):
+            case (.up, .closest), (.up, .closestForMoving):
                 distance = centreOfOldSelection.y - attributes.center.y
             case (.down , .end):
                 distance = contentSize.height - attributes.center.y
 
-            case (.down, .closestWithWrapping), (.down, .closestWithoutWrapping):
+            case (.down, .closest), (.down, .closestForMoving):
                 distance = attributes.center.y - centreOfOldSelection.y
             case (.up , .end):
                 distance = attributes.center.y - 0
 
-            case (.left, .closestWithWrapping), (.left, .closestWithoutWrapping):
+            case (.left, .closest), (.left, .closestForMoving):
                 distance = centreOfOldSelection.x - attributes.center.x
             case (.right , .end):
                 distance = contentSize.width - attributes.center.x
 
-            case (.right, .closestWithWrapping), (.right, .closestWithoutWrapping):
+            case (.right, .closest), (.right, .closestForMoving):
                 distance = attributes.center.x - centreOfOldSelection.x
             case (.left , .end):
                 distance = attributes.center.x
@@ -512,7 +513,7 @@ private extension UICollectionViewFlowLayout {
         case (.spatial, _), (_, .end):
             return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep)
 
-        case (.backwards, .closestWithWrapping):
+        case (.backwards, .closest):
             // Select the first highlightable item before the current selection, or select the last highlightable
             // item if there is no current selection or if the current selection is the first highlightable item.
             if let indexPath = indexPath, let target = collectionView!.selectableIndexPathBeforeIndexPath(indexPath) {
@@ -521,10 +522,10 @@ private extension UICollectionViewFlowLayout {
                 return collectionView!.lastSelectableIndexPath
             }
 
-        case (.backwards, .closestWithoutWrapping):
-            return collectionView!.selectableIndexPathBeforeIndexPath(indexPath!)
+        case (.backwards, .closestForMoving):
+            return collectionView!.indexPathToMoveToBeforeIndexPath(indexPath!)
 
-        case (.forwards, .closestWithWrapping):
+        case (.forwards, .closest):
             // Select the first highlightable item after the current selection, or select the first highlightable
             // item if there is no current selection or if the current selection is the last highlightable item.
             if let indexPath = indexPath, let target = collectionView!.selectableIndexPathAfterIndexPath(indexPath) {
@@ -533,8 +534,8 @@ private extension UICollectionViewFlowLayout {
                 return collectionView!.firstSelectableIndexPath
             }
 
-        case (.forwards, .closestWithoutWrapping):
-            return collectionView!.selectableIndexPathAfterIndexPath(indexPath!)
+        case (.forwards, .closestForMoving):
+            return collectionView!.indexPathToMoveToAfterIndexPath(indexPath!)
         }
     }
 }

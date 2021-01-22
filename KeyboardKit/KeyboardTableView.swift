@@ -8,8 +8,8 @@ import UIKit
 /// # Reordering
 ///
 /// If the app enables reordering then KeyboardKit allows users to move rows using
-/// the option + command + up and option + command + down key combinations.
-/// This will swap the selected row with the row immediately above or below it.
+/// the option + command + up and option + command + down key combinations. This will
+/// move the selected row into the position of the row immediately above or below it.
 ///
 /// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering,
 /// the table view’s `dataSource` must implement `tableView(_:moveRowAt:to:)`. To disable
@@ -222,7 +222,7 @@ extension UITableView: SelectableCollection {
 
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
             switch (direction, step) {
-            case (.up, .closestWithWrapping):
+            case (.up, .closest):
                 // Select the first highlightable item before the current selection, or select the last highlightable
                 // item if there is no current selection or if the current selection is the first highlightable item.
                 if let indexPath = indexPath, let target = selectableIndexPathBeforeIndexPath(indexPath) {
@@ -231,13 +231,13 @@ extension UITableView: SelectableCollection {
                     return lastSelectableIndexPath
                 }
 
-            case (.up, .closestWithoutWrapping):
-                return selectableIndexPathBeforeIndexPath(indexPath!)
+            case (.up, .closestForMoving):
+                return indexPathToMoveToBeforeIndexPath(indexPath!)
 
             case (.up, .end):
                 return firstSelectableIndexPath
 
-            case (.down, .closestWithWrapping):
+            case (.down, .closest):
                 // Select the first highlightable item after the current selection, or select the first highlightable
                 // item if there is no current selection or if the current selection is the last highlightable item.
                 if let indexPath = indexPath, let target = selectableIndexPathAfterIndexPath(indexPath) {
@@ -246,8 +246,8 @@ extension UITableView: SelectableCollection {
                     return firstSelectableIndexPath
                 }
 
-            case (.down, .closestWithoutWrapping):
-                return selectableIndexPathAfterIndexPath(indexPath!)
+            case (.down, .closestForMoving):
+                return indexPathToMoveToAfterIndexPath(indexPath!)
 
             case (.down, .end):
                 return lastSelectableIndexPath

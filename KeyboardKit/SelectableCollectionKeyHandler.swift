@@ -13,11 +13,11 @@ enum NavigationDirection: Int {
 }
 
 enum NavigationStep: Int {
-    /// Step to the next closest item in the specified direction. If reaching the end, starts searching again on the far side.
-    case closestWithWrapping
-    /// Step to the next closest item in the specified direction. Return nil if at the end.
-    case closestWithoutWrapping
-    /// Step to the far end in the specified direction, such as the very top or bottom.
+    /// Step to the next closest selectable item in the specified direction. If reaching the end, starts searching again on the far side.
+    case closest
+    /// Step to the next closest index path to use as a move destination in the specified direction. Return nil if at the end.
+    case closestForMoving
+    /// Step to the selectable item furthest at the end in the specified direction, such as the very top or bottom.
     case end
 }
 
@@ -46,7 +46,7 @@ protocol SelectableCollection: NSObjectProtocol {
     func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility
 
     /// Returns the index path of the item found by moving the given step in the given direction from the item at the given index path.
-    /// If `step` is `closestWithoutWrapping` then `indexPath` must not be nil.
+    /// If `step` is `closestForMoving` then `indexPath` must not be nil.
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
 
     var shouldAllowMoving: Bool { get }
@@ -173,7 +173,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
         // TODO: something for multiple selection (return an array).
 
-        guard let proposed = collection.indexPathFromIndexPath(sourceIndexPath, inDirection: direction, step: .closestWithoutWrapping) else {
+        guard let proposed = collection.indexPathFromIndexPath(sourceIndexPath, inDirection: direction, step: .closestForMoving) else {
             return nil
         }
 
@@ -374,6 +374,36 @@ extension SelectableCollection {
 
         return nil
     }
+
+    /// Returns the index path to move to before a given index path or nil if there is no such index path.
+    func indexPathToMoveToBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        if indexPath.item > 0 {
+            return IndexPath(item: indexPath.item - 1, section: indexPath.section)
+        } else if indexPath.section > 0 {
+            // Deliberately don’t subtract one from the number of items because we are increasing the number of items in
+            // the destination section. It’s fine that this is out of range, even if the destination section is empty.
+            // Otherwise the item being moved would end up as the second-to-last item in the section instead of the last.
+            return IndexPath(item: numberOfItems(inSection: indexPath.section - 1), section: indexPath.section - 1)
+        } else {
+            return nil
+        }
+    }
+
+    /// Returns the index path to move to after a given index path or nil if there is no such index path.
+    func indexPathToMoveToAfterIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        if indexPath.item < numberOfItems(inSection: indexPath.section) - 1 {
+            return IndexPath(item: indexPath.item + 1, section: indexPath.section)
+        } else if indexPath.section < numberOfSections - 1 {
+            // It’s fine if the destination section is empty. The move will create item 0 in that section.
+            return IndexPath(item: 0, section: indexPath.section + 1)
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: -
@@ -398,7 +428,7 @@ private extension UIKeyCommand {
         if modifierFlags.contains(.alternate) {
             return .end
         } else {
-            return .closestWithWrapping
+            return .closest
         }
     }
 }
