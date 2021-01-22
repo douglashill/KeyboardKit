@@ -116,7 +116,7 @@ class ListViewController: KeyboardCollectionViewController {
         indexPath.item != 0
     }
 
-    // This is not called. I can delete this.
+    // This is not called. I can delete this. Yeah because this method is frrom the data source and I changed the data source to be the managed one intead of self
     override func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         indexPath.item != 0
     }

@@ -153,29 +153,70 @@ extension UICollectionView: SelectableCollection {
     }
 
     var shouldAllowMoving: Bool {
+        // This might be wrong for managed data source, or might break in the future.
         dataSource?.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:))) ?? false
     }
 
     func canMoveItem(at indexPath: IndexPath) -> Bool? {
-        dataSource!.collectionView?(self, canMoveItemAt: indexPath)
+
+
+        // Well I didn’t need all this. The managed data source already implements this.
+        // And this doesn’t work anyway because it’s still assuming <Int, Int>
+
+//        if #available(iOS 13.0, *), let managedDataSource = dataSource as? UICollectionViewDiffableDataSource<Int, Int> {
+//            return managedDataSource.canMoveItem(at: indexPath)
+//        } else {
+            return dataSource!.collectionView?(self, canMoveItemAt: indexPath)
+//        }
     }
 
     func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath? {
+        // Does managed data source honour this?
         delegate?.collectionView?(self, targetIndexPathForMoveFromItemAt: originalIndexPath, toProposedIndexPath: proposedIndexPath)
     }
 
+    /*
+     So what could I support?
+
+     If the data source was set up in OC I could support it by using this trick to access the OC API.
+     Not sure this is worth it though.
+
+     If the data source was set up in Swift I would need some sort of API so KDB users
+     can specify what the specialised types are or implement that themselves. I don’t want to do this.
+
+     */
+
     func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
-        // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
-        // nil data source and not implementing method was checked in canMoveItem so force here.
-        dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
+        if #available(iOS 13.0, *), let managedDataSource = self.kbd_objcDiffableDataSource {
+            let snapshot = managedDataSource.snapshot()
 
-        // Calling the method below can result in:
+            let sourceIdentifier = managedDataSource.itemIdentifier(for: indexPath)!
+            let destinationIdentifier = managedDataSource.itemIdentifier(for: newIndexPath)!
 
-        // *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason:
-        // 'UICollectionView must be updated via the UICollectionViewDiffableDataSource APIs when acting
-        // as the UICollectionView's dataSource: please do not call mutation APIs directly on UICollectionView.
+            let isMovingUp = newIndexPath < indexPath
 
-        moveItem(at: indexPath, to: newIndexPath)
+            // This works for moving up. For moving down I’d need to use afterItem instead.
+            // This is not tested. I need to set up a diff-able data source in ObjC to do that and I can’t be bothered / don’t think it’s worth it.
+            if isMovingUp {
+                snapshot.moveItem(withIdentifier: sourceIdentifier, beforeItemWithIdentifier: destinationIdentifier)
+            } else {
+                snapshot.moveItem(withIdentifier: sourceIdentifier, afterItemWithIdentifier: destinationIdentifier)
+            }
+
+            managedDataSource.applySnapshot(snapshot, animatingDifferences: true)
+
+            // TODO: call reorderingHandlers
+
+        }
+        else if NSStringFromClass(type(of: dataSource!)).contains("UICollectionViewDiffableDataSource") {
+            print("Skipping move for Swift diff-able data source.")
+            return
+        } else {
+            // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
+            // nil data source and not implementing method was checked in canMoveItem so force here.
+            dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
+            moveItem(at: indexPath, to: newIndexPath)
+        }
     }
 }
 
@@ -517,3 +558,20 @@ private extension NavigationDirection {
         }
     }
 }
+
+// Don’t need this after all.
+//@available(iOS 13.0, *)
+//private extension UICollectionViewDiffableDataSource {
+//    func canMoveItem(at indexPath: IndexPath) -> Bool {
+//        if #available(iOS 14.0, *) {
+//            guard let itemIdentifier = itemIdentifier(for: indexPath) else {
+//                return false
+//            }
+//            // Match behaviour of UICV by not allowing reordering at all if canReorderItem is not implemented.
+//            return reorderingHandlers.canReorderItem?(itemIdentifier) ?? false
+//        } else {
+//            // The managed data source did not support reordering before iOS 14 so we can always say no.
+//            return false
+//        }
+//    }
+//}

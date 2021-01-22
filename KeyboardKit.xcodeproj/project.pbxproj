@@ -63,6 +63,8 @@
 		A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */; };
 		A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */; };
 		A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E538C5239BFB85004A2EE2 /* TextViewController.swift */; };
+		A5EA8BCF25BAD7BC004CC11A /* DiffableDataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EA8BCD25BAD7BC004CC11A /* DiffableDataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5EA8BD025BAD7BC004CC11A /* DiffableDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EA8BCE25BAD7BC004CC11A /* DiffableDataSources.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +272,8 @@
 		A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardApplication.swift; sourceTree = "<group>"; };
 		A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
 		A5E538C5239BFB85004A2EE2 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		A5EA8BCD25BAD7BC004CC11A /* DiffableDataSources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DiffableDataSources.h; path = ObjC/DiffableDataSources.h; sourceTree = "<group>"; };
+		A5EA8BCE25BAD7BC004CC11A /* DiffableDataSources.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DiffableDataSources.m; path = ObjC/DiffableDataSources.m; sourceTree = "<group>"; };
 		A5FC16BC2532364200E5E30C /* KeyboardKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyboardKitDemo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -377,6 +381,8 @@
 				A53AE01623786CD000B07957 /* KeyboardTableView.swift */,
 				A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */,
 				A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */,
+				A5EA8BCD25BAD7BC004CC11A /* DiffableDataSources.h */,
+				A5EA8BCE25BAD7BC004CC11A /* DiffableDataSources.m */,
 				A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */,
 				A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */,
 				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
@@ -448,6 +454,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5EA8BCF25BAD7BC004CC11A /* DiffableDataSources.h in Headers */,
 				A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */,
 				A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */,
 			);
@@ -737,6 +744,7 @@
 				A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */,
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
 				A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */,
+				A5EA8BD025BAD7BC004CC11A /* DiffableDataSources.m in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,
