@@ -68,6 +68,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
         cell.textLabel!.text = data[indexPath.row]
+        print("Configuring cell for index \(indexPath.row) with text “\(data[indexPath.row])”.")
         return cell
     }
 

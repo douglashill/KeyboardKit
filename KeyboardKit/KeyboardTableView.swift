@@ -241,8 +241,6 @@ extension UITableView: SelectableCollection {
         dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:))) ?? false
     }
 
-    // TODO: Diff-able data source support.
-
     func canMoveItem(at indexPath: IndexPath) -> Bool? {
         dataSource!.tableView?(self, canMoveRowAt: indexPath)
     }
