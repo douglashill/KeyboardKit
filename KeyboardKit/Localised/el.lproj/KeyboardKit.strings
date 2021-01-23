@@ -22,6 +22,10 @@
 "barButton_search" = "Αναζήτηση";
 "barButton_stop" = "Διακοπή";
 "barButton_undo" = "Αναίρεση";
+"collection_moveDown" = "Μετακίνηση κάτω";
+"collection_moveLeft" = "Μετακίνηση αριστερά";
+"collection_moveRight" = "Μετακίνηση δεξιά";
+"collection_moveUp" = "Μετακίνηση πάνω";
 "delete" = "Διαγραφή";
 "find_jump" = "Μετάβαση σε επιλογή";
 "find_next" = "Εύρεση επόμενου";

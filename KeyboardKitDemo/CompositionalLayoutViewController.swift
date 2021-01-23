@@ -52,21 +52,39 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         collectionView.dataSource = self
         collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.accessibilityIdentifier = "compositional layout collection view"
+
+        // UIRefreshControl is not available when optimised for Mac. Crashes at runtime.
+        // https://steipete.com/posts/forbidden-controls-in-catalyst-mac-idiom/
+        if traitCollection.userInterfaceIdiom != .mac {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+            collectionView.refreshControl = refreshControl
+        }
     }
 
+    private static let freshData: [[String]] = {
+        let formatter = NumberFormatter()
+        let sectionData = (0..<50).map {
+            formatter.string(from: NSNumber(value: $0 + 1))!
+        }
+        return [sectionData, sectionData, sectionData]
+    }()
+
+    private var data: [[String]] = freshData
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        data.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        47
+        data[section].count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UICollectionViewListCell
 
         var content = cell.defaultContentConfiguration()
-        content.text = "\(indexPath.item)"
+        content.text = data[indexPath.section][indexPath.item]
         content.textProperties.alignment = .center
         cell.contentConfiguration = content
 
@@ -75,5 +93,18 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
         cell.backgroundConfiguration = background
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let item = data[sourceIndexPath.section].remove(at: sourceIndexPath.item)
+        data[destinationIndexPath.section].insert(item, at: destinationIndexPath.item)
+    }
+
+    @objc private func refresh(_ sender: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.data = CompositionalLayoutViewController.freshData
+            self.collectionView.reloadData()
+            sender.endRefreshing()
+        }
     }
 }

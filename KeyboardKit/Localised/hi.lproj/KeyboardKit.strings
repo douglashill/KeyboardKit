@@ -22,6 +22,10 @@
 "barButton_search" = "खोजें";
 "barButton_stop" = "रोकें";
 "barButton_undo" = "पहले जैसा करें";
+"collection_moveDown" = "नीचे ले जाएँ";
+"collection_moveLeft" = "बाएँ ले जाएँ";
+"collection_moveRight" = "दाएँ ले जाएँ";
+"collection_moveUp" = "ऊपर ले जाएँ";
 "delete" = "डिलीट करें";
 "find_jump" = "चयन पर जाएँ";
 "find_next" = "अगला ढूँढें";

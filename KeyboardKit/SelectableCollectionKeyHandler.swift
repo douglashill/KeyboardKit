@@ -13,9 +13,11 @@ enum NavigationDirection: Int {
 }
 
 enum NavigationStep: Int {
-    /// Step to the next closest item in the specified direction.
+    /// Step to the next closest selectable item in the specified direction. If reaching the end, starts searching again on the far side.
     case closest
-    /// Step to the far end in the specified direction, such as the very top or bottom.
+    /// Step to the next closest index path to use as a move destination in the specified direction. Return nil if at the end.
+    case closestForMoving
+    /// Step to the selectable item furthest at the end in the specified direction, such as the very top or bottom.
     case end
 }
 
@@ -44,7 +46,13 @@ protocol SelectableCollection: NSObjectProtocol {
     func cellVisibility(atIndexPath indexPath: IndexPath) -> CellVisibility
 
     /// Returns the index path of the item found by moving the given step in the given direction from the item at the given index path.
+    /// If `step` is `closestForMoving` then `indexPath` must not be nil.
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath?
+
+    var shouldAllowMoving: Bool { get }
+    func canMoveItem(at indexPath: IndexPath) -> Bool?
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath?
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath)
 }
 
 // MARK: -
@@ -72,6 +80,13 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         UIKeyCommand(.escape, action: #selector(clearSelection)),
     ]
 
+    private lazy var moveKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(([.alternate, .command], .upArrow), action: #selector(kbd_move), title: localisedString(.collection_moveUp)),
+        UIKeyCommand(([.alternate, .command], .downArrow), action: #selector(kbd_move), title: localisedString(.collection_moveDown)),
+        UIKeyCommand(([.alternate, .command], .leftArrow), action: #selector(kbd_move), title: localisedString(.collection_moveLeft)),
+        UIKeyCommand(([.alternate, .command], .rightArrow), action: #selector(kbd_move), title: localisedString(.collection_moveRight)),
+    ]
+
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
@@ -89,10 +104,15 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          for arrows keys it breaks the concept of keyboard focus. Therefore we work around this by blocking all
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
-        if collection.shouldAllowSelection && UIResponder.isTextInputActive == false && isInResponderChain {
-            commands += selectionKeyCommands
-            if collection.shouldAllowEmptySelection ?? true {
-                commands += deselectionKeyCommands
+        if collection.shouldAllowSelection && isInResponderChain {
+            if UIResponder.isTextInputActive == false {
+                commands += selectionKeyCommands
+                if collection.shouldAllowEmptySelection ?? true {
+                    commands += deselectionKeyCommands
+                }
+            }
+            if collection.shouldAllowMoving {
+                commands += moveKeyCommands
             }
         }
 
@@ -118,6 +138,21 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         case #selector(activateSelection):
             return collection.indexPathsForSelectedItems?.count == 1 && isInResponderChain
 
+        case #selector(kbd_move):
+            guard isInResponderChain,
+                  let keyCommand = sender as? UIKeyCommand,
+                  collection.shouldAllowMoving,
+                  let selected = collection.indexPathsForSelectedItems, selected.isEmpty == false,
+                  // TODO: Handle multiple selection.
+                  selected.count == 1,
+                  selected.allSatisfy({
+                      collection.canMoveItem(at: $0) ?? true
+                  })
+            else {
+                return false
+            }
+            return destinationIndexPathForMovingItem(at: selected[0], keyCommand: keyCommand) != nil
+
         default:
             return super.canPerformAction(action, withSender: sender)
         }
@@ -130,6 +165,19 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         // TODO: something for multiple selection like extension/contraction of the selected range
 
         return collection.indexPathInDirection(direction, step: step)
+    }
+
+    /// Index path to move the selection to or nil if move is not possible.
+    private func destinationIndexPathForMovingItem(at sourceIndexPath: IndexPath, keyCommand: UIKeyCommand) -> IndexPath? {
+        let direction = keyCommand.navigationDirection
+
+        // TODO: something for multiple selection (return an array).
+
+        guard let proposed = collection.indexPathFromIndexPath(sourceIndexPath, inDirection: direction, step: .closestForMoving) else {
+            return nil
+        }
+
+        return collection.targetIndexPathForMoveFromItem(at: sourceIndexPath, toProposedIndexPath: proposed) ?? proposed
     }
 
     @objc private func updateSelectionFromKeyCommand(_ sender: UIKeyCommand) {
@@ -163,6 +211,24 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return
         }
         collection.activateSelection(at: indexPathForSingleSelectedItem)
+    }
+
+    @objc private func kbd_move(_ sender: UIKeyCommand) {
+        let source = collection.indexPathsForSelectedItems![0]
+
+        guard let destination = destinationIndexPathForMovingItem(at: source, keyCommand: sender) else {
+            return
+        }
+
+        collection.kdb_moveItem(at: source, to: destination)
+
+        switch collection.cellVisibility(atIndexPath: destination) {
+        case .fullyVisible:
+            break
+        case .notFullyVisible(let scrollPosition):
+            collection.scrollToItem(at: destination, at: scrollPosition, animated: true)
+            collection.flashScrollIndicators()
+        }
     }
 }
 
@@ -307,6 +373,36 @@ extension SelectableCollection {
         }
 
         return nil
+    }
+
+    /// Returns the index path to move to before a given index path or nil if there is no such index path.
+    func indexPathToMoveToBeforeIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        if indexPath.item > 0 {
+            return IndexPath(item: indexPath.item - 1, section: indexPath.section)
+        } else if indexPath.section > 0 {
+            // Deliberately don’t subtract one from the number of items because we are increasing the number of items in
+            // the destination section. It’s fine that this is out of range, even if the destination section is empty.
+            // Otherwise the item being moved would end up as the second-to-last item in the section instead of the last.
+            return IndexPath(item: numberOfItems(inSection: indexPath.section - 1), section: indexPath.section - 1)
+        } else {
+            return nil
+        }
+    }
+
+    /// Returns the index path to move to after a given index path or nil if there is no such index path.
+    func indexPathToMoveToAfterIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        checkIndexPathIsInValidRange(indexPath)
+
+        if indexPath.item < numberOfItems(inSection: indexPath.section) - 1 {
+            return IndexPath(item: indexPath.item + 1, section: indexPath.section)
+        } else if indexPath.section < numberOfSections - 1 {
+            // It’s fine if the destination section is empty. The move will create item 0 in that section.
+            return IndexPath(item: 0, section: indexPath.section + 1)
+        } else {
+            return nil
+        }
     }
 }
 

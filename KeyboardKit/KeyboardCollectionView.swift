@@ -3,8 +3,32 @@
 import UIKit
 
 /// A collection view that supports navigation and selection using a hardware keyboard.
+///
+/// This class can be seen in action in the *List*, *Composition Layout* and *Flow Layout*
+/// examples in the demo app.
+///
 /// Wrapping the selection on reaching the end of a row or column is only supported with `UICollectionViewFlowLayout`.
+///
 /// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
+///
+/// # Reordering
+///
+/// If the app enables reordering then KeyboardKit allows users to move items using
+/// *option + command + arrow keys*. This will move the selected item into the position
+/// of the closest item in the specified direction.
+///
+/// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering, the
+/// collection view’s `dataSource` must implement `collectionView(_:moveItemAt:to:)`. To disable
+/// moving certain items, the data source should implement `collectionView(_:canMoveItemAt:)`.
+/// If this is not implemented then moving will be allowed. To alter the destination
+/// index path of a move operation, the collection view’s `delegate` should implement
+/// `collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)`.
+///
+/// ⚠️ Moving items using a hardware keyboard is not supported when using a `UICollectionViewDiffableDataSource`.
+///
+/// Moving *sections* using a hardware keyboard is not supported.
+///
+/// The *Composition Layout* and *Flow Layout* examples in the demo app show reordering in action.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -35,6 +59,9 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 }
 
 /// A collection view controller that supports navigation and selection using a hardware keyboard.
+///
+/// See `KeyboardCollectionView` for further details. There is no difference in
+/// functionality between the view subclass and the view controller subclass.
 open class KeyboardCollectionViewController: UICollectionViewController, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -151,6 +178,61 @@ extension UICollectionView: SelectableCollection {
     func indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
         collectionViewLayout.kbd_indexPathFromIndexPath(indexPath, inDirection: direction.rawValue, step: step.rawValue)
     }
+
+    var shouldAllowMoving: Bool {
+        guard let dataSource = dataSource else {
+            return false
+        }
+        /*
+         Diff-able data sources are not supported. Several factors make this very difficult to support.
+
+         Firstly, can’t call `moveItem(at:to:)` on a collection view using a diff-able data source. Doing so results in
+
+         *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason:
+         'UICollectionView must be updated via the UICollectionViewDiffableDataSource APIs when acting
+         as the UICollectionView's dataSource: please do not call mutation APIs directly on UICollectionView.
+
+         This makes sense but means KeyboardKit needs to detect this case so it can use the diff-able data source API
+         instead. (And call the reordering handlers to let the app know about the change.)
+
+         However the diff-able data source type is generic in Swift and the way generics work in Swift there is no
+         way to cast to a generic type. You need to know the specialised type, and KeyboardKit couldn’t do this
+         without adding some API that apps need to use. Something like making KeyboardCollectionView and
+         KeyboardCollectionViewController generic or have a generic property. It sounds annoying to deal with.
+
+         An additional complication is that the diff-able data source API is different in Swift and Objective-C.
+         You end up with a different class as the data source depending on which language you use to create it.
+
+         So KeyboardKit would need three implementations of moving: regular data source, Objective-C diff-able data source,
+         and Swift diff-able data source. The Swift one could not work out-of-the-box.
+
+         In Swift, the Swift one is called `UICollectionViewDiffableDataSource<SectionIdentifierType, ItemIdentifierType>`.
+         In Objective-C, the Swift one is called `_TtGC5UIKit34UICollectionViewDiffableDataSourceSiSS_`.
+         In Objective-C, the Objective-C one is called `UICollectionViewDiffableDataSource`.
+         In Swift, the Objective-C one is called `UICollectionViewDiffableDataSourceReference`.
+
+         We check the type using the Objective-C runtime, so we need to search for the name as it appears in Objective-C.
+         */
+        if NSStringFromClass(type(of: dataSource)).contains("UICollectionViewDiffableDataSource") {
+            return false
+        }
+        return dataSource.responds(to: #selector(UICollectionViewDataSource.collectionView(_:moveItemAt:to:)))
+    }
+
+    func canMoveItem(at indexPath: IndexPath) -> Bool? {
+        dataSource!.collectionView?(self, canMoveItemAt: indexPath)
+    }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath? {
+        delegate?.collectionView?(self, targetIndexPathForMoveFromItemAt: originalIndexPath, toProposedIndexPath: proposedIndexPath)
+    }
+
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
+        // nil data source and not implementing method was checked in canMoveItem so force here.
+        dataSource!.collectionView!(self, moveItemAt: indexPath, to: newIndexPath)
+        moveItem(at: indexPath, to: newIndexPath)
+    }
 }
 
 private extension UICollectionViewLayout {
@@ -238,7 +320,7 @@ private extension UICollectionViewLayout {
         }
 
         switch step {
-        case .end:
+        case .end, .closestForMoving:
             // Already at end so can’t do any more.
             return nil
         case .closest:
@@ -292,22 +374,22 @@ private extension UICollectionViewLayout {
         let rectangleToSearch: CGRect
         switch (resolvedDirection, step) {
 
-        case (.up, .closest):
+        case (.up, .closest), (.up, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
         case (.down, .end):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: contentSize.height - offset - distanceToSearch, width: rectangleOfOldSelection.width, height: distanceToSearch)
 
-        case (.down, .closest):
+        case (.down, .closest), (.down, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: rectangleOfOldSelection.midY + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
         case (.up, .end):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.minX, y: 0 + offset, width: rectangleOfOldSelection.width, height: distanceToSearch)
 
-        case (.left, .closest):
+        case (.left, .closest), (.left, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         case (.right, .end):
             rectangleToSearch = CGRect(x: contentSize.width - offset - distanceToSearch, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
 
-        case (.right, .closest):
+        case (.right, .closest), (.right, .closestForMoving):
             rectangleToSearch = CGRect(x: rectangleOfOldSelection.midX + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
         case (.left, .end):
             rectangleToSearch = CGRect(x: 0 + offset, y: rectangleOfOldSelection.minY, width: distanceToSearch, height: rectangleOfOldSelection.height)
@@ -325,29 +407,30 @@ private extension UICollectionViewLayout {
             guard attributes.isHidden == false
                     && attributes.alpha > 0
                     && attributes.representedElementCategory == .cell
-                    && collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath)
+                    // For moving the destination does not need to be selectable. For selection it obviously does.
+                    && (step == .closestForMoving || collectionView!.shouldSelectItemAtIndexPath(attributes.indexPath))
             else {
                 continue
             }
 
             let distance: CGFloat
             switch (resolvedDirection, step) {
-            case (.up, .closest):
+            case (.up, .closest), (.up, .closestForMoving):
                 distance = centreOfOldSelection.y - attributes.center.y
             case (.down , .end):
                 distance = contentSize.height - attributes.center.y
 
-            case (.down, .closest):
+            case (.down, .closest), (.down, .closestForMoving):
                 distance = attributes.center.y - centreOfOldSelection.y
             case (.up , .end):
                 distance = attributes.center.y - 0
 
-            case (.left, .closest):
+            case (.left, .closest), (.left, .closestForMoving):
                 distance = centreOfOldSelection.x - attributes.center.x
             case (.right , .end):
                 distance = contentSize.width - attributes.center.x
 
-            case (.right, .closest):
+            case (.right, .closest), (.right, .closestForMoving):
                 distance = attributes.center.x - centreOfOldSelection.x
             case (.left , .end):
                 distance = attributes.center.x
@@ -444,6 +527,9 @@ private extension UICollectionViewFlowLayout {
                 return collectionView!.lastSelectableIndexPath
             }
 
+        case (.backwards, .closestForMoving):
+            return collectionView!.indexPathToMoveToBeforeIndexPath(indexPath!)
+
         case (.forwards, .closest):
             // Select the first highlightable item after the current selection, or select the first highlightable
             // item if there is no current selection or if the current selection is the last highlightable item.
@@ -452,6 +538,9 @@ private extension UICollectionViewFlowLayout {
             } else {
                 return collectionView!.firstSelectableIndexPath
             }
+
+        case (.forwards, .closestForMoving):
+            return collectionView!.indexPathToMoveToAfterIndexPath(indexPath!)
         }
     }
 }

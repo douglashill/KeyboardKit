@@ -23,6 +23,10 @@ enum LocalisedStringKey: String {
     case barButton_search
     case barButton_stop
     case barButton_undo
+    case collection_moveDown
+    case collection_moveLeft
+    case collection_moveRight
+    case collection_moveUp
     case delete
     case find_jump
     case find_next

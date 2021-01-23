@@ -22,6 +22,10 @@
 "barButton_search" = "Поиск"; // Most common in Apple strings files and matches iOS search fields. However bar button accessibility label is Искать.
 "barButton_stop" = "Остановить";
 "barButton_undo" = "Отменить"; // Most common in Apple strings files. Possible alternative: Не применять. Pages on iOS uses a mix: the undo button accessibility label is Отменить but when you long press it to show the menu to pick from undo or redo it says Не применять (which is combined with the name of the action to be undone).
+"collection_moveDown" = "Переместить вниз"; // Possible alternative: Переместить ниже which is more like below than down.
+"collection_moveLeft" = "Переместить влево";
+"collection_moveRight" = "Переместить вправо";
+"collection_moveUp" = "Переместить вверх"; // Possible alternative: Переместить выше which is more like above than up.
 "delete" = "Удалить";
 "find_jump" = "Перейти к выбранному тексту"; // This means ‘Go to selected text’, which has a clearer meaning than the English text. More common in Apple strings files: Перейти к выбранному (Go to selection).
 "find_next" = "Найти далее";

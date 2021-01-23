@@ -22,6 +22,10 @@
 "barButton_search" = "Cari";
 "barButton_stop" = "Henti";
 "barButton_undo" = "Buat Asal";
+"collection_moveDown" = "Alih ke Bawah";
+"collection_moveLeft" = "Alih ke Kiri";
+"collection_moveRight" = "Alih ke Kanan";
+"collection_moveUp" = "Alih ke Atas";
 "delete" = "Padam";
 "find_jump" = "Lompat ke Pilihan";
 "find_next" = "Cari Seterusnya";

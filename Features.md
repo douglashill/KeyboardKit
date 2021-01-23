@@ -4,16 +4,17 @@ KeyboardKit allows your users to use a hardware keyboard to perform the many act
 
 ## Cell selection
 
-Arrow keys can be used to change selection in table views and collection views. This functionality is not related to the UIKit focus state.
+Arrow keys can be used to change selection in table views and collection views. This functionality is not related to the UIKit focus state. Items can be reordered.
 
-| Feature                                            | Key input     | Available with                                                                                                   | Notes                                                                                 |
-| -------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Select item above, below, left or right            | arrow         | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Selection wraps around. Does not support multiple selection.                          |
-| Select item at top, bottom, far left, or far right | ⌥ arrow       | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Modifier key chosen to be consistent with `NSTableView` from AppKit.                  |
-| Select all                                         | ⌘A            | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                       |
-| Clear selection                                    | esc           | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                       |
-| Activate selection                                 | return, space | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | This will notify the delegate with `didSelectRowAtIndexPath:`.                        |
-| Delete selection                                   | delete        | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. |
+| Feature                                              | Key input     | Available with                                                                                                   | Notes                                                                                 |
+| ---------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Select item above, below, left or right              | arrow         | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Selection wraps around. Does not support multiple selection.                          |
+| Select item at top, bottom, far left, or far right   | ⌥ arrow       | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Modifier key chosen to be consistent with `NSTableView` from AppKit.                  |
+| Select all                                           | ⌘A            | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                       |
+| Clear selection                                      | esc           | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                       |
+| Activate selection                                   | return, space | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | This will notify the delegate with `didSelectRowAtIndexPath:`.                        |
+| Delete selection                                     | delete        | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. |
+| Move selected item up, down, left or right (reorder) | ⌥⌘ arrow      | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. |
 
 ## Navigation
 

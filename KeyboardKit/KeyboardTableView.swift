@@ -4,6 +4,26 @@
 import UIKit
 
 /// A table view that supports navigation and selection using a hardware keyboard.
+///
+/// This class can be seen in action in the *Table View* example in the demo app,
+/// which shows selecting, reordering, deleting and refreshing.
+///
+/// # Reordering
+///
+/// If the app enables reordering then KeyboardKit allows users to move rows using
+/// the *option + command + up* and *option + command + down* key combinations. This will
+/// move the selected row into the position of the row immediately above or below it.
+///
+/// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering,
+/// the table view’s `dataSource` must implement `tableView(_:moveRowAt:to:)`. To disable
+/// moving certain rows, the data source should implement `tableView(_:canMoveRowAt:)`.
+/// If this is not implemented then moving will be allowed. To alter the destination
+/// index path of a move operation, the table view’s `delegate` should implement
+/// `tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:)`.
+///
+/// ⚠️ Moving rows using a hardware keyboard is not supported when using a `UITableViewDiffableDataSource`.
+///
+/// Moving *sections* using a hardware keyboard is not supported.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -27,6 +47,9 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
 }
 
 /// A table view controller that supports navigation and selection using a hardware keyboard.
+///
+/// See `KeyboardTableView` for further details. There is no difference in
+/// functionality between the view subclass and the view controller subclass.
 open class KeyboardTableViewController: UITableViewController, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
@@ -211,6 +234,9 @@ extension UITableView: SelectableCollection {
                     return lastSelectableIndexPath
                 }
 
+            case (.up, .closestForMoving):
+                return indexPathToMoveToBeforeIndexPath(indexPath!)
+
             case (.up, .end):
                 return firstSelectableIndexPath
 
@@ -223,12 +249,41 @@ extension UITableView: SelectableCollection {
                     return firstSelectableIndexPath
                 }
 
+            case (.down, .closestForMoving):
+                return indexPathToMoveToAfterIndexPath(indexPath!)
+
             case (.down, .end):
                 return lastSelectableIndexPath
 
             case (.left, _), (.right, _):
                 return nil
         }
+    }
+
+    var shouldAllowMoving: Bool {
+        guard let dataSource = dataSource else {
+            return false
+        }
+        // Diff-able data sources are not supported. See the comment in the implementation of shouldAllowMoving for UICollectionView.
+        if NSStringFromClass(type(of: dataSource)).contains("UITableViewDiffableDataSource") {
+            return false
+        }
+        return dataSource.responds(to: #selector(UITableViewDataSource.tableView(_:moveRowAt:to:)))
+    }
+
+    func canMoveItem(at indexPath: IndexPath) -> Bool? {
+        dataSource!.tableView?(self, canMoveRowAt: indexPath)
+    }
+
+    func targetIndexPathForMoveFromItem(at originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath? {
+        delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: originalIndexPath, toProposedIndexPath: proposedIndexPath)
+    }
+
+    func kdb_moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+        // It is important to update the data source first otherwise you can end up ‘duplicating’ the cell being moved when moving quickly at the edges.
+        // nil data source and not implementing method was checked in canMoveItem so force here.
+        dataSource!.tableView!(self, moveRowAt: indexPath, to: newIndexPath)
+        moveRow(at: indexPath, to: newIndexPath)
     }
 }
 

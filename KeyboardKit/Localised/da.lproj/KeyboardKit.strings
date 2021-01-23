@@ -22,6 +22,10 @@
 "barButton_search" = "Søg";
 "barButton_stop" = "Stop"; // The accessibility label is Afbryd. Used Stop to match Safari for Mac.
 "barButton_undo" = "Fortryd";
+"collection_moveDown" = "Flyt ned";
+"collection_moveLeft" = "Flyt til venstre";
+"collection_moveRight" = "Flyt til højre";
+"collection_moveUp" = "Flyt op";
 "delete" = "Slet";
 "find_jump" = "Hop til det valgte";
 "find_next" = "Find næste";

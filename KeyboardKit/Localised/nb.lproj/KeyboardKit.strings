@@ -22,6 +22,10 @@
 "barButton_search" = "Søk";
 "barButton_stop" = "Stopp";
 "barButton_undo" = "Angre";
+"collection_moveDown" = "Flytt ned";
+"collection_moveLeft" = "Flytt mot venstre";
+"collection_moveRight" = "Flytt mot høyre";
+"collection_moveUp" = "Flytt opp";
 "delete" = "Slett";
 "find_jump" = "Gå til markering";
 "find_next" = "Finn neste";

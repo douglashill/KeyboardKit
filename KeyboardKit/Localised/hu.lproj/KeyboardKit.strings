@@ -22,6 +22,10 @@
 "barButton_search" = "Keresés";
 "barButton_stop" = "Leállítás";
 "barButton_undo" = "Visszavonás";
+"collection_moveDown" = "Lefelé mozgatás";
+"collection_moveLeft" = "Balra mozgatás";
+"collection_moveRight" = "Jobbra mozgatás";
+"collection_moveUp" = "Felfelé mozgatás";
 "delete" = "Törlés";
 "find_jump" = "Ugrás a kijelölésre";
 "find_next" = "Következő keresése";

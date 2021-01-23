@@ -22,6 +22,10 @@
 "barButton_search" = "Pesquisa"; // Matches iOS search field placeholders.
 "barButton_stop" = "Parar";
 "barButton_undo" = "Desfazer";
+"collection_moveDown" = "Para baixo";
+"collection_moveLeft" = "Para a esquerda";
+"collection_moveRight" = "Para a direita";
+"collection_moveUp" = "Para cima";
 "delete" = "Apagar";
 "find_jump" = "Ir para seleção";
 "find_next" = "Procurar seguinte";

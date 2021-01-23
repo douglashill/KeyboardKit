@@ -22,6 +22,10 @@
 "barButton_search" = "Vyhľadať";
 "barButton_stop" = "Zastaviť";
 "barButton_undo" = "Odvolať";
+"collection_moveDown" = "Posunúť nadol";
+"collection_moveLeft" = "Posunúť doľava";
+"collection_moveRight" = "Posunúť doprava";
+"collection_moveUp" = "Posunúť nahor";
 "delete" = "Vymazať";
 "find_jump" = "Prejsť na výber";
 "find_next" = "Nájsť ďalšie";

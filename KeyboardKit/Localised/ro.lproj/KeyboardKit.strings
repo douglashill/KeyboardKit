@@ -26,6 +26,10 @@
 "barButton_search" = "Căutare";
 "barButton_stop" = "Stop"; // More common in Apple strings files: Oprește
 "barButton_undo" = "Infirmați"; // More common in Apple strings files: Anulează
+"collection_moveDown" = "Mută în jos";
+"collection_moveLeft" = "Mută la stânga";
+"collection_moveRight" = "Mută la dreapta";
+"collection_moveUp" = "Mută în sus";
 "delete" = "Șterge";
 "find_jump" = "Salt la selecție";
 "find_next" = "Găsește următorul";

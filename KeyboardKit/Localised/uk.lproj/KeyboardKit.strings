@@ -22,6 +22,10 @@
 "barButton_search" = "Пошук";
 "barButton_stop" = "Зупинити";
 "barButton_undo" = "Відмінити";
+"collection_moveDown" = "Перемістити донизу"; // Possible alternative: Перемістити[ся] вниз
+"collection_moveLeft" = "Перемістити вліво"; // All four of these could possibly use Переміститися instead of Перемістити.
+"collection_moveRight" = "Перемістити вправо";
+"collection_moveUp" = "Перемістити догори"; // Possible alternative: Перемістити[ся] вгору
 "delete" = "Видалити";
 "find_jump" = "Перейти до виділеного";
 "find_next" = "Знайти наступне";
