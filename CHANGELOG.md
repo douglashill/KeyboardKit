@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 4.4.0
     - Adds commands to move (reorder) the selected item in collection views and table views.
 - 4.3.1
     - Fixes overriding some API from some KeyboardKit classes not being possible because it was marked `public` instead of `open`.
