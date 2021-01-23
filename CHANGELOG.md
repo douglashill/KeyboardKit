@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Adds commands to move (reorder) the selected item in collection views and table views.
 - 4.3.1
     - Fixes overriding some API from some KeyboardKit classes not being possible because it was marked `public` instead of `open`.
     - Fixes the Jump to Selection command in `KeyboardTextView` not working for a plain insertion point (i.e. no selection, which is modelled as a selection with a length of zero).
