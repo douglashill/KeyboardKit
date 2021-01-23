@@ -4,6 +4,9 @@ import UIKit
 
 /// A collection view that supports navigation and selection using a hardware keyboard.
 ///
+/// This class can be seen in action in the *List*, *Composition Layout* and *Flow Layout*
+/// examples in the demo app.
+///
 /// Wrapping the selection on reaching the end of a row or column is only supported with `UICollectionViewFlowLayout`.
 ///
 /// `UICollectionViewCompositionalLayout`’s `orthogonalScrollingBehavior` is not supported.
@@ -11,7 +14,7 @@ import UIKit
 /// # Reordering
 ///
 /// If the app enables reordering then KeyboardKit allows users to move items using
-/// option + command + arrow keys. This will move the selected item into the position
+/// *option + command + arrow keys*. This will move the selected item into the position
 /// of the closest item in the specified direction.
 ///
 /// KeyboardKit’s support for reordering uses standard UIKit API. To enable reordering, the
@@ -21,9 +24,11 @@ import UIKit
 /// index path of a move operation, the collection view’s `delegate` should implement
 /// `collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)`.
 ///
-/// Moving items using a hardware keyboard is not supported when using a `UICollectionViewDiffableDataSource`.
+/// ⚠️ Moving items using a hardware keyboard is not supported when using a `UICollectionViewDiffableDataSource`.
 ///
-/// Moving sections using a hardware keyboard is not supported.
+/// Moving *sections* using a hardware keyboard is not supported.
+///
+/// The *Composition Layout* and *Flow Layout* examples in the demo app show reordering in action.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 
     open override var canBecomeFirstResponder: Bool {
