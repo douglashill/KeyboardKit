@@ -1,7 +1,8 @@
 # KeyboardKit change log
 
 - Next
-    - Fixes overriding some API from some KeyboardKit classes not being possible because it was marked `public` instead of `open`. 
+    - Fixes overriding some API from some KeyboardKit classes not being possible because it was marked `public` instead of `open`.
+    - Fixes the Jump to Selection command in `KeyboardTextView` not working for a plain insertion point (i.e. no selection, which is modelled as a selection with a length of zero).
 - 4.3.0
     - Adds a Define command in `KeyboardTextView` to show `UIReferenceLibraryViewController` for the selected text.
 - 4.2.0

@@ -123,13 +123,22 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     /// Does not scroll with animation to keep the interaction fast and match AppKit.
     private func jumpToSelection() {
         // scrollRangeToVisible(selectedRange) does not consider insets so use different API.
-        
+
         guard let selectedTextRange = selectedTextRange else {
             return
         }
 
-        // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
-        let targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: 0, bottom: -10, right: 0))
+        let targetRectangle: CGRect
+        // firstRectForRange returns the null rectangle if the insertion point is at the end.
+        if selectedTextRange.start == endOfDocument {
+            // Scroll to bottom.
+            targetRectangle = CGRect(x: 0, y: contentInset.top + contentSize.height - 1, width: 1, height: 1)
+        } else {
+            // Add a bit of padding on the top and bottom so the text doesn’t appear right at the top/bottom edge.
+            // Add side padding because scrollRectToVisible seems to be ignored if the rectangle has zero width.
+            targetRectangle = firstRect(for: selectedTextRange).inset(by: UIEdgeInsets(top: -8, left: -1, bottom: -10, right: -1))
+        }
+
         scrollRectToVisible(targetRectangle, animated: false)
     }
 }
