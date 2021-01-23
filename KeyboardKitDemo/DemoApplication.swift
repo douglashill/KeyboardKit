@@ -1,18 +1,24 @@
 // Douglas Hill, January 2021
 
 import KeyboardKit
-import MBProgressHUD
 
-/// Set this to true to show all key inputs overlaid on the screen for creating demo videos.
-private let showKeyInputHUD = false
+// To show all key inputs overlaid on the screen for creating demo videos,
+// define this condition and add https://github.com/jdg/MBProgressHUD.git
+// using Swift Package Manager. This should not be committed because that
+// causes Xcode to make changes to Package.resolved in parent projects,
+// and it’s not worth inconveniencing parent projects for this.
+#if ENABLE_KEY_INPUT_HUD
+import MBProgressHUD
+#endif
 
 /// An application that can show all key inputs in a HUD overlay, which is useful for making demo videos.
 class DemoApplication: KeyboardApplication {
 
+    #if ENABLE_KEY_INPUT_HUD
     override func sendEvent(_ event: UIEvent) {
         super.sendEvent(event)
 
-        guard showKeyInputHUD, let pressesEvent = event as? UIPressesEvent else {
+        guard let pressesEvent = event as? UIPressesEvent else {
             return
         }
         let keys = pressesEvent.allPresses
@@ -81,4 +87,5 @@ class DemoApplication: KeyboardApplication {
 
         hud.hide(animated: true, afterDelay: 0.7)
     }
+    #endif
 }

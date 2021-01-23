@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,7 +32,6 @@
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A5745D2D25BC1F49000265DF /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = A5745D2C25BC1F49000265DF /* MBProgressHUD */; };
 		A5745D2F25BC1F9C000265DF /* DemoApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5745D2E25BC1F9C000265DF /* DemoApplication.swift */; };
 		A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57633BE259A62490063269A /* KeyboardDatePicker.swift */; };
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
@@ -279,7 +278,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5745D2D25BC1F49000265DF /* MBProgressHUD in Frameworks */,
 				A53AE00C2375AAAE00B07957 /* KeyboardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,13 +468,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				A5745D4C25BC34FA000265DF /* PBXTargetDependency */,
 				A53AE00B2375AAAE00B07957 /* PBXTargetDependency */,
 			);
 			name = KeyboardKitDemo;
-			packageProductDependencies = (
-				A5745D2C25BC1F49000265DF /* MBProgressHUD */,
-			);
 			productName = KeyboardKitDemo;
 			productReference = A53ADFE92375AA1600B07957 /* KeyboardKitDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -632,9 +626,6 @@
 				hi,
 			);
 			mainGroup = A53ADFE02375AA1600B07957;
-			packageReferences = (
-				A5E9A335259F94D6008B186D /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
-			);
 			productRefGroup = A53ADFEA2375AA1600B07957 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -807,10 +798,6 @@
 			isa = PBXTargetDependency;
 			target = A53AE0042375AAAE00B07957 /* KeyboardKit */;
 			targetProxy = A55D7AF523C1108300302D79 /* PBXContainerItemProxy */;
-		};
-		A5745D4C25BC34FA000265DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = A5745D4B25BC34FA000265DF /* MBProgressHUD */;
 		};
 		A5B7C126242FA10D00B48595 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1323,30 +1310,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		A5E9A335259F94D6008B186D /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jdg/MBProgressHUD.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A5745D2C25BC1F49000265DF /* MBProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5E9A335259F94D6008B186D /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
-			productName = MBProgressHUD;
-		};
-		A5745D4B25BC34FA000265DF /* MBProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5E9A335259F94D6008B186D /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
-			productName = MBProgressHUD;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A53ADFE12375AA1600B07957 /* Project object */;
 }
