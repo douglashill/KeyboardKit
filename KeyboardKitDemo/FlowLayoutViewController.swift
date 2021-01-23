@@ -44,12 +44,10 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
     private static let freshData: [[String]] = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
-
-        var d: [String] = []
-        for index in 0..<28 {
-            d.append(formatter.string(from: NSNumber(value: index + 1))!)
+        let sectionData = (0..<28).map {
+            formatter.string(from: NSNumber(value: $0 + 1))!
         }
-        return [d, d, d]
+        return [sectionData, sectionData, sectionData]
     }()
 
     private var data: [[String]] = freshData

@@ -4,7 +4,7 @@ KeyboardKit allows your users to use a hardware keyboard to perform the many act
 
 ## Cell selection
 
-Arrow keys can be used to change selection in table views and collection views. This functionality is not related to the UIKit focus state.
+Arrow keys can be used to change selection in table views and collection views. This functionality is not related to the UIKit focus state. Items can be reordered.
 
 | Feature                                              | Key input     | Available with                                                                                                   | Notes                                                                                 |
 | ---------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
