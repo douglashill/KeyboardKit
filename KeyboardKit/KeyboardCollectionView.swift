@@ -198,7 +198,7 @@ extension UICollectionView: SelectableCollection {
          However the diff-able data source type is generic in Swift and the way generics work in Swift there is no
          way to cast to a generic type. You need to know the specialised type, and KeyboardKit couldn’t do this
          without adding some API that apps need to use. Something like making KeyboardCollectionView and
-         KeyboardCollectionViewController generic or have a generic property. It sounds like annoying to deal with.
+         KeyboardCollectionViewController generic or have a generic property. It sounds annoying to deal with.
 
          An additional complication is that the diff-able data source API is different in Swift and Objective-C.
          You end up with a different class as the data source depending on which language you use to create it.
