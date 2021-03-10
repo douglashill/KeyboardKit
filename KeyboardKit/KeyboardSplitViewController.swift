@@ -136,7 +136,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
             // If the primary is a navigation controller we could return .primary and that could make sense.
             // But if the primary is not a navigation controller then we’d have to find the primary’s navigation controller
             // and look at its child view controllers and try to match them up with what we know the supplementary and
-            // secondary are. It gets messy, so let’s skip this. focusedViewController should be used instead.
+            // secondary are. It gets messy, so let’s skip this.
             return nil
         case .expanded(let displayMode):
             switch displayMode {
