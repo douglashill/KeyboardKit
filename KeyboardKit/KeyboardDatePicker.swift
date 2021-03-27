@@ -120,4 +120,11 @@ open class KeyboardDatePicker: UIDatePicker {
 
         return calendar.date(byAdding: component, value: value, to: date)
     }
+
+    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        // Disable UIKit focus system because otherwise on Mac Catalyst you end up with a focus ring when
+        // pressing cmd + arrows, which does not provide as good a user experience as what we do here.
+        // This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
+        false
+    }
 }
