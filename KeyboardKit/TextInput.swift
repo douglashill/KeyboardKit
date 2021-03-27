@@ -3,8 +3,6 @@
 
 import UIKit
 
-private var foundFirstResponder: UIResponder?
-
 extension UIResponder {
 
     /// Whether the first responder accepts text input.
@@ -31,14 +29,18 @@ extension UIResponder {
         return false
     }
 
+    private static var foundFirstResponder: UIResponder?
+
     /// The first responder or nil if there is no first responder.
     private static var firstResponder: UIResponder? {
         UIApplication.shared.sendAction(#selector(UIResponder.kbd_findFirstResponder), to: nil, from: nil, for: nil)
-        return foundFirstResponder
+        let result = foundFirstResponder
+        foundFirstResponder = nil
+        return result
     }
 
     @objc private func kbd_findFirstResponder(sender: Any?) {
-        foundFirstResponder = self
+        UIResponder.foundFirstResponder = self
     }
 }
 
