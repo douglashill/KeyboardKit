@@ -97,11 +97,15 @@ In order to receive key commands, an object must be on the [responder chain](htt
 
 You can see more in the KeyboardKitDemo app, and each class includes API documentation in their Swift source file.
 
-## Approach to API and testing
+## Customisation
 
-The public API is currently kept minimal. Exposing more API without first understanding use-cases would increase the chances of having to make breaking API changes. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss.
+The public API is currently kept minimal so components are easy to drop in. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss. You could also consider directly integrating the source code and modify it as needed.
 
-KeyboardKit does not have many automated tests yet. This is a deliberate choice to invest time on the project where it is most valuable. If functionality is ever reported to be breaking then automated tests should be added at that point.
+## Testing
+
+Tests are not required for new functionality, but fixed regressions should have automated tests.
+
+Use `KeyboardKitTests` for unit tests that don’t need views or a responder chain. Use `KeyboardKitDemoUITests` for integration tests that can be reproduced in the demo app. This only works on Mac Catalyst currently because iOS does not allow simulating hardware keyboard input. Use `KeyboardKitUITests` for any test cases between, which is probably most cases.
 
 ## Credits
 

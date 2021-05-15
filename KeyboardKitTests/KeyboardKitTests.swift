@@ -4,6 +4,7 @@
 import XCTest
 
 private extension UIKeyCommand {
+    /// Convenience for tests were we don’t care about the action.
     convenience init(_ modifierFlags: UIKeyModifierFlags = [], _ input: String) {
         self.init((modifierFlags, input), action: #selector(NSObject.accessibilityActivate))
     }

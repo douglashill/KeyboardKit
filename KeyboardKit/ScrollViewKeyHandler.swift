@@ -237,7 +237,8 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         }
     }
 
-    @objc private func scrollFromKeyCommand(_ keyCommand: UIKeyCommand) {
+    // internal access for tests
+    @objc func scrollFromKeyCommand(_ keyCommand: UIKeyCommand) {
         guard let target = targetContentOffsetForKeyCommand(keyCommand) else {
             return
         }
