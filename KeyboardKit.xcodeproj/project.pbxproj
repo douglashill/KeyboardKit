@@ -23,6 +23,7 @@
 		A53F2D16264FD8C30008B5BE /* TestsHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2D15264FD8C30008B5BE /* TestsHost.swift */; };
 		A53F2D1D264FD8C50008B5BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53F2D1C264FD8C50008B5BE /* Assets.xcassets */; };
 		A53F2D20264FD8C50008B5BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53F2D1E264FD8C50008B5BE /* LaunchScreen.storyboard */; };
+		A53F2D38264FD9840008B5BE /* ScrollingLimitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F2D37264FD9840008B5BE /* ScrollingLimitsTests.swift */; };
 		A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542D89B23A01DC8007E68C3 /* PointAnimator.swift */; };
 		A54EFB1023AADEB8001776A2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54EFB0F23AADEB8001776A2 /* TextInput.swift */; };
 		A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */; };
@@ -160,6 +161,7 @@
 		A53F2D1F264FD8C50008B5BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A53F2D21264FD8C50008B5BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A53F2D35264FD9840008B5BE /* KeyboardKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A53F2D37264FD9840008B5BE /* ScrollingLimitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingLimitsTests.swift; sourceTree = "<group>"; };
 		A53F2D39264FD9840008B5BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
 		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ResponderChainDebugging.m; path = ObjC/ResponderChainDebugging.m; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 		A53F2D36264FD9840008B5BE /* KeyboardKitUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A53F2D37264FD9840008B5BE /* ScrollingLimitsTests.swift */,
 				A53F2D39264FD9840008B5BE /* Info.plist */,
 			);
 			path = KeyboardKitUITests;
@@ -894,6 +897,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A53F2D38264FD9840008B5BE /* ScrollingLimitsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
