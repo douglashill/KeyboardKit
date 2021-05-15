@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.
 - 4.4.0
     - Adds commands to move (reorder) the selected item in collection views and table views.
 - 4.3.1
