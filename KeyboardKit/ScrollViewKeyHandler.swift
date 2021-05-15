@@ -323,25 +323,18 @@ extension UIScrollView {
 private extension UIScrollView {
 
     /// Restricts a proposed content offset to lie within limits of the scroll view content size.
-    func boundedContentOffsetFromProposedContentOffset(_ proposedOffset: CGPoint) -> CGPoint {
-
-        func boundedOffsetFor(proposedOffset: CGFloat, startInset: CGFloat, contentLength: CGFloat, endInset: CGFloat, boundsLength: CGFloat) -> CGFloat {
-            let minOffset = -startInset
-            let maxOffset = contentLength + endInset - boundsLength
-            if maxOffset <= minOffset {
-                // Content is smaller than container. No scrolling. Match UIScrollView by locking content to the top or left edge.
-                return minOffset
-            } else {
-                return min(max(minOffset, proposedOffset), maxOffset)
-            }
-        }
-
+    func boundedContentOffsetFromProposedContentOffset(_ proposedContentOffset: CGPoint) -> CGPoint {
         let insets = adjustedContentInset
+        var offset = proposedContentOffset
 
-        return CGPoint(
-            x: boundedOffsetFor(proposedOffset: proposedOffset.x, startInset: insets.left, contentLength: contentSize.width, endInset: insets.right, boundsLength: bounds.width),
-            y: boundedOffsetFor(proposedOffset: proposedOffset.y, startInset: insets.top, contentLength: contentSize.height, endInset: insets.bottom, boundsLength: bounds.height)
-        )
+        // If the content is smaller than the bounds then the max offset would be less than the min offset.
+        // Therefore restrict to the minimum last so content is aligned to the top or left to match UIScrollView.
+        offset.x = min(offset.x, insets.right + contentSize.width - bounds.width)
+        offset.y = min(offset.y, insets.bottom + contentSize.height - bounds.height)
+        offset.x = max(offset.x, -insets.left)
+        offset.y = max(offset.y, -insets.top)
+
+        return offset
     }
 
     /// Returns the desired content offset due to input from a key command. This does not consider the content offset limits.
