@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 4.4.1
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.
     - Fixes the UIKit focus system interfering with `KeyboardDatePicker` on Mac Catalyst.
     - Fixes a reference to the first responder being kept longer than needed.
