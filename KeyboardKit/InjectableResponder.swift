@@ -11,6 +11,7 @@ class InjectableResponder: UIResponder {
 
     init(owner: ResponderChainInjection) {
         self.owner = owner
+        super.init()
     }
 
     override var next: UIResponder? {

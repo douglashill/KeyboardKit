@@ -59,7 +59,7 @@ extension UIKeyCommand {
             return false
         }
 
-        switch (input) {
+        switch input {
         case .delete, .upArrow, .downArrow, .leftArrow, .rightArrow:
             switch modifierFlags {
             case [], .shift, .control, .alternate, .command, [.shift, .control], [.shift, .alternate], [.shift, .command]:
@@ -85,7 +85,7 @@ extension UIKeyCommand {
             break
         }
         // Normalise case because the system ignores the case. Can’t do this at the start because lowercasing strings like UIKeyInputUpArrow makes them not match.
-        switch (input.lowercased()) {
+        switch input.lowercased() {
         case "a", "b", "d", "e", "f", "h", "i", "j", "k", "m", "n", "o", "p", "t":
             // http://www.hcs.harvard.edu/~jrus/Site/system-bindings.html minus some that don’t work on iOS, plus some that do something on iOS but not on Mac.
             // These do something useful in text input with control or shift + control. Command or control + option are not used for text input.
