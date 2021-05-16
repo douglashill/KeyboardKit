@@ -30,7 +30,7 @@
     - Fixes the UIKit focus system interfering with selection on Mac Catalyst.
 - 3.0.2
     - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.
-- 3.0.0 / 3.0.1
+- 3.0.0 / 3.0.1 — Read more in the blog post: [What’s New in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
     - Xcode 12 is now required.
     - Increases the deployment target from iOS 11 to iOS 12.
     - The demo app now requires iOS 14.
