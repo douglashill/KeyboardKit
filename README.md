@@ -45,17 +45,7 @@ Swift Package Manager requires the Swift and Objective-C sources to be separated
 
 ### CocoaPods
 
-1. Add the following to your `Podfile`:
-    
-    ```ruby
-    pod 'Keyboard-Kit'
-    ```
-    
-2. Run the following command:
-    
-    ```
-    pod install
-    ```
+[KeyboardKit is available on CocoaPods](https://cocoapods.org/pods/Keyboard-Kit) as `Keyboard-Kit`, although using one of the other integration options is recommended.
 
 Please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls) if you notice any integration problems.
 
