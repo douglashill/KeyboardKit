@@ -2,6 +2,8 @@
 
 - Next
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.
+    - Fixes the UIKit focus system interfering with `KeyboardDatePicker` on Mac Catalyst.
+    - Fixes a reference to the first responder being kept longer than needed.
 - 4.4.0
     - Adds commands to move (reorder) the selected item in collection views and table views.
 - 4.3.1
@@ -12,7 +14,7 @@
 - 4.2.0
     - Adds `KeyboardDatePicker` to let users use arrow keys to spatially change the selected date.
 - 4.1.1
-    - Fixes spatial arrow key selection in collections views not respecting `flipsHorizontallyInOppositeLayoutDirection`, `developmentLayoutDirection` and the way `UICollectionViewCompositionalLayout` and `UICollectionViewFlowLayout` can flip even when these properties specify that flipping should not occur. 
+    - Fixes spatial arrow key selection in collections views not respecting `flipsHorizontallyInOppositeLayoutDirection`, `developmentLayoutDirection` and the way `UICollectionViewCompositionalLayout` and `UICollectionViewFlowLayout` can flip even when these properties specify that flipping should not occur.
 - 4.1.0
     - Adds calling the `UITabBarControllerDelegate` methods `shouldSelect` and `didSelect` when changing tab using a keyboard in `KeyboardTabBarController`.
     - Adds deleting rows using the delete key in the table view example in the demo app.
@@ -24,31 +26,31 @@
     - Fixes `KeyboardSplitViewController` disabling collapsing into the `compact` column.
 - 4.0.0
     - Xcode 12.2 is now required.
-    - Add support for Mac Catalyst in the demo app (optimised for Mac). 
-    - Fixes the UIKit focus system interfering with selection on Mac Catalyst. 
+    - Add support for Mac Catalyst in the demo app (optimised for Mac).
+    - Fixes the UIKit focus system interfering with selection on Mac Catalyst.
 - 3.0.2
-    - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.  
+    - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.
 - 3.0.0 / 3.0.1
     - Xcode 12 is now required.
     - Increases the deployment target from iOS 11 to iOS 12.
     - The demo app now requires iOS 14.
-    - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view. 
+    - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view.
     - Adds warning logging when trying to set the `primaryAction` or `menu` on a `KeyboardBarButton` since those can’t be activated with a keyboard.
     - Adds `KeyboardCollectionViewDelegate` and `KeyboardTableViewDelegate` to be notified of selection changes using arrow keys and to disallow clearing selection with escape.
     - Adds an overhaul of the demo app to use a sidebar (or navigation stack) as the root view. The tab bar example has been moved to a modal.
-    - Adds more sophisticated first responder management in the demo app. 
+    - Adds more sophisticated first responder management in the demo app.
     - Adds an example showing a list with `UICollectionView`.
     - Adds an example showing `UICollectionViewCompositionalLayout` with nested groups.
     - Adds an example showing a triple column split view (available as a modal).
 - 2.1.0
     - Resolves project settings warnings with Xcode 12.
-    - Adds support for selection wrapping in any `UICollectionViewLayout`. 
+    - Adds support for selection wrapping in any `UICollectionViewLayout`.
     - Adds selecting the last item initially with `UICollectionViewCompositionalLayout` when pressing the up arrow with vertical scrolling or the trailing arrow with a horizontal scrolling.
     - Fixes selection in collection views not working as expected when there are supplementary views, decoration views, cells with an alpha of zero, or items for which the delegate returns false to `collectionView(_:shouldHighlightItemAt:)`. This issue affected  `UICollectionLayoutListConfiguration`.
     - Fixes selection in collection views sometimes shifting into an adjacent row or column when there is no padding between items.
     - Fixes the back command not working with nested `UINavigationControllers`s.
 - 2.0.1
-    - Adds support for Swift Packager Manager. 
+    - Adds support for Swift Packager Manager.
 - 2.0.0
     - Xcode 11.4 is now required.
     - KeyboardKit scroll views will no longer send their delegate `scrollViewDidEndScrollingAnimation(_:)` after keyboard-driven animations end. Instead, the scroll view’s delegate can conform to `KeyboardScrollingDelegate` to receive callbacks when keyboard-driven scrolling animations start or finish.
