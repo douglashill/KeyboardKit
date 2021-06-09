@@ -54,7 +54,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         collectionView.selectItem(at: nil, animated: false, scrollPosition: [])
     }
 
-    private lazy var cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
+    private let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ((String, UIImage?))> { cell, indexPath, item in
         cell.contentConfiguration = {
             var config = cell.defaultContentConfiguration()
             config.text = item.0
