@@ -14,7 +14,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 - [Key equivalents for bar buttons](Features.md#key-equivalents-for-buttons) (navigation bars, toolbars)
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
 - [Keyboard window management](Features.md#window-management) (open, close, cycle)
-- [Keyboard date picker](Features.md#date-picker)  (change day, week, month or year)
+- [Keyboard date picker](Features.md#date-picker) (change day, week, month or year)
 - [Discoverability titles in 39 localisations](Features.md#localisation)
 
 ## Requirements
@@ -45,7 +45,7 @@ Swift Package Manager requires the Swift and Objective-C sources to be separated
 
 ### CocoaPods
 
-[KeyboardKit is available on CocoaPods](https://cocoapods.org/pods/Keyboard-Kit) as `Keyboard-Kit`, although using one of the other integration options is recommended.
+[KeyboardKit is available on CocoaPods](https://cocoapods.org/pods/Keyboard-Kit) as `Keyboard-Kit`.
 
 Please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls) if you notice any integration problems.
 
