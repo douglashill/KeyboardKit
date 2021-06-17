@@ -28,8 +28,58 @@ import UIKit
 /// Gregorian, Buddhist, Chinese etc. Inputs are flipped for right-to-left layouts.
 @available(iOS 14.0, *)
 open class KeyboardDatePicker: UIDatePicker {
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        sharedInit()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        // Create a unique focus group because if the date picker is focusable then arrow keys should change the selected date within the picker.
+        focusGroupIdentifier = "<\(type(of: self)): \(Unmanaged.passUnretained(self).toOpaque())>"
+    }
+
     open override var canBecomeFirstResponder: Bool {
         true
+    }
+
+    open override var canBecomeFocused: Bool {
+        isInSupportedStyleAndMode ? true : super.canBecomeFocused
+    }
+
+    /// Backing store for `customFocusEffect` because stored properties can’t have availability conditions.
+    private var customFocusEffectStorage: NSObject??
+
+    /// Backing property for if `focusEffect` is changed from its default.
+    ///
+    /// This is deliberately double optional:
+    /// - `.none` means the property hasn’t been set so use the default value.
+    /// - `.some(.none)` means the property has been explicitly set to nil so don’t show a focus effect.
+    @available(iOS 15.0, *)
+    private var customFocusEffect: UIFocusEffect?? {
+        get {
+            customFocusEffectStorage as! UIFocusEffect??
+        }
+        set {
+            customFocusEffectStorage = newValue
+        }
+    }
+
+    /// The focus effect on `KeyboardDatePicker` defaults to a halo with rounded corners that tracks the view bounds.
+    @available(iOS 15.0, *)
+    open override var focusEffect: UIFocusEffect? {
+        // It’s easiest to have this be a computed getter so it can track the bounds.
+        // The empty initializer does track the bounds but has no corner radius.
+        get {
+            customFocusEffect ?? UIFocusHaloEffect(roundedRect: bounds, cornerRadius: 8, curve: .continuous)
+        }
+        set {
+            customFocusEffect = .some(newValue)
+        }
     }
 
     private lazy var adjustmentCommands: [UIKeyCommand] = [
@@ -42,7 +92,13 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand((.alternate, .upArrow), action: #selector(kbd_adjustDate)),
         UIKeyCommand((.alternate, .downArrow), action: #selector(kbd_adjustDate)),
         UIKeyCommand((.command, "t"), action: #selector(kbd_adjustDate)),
-    ]
+    ].map {
+        if #available(iOS 15.0, *) {
+            // KeyboardDatePicker defines its own focus group so arrow keys wouldn’t do anything in the focus system anyway.
+            $0.wantsPriorityOverSystemBehavior = true
+        }
+        return $0
+    }
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -122,9 +178,13 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // Disable UIKit focus system because otherwise on Mac Catalyst you end up with a focus ring when
-        // pressing cmd + arrows, which does not provide as good a user experience as what we do here.
-        // This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
-        false
+        if #available(iOS 15.0, *) {
+            return super.shouldUpdateFocus(in: context)
+        } else {
+            // Disable UIKit focus system on Big Sur because otherwise you end up with a focus ring on days within
+            // the picker when pressing cmd + arrows, which does not provide as good a user experience as what we
+            // do here. This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
+            return isInSupportedStyleAndMode == false
+        }
     }
 }
