@@ -11,6 +11,10 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
         true
     }
 
+    open override var canBecomeFocused: Bool {
+        keyHandler.areKeyCommandsEnabled ? true : super.canBecomeFocused
+    }
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         sharedInit()

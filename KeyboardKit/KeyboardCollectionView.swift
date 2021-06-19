@@ -30,6 +30,21 @@ import UIKit
 ///
 /// The *Composition Layout* and *Flow Layout* examples in the demo app show reordering in action.
 open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
+    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        sharedInit()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        if #available(iOS 15.0, *) {
+            allowsFocus = true
+        }
+    }
 
     open override var canBecomeFirstResponder: Bool {
         true
@@ -53,8 +68,12 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
-        false
+        if #available(iOS 15.0, *) {
+            return super.shouldUpdateFocus(in: context)
+        } else {
+            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
+            return false
+        }
     }
 }
 
@@ -63,7 +82,6 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
 /// See `KeyboardCollectionView` for further details. There is no difference in
 /// functionality between the view subclass and the view controller subclass.
 open class KeyboardCollectionViewController: UICollectionViewController, ResponderChainInjection {
-
     open override var canBecomeFirstResponder: Bool {
         true
     }
@@ -85,9 +103,20 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
         }
     }
 
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        if #available(iOS 15.0, *) {
+            collectionView.allowsFocus = true
+        }
+    }
+
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
-        false
+        if #available(iOS 15.0, *) {
+            return super.shouldUpdateFocus(in: context)
+        } else {
+            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
+            return false
+        }
     }
 }
 
@@ -118,11 +147,11 @@ public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
 
 extension UICollectionView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
-        shouldAllowSelection == false
+        isKeyboardScrollingEnabled
     }
 
     override var kbd_isSpaceBarScrollingEnabled: Bool {
-        shouldAllowSelection == false
+        isKeyboardScrollingEnabled
     }
 }
 
@@ -131,12 +160,28 @@ extension UICollectionView: SelectableCollection {
         delegate as? KeyboardCollectionViewDelegate
     }
 
-    var shouldAllowSelection: Bool {
-        allowsSelection
+    var allowsSelectionDuringEditing_: Bool {
+        if #available(iOS 14.0, *) {
+            return allowsSelectionDuringEditing
+        } else {
+            return false // Doesn’t matter because isEditing_ will always be false.
+        }
     }
 
-    var shouldAllowMultipleSelection: Bool {
-        allowsMultipleSelection
+    var allowsMultipleSelectionDuringEditing_: Bool {
+        if #available(iOS 14.0, *) {
+            return allowsMultipleSelectionDuringEditing
+        } else {
+            return false // Doesn’t matter because isEditing_ will always be false.
+        }
+    }
+
+    var isEditing_: Bool {
+        if #available(iOS 14.0, *) {
+            return isEditing
+        } else {
+            return false
+        }
     }
 
     var shouldAllowEmptySelection: Bool? {

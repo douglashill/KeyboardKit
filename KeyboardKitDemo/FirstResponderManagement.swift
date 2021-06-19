@@ -36,7 +36,11 @@ class FirstResponderViewController: UIViewController {
 
 extension UIWindow {
     func updateFirstResponder() {
-        rootViewController!.kd_becomeFirstResponderInHierarchy()
+        if #available(iOS 15.0, *) {
+            // UIKit focus system handles this.
+        } else {
+            rootViewController!.kd_becomeFirstResponderInHierarchy()
+        }
     }
 }
 

@@ -25,6 +25,21 @@ import UIKit
 ///
 /// Moving *sections* using a hardware keyboard is not supported.
 open class KeyboardTableView: UITableView, ResponderChainInjection {
+    public override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+        sharedInit()
+    }
+
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        sharedInit()
+    }
+
+    private func sharedInit() {
+        if #available(iOS 15.0, *) {
+            allowsFocus = true
+        }
+    }
 
     open override var canBecomeFirstResponder: Bool {
         true
@@ -41,8 +56,12 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
-        false
+        if #available(iOS 15.0, *) {
+            return super.shouldUpdateFocus(in: context)
+        } else {
+            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
+            return false
+        }
     }
 }
 
@@ -51,7 +70,6 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
 /// See `KeyboardTableView` for further details. There is no difference in
 /// functionality between the view subclass and the view controller subclass.
 open class KeyboardTableViewController: UITableViewController, ResponderChainInjection {
-
     open override var canBecomeFirstResponder: Bool {
         true
     }
@@ -66,9 +84,20 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
         return super.next
     }
 
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        if #available(iOS 15.0, *) {
+            tableView.allowsFocus = true
+        }
+    }
+
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // Disable UIKit focus system on Mac Catalyst because KeyboardKit implements focus itself using selection.
-        false
+        if #available(iOS 15.0, *) {
+            return super.shouldUpdateFocus(in: context)
+        } else {
+            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
+            return false
+        }
     }
 }
 
@@ -160,11 +189,11 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
 
 extension UITableView {
     override var kbd_isArrowKeyScrollingEnabled: Bool {
-        shouldAllowSelection == false
+        isKeyboardScrollingEnabled
     }
 
     override var kbd_isSpaceBarScrollingEnabled: Bool {
-        shouldAllowSelection == false
+        isKeyboardScrollingEnabled
     }
 }
 
@@ -177,12 +206,16 @@ extension UITableView: SelectableCollection {
         numberOfRows(inSection: section)
     }
 
-    var shouldAllowSelection: Bool {
-        isEditing ? allowsSelectionDuringEditing : allowsSelection
+    var allowsSelectionDuringEditing_: Bool {
+        allowsSelectionDuringEditing
     }
 
-    var shouldAllowMultipleSelection: Bool {
-        isEditing ? allowsMultipleSelectionDuringEditing : allowsMultipleSelection
+    var allowsMultipleSelectionDuringEditing_: Bool {
+        allowsMultipleSelectionDuringEditing
+    }
+
+    var isEditing_: Bool {
+        isEditing
     }
 
     var shouldAllowEmptySelection: Bool? {

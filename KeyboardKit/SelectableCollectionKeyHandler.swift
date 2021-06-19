@@ -26,8 +26,15 @@ protocol SelectableCollection: NSObjectProtocol {
     var numberOfSections: Int { get }
     func numberOfItems(inSection: Int) -> Int
 
-    var shouldAllowSelection: Bool { get }
-    var shouldAllowMultipleSelection: Bool { get }
+    var allowsSelection: Bool { get }
+    var allowsMultipleSelection: Bool { get }
+    var allowsSelectionDuringEditing_: Bool { get }
+    var allowsMultipleSelectionDuringEditing_: Bool { get }
+    var isEditing_: Bool { get }
+
+    @available(iOS 15.0, *) var allowsFocus: Bool { get }
+    @available(iOS 15.0, *) var allowsFocusDuringEditing: Bool { get }
+
     /// Optional because the delegate might not implement the method so the default value is not repeated.
     var shouldAllowEmptySelection: Bool? { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
@@ -229,6 +236,26 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             collection.scrollToItem(at: destination, at: scrollPosition, animated: true)
             collection.flashScrollIndicators()
         }
+    }
+}
+
+// MARK: - Allowing selection
+
+extension SelectableCollection {
+    var isKeyboardScrollingEnabled: Bool {
+        if #available(iOS 15.0, *) {
+            return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
+        } else {
+            return shouldAllowSelection == false
+        }
+    }
+
+    var shouldAllowSelection: Bool {
+        isEditing_ ? allowsSelectionDuringEditing_ : allowsSelection
+    }
+
+    var shouldAllowMultipleSelection: Bool {
+        isEditing_ ? allowsMultipleSelectionDuringEditing_ : allowsMultipleSelection
     }
 }
 

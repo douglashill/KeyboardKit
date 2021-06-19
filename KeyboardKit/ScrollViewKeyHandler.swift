@@ -34,16 +34,25 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
     private let scrollAction = #selector(scrollFromKeyCommand)
 
-    private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [String.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .command].map { modifierFlags in
-            UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
+            let command = UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
+            if #available(iOS 15.0, *) {
+                command.wantsPriorityOverSystemBehavior = true
+            }
+            return command
         }
     }
 
     private lazy var spaceBarScrollingCommands: [UIKeyCommand] = [
         UIKeyCommand(.space, action: scrollAction),
         UIKeyCommand((.shift, .space), action: scrollAction),
-    ]
+    ].map {
+        if #available(iOS 15.0, *) {
+            $0.wantsPriorityOverSystemBehavior = true
+        }
+        return $0
+    }
 
     private lazy var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] = [
         UIKeyCommand(.pageUp, action: scrollAction),
@@ -104,6 +113,11 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         }
 
         return commands
+    }
+
+    /// A simple check for whether the scroll view can become focused.
+    var areKeyCommandsEnabled: Bool {
+        scrollView.isScrollEnabled || scrollView.isZooming || scrollView.canRefresh
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
