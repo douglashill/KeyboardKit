@@ -1,8 +1,9 @@
 // Douglas Hill, December 2019
 
 import KeyboardKit
+import UIKit
 
-class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDataSource {
+class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     override init() {
         super.init()
         title = "Flow Layout"
@@ -29,6 +30,7 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
 
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.accessibilityIdentifier = "flow layout collection view"
 
@@ -69,6 +71,10 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = data[sourceIndexPath.section].remove(at: sourceIndexPath.item)
         data[destinationIndexPath.section].insert(item, at: destinationIndexPath.item)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 
     @objc private func refresh(_ sender: UIRefreshControl) {
@@ -117,6 +123,14 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
 
         private func updateColours() {
             contentView.layer.borderColor = UIColor.label.cgColor
+        }
+
+        @available(iOS 15.0, *)
+        override var focusEffect: UIFocusEffect? {
+            get {
+                UIFocusHaloEffect(roundedRect: contentView.frame, cornerRadius: contentView.layer.cornerRadius, curve: contentView.layer.cornerCurve)
+            }
+            set {}
         }
     }
 }
