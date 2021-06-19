@@ -43,7 +43,11 @@ open class KeyboardNavigationController: UINavigationController {
             let navigationItem = topViewController.navigationItem
             var additionalCommands: [UIKeyCommand] = []
 
-            additionalCommands += backKeyCommands
+            if #available(iOS 15, *) {
+                // UIKit provides cmd-[ to go back (you can see this coming from super).
+            } else {
+                additionalCommands += backKeyCommands
+            }
 
             let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
                 $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
