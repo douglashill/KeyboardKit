@@ -9,7 +9,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 ## Features
 
 - [Keyboard cell selection](/Features.md#cell-selection) (collection views, table views)
-- [Keyboard navigation](/Features.md#navigation) (split views, navigation controllers, tab bars, modals) 
+- [Keyboard navigation](/Features.md#navigation) (split views, navigation controllers, tab bars, modals)
 - [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end)
 - [Key equivalents for bar buttons](Features.md#key-equivalents-for-buttons) (navigation bars, toolbars)
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
@@ -92,7 +92,7 @@ The public API is currently kept minimal so components are easy to drop in. If t
 
 ## Learn more
 
-- Conference talk: [*Keyboard control in UIKit apps* at iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933) 
+- Conference talk: [*Keyboard control in UIKit apps* at iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933)
 - Podcast discussion: [iPhreaks episode 297](https://devchat.tv/iphreaks/ips-297-keyboard-controls-with-douglas-hill/)
 - Blog post: [What’s New in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
 - [Change log](/CHANGELOG.md)

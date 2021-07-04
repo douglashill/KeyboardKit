@@ -29,4 +29,4 @@ func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardS
 
 The `focusedColumn` is always considered to be `nil` when the split view is collapsed. You may need to handle collapsed case depending on your app. In this simple example nothing needs to be done because KeyboardSplitViewController already makes sure the focused column stays visible when collapsing and since the view controller in that column was first responder before it will remain first responder after collapsing.
 
-To see fully functional examples, check out `DoubleColumnSplitViewController` and `TripleColumnListViewController` in the KeyboardKit demo app. 
+To see fully functional examples, check out `DoubleColumnSplitViewController` and `TripleColumnListViewController` in the KeyboardKit demo app.

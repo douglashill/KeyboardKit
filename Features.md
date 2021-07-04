@@ -92,7 +92,7 @@ Key commands for working with windows are provided for iPad. These are not neede
 
 ## Date picker
 
-`KeyboardDatePicker` lets users use arrow keys to spatially change the selected day. It supports the `.inline` style with the mode set to either `.date` or  `.dateAndTime`. This class requires iOS 14 or later. 
+`KeyboardDatePicker` lets users use arrow keys to spatially change the selected day. It supports the `.inline` style with the mode set to either `.date` or  `.dateAndTime`. This class requires iOS 14 or later.
 
 | Feature      | Key input | Notes                                          |
 | ------------ | --------- | ---------------------------------------------- |

@@ -31,7 +31,7 @@ protocol SelectableCollection: NSObjectProtocol {
     /// Optional because the delegate might not implement the method so the default value is not repeated.
     var shouldAllowEmptySelection: Bool? { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
-    
+
     var indexPathsForSelectedItems: [IndexPath]? { get }
     /// Make sure `notifyDelegateOfSelectionChange` is called after this (potentially after batch selection changes).
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition)

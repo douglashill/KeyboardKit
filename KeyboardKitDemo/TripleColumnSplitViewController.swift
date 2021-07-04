@@ -78,7 +78,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+
         innerSplitViewController.view.frame = view.bounds
     }
 

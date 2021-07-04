@@ -13,7 +13,7 @@ class CompositionalLayoutViewController: FirstResponderViewController, UICollect
     private lazy var collectionView: UICollectionView = {
         let nestedGroupsSection = { () -> NSCollectionLayoutSection in
             let standardInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             let horizontalStackingSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
             let verticalStackingSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.5))
 
