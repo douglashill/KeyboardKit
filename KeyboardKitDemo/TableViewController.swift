@@ -44,6 +44,18 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Making this animated does not seem to work with iOS 15.0 beta 2. Therefore the delay is long
+        // to make sure the previous selection is briefly is visible. When dropping iOS 14 (so first
+        // responder management is no longer necessary) it would be good to swap the superclass to
+        // UITableViewController because that handles deselection on appearing automatically.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
+        }
+    }
+
     private static let freshData: [[String]] = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
