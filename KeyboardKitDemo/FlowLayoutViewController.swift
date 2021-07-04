@@ -31,7 +31,7 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(Cell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView.accessibilityIdentifier = "flow layout collection view"
 
         // UIRefreshControl is not available when optimised for Mac. Crashes at runtime.
@@ -63,8 +63,18 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! Cell
-        cell.label.text = data[indexPath.section][indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UICollectionViewListCell
+
+        var contentConfiguration = cell.defaultContentConfiguration()
+        contentConfiguration.text = data[indexPath.section][indexPath.item]
+        contentConfiguration.textProperties.alignment = .center
+        contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+        cell.contentConfiguration = contentConfiguration
+
+        var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+        backgroundConfiguration.cornerRadius = 20
+        cell.backgroundConfiguration = backgroundConfiguration
+
         return cell
     }
 
@@ -82,55 +92,6 @@ class FlowLayoutViewController: FirstResponderViewController, UICollectionViewDa
             self.data = FlowLayoutViewController.freshData
             self.collectionView.reloadData()
             sender.endRefreshing()
-        }
-    }
-
-    private class Cell: UICollectionViewCell {
-        let label = UILabel()
-
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-
-            contentView.layer.cornerRadius = 25
-            contentView.layer.cornerCurve = .continuous
-            contentView.backgroundColor = .secondarySystemGroupedBackground
-
-            contentView.addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            ])
-
-            updateColours()
-        }
-
-        required init?(coder decoder: NSCoder) { preconditionFailure() }
-
-        override var isSelected: Bool {
-            didSet {
-                contentView.layer.borderWidth = isSelected ? 2 : 0
-            }
-        }
-
-        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-            super.traitCollectionDidChange(previousTraitCollection)
-
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-                updateColours()
-            }
-        }
-
-        private func updateColours() {
-            contentView.layer.borderColor = UIColor.label.cgColor
-        }
-
-        @available(iOS 15.0, *)
-        override var focusEffect: UIFocusEffect? {
-            get {
-                UIFocusHaloEffect(roundedRect: contentView.frame, cornerRadius: contentView.layer.cornerRadius, curve: contentView.layer.cornerCurve)
-            }
-            set {}
         }
     }
 }
