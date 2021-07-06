@@ -113,12 +113,15 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
         if collection.shouldAllowSelection && isInResponderChain {
-            if UIResponder.isTextInputActive == false {
-                commands += selectionKeyCommands
-                if collection.shouldAllowEmptySelection ?? true {
-                    commands += deselectionKeyCommands
+            if #available(iOS 15.0, *) { /* UIKit focus system handled this instead. */ } else {
+                if UIResponder.isTextInputActive == false {
+                    commands += selectionKeyCommands
+                    if collection.shouldAllowEmptySelection ?? true {
+                        commands += deselectionKeyCommands
+                    }
                 }
             }
+
             if collection.shouldAllowMoving {
                 commands += moveKeyCommands
             }
