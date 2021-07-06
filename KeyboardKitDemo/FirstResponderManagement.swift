@@ -17,7 +17,12 @@ class FirstResponderViewController: UIViewController {
     var windowIWasIn: UIWindow?
 
     override var canBecomeFirstResponder: Bool {
-        true
+        if #available(iOS 15.0, *) {
+            // If we return true here then focus is lost when pushing in TableViewController and ListViewController.
+            return super.canBecomeFirstResponder
+        } else {
+            return true
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
