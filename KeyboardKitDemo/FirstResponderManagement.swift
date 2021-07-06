@@ -30,6 +30,7 @@ class FirstResponderViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         windowIWasIn?.updateFirstResponder()
+        windowIWasIn = nil
     }
 }
 
