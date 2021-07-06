@@ -38,6 +38,7 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     private func sharedInit() {
         if #available(iOS 15.0, *) {
             allowsFocus = true
+            remembersLastFocusedIndexPath = true
         }
     }
 
@@ -88,6 +89,7 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
         super.viewDidLoad()
         if #available(iOS 15.0, *) {
             tableView.allowsFocus = true
+            tableView.remembersLastFocusedIndexPath = true
         }
     }
 

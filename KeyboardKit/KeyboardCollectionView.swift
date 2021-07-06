@@ -43,6 +43,7 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     private func sharedInit() {
         if #available(iOS 15.0, *) {
             allowsFocus = true
+            remembersLastFocusedIndexPath = true
         }
     }
 
@@ -107,6 +108,7 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
         super.viewDidLoad()
         if #available(iOS 15.0, *) {
             collectionView.allowsFocus = true
+            collectionView.remembersLastFocusedIndexPath = true
         }
     }
 
