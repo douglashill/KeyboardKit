@@ -56,6 +56,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
 
+        // This notification won’t be posted on iOS 15 and later because we use the UIKit focus system instead.
         NotificationCenter.default.addObserver(self, selector: #selector(updateTitleTextAttributes), name: firstResponderDidChangeNotification, object: nil)
     }
 
@@ -63,6 +64,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         dismiss(animated: true)
     }
 
+    // This method is not used on iOS 15 and later because the UIKit clearly shows which item is focused.
     @objc private func updateTitleTextAttributes() {
         for navigationController in [primaryNavigationController, supplementaryNavigationController, secondaryNavigationController] {
             let isStrong = innerSplitViewController.isCollapsed || navigationController.viewControllers.first!.view.isFirstResponder

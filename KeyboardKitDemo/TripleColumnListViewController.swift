@@ -32,10 +32,6 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     /// The index of the selected item in the list.
     var selectedIndex = 0
 
-    private func updateSelectedIndexFromCollectionView() {
-        selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item ?? 0
-    }
-
     private lazy var collectionView = KeyboardCollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: appearance)))
 
     override func loadView() {
@@ -76,7 +72,6 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        // This seems the most robust way to ensure the collection view always has a selected item.
         collectionView.selectItem(at: IndexPath(item: selectedIndex, section: 0), animated: false, scrollPosition: [])
     }
 
@@ -92,14 +87,25 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     // MARK: - UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        updateSelectedIndexFromCollectionView()
+        selectedIndex = indexPath.item
         delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn focusUpdateContext: UICollectionViewFocusUpdateContext, with animationCoordinator: UIFocusAnimationCoordinator) {
+        guard let indexPath = focusUpdateContext.nextFocusedIndexPath, indexPath.item != selectedIndex else {
+            return
+        }
+
+        selectedIndex = indexPath.item
+        // Keep the selection in sync with focus without using selectionFollowsFocus since that would make columns hide and show.
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: false)
     }
 
     // MARK: - KeyboardCollectionViewDelegate
 
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
-        updateSelectedIndexFromCollectionView()
+        selectedIndex = collectionView.indexPathsForSelectedItems?.first?.item ?? 0
         delegate?.didChangeSelectedItemsInListViewController(self, isExplicitActivation: false)
     }
 
