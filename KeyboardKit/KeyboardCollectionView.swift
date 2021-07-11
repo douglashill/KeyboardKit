@@ -131,6 +131,7 @@ public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
     /// Called when a keyboard is used to change the selected items.
     ///
     /// This happens in response to arrow keys, escape and ⌘A.
+    /// On iOS 15 and later, this is only called for Select All (⌘A) because the UIKit focus system is used instead.
     /// The items show as selected but `collectionView(_:didSelectItemAt:)` is not
     /// called unless return or space is pressed while a single item shows selection.
     ///
@@ -142,6 +143,8 @@ public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView)
 
     /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// This is not called on iOS 15 and later because the UIKit focus system is used instead.
     ///
     /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
     func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool

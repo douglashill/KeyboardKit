@@ -112,6 +112,7 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
     /// Called when a keyboard is used to change the selected rows.
     ///
     /// This happens in response to arrow keys, escape and ⌘A.
+    /// On iOS 15 and later, this is only called for Select All (⌘A) because the UIKit focus system is used instead.
     /// The rows show as selected but `tableView(_:didSelectRowAt:)` is not
     /// called unless return or space is pressed while a single row shows selection.
     ///
@@ -123,6 +124,8 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
     func tableViewDidChangeSelectedRowsUsingKeyboard(_ tableView: UITableView)
 
     /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
+    ///
+    /// This is not called on iOS 15 and later because the UIKit focus system is used instead.
     ///
     /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
     func tableViewShouldClearSelection(_ tableView: UITableView) -> Bool
