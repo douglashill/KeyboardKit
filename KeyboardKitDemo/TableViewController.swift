@@ -135,12 +135,26 @@ class BookmarksViewController: FirstResponderViewController {
         title = "Bookmarks"
     }
 
+    // For demo purposes, this view isn’t focusable but the VC
+    // still needs to become first responder, even on iOS 15.
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
 
         view.backgroundColor = .systemBackground
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if becomeFirstResponder() == false {
+            print("❌ Could not become first responder: \(self)")
+        }
     }
 
     @objc private func saveBookmarks(_ sender: Any?) {
