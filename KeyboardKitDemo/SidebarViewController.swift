@@ -77,6 +77,18 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
         delegate?.didActivateSelectionAtIndex(indexPath.item, inSidebarViewController: self)
     }
 
+    // This provides a little bit of extra polish. This prevents the focus becoming detached from the
+    // selection, since that would look confusing. It also means that when the sidebar is overlaid on top
+    // of the detail view, we update the detail view underneath immediately as the arrow keys change focus.
+    // We can’t use selectionFollowsFocus because that would push the detail view controller (compact
+    // widths) or hide the overlaid sidebar (medium widths) every time you press the up or down arrows.
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn focusUpdateContext: UICollectionViewFocusUpdateContext, with animationCoordinator: UIFocusAnimationCoordinator) {
+        if let indexPath = focusUpdateContext.nextFocusedIndexPath {
+            delegate?.didShowSelectionAtIndex(indexPath.item, inSidebarViewController: self)
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        }
+    }
+
     // MARK: - KeyboardCollectionViewDelegate
 
     func collectionViewDidChangeSelectedItemsUsingKeyboard(_ collectionView: UICollectionView) {
