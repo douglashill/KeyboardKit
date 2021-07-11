@@ -43,11 +43,23 @@ open class KeyboardNavigationController: UINavigationController {
             let navigationItem = topViewController.navigationItem
             var additionalCommands: [UIKeyCommand] = []
 
-            if #available(iOS 15, *) {
-                // UIKit provides cmd-[ to go back (you can see this coming from super).
-            } else {
-                additionalCommands += backKeyCommands
+            // On iOS 15 and later, UIKit provides cmd-[ to go back in UINavigationController.
+            // However as of iOS 15.0 beta 2 this has a bug seen in the KeyboardKit demo app table
+            // view or list in compact widths where it pops all the way to the root (the sidebar
+            // VC) instead of just popping one level. Additionally, the KeyboardKit command has a
+            // localised title and the user can use either cmd-[ or cmd-left. Therefore filter
+            // out the system provided command(s) for going back and add our own instead.
+
+            commands = commands.filter { systemCommand in
+                for backCommand in backKeyCommands {
+                    if systemCommand.input == backCommand.input && systemCommand.modifierFlags == backCommand.modifierFlags {
+                        return false
+                    }
+                }
+                return true
             }
+
+            additionalCommands += backKeyCommands
 
             let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
                 $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
