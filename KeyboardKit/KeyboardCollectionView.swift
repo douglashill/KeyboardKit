@@ -195,6 +195,14 @@ extension UICollectionView: SelectableCollection {
         delegate?.collectionView?(self, shouldHighlightItemAt: indexPath) ?? true
     }
 
+    var indexPathsForFocusedOrSelectedItems: [IndexPath] {
+        if #available(iOS 15.0, *) {
+            return preferredFocusEnvironments.compactMap { $0 as? UICollectionViewCell }.compactMap { indexPath(for: $0) }
+        } else {
+            return indexPathsForSelectedItems ?? []
+        }
+    }
+
     func notifyDelegateOfSelectionChange() {
         keyboardDelegate?.collectionViewDidChangeSelectedItemsUsingKeyboard(self)
     }

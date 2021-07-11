@@ -226,8 +226,12 @@ extension UITableView: SelectableCollection {
         delegate?.tableView?(self, shouldHighlightRowAt: indexPath) ?? true
     }
 
-    var indexPathsForSelectedItems: [IndexPath]? {
-        indexPathsForSelectedRows
+    var indexPathsForFocusedOrSelectedItems: [IndexPath] {
+        if #available(iOS 15.0, *) {
+            return preferredFocusEnvironments.compactMap { $0 as? UITableViewCell }.compactMap { indexPath(for: $0) }
+        } else {
+            return indexPathsForSelectedRows ?? []
+        }
     }
 
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {

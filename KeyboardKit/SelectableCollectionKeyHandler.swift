@@ -39,7 +39,8 @@ protocol SelectableCollection: NSObjectProtocol {
     var shouldAllowEmptySelection: Bool? { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
 
-    var indexPathsForSelectedItems: [IndexPath]? { get }
+    /// Index paths of the currently focused items on iOS 15+ or the selected items on earlier versions.
+    var indexPathsForFocusedOrSelectedItems: [IndexPath] { get }
     /// Make sure `notifyDelegateOfSelectionChange` is called after this (potentially after batch selection changes).
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition)
     /// Should be called after `selectItem(at indexPath: animated: scrollPosition)`.
@@ -140,22 +141,18 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             return collection.shouldAllowMultipleSelection
 
         case #selector(clearSelection):
-            return (collection.indexPathsForSelectedItems ?? []).isEmpty == false && isInResponderChain
+            return collection.indexPathsForFocusedOrSelectedItems.isEmpty == false && isInResponderChain
 
         case #selector(activateSelection):
-            return collection.indexPathsForSelectedItems?.count == 1 && isInResponderChain
+            return collection.indexPathsForFocusedOrSelectedItems.count == 1 && isInResponderChain
 
         case #selector(kbd_move):
-            guard isInResponderChain,
-                  let keyCommand = sender as? UIKeyCommand,
-                  collection.shouldAllowMoving,
-                  let selected = collection.indexPathsForSelectedItems, selected.isEmpty == false,
-                  // TODO: Handle multiple selection.
-                  selected.count == 1,
-                  selected.allSatisfy({
-                      collection.canMoveItem(at: $0) ?? true
-                  })
-            else {
+            guard isInResponderChain, let keyCommand = sender as? UIKeyCommand, collection.shouldAllowMoving else {
+                return false
+            }
+            let selected = collection.indexPathsForFocusedOrSelectedItems
+            // TODO: Handle multiple selection.
+            guard selected.count == 1, selected.allSatisfy({ collection.canMoveItem(at: $0) ?? true }) else {
                 return false
             }
             return destinationIndexPathForMovingItem(at: selected[0], keyCommand: keyCommand) != nil
@@ -214,14 +211,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     }
 
     @objc private func activateSelection(_ sender: UIKeyCommand) {
-        guard let indexPathForSingleSelectedItem = collection.indexPathsForSelectedItems?.single else {
+        guard let indexPathForSingleSelectedItem = collection.indexPathsForFocusedOrSelectedItems.single else {
             return
         }
         collection.activateSelection(at: indexPathForSingleSelectedItem)
     }
 
     @objc private func kbd_move(_ sender: UIKeyCommand) {
-        let source = collection.indexPathsForSelectedItems![0]
+        let source = collection.indexPathsForFocusedOrSelectedItems[0]
 
         guard let destination = destinationIndexPathForMovingItem(at: source, keyCommand: sender) else {
             return
@@ -265,8 +262,7 @@ private extension SelectableCollection {
 
     /// Returns the index path of the item found by moving the given step in the given direction from the currently selected item.
     func indexPathInDirection(_ direction: NavigationDirection, step: NavigationStep) -> IndexPath? {
-        let existingSelection = indexPathsForSelectedItems?.first
-
+        let existingSelection = indexPathsForFocusedOrSelectedItems.first
         return indexPathFromIndexPath(existingSelection, inDirection: direction, step: step)
     }
 
