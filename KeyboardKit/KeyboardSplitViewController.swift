@@ -462,7 +462,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
              If we validated immediately, then when tapping back button when in secondary-only on iPad portrait
              (and probably in other cases too) this willChangeTo callback is too soon so the primary view is not
              in the hierarchy yet. This is smoothed over in the demo app by FirstResponderViewController
-             updating the first responder whenever it appears or disappears but should work without that.
+             updating the first responder whenever it appears or disappears but this should work without that.
 
              We don’t want to use the completion of the transitionCoordinator because that would run after the
              animation, so would feel slow. Keyboard focus should move immediately in transitions.
