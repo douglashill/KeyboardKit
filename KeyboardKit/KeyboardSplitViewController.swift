@@ -202,13 +202,21 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
         var commands = super.keyCommands ?? []
 
         if canChangeFocusedColumn && UIResponder.isTextInputActive == false {
-            commands += tabCommands
-            if canMoveFocusRight {
-                commands += rightArrowKeyCommands
+            // The UIKit focus system is supposed to automatically have precedence over these,
+            // but for some reason these left and right arrow commands are still triggered in
+            // TripleColumnSplitViewController in the KeyboardKit demo app.
+            // Therefore disable them explicitly on iOS 15.
+            if #available(iOS 15.0, *) { /* Disabled in this case */ } else {
+                commands += tabCommands
+                if canMoveFocusRight {
+                    commands += rightArrowKeyCommands
+                }
+                if canMoveFocusLeft  {
+                    commands += leftArrowKeyCommands
+                }
             }
-            if canMoveFocusLeft  {
-                commands += leftArrowKeyCommands
-            }
+
+            // This is still useful on iOS 15.
             if canDismissTemporaryColumn {
                 commands += dismissTemporaryColumnKeyCommands
             }
