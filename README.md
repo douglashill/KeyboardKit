@@ -21,6 +21,8 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 KeyboardKit supports iOS 12.0 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported. The latest Xcode 12.x is required.
 
+⚠️ Xcode 13 (iOS 15 SDK) should not be used yet because the new UIKit focus system takes precedence over key commands, which means arrow keys will not work with KeyboardKit. Work is in progress integrating with the focus system. If you want a quick fix for arrow keys not working in table views and collection views when using the iOS 15 SDK, please use the `xcode13` branch.
+
 Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
 ## Installation
