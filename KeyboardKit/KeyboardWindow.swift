@@ -4,11 +4,33 @@ import UIKit
 
 /// A window that supports using escape on a hardware keyboard to dismiss any topmost modal sheet or popover.
 /// Calls the presentation controller delegate like for any other user-driven dismissal.
+///
+/// Unlike most other KeyboardKit subclasses, `KeyboardWindow` does not override
+/// `canBecomeFirstResponder` to return `true` because this results in shorter responder
+/// chain at scene connection, which is not desirable. It’s best if the first responder
+/// is a specific view or view controller instead. On iOS 15 and later the focus system
+/// will take care of this automatically.
 open class KeyboardWindow: UIWindow {
 
-    open override var canBecomeFirstResponder: Bool {
-        true
-    }
+    /*
+     This class deliberately does not override canBecomeFirstResponder to return true.
+
+     If the window can become first responder, then UIKit will make it first responder
+     as part of makeKeyAndVisible. This means that at scene connection, the window is
+     the first responder, not a child, so a limited number of key commands are available.
+
+     However if the window can’t become first responder, then at scene connection there
+     is no explicit first responder. In this case, key events are delivered using:
+
+     -[UIApplication _responderForKeyEvents]
+     -[UIWindow _responderForKeyEvents]
+     -[UIWindow _deepestActionResponder]
+
+     That last call goes through the view controller hierarchy from rootViewController
+     to children and presented view controllers to find a sensible default responder.
+     This is almost certainly going to make more key commands possible than if the
+     window is first responder.
+     */
 
     private lazy var dismissKeyCommands = [
         UIKeyCommand(.escape, action: #selector(kbd_dismissTopmostModalViewIfPossible)),
