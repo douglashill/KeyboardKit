@@ -20,7 +20,9 @@ static UIResponder *foundFirstResponder;
 /// For some reason this does not work on Mac Catalyst even though basically the same thing in TextInput.swift works fine.
 + (UIResponder *)kbd_firstResponder {
     [UIApplication.sharedApplication sendAction:@selector(kbd_debug_findFirstResponder:) to:nil from:nil forEvent:nil];
-    return foundFirstResponder;
+    UIResponder *result = foundFirstResponder;
+    foundFirstResponder = nil;
+    return result;
 }
 
 - (void)kbd_debug_findFirstResponder:(id)sender {
@@ -28,7 +30,22 @@ static UIResponder *foundFirstResponder;
 }
 
 + (void)kbd_debugPrintResponderChain {
-    UIResponder *responder = [UIResponder kbd_firstResponder];
+    // This is just for additional context and isn’t really needed.
+    UIResponder *explicitResponder = [UIResponder kbd_firstResponder];
+
+    // Use private API to find the source of truth. Don’t ship this. Tested on iOS 14.5 and iOS 15.0 beta 3.
+    // This handles the case at scene connection where becomeFirstResponder has never been called.
+    // UIKit infers a sensible responder with a ‘reverse responder chain’ lookup called deepestActionResponder.
+    UIResponder *responder = [[UIApplication sharedApplication] valueForKey:@"responderForKeyEvents"];
+
+    if (responder == nil) {
+        NSAssert(explicitResponder == nil, @"If responderForKeyEvents is nil then the explicit first responder should be nil too.");
+        print(@"There is no responderForKeyEvents.");
+    } else if (explicitResponder == nil) {
+        print(@"There is no explicit first responder. Used private API find responderForKeyEvents instead.");
+    } else {
+        NSAssert(responder == explicitResponder, @"Explicit responder should be same as responderForKeyEvents.");
+    }
 
     while (responder != nil) {
         print([responder description]);
