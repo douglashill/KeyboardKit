@@ -206,7 +206,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
             // but for some reason these left and right arrow commands are still triggered in
             // TripleColumnSplitViewController in the KeyboardKit demo app.
             // Therefore disable them explicitly on iOS 15.
-            if #available(iOS 15.0, *) { /* Disabled in this case */ } else {
+            if view.shouldKeyboardKitUseFocusSystem == false {
                 commands += tabCommands
                 if canMoveFocusRight {
                     commands += rightArrowKeyCommands
@@ -216,7 +216,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
                 }
             }
 
-            // This is still useful on iOS 15.
+            // This is still useful when using the UIKit focus system.
             if canDismissTemporaryColumn {
                 commands += dismissTemporaryColumnKeyCommands
             }

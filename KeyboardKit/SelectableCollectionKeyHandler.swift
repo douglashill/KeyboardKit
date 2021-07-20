@@ -32,6 +32,8 @@ protocol SelectableCollection: NSObjectProtocol {
     var allowsMultipleSelectionDuringEditing_: Bool { get }
     var isEditing_: Bool { get }
 
+    var shouldKeyboardKitUseFocusSystem: Bool { get }
+
     @available(iOS 15.0, *) var allowsFocus: Bool { get }
     @available(iOS 15.0, *) var allowsFocusDuringEditing: Bool { get }
 
@@ -39,7 +41,7 @@ protocol SelectableCollection: NSObjectProtocol {
     var shouldAllowEmptySelection: Bool? { get }
     func shouldSelectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
 
-    /// Index paths of the currently focused items on iOS 15+ or the selected items on earlier versions.
+    /// Index paths of the currently focused items if integrating with the UIKit focus system is enabled or the selected items otherwise.
     var indexPathsForFocusedOrSelectedItems: [IndexPath] { get }
     /// Make sure `notifyDelegateOfSelectionChange` is called after this (potentially after batch selection changes).
     func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition)
@@ -113,12 +115,10 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
         if collection.shouldAllowSelection && isInResponderChain {
-            if #available(iOS 15.0, *) { /* UIKit focus system handled this instead. */ } else {
-                if UIResponder.isTextInputActive == false {
-                    commands += selectionKeyCommands
-                    if collection.shouldAllowEmptySelection ?? true {
-                        commands += deselectionKeyCommands
-                    }
+            if collection.shouldKeyboardKitUseFocusSystem == false && UIResponder.isTextInputActive == false {
+                commands += selectionKeyCommands
+                if collection.shouldAllowEmptySelection ?? true {
+                    commands += deselectionKeyCommands
                 }
             }
 
@@ -243,7 +243,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
 extension SelectableCollection {
     var isKeyboardScrollingEnabled: Bool {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, *), shouldKeyboardKitUseFocusSystem {
             return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
         } else {
             return shouldAllowSelection == false

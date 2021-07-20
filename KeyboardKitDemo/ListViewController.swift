@@ -91,6 +91,10 @@ class ListViewController: FirstResponderViewController, UICollectionViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        guard isFocusSystemEnabled else {
+            return
+        }
+
         // When dropping iOS 14 (so first responder management is no longer necessary) it would be good to swap the
         // superclass to UICollectionViewController because that handles deselection on appearing automatically.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

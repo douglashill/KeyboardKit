@@ -47,6 +47,10 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        guard isFocusSystemEnabled else {
+            return
+        }
+
         // Making this animated does not seem to work with iOS 15.0 beta 2. Therefore the delay is long
         // to make sure the previous selection is briefly is visible. When dropping iOS 14 (so first
         // responder management is no longer necessary) it would be good to swap the superclass to
