@@ -178,13 +178,9 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if #available(iOS 15.0, *) {
-            return super.shouldUpdateFocus(in: context)
-        } else {
-            // Disable UIKit focus system on Big Sur because otherwise you end up with a focus ring on days within
-            // the picker when pressing cmd + arrows, which does not provide as good a user experience as what we
-            // do here. This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
-            return isInSupportedStyleAndMode == false
-        }
+        // The UIKit focus system doesn’t work well on Big Sur. You end up with a focus ring on days within
+        // the picker when pressing cmd + arrows, which does not provide as good a user experience as what we
+        // do here. This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
+        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }

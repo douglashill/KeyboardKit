@@ -21,7 +21,7 @@ enum NavigationStep: Int {
     case end
 }
 
-protocol SelectableCollection: NSObjectProtocol {
+protocol SelectableCollection: UIFocusEnvironment {
 
     var numberOfSections: Int { get }
     func numberOfItems(inSection: Int) -> Int
@@ -31,8 +31,6 @@ protocol SelectableCollection: NSObjectProtocol {
     var allowsSelectionDuringEditing_: Bool { get }
     var allowsMultipleSelectionDuringEditing_: Bool { get }
     var isEditing_: Bool { get }
-
-    var shouldKeyboardKitUseFocusSystem: Bool { get }
 
     @available(iOS 15.0, *) var allowsFocus: Bool { get }
     @available(iOS 15.0, *) var allowsFocusDuringEditing: Bool { get }

@@ -69,12 +69,7 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if shouldKeyboardKitUseFocusSystem {
-            return super.shouldUpdateFocus(in: context)
-        } else {
-            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
-            return false
-        }
+        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 
@@ -106,19 +101,15 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 15.0, *), view.shouldKeyboardKitUseFocusSystem {
+        
+        if #available(iOS 15.0, *) {
             collectionView.allowsFocus = true
             collectionView.remembersLastFocusedIndexPath = true
         }
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if view.shouldKeyboardKitUseFocusSystem {
-            return super.shouldUpdateFocus(in: context)
-        } else {
-            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
-            return false
-        }
+        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 

@@ -3,34 +3,6 @@
 import UIKit
 import KeyboardKit
 
-/// Whether the UIKit focus system is enabled.
-///
-/// This is just much easier checked globally. Otherwise there are all sorts of cases to handle
-/// where the views are not in the hierarchy such as pushing on a navigation controller or
-/// viewWillAppear in the underneath view when dismissing a full screen modal.
-var isFocusSystemEnabled: Bool {
-    if #available(iOS 15.0, *) {
-        let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
-
-        if windowScenes.isEmpty {
-            print("⚠️ Can’t determine if the focus system is enabled if there are no window scenes.")
-            return false
-        }
-
-        let focusSystemEnabledArray = windowScenes.map { $0.focusSystem != nil }
-
-        guard focusSystemEnabledArray.allSatisfy( { $0 == focusSystemEnabledArray[0] }) else {
-            print("⚠️ Some window scenes have a focus system and some don’t.")
-            return true
-        }
-
-        return focusSystemEnabledArray[0]
-    } else {
-        return false
-    }
-}
-
-
 /// Posted by the object that became first responder after calling `UIWindow.updateFirstResponder`.
 let firstResponderDidChangeNotification = Notification.Name("KBDFirstResponderDidChange")
 
@@ -45,7 +17,7 @@ class FirstResponderViewController: UIViewController {
     var windowIWasIn: UIWindow?
 
     override var canBecomeFirstResponder: Bool {
-         if isFocusSystemEnabled {
+         if UIFocusSystem(for: self) != nil {
             // If we return true here then focus is lost when pushing in TableViewController and ListViewController.
             return super.canBecomeFirstResponder
         } else {
@@ -69,9 +41,7 @@ class FirstResponderViewController: UIViewController {
 
 extension UIWindow {
     func updateFirstResponder() {
-        if isFocusSystemEnabled {
-            // UIKit focus system handles this.
-        } else {
+        if UIFocusSystem(for: self) == nil {
             rootViewController!.kd_becomeFirstResponderInHierarchy()
         }
     }

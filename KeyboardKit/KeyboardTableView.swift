@@ -57,12 +57,7 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if shouldKeyboardKitUseFocusSystem {
-            return super.shouldUpdateFocus(in: context)
-        } else {
-            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
-            return false
-        }
+        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 
@@ -87,19 +82,15 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 15.0, *), view.shouldKeyboardKitUseFocusSystem {
+
+        if #available(iOS 15.0, *) {
             tableView.allowsFocus = true
             tableView.remembersLastFocusedIndexPath = true
         }
     }
 
     open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        if view.shouldKeyboardKitUseFocusSystem {
-            return super.shouldUpdateFocus(in: context)
-        } else {
-            // Disable UIKit focus system on Big Sur because KeyboardKit implements focus itself using selection.
-            return false
-        }
+        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 

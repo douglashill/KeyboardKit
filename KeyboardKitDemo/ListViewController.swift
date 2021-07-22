@@ -91,14 +91,14 @@ class ListViewController: FirstResponderViewController, UICollectionViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard isFocusSystemEnabled else {
-            return
-        }
-
+        // Keep the selection when the UIKit focus system is not available because in that case
+        // KeyboardKit uses selection state to track keyboard focus.
         // When dropping iOS 14 (so first responder management is no longer necessary) it would be good to swap the
         // superclass to UICollectionViewController because that handles deselection on appearing automatically.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+            if UIFocusSystem(for: self) != nil {
+                self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+            }
         }
     }
 
