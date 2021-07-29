@@ -20,19 +20,22 @@ open class KeyboardNavigationController: UINavigationController {
     ]
 
     private lazy var rightToLeftBackKeyCommands = [
-        // Note that the system will incorrectly show this in the discoverability HUD as a leftwards pointing
-        // arrow. The discoverability HUD flips the arrow keys it displays when in a right-to-left layout, but
-        // the inputs on the actual events received are not flipped. This has been reported as FB8963593.
-        // This could potentially be worked around by providing a fake command for .leftArrow that is ignored
-        // in `kbd_goBackFromKeyCommand`. However this might block other key commands so could be undesirable.
+        // Note that on iOS 14 and earlier the system will incorrectly show this in the discoverability HUD as a leftwards
+        // pointing arrow. The discoverability HUD mirrors the arrow keys it displays when in a right-to-left layout, but
+        // the inputs on the actual events received are not mirrored. This was reported as FB8963593 and resolved in iOS 15.
         UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
         UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand)),
     ]
 
     private var backKeyCommands: [UIKeyCommand] {
-        switch view.effectiveUserInterfaceLayoutDirection {
-        case .rightToLeft: return rightToLeftBackKeyCommands
-        case .leftToRight: fallthrough @unknown default: return leftToRightBackKeyCommands
+        if #available(iOS 15.0, *) {
+            // Handled by allowsAutomaticMirroring.
+            return leftToRightBackKeyCommands
+        } else {
+            switch view.effectiveUserInterfaceLayoutDirection {
+            case .rightToLeft: return rightToLeftBackKeyCommands
+            case .leftToRight: fallthrough @unknown default: return leftToRightBackKeyCommands
+            }
         }
     }
 
@@ -48,15 +51,9 @@ open class KeyboardNavigationController: UINavigationController {
             // view or list in compact widths where it pops all the way to the root (the sidebar
             // VC) instead of just popping one level. Additionally, the KeyboardKit command has a
             // localised title and the user can use either cmd-[ or cmd-left. Therefore filter
-            // out the system provided command(s) for going back and add our own instead.
-
+            // out the system provided command for going back and add our own instead.
             commands = commands.filter { systemCommand in
-                for backCommand in backKeyCommands {
-                    if systemCommand.input == backCommand.input && systemCommand.modifierFlags == backCommand.modifierFlags {
-                        return false
-                    }
-                }
-                return true
+                (systemCommand.input == "[" && systemCommand.modifierFlags == .command) == false
             }
 
             additionalCommands += backKeyCommands
