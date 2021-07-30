@@ -39,6 +39,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
             let command = UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
             if #available(iOS 15.0, *) {
                 command.wantsPriorityOverSystemBehavior = true
+                command.allowsAutomaticMirroring = false
             }
             return command
         }
