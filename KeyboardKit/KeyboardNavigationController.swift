@@ -56,7 +56,10 @@ open class KeyboardNavigationController: UINavigationController {
                 (systemCommand.input == "[" && systemCommand.modifierFlags == .command) == false
             }
 
-            additionalCommands += backKeyCommands
+            // It’s useful to check this otherwise these commands can block rewind/fast-forward bar button items unnecessarily.
+            if canGoBack {
+                additionalCommands += backKeyCommands
+            }
 
             let keyCommandFromBarButtonItem: (UIBarButtonItem) -> UIKeyCommand? = {
                 $0.isEnabled ? ($0 as? KeyboardBarButtonItem)?.keyCommand : nil
@@ -80,11 +83,14 @@ open class KeyboardNavigationController: UINavigationController {
 
     open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(kbd_goBackFromKeyCommand) {
-            let canGoBack = viewControllers.count > 1 && self.presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
             return canGoBack
         }
 
         return super.canPerformAction(action, withSender: sender)
+    }
+
+    private var canGoBack: Bool {
+        viewControllers.count > 1 && presentedViewController == nil && navigationItem.hidesBackButton == false && (navigationItem.nnLeadingBarButtonItems.isEmpty || navigationItem.leftItemsSupplementBackButton)
     }
 
     // Important to not put this on all UINavigationController instances via an extension because those

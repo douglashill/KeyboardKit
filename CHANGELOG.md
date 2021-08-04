@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes key commands for rewind and fast-forward not being possible due to the commands for going back taking precedence even when unavailable.
 - 4.4.1
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.
     - Fixes the UIKit focus system interfering with `KeyboardDatePicker` on Mac Catalyst.
