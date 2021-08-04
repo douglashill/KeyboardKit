@@ -1,6 +1,7 @@
 # KeyboardKit change log
 
 - Next
+    - Adds the `KeyboardBarButtonItem` properties `keyCommandWantsPriorityOverSystemBehavior`, `keyCommandAllowsAutomaticLocalization` and `keyCommandAllowsAutomaticMirroring` to forward to iOS 15’s new properties on the bar button item’s `UIKeyCommand`.
     - Fixes key commands for rewind and fast-forward not being possible due to the commands for going back taking precedence even when unavailable.
 - 4.4.1
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.

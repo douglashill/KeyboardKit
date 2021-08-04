@@ -29,6 +29,15 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     /// The character and the modifier flags corresponding to the keys that must be pressed to trigger this bar button item’s action from a keyboard.
     open var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
 
+    /// Forwards to the `UIKeyCommand` property `wantsPriorityOverSystemBehavior`. Does nothing on iOS 14 and earlier.
+    open var keyCommandWantsPriorityOverSystemBehavior: Bool = false
+
+    /// Forwards to the `UIKeyCommand` property `allowsAutomaticLocalization`. Does nothing on iOS 14 and earlier.
+    open var keyCommandAllowsAutomaticLocalization: Bool = true
+
+    /// Forwards to the `UIKeyCommand` property `allowsAutomaticMirroring`. Does nothing on iOS 14 and earlier.
+    open var keyCommandAllowsAutomaticMirroring: Bool = true
+
     private var systemItem: SystemItem?
 
     /// Creates a key command that can be used to trigger this bar button item’s action.
@@ -48,13 +57,22 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
             }
         }()
 
-        return UIKeyCommand(keyEquivalent, action: action, title: title)
+        let command = UIKeyCommand(keyEquivalent, action: action, title: title)
+
+        if #available(iOS 15.0, *) {
+            command.wantsPriorityOverSystemBehavior = keyCommandWantsPriorityOverSystemBehavior
+            command.allowsAutomaticLocalization = keyCommandAllowsAutomaticLocalization
+            command.allowsAutomaticMirroring = keyCommandAllowsAutomaticMirroring
+        }
+
+        return command
     }
 
     /// For KeyboardKit internal use.
     public override func wasInitialised(with systemItem: SystemItem) {
         keyEquivalent = systemItem.keyEquivalent
         self.systemItem = systemItem
+        keyCommandAllowsAutomaticMirroring = systemItem.allowsAutomaticMirroring
     }
 
     @available(iOS 14.0, *)
@@ -105,6 +123,13 @@ private extension UIBarButtonItem.SystemItem {
         case .pageCurl:    return nil
         // These should never get key equivalents. System already has good support for undo and redo.
         case .undo, .redo, .flexibleSpace, .fixedSpace: fallthrough @unknown default: return nil
+        }
+    }
+
+    var allowsAutomaticMirroring: Bool {
+        switch self {
+        case .rewind, .fastForward: return false // This is based on the assumption that these are being used for media playback, which typically progresses left-to-right even in right-to-left layouts.
+        default:                    return true  // This doesn’t matter since all these inputs aren’t mirrored anyway, but might as well match the UIKit default.
         }
     }
 
