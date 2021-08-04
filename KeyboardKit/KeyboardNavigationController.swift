@@ -66,7 +66,9 @@ open class KeyboardNavigationController: UINavigationController {
             additionalCommands += navigationItem.nnTrailingBarButtonItems.compactMap(keyCommandFromBarButtonItem).reversed()
             additionalCommands += topViewController.nnToolbarItems.compactMap(keyCommandFromBarButtonItem)
 
-            if UIResponder.isTextInputActive {
+            if #available(iOS 15.0, *) {
+                /* wantsPriorityOverSystemBehavior defaulting to false handles commands not overriding text input. */
+            } else if UIResponder.isTextInputActive {
                 additionalCommands = additionalCommands.filter { $0.doesConflictWithTextInput == false }
             }
 

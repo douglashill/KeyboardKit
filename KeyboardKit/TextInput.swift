@@ -51,8 +51,10 @@ extension UIKeyCommand {
     /// but don’t do anything unique. For example, shift + control + option + tab types a tab character and this can also be
     /// done by pressing tab with no modifiers, so this is not considered a conflict.
     ///
-    /// `UIKeyCommands` from further along the responder chain take priority over the first responder being used for text input.
-    /// Overriding keys used for text input is a bad user experience and can easily lead to data loss.
+    /// On iOS 14 and earlier `UIKeyCommands` from further along the responder chain take priority over the first responder
+    /// being used for text input. Overriding keys used for text input is a bad user experience and can easily lead to data
+    /// loss. This is resolved in iOS 15 with the addition of wantsPriorityOverSystemBehavior, which defaults to false.
+    /// This method is not needed on iOS 15 and later.
     var doesConflictWithTextInput: Bool {
         guard let input = input else {
             // No input means no conflicts. But no way to press the key either.
