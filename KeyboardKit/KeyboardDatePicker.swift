@@ -177,10 +177,9 @@ open class KeyboardDatePicker: UIDatePicker {
         return calendar.date(byAdding: component, value: value, to: date)
     }
 
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // The UIKit focus system doesn’t work well on Big Sur. You end up with a focus ring on days within
-        // the picker when pressing cmd + arrows, which does not provide as good a user experience as what we
-        // do here. This was tested building with the iOS 14.4 SDK (Xcode 12.4) and running on macOS 11.2.3.
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
-    }
+    // There is a problem on Big Sur where if you press tab while focused on the date picker
+    // the focus moves to nothing visible (?) but first responder stays on the date picker.
+    // This leads to an incorrect extra focus ring being visible on the date picker
+    // Overriding shouldUpdateFocusInContext to return false can break the focus system
+    // and this is not a problem on iOS 15 on iPad, so this problem is not being addressed.
 }

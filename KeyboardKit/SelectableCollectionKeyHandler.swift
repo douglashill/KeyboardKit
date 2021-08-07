@@ -113,7 +113,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
         if collection.shouldAllowSelection && isInResponderChain {
-            if collection.shouldKeyboardKitUseFocusSystem == false && UIResponder.isTextInputActive == false {
+            if UIFocusSystem(for: collection) == nil && UIResponder.isTextInputActive == false {
                 commands += selectionKeyCommands
                 if collection.shouldAllowEmptySelection ?? true {
                     commands += deselectionKeyCommands
@@ -241,8 +241,13 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 
 extension SelectableCollection {
     var isKeyboardScrollingEnabled: Bool {
-        if #available(iOS 15.0, *), shouldKeyboardKitUseFocusSystem {
-            return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
+        if UIFocusSystem(for: self) != nil {
+            if #available(iOS 15.0, *) {
+                return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
+            } else {
+                // There’s no simple property to disable focus on Big Sur so just assume focus will be enabled.
+                return false
+            }
         } else {
             return shouldAllowSelection == false
         }

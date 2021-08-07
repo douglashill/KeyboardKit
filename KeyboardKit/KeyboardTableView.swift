@@ -55,10 +55,6 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         return super.next
     }
-
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
-    }
 }
 
 /// A table view controller that supports navigation and selection using a hardware keyboard.
@@ -87,10 +83,6 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
             tableView.allowsFocus = true
             tableView.remembersLastFocusedIndexPath = true
         }
-    }
-
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 
@@ -223,7 +215,7 @@ extension UITableView: SelectableCollection {
     }
 
     var indexPathsForFocusedOrSelectedItems: [IndexPath] {
-        if shouldKeyboardKitUseFocusSystem {
+        if UIFocusSystem(for: self) != nil {
             return preferredFocusEnvironments.compactMap { $0 as? UITableViewCell }.compactMap { indexPath(for: $0) }
         } else {
             return indexPathsForSelectedRows ?? []

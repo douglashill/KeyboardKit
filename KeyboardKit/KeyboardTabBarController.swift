@@ -49,11 +49,7 @@ open class KeyboardTabBarController: UITabBarController {
         self.delegate?.tabBarController?(self, didSelect: incomingViewController)
     }
 
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        // The UIKit focus system doesn’t work well on Big Sur. You can press down to ‘focus’ the tab
-        // bar, which lets you move a focus ring on the tabs with the left and right arrows but there is no
-        // way I could find to act on that focus (i.e. select the tab). It’s more Mac-like to use cmd + number
-        // anyway. This was tested building with the iOS 14.2 SDK (Xcode 12.2) and running on macOS 11.0.1.
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
-    }
+    // On Big Sur, the tabs in the bar are focusable, but you can’t activate the selection to select a tab.
+    // Overriding shouldUpdateFocusInContext to return false can break the focus system though
+    // so just allow this bogus focus. It’s not an issue on iOS 15 on iPad.
 }

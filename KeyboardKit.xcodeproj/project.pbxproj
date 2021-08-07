@@ -36,7 +36,6 @@
 		A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD562398776C00E13773 /* BarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A56FFD572398776C00E13773 /* BarButtonItem.m */; };
 		A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A56FFD5A2398778400E13773 /* KeyboardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A5712B4926A6CA5100A080F0 /* FocusSystemEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5712B4826A6CA5100A080F0 /* FocusSystemEnabled.swift */; };
 		A5745D2F25BC1F9C000265DF /* DemoApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5745D2E25BC1F9C000265DF /* DemoApplication.swift */; };
 		A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57633BE259A62490063269A /* KeyboardDatePicker.swift */; };
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
@@ -182,7 +181,6 @@
 		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BarButtonItem.h; path = ObjC/BarButtonItem.h; sourceTree = "<group>"; };
 		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BarButtonItem.m; path = ObjC/BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
-		A5712B4826A6CA5100A080F0 /* FocusSystemEnabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSystemEnabled.swift; sourceTree = "<group>"; };
 		A5745D2E25BC1F9C000265DF /* DemoApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApplication.swift; sourceTree = "<group>"; };
 		A57633BE259A62490063269A /* KeyboardDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDatePicker.swift; sourceTree = "<group>"; };
 		A57A9A7D242186B0005425F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/KeyboardKit.strings; sourceTree = "<group>"; };
@@ -436,7 +434,6 @@
 				A5E538A3239B0596004A2EE2 /* KeyboardWindowScene.swift */,
 				A5E538A4239B0596004A2EE2 /* KeyboardApplication.swift */,
 				A57633BE259A62490063269A /* KeyboardDatePicker.swift */,
-				A5712B4826A6CA5100A080F0 /* FocusSystemEnabled.swift */,
 				A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */,
 				A542D89B23A01DC8007E68C3 /* PointAnimator.swift */,
 				A53AE01223786CD000B07957 /* KeyCommandCreation.swift */,
@@ -865,7 +862,6 @@
 				A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */,
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
 				A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */,
-				A5712B4926A6CA5100A080F0 /* FocusSystemEnabled.swift in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,

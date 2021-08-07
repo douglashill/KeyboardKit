@@ -67,10 +67,6 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
             preconditionFailure()
         }
     }
-
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
-    }
 }
 
 /// A collection view controller that supports navigation and selection using a hardware keyboard.
@@ -106,10 +102,6 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
             collectionView.allowsFocus = true
             collectionView.remembersLastFocusedIndexPath = true
         }
-    }
-
-    open override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        shouldKeyboardKitUseFocusSystem ? super.shouldUpdateFocus(in: context) : false
     }
 }
 
@@ -192,7 +184,7 @@ extension UICollectionView: SelectableCollection {
     }
 
     var indexPathsForFocusedOrSelectedItems: [IndexPath] {
-        if shouldKeyboardKitUseFocusSystem {
+        if UIFocusSystem(for: self) != nil {
             return preferredFocusEnvironments.compactMap { $0 as? UICollectionViewCell }.compactMap { indexPath(for: $0) }
         } else {
             return indexPathsForSelectedItems ?? []
