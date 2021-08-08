@@ -74,12 +74,14 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         super.init(owner: owner)
     }
 
-    private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var changeSelectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
         [UIKeyModifierFlags(), .alternate].map { modifierFlags in
             UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
-    } + [
+    }
+
+    private lazy var activateSelectionKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.space, action: #selector(activateSelection)),
         UIKeyCommand(.returnOrEnter, action: #selector(activateSelection)),
     ]
@@ -114,8 +116,16 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          */
         if collection.shouldAllowSelection && isInResponderChain {
             if UIFocusSystem(for: collection) == nil && UIResponder.isTextInputActive == false {
-                commands += selectionKeyCommands
-                if collection.shouldAllowEmptySelection ?? true {
+                // On iOS 15.0 (as of beta 4) a key command with an action that nothing can perform still blocks
+                // other key commands from handling the same input. This was not an issue on iOS 14 and earlier.
+                // This has been reported as FB9469253.
+                commands += changeSelectionKeyCommands.filter { targetSelectedIndexPathForKeyCommand($0) != nil }
+
+                if collection.indexPathsForFocusedOrSelectedItems.count == 1 {
+                    commands += activateSelectionKeyCommands
+                }
+
+                if collection.shouldAllowEmptySelection ?? true && collection.indexPathsForFocusedOrSelectedItems.isEmpty == false {
                     commands += deselectionKeyCommands
                 }
             }

@@ -91,10 +91,12 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         }
 
         if scrollView.isScrollEnabled {
-
             if UIResponder.isTextInputActive == false {
                 if scrollView.kbd_isArrowKeyScrollingEnabled {
-                    commands += arrowKeyScrollingCommands
+                    // On iOS 15.0 (as of beta 4) a key command with an action that nothing can perform still blocks
+                    // other key commands from handling the same input. This was not an issue on iOS 14 and earlier.
+                    // This has been reported as FB9469253.
+                    commands += arrowKeyScrollingCommands.filter { targetContentOffsetForKeyCommand($0) != nil }
                 }
 
                 if scrollView.kbd_isSpaceBarScrollingEnabled {
