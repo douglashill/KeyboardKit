@@ -169,7 +169,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if tableView.canDeleteSelectedRows {
+        if tableView.canDeleteFocusOrSelectedRows {
             commands.append(deleteCommand)
         }
 
@@ -178,7 +178,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(kbd_deleteSelectedRows) {
-            return tableView.canDeleteSelectedRows
+            return tableView.canDeleteFocusOrSelectedRows
         } else {
             return super.canPerformAction(action, withSender: sender)
         }
@@ -188,7 +188,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     // being first responder the table view would not be on the responder chain so would not receive the message.
 
     @objc func kbd_deleteSelectedRows(_ keyCommand: UIKeyCommand) {
-        tableView.deleteSelectedRows()
+        tableView.deleteFocusOrSelectedRows()
     }
 }
 
@@ -333,8 +333,10 @@ extension UITableView: SelectableCollection {
 
 private extension UITableView {
 
-    var canDeleteSelectedRows: Bool {
-        guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
+    var canDeleteFocusOrSelectedRows: Bool {
+        let indexPathsForFocusedOrSelectedItems = self.indexPathsForFocusedOrSelectedItems
+
+        guard indexPathsForFocusedOrSelectedItems.isEmpty == false else {
             // No selected rows means no deletion.
             return false
         }
@@ -349,7 +351,7 @@ private extension UITableView {
             return true
         }
 
-        for indexPath in indexPathsForSelectedRows {
+        for indexPath in indexPathsForFocusedOrSelectedItems {
             if delegate.tableView!(self, editingStyleForRowAt: indexPath) != .delete {
                 return false
             }
@@ -359,16 +361,21 @@ private extension UITableView {
         return true
     }
 
-    func deleteSelectedRows() {
-        guard let indexPathsForSelectedRows = indexPathsForSelectedRows, indexPathsForSelectedRows.isEmpty == false else {
+    func deleteFocusOrSelectedRows() {
+        let indexPathsForFocusedOrSelectedItems = self.indexPathsForFocusedOrSelectedItems
+
+        guard indexPathsForFocusedOrSelectedItems.isEmpty == false else {
             return
         }
 
-        let indexPathsToDelete = indexPathsForSelectedRows
+        let indexPathsToDelete = indexPathsForFocusedOrSelectedItems
 
-        let newSelectedIndexPath = selectableIndexPathAfterIndexPath(indexPathsForSelectedRows.last!) ?? selectableIndexPathBeforeIndexPath(indexPathsForSelectedRows.first!)
-
-        selectRow(at: newSelectedIndexPath, animated: false, scrollPosition: .none)
+        if UIFocusSystem(for: self) != nil {
+            // The focus system either focuses the item right at the top of loses focus, but it’s hard to force it to focus something better.
+        } else {
+            let newSelectedIndexPath = selectableIndexPathAfterIndexPath(indexPathsForFocusedOrSelectedItems.last!) ?? selectableIndexPathBeforeIndexPath(indexPathsForFocusedOrSelectedItems.first!)
+            selectRow(at: newSelectedIndexPath, animated: false, scrollPosition: .none)
+        }
 
         for indexPath in indexPathsToDelete {
             // This is a precaution because canDeleteSelectedRows should have blocked this action if any row had a different editing style.
