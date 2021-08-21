@@ -5,6 +5,7 @@ import UIKit
 /// Whether an item is fully visible, or if not if it’s above or below, or right or left of, the viewport.
 enum CellVisibility { case fullyVisible; case notFullyVisible(UICollectionView.ScrollPosition); }
 
+/// A spatial direction in which a selection change from an arrow key may occur.
 enum NavigationDirection: Int {
     case up
     case down
@@ -12,8 +13,9 @@ enum NavigationDirection: Int {
     case right
 }
 
+/// A distance over which a selection change from an arrow key may move.
 enum NavigationStep: Int {
-    /// Step to the next closest selectable item in the specified direction. If reaching the end, starts searching again on the far side.
+    /// Step to the next closest selectable item in the specified direction. If reaching the end, start searching again on the far side.
     case closest
     /// Step to the next closest index path to use as a move destination in the specified direction. Return nil if at the end.
     case closestForMoving
@@ -21,6 +23,9 @@ enum NavigationStep: Int {
     case end
 }
 
+/// An object that uses cells to display a collection of items separated into sections, where each item/cell can be selected.
+///
+/// This is an abstraction over `UICollectionView` and `UITableView`.
 protocol SelectableCollection: UIFocusEnvironment {
 
     var numberOfSections: Int { get }
@@ -65,6 +70,7 @@ protocol SelectableCollection: UIFocusEnvironment {
 
 // MARK: -
 
+/// A responder that provides key commands for navigating and reordering in an owning `UICollectionView` or `UITableView`.
 class SelectableCollectionKeyHandler: InjectableResponder {
 
     private unowned var collection: SelectableCollection

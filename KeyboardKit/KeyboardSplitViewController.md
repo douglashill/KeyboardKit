@@ -1,5 +1,11 @@
 #  Using KeyboardSplitViewController
 
+This documentation is only relevant for expanded split views when a `UIFocusSystem` is not available, which means:
+
+- In landscape on Plus/Max iPhones.
+- On iPad on iOS 14 and earlier.
+- On macOS 10.15 Catalina.
+
 `KeyboardSplitViewController` can’t implement split view keyboard control entirely on its own. Your app’s support for full keyboard control is only as good as your first responder management, and first responder management is very specific to each app. Therefore `KeyboardSplitViewController` takes a very hands-off approach. It does the reusable part of tracking which of its columns is focused in the `focusedColumn` property. The value of this property will be updated in response to keyboard input and any events that change the visible columns.
 
 Your app must update the first responder in response to changes to this property by providing a `delegate` for the split view controller that conforms to the `KeyboardSplitViewControllerDelegate` protocol. This might be a parent view controller or perhaps your scene delegate. A simple setup might be done like this:
