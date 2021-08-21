@@ -17,7 +17,7 @@ class FirstResponderViewController: UIViewController {
     var windowIWasIn: UIWindow?
 
     override var canBecomeFirstResponder: Bool {
-         if UIFocusSystem(for: self) != nil {
+        if UIFocusSystem(for: self) != nil {
             // If we return true here then focus is lost when pushing in TableViewController and ListViewController.
             return super.canBecomeFirstResponder
         } else {

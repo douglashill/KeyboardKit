@@ -19,9 +19,12 @@ open class KeyboardWindowScene: UIWindowScene {
         var commands = super.keyCommands ?? []
 
         if UIApplication.shared.supportsMultipleScenes {
-            if UIApplication.shared.foregroundWindowScenes.count > 1 {
+            if #available(iOS 15.0, *) {
+                // The system provides equivalent functionality from iOS 15.
+            } else if UIApplication.shared.foregroundWindowScenes.count > 1 {
                 commands.append(cycleWindowsCommand)
             }
+
             commands.append(closeCommand)
         }
 
