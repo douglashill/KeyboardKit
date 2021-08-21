@@ -1,7 +1,15 @@
 # KeyboardKit change log
 
 - Next
+    - Xcode 13 is now required.
+    - Adds integration with the UIKit focus system where available.
+        - When the focus system is available, KeyboardKit will no longer provide key commands for tab navigation in split views and arrow key navigation in collection views and table views. 
+        - First responder management should no longer be necessary when a focus system is available. The demo app has been updated to show this.
+        - `KeyboardScrollView` and `KeyboardDatePicker` are now focusable as part of the tab loop. They will consume arrow key inputs to scroll or change the date while focused.
+        - `KeyboardDatePicker` uses a `UIFocusHaloEffect` by default to show a halo when focused.
+        - Moving items in a table view or collection view and deleting items in a table view will act on the focused item instead of the selected item.
     - Adds the `KeyboardBarButtonItem` properties `keyCommandWantsPriorityOverSystemBehavior`, `keyCommandAllowsAutomaticLocalization` and `keyCommandAllowsAutomaticMirroring` to forward to iOS 15’s new properties on the bar button item’s `UIKeyCommand`.
+    - `KeyboardWindow` no longer allows the window to become the first responder, which increases the length of the responder chain at scene connection. 
     - Fixes key commands for rewind and fast-forward not being possible due to the commands for going back taking precedence even when unavailable.
 - 4.4.1
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.

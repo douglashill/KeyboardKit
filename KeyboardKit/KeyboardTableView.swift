@@ -8,7 +8,24 @@ import UIKit
 /// This class can be seen in action in the *Table View* example in the demo app,
 /// which shows selecting, reordering, deleting and refreshing.
 ///
-/// # Reordering
+/// **Focus system**
+///
+/// KeyboardKit sets `allowsFocus` and `remembersLastFocusedIndexPath` to true by default,
+/// so if a `UIFocusSystem` is available then UIKit will provide support for arrow key
+/// navigation in the table view.
+///
+/// If no `UIFocusSystem` is available then KeyboardKit fills in by providing similar
+/// functionality as long as the table view becomes first responder. In this case, it is
+/// your app’s responsibility to manage which object is first responder. The item that the
+/// user navigates to is modelled with the table view selection state, not the focus state.
+///
+/// The focus system is available from iOS 15 on iPad and from iOS 14 on Mac (macOS 11 Big Sur
+/// and later). As of iOS 15, the focus system is not available at all on iPhone.
+///
+/// Moving items with opt-cmd-arrow and deleting items with the delete key will act on the
+/// focused item if `UIFocusSystem` is available and on the selected item otherwise.
+///
+/// **Reordering**
 ///
 /// If the app enables reordering then KeyboardKit allows users to move rows using
 /// the *option + command + up* and *option + command + down* key combinations. This will
@@ -95,7 +112,7 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
     /// Called when a keyboard is used to change the selected rows.
     ///
     /// This happens in response to arrow keys, escape and ⌘A.
-    /// On iOS 15 and later, this is only called for Select All (⌘A) because the UIKit focus system is used instead.
+    /// When there is a `UIFocusSystem`, this is only called for Select All (⌘A).
     /// The rows show as selected but `tableView(_:didSelectRowAt:)` is not
     /// called unless return or space is pressed while a single row shows selection.
     ///
@@ -108,7 +125,7 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
 
     /// Asks the delegate whether the selection is allowed to be cleared by pressing the escape key.
     ///
-    /// This is not called on iOS 15 and later because the UIKit focus system is used instead.
+    /// This is not called when there is a `UIFocusSystem`.
     ///
     /// If not implemented, the collection view assumes it can clear the selection (i.e. this defaults to true).
     func tableViewShouldClearSelection(_ tableView: UITableView) -> Bool

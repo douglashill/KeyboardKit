@@ -2,7 +2,8 @@
 
 import UIKit
 
-/// A split view controller that supports navigating between columns using tab or arrows keys on a hardware keyboard.
+/// A split view controller that supports navigating between columns using tab or arrows keys on a hardware
+/// keyboard when the UIKit focus system is not available.
 ///
 /// This class does not read or set the first responder itself, because it would not know which descendant
 /// within a column should be first responder. Instead instances of this class have a `focusedColumn` property.
@@ -19,6 +20,16 @@ import UIKit
 /// This class requires certain delegate callbacks from the split view. Therefore an intermediate delegate
 /// is added. This is mostly transparent. You can set the delegate and receive callbacks as normal, but if
 /// you read the value of the delegate property it will not be the same as the object you set.
+///
+/// **Focus system**
+///
+/// This class doesn’t provide tab and arrow key commands if a `UIFocusSystem` is available
+/// because UIKit will provide support for using the tab key to navigate between focus groups.
+/// The only key command provided by this class will be for using the escape key to dismiss
+/// an overlaid column.
+///
+/// The focus system is available from iOS 15 on iPad and from iOS 14 on Mac (macOS 11 Big Sur
+/// and later). As of iOS 15, the focus system is not available at all on iPhone.
 @available(iOS 14.0, *)
 open class KeyboardSplitViewController: UISplitViewController, IntermediateDelegateOwner {
 

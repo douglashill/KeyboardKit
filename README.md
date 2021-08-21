@@ -8,7 +8,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Features
 
-- [Keyboard cell selection](/Features.md#cell-selection) (collection views, table views)
+- [Keyboard cell selection when the UIKit focus system is not available](/Features.md#cell-selection) (collection views, table views)
 - [Keyboard navigation](/Features.md#navigation) (split views, navigation controllers, tab bars, modals)
 - [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end)
 - [Key equivalents for bar buttons](Features.md#key-equivalents-for-buttons) (navigation bars, toolbars)

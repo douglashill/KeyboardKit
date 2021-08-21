@@ -13,7 +13,7 @@ import UIKit
 /// such as using the `.wheels` style.
 ///
 /// In these supported configurations, users can use the following key inputs when
-/// the date picker is the first responder:
+/// the date picker is focused or is the first responder:
 ///
 /// - Arrow keys to spatially change the selected day.
 /// - Option + left/right arrow to change the month.
@@ -26,6 +26,10 @@ import UIKit
 ///
 /// All calendars with identifiers provided by Foundation are supported, including
 /// Gregorian, Buddhist, Chinese etc. Inputs are flipped for right-to-left layouts.
+///
+/// In a supported configurations, `KeyboardDatePicker` will be focusable as part of the
+/// tab loop. Since it uses arrow key inputs, it gives itself a unique focus group
+/// identifier. The `focusEffect` is set to a rounded `UIFocusHaloEffect` by default.
 @available(iOS 14.0, *)
 open class KeyboardDatePicker: UIDatePicker {
     public override init(frame: CGRect) {
@@ -73,7 +77,7 @@ open class KeyboardDatePicker: UIDatePicker {
     @available(iOS 15.0, *)
     open override var focusEffect: UIFocusEffect? {
         // It’s easiest to have this be a computed getter so it can track the bounds.
-        // The empty initializer does track the bounds but has no corner radius.
+        // The empty initialiser does track the bounds but has no corner radius.
         get {
             customFocusEffect ?? UIFocusHaloEffect(roundedRect: bounds, cornerRadius: 8, curve: .continuous)
         }

@@ -8,8 +8,8 @@ import UIKit
 /// Unlike most other KeyboardKit subclasses, `KeyboardWindow` does not override
 /// `canBecomeFirstResponder` to return `true` because this results in shorter responder
 /// chain at scene connection, which is not desirable. It’s best if the first responder
-/// is a specific view or view controller instead. On iOS 15 and later the focus system
-/// will take care of this automatically.
+/// is a specific view or view controller instead. It there is a `UIFocusSystem` then
+/// that system will take care of the first responder automatically.
 open class KeyboardWindow: UIWindow {
 
     /*

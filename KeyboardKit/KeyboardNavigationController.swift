@@ -7,6 +7,11 @@ import UIKit
 /// bar and toolbar. Bar button items must be instances of `KeyboardBarButtonItem` to support this, even for
 /// system items (because otherwise there is no way to know the system item after initialisation).
 ///
+/// From iOS 15, `UINavigationController` itself provides a cmd-`[` key command to go back, but
+/// the UIKit implementation doesn’t correctly handle nested navigation controllers which is common
+/// when `UISplitViewController` collapses. Therefore `KeyboardNavigationController` will remove
+/// this key command from the superclass and adds in its own commands.
+///
 /// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
 open class KeyboardNavigationController: UINavigationController {
 
@@ -47,7 +52,7 @@ open class KeyboardNavigationController: UINavigationController {
             var additionalCommands: [UIKeyCommand] = []
 
             // On iOS 15 and later, UIKit provides cmd-[ to go back in UINavigationController.
-            // However as of iOS 15.0 beta 2 this has a bug seen in the KeyboardKit demo app table
+            // However as of iOS 15.0 beta 4 this has a bug seen in the KeyboardKit demo app table
             // view or list in compact widths where it pops all the way to the root (the sidebar
             // VC) instead of just popping one level. Additionally, the KeyboardKit command has a
             // localised title and the user can use either cmd-[ or cmd-left. Therefore filter
