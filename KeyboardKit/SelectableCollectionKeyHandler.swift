@@ -66,14 +66,10 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         super.init(owner: owner)
     }
 
-    private lazy var selectionKeyCommands: [UIKeyCommand] = [String.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
+    private lazy var selectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
-        [UIKeyModifierFlags(), .alternate].map { modifierFlags -> UIKeyCommand in
-            let keyCommand = UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
-            if #available(iOS 15.0, *), modifierFlags.isEmpty {
-                keyCommand.wantsPriorityOverSystemBehavior = true
-            }
-            return keyCommand
+        [UIKeyModifierFlags(), .alternate].map { modifierFlags in
+            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
         }
     } + [
         UIKeyCommand(.space, action: #selector(activateSelection)),
