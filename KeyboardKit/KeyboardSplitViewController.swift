@@ -2,34 +2,89 @@
 
 import UIKit
 
-/// A split view controller that supports navigating between columns using tab or arrows keys on a hardware
-/// keyboard when the UIKit focus system is not available.
+/// A split view controller that enables navigating between columns using tab or arrows keys on a hardware
+/// keyboard when the UIKit focus system is not available. It also enables using the escape key to dismiss
+/// an overlaid column.
+///
+/// **Availability**
+///
+/// This class doesn’t provide tab and arrow key commands if a `UIFocusSystem` is available
+/// because UIKit will provide support for using the tab key to navigate between focus groups.
+/// In this case, the only key command provided by this class will be for using the escape key
+/// to dismiss an overlaid column.
+///
+/// The focus system is available from iOS 15 on iPad and from iOS 14 on Mac (macOS 11 Big Sur
+/// and later). As of iOS 15, the focus system is not available at all on iPhone.
+///
+/// This class only supports iOS 14 split view controllers that are initialised with a `style` and have
+/// their view controllers set as columns. Using the `.unspecified` style is not supported.
+///
+/// In summary, navigating between columns is available in the following situations:
+///
+/// - On iPhone: In landscape on Plus/Max devices on iOS 14 and later
+/// - On iPad: On iOS 14 only
+/// - On Mac: Never
+///
+/// **Usage overview**
 ///
 /// This class does not read or set the first responder itself, because it would not know which descendant
-/// within a column should be first responder. Instead instances of this class have a `focusedColumn` property.
-/// This is simply tracking the state and does nothing on its own. To actually update the first responder the
-/// `delegate` of the split view controller should conform to `KeyboardSplitViewControllerDelegate`. In the
-/// delegate’s implementation of `didChangeFocusedColumn` it should update the first responder based on the
-/// split view controller’s `focusedColumn`.
-///
-/// To read more about how to set up this class, please see the documentation in `KeyboardSplitViewController.md`.
-///
-/// This subclass only supports iOS 14 split view controllers that are initialised with a `style` and have their
-/// view controllers set as columns. Using the `.unspecified` style is not supported.
+/// within a column should be first responder. Instead instances of this class have a `focusedColumn`
+/// property. This is simply tracking the state and does nothing on its own. To update the first responder
+/// the `delegate` of the split view controller should conform to `KeyboardSplitViewControllerDelegate`.
+/// In the delegate’s implementation of `didChangeFocusedColumn` it should update the first responder
+/// based on the split view controller’s `focusedColumn`.
 ///
 /// This class requires certain delegate callbacks from the split view. Therefore an intermediate delegate
 /// is added. This is mostly transparent. You can set the delegate and receive callbacks as normal, but if
 /// you read the value of the delegate property it will not be the same as the object you set.
 ///
-/// **Focus system**
+/// **Usage in detail**
 ///
-/// This class doesn’t provide tab and arrow key commands if a `UIFocusSystem` is available
-/// because UIKit will provide support for using the tab key to navigate between focus groups.
-/// The only key command provided by this class will be for using the escape key to dismiss
-/// an overlaid column.
+/// `KeyboardSplitViewController` can’t implement split view keyboard control entirely on its own. Before
+/// `UIFocusSystem`, your app’s support for full keyboard control is only as good as your first responder
+/// management, and this management is specific to each app. Therefore `KeyboardSplitViewController` takes
+/// a very hands-off approach. It does the reusable part of tracking which of its columns is focused in
+/// the `focusedColumn` property. The value of this property will be updated in response to keyboard input
+/// and any events that change the visible columns.
 ///
-/// The focus system is available from iOS 15 on iPad and from iOS 14 on Mac (macOS 11 Big Sur
-/// and later). As of iOS 15, the focus system is not available at all on iPhone.
+/// Your app must update the first responder in response to changes to this property by providing a
+/// `delegate` for the split view controller that conforms to the `KeyboardSplitViewControllerDelegate`
+/// protocol. This might be a parent view controller or perhaps your scene delegate. A simple setup might
+/// be done like this:
+///
+/// ```swift
+/// let splitViewController = KeyboardSplitViewController(style: .doubleColumn)
+/// splitViewController.delegate = self
+/// splitView.setViewController(KeyboardNavigationController(rootViewController: self.sidebarViewController), for: .primary)
+/// splitView.setViewController(KeyboardNavigationController(rootViewController: self.contentViewController), for: .secondary)
+/// ```
+///
+/// Using `KeyboardNavigationController` for your columns is not required but is recommended to benefit
+/// from automatic support for key commands to go back and activate bar button items.
+///
+/// In the delegate’s implementation of `didChangeFocusedColumn`, update the first responder in a way
+/// appropriate to your app. For example a simple implementation would be:
+///
+/// ```swift
+/// func didChangeFocusedColumn(inSplitViewController splitViewController: KeyboardSplitViewController) {
+///     if splitViewController.isCollapsed {
+///         // Maybe handle the collapsed case. See below.
+///     } else if splitViewController.focusedColumn == .primary {
+///         self.sidebarViewController.becomeFirstResponder()
+///     } else {
+///         self.contentViewController.becomeFirstResponder()
+///     }
+/// }
+/// ```
+///
+/// The `focusedColumn` is always considered to be `nil` when the split view is collapsed. You may need
+/// to handle the collapsed case depending on your app. In this simple example nothing needs to be done
+/// because KeyboardSplitViewController already makes sure the focused column stays visible when
+/// collapsing and since the view controller in that column was first responder before it will remain
+/// first responder after collapsing.
+///
+/// To see fully functional examples, check out `DoubleColumnSplitViewController` and
+/// `TripleColumnListViewController` in the KeyboardKit demo app.
 @available(iOS 14.0, *)
 open class KeyboardSplitViewController: UISplitViewController, IntermediateDelegateOwner {
 
