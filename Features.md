@@ -2,11 +2,18 @@
 
 KeyboardKit allows your users to use a hardware keyboard to perform the many actions listed below on iPad, iPhone or Mac.
 
-## Keyboard navigation
+## Keyboard navigation without the focus system
 
 KeyboardKit is designed to be used alongside the UIKit focus system when it’s available, which is on iPad on iOS 15 and later, and on Mac on Big Sur and later.
 
-For iOS 15 on iPhone, iOS 12–14 on iPad, and macOS Catalina, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers.
+For iOS 15 on iPhone and iOS 12–14 on iPad, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers. KeyboardKit’s implementation of keyboard navigation has a few advantages over the focus system:
+
+- Jumping to the end is possible in collection views and table views by holding the option key. This is a powerful productivity accelerator.
+- Wrapping is possible in collection views and table views. The user can press up when at the top to jump to the bottom etc.
+- Split views can be navigated regardless of their display mode. If the user tries to move focus to a column that isn’t visible, that column will be shown automatically.
+- Arrow keys can be used to navigation across split view columns if these inputs are consumed by the column content view. Using arrow keys feels more fluid.
+
+However the UIKit focus system has the major advantages of better system integration, removing the need for first responder management, and providing clear visual indication which element is focused. That’s why the focus system is used if its available.  
 
 To know whether the focus system is available, check for a `UIFocusSystem` like this:
 
@@ -19,6 +26,7 @@ if UIFocusSystem(for: viewOrViewController) != nil {
     // and arrow key navigation in table and collection views.
 }
 ```
+
 The following keyboard features are available only when the `UIFocusSystem` is not available.
 
 | Feature                                            | Key input        | Available with                                                                                                   | Notes                                                                                                                                                                                                                                                                                             |
@@ -29,26 +37,26 @@ The following keyboard features are available only when the `UIFocusSystem` is n
 | Activate selection                                 | return, space    | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | This will notify the delegate with `didSelectRowAtIndexPath:`. While the UIKit focus system requires users to use return on iPad and space on Mac, KeyboardKit alllows either on either.                                                                                                          |
 | Move focus between columns (e.g. sidebar)          | ←, →, tab, ⇧ tab | `KeyboardSplitViewController`                                                                                    | Requires cooperation from a provided `KeyboardSplitViewControllerDelegate`. Requires a split view created with a style on iOS 14 or later. Unlike the UIKit focus system, these inputs work regardless of whether columns are currently visible or not and arrow keys may be used instead of tab. |
 
-## More collection stuff
-
-Items can be reordered.
-
-| Feature                                                        | Key input | Available with                                                                                                   | Notes                                                                                                                                                                             |
-| -------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Select all                                                     | ⌘A        | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                                                                                                                   |
-| Delete focused or selected rows                                | delete    | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. Acts on the focused rows when `UIFocusSystem` is available or on selected rows otherwise.   |
-| Move focused or selected row up, down, left or right (reorder) | ⌥⌘ arrow  | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. Acts on the focused row when `UIFocusSystem` is available or on the selected row otherwise. |
-
-## More navigation stuff
+## Additional navigation commands
 
 KeyboardKit provides support for navigating in navigation controllers and more.
 
 | Feature                                       | Key input | Available with                 | Notes                                                                                              |
 | --------------------------------------------- | --------- | ------------------------------ | -------------------------------------------------------------------------------------------------- |
-| Go back                                       | ⌘←, ⌘[    | `KeyboardNavigationController` | Inputs are reversed for right-to-left layouts.                                                     |
-| Select tab                                    | ⌘ number  | `KeyboardTabBarController`     | The delegate will receive `shouldSelect` and `didSelect` callbacks. The More tab is not supported. |
 | Dismiss any sheet or popover                  | esc, ⌘W   | `KeyboardWindow`               | This respects `isModalInPresentation`.                                                             |
+| Select tab                                    | ⌘ number  | `KeyboardTabBarController`     | The delegate will receive `shouldSelect` and `didSelect` callbacks. The More tab is not supported. |
+| Go back                                       | ⌘`[`, ⌘←  | `KeyboardNavigationController` | Mirrored for right-to-left. UIKit provides this on iOS 15, but Keyboard does this back to iOS 12.  |
 | Hide overlaid column or show displaced column | esc       | `KeyboardSplitViewController`  | Requires a split view created with a style on iOS 14 or later.                                     |
+
+## Collection view and table view commands
+
+Items can be reordered with the keyboard in collection views and table views. Deletion is supported only in table views.
+
+| Feature                                                        | Key input | Available with                                                                                                   | Notes                                                                                                                                                                             |
+| -------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Move focused or selected row up, down, left or right (reorder) | ⌥⌘ arrow  | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. Acts on the focused row when `UIFocusSystem` is available or on the selected row otherwise. |
+| Delete focused or selected rows                                | delete    | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. Acts on the focused rows when `UIFocusSystem` is available or on selected rows otherwise.   |
+| Select all                                                     | ⌘A        | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                                                                                                                   |
 
 ## Scrolling and zooming
 
@@ -109,7 +117,7 @@ Key commands for working with windows are provided for iPad. These are not neede
 | -------------------- | --------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | New window           | ⌥⌘N       | `KeyboardApplication` | Keys chosen to leave ⌘N for compose or making new documents. This matches New Viewer Window in Mail on Mac.                                                                 |
 | Close window         | ⇧⌘W       | `KeyboardWindowScene` | Keys chosen to leave ⌘W for closing a tab or modal within a window. This matches the Mac when a window has tabs.                                                            |
-| Cycle focused window | ⌘\`       | `KeyboardWindowScene` | Changes the key window. Only works with visible windows. There does not seem to be any API to activate a non-visible window scene without breaking the user’s spaces.       |
+| Cycle focused window | ⌘\`       | `KeyboardWindowScene` | Changes the key window. The system provides this on iOS 15 and later.                                                                                                       |
 | Open Settings        | ⌘,        | `KeyboardApplication` | Opens the Settings app using `UIApplicationOpenSettingsURLString`. This is disabled by default because there is no automatic way to know if the app will show any settings. |
 
 ## Date picker
@@ -118,9 +126,9 @@ Key commands for working with windows are provided for iPad. These are not neede
 
 | Feature      | Key input | Notes                                          |
 | ------------ | --------- | ---------------------------------------------- |
-| Change day   | ←, →      | Inputs are reversed for right-to-left layouts. |
+| Change day   | ←, →      | Inputs are mirrored for right-to-left layouts. |
 | Change week  | ↑, ↓      |                                                |
-| Change month | ⌥←, ⌥→    | Inputs are reversed for right-to-left layouts. |
+| Change month | ⌥←, ⌥→    | Inputs are mirrored for right-to-left layouts. |
 | Change year  | ⌥↑, ⌥↓    |                                                |
 | Go to today  | ⌘T        |                                                |
 

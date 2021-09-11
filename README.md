@@ -1,15 +1,16 @@
 # KeyboardKit
 
-KeyboardKit makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.
+The easiest way to add comprehensive hardware keyboard control to an iPad, iPhone, or Mac Catalyst app.
 
 Keyboard control is a standard expectation of Mac apps. It’s important on iOS too because a hardware keyboard improves speed and ergonomics, which makes an iPad an even more powerful productivity machine.
 
-Apps created with AppKit tend to have better support for keyboard control compared to UIKit-based apps because most AppKit components respond to key input out of the box, while most UIKit components do not. KeyboardKit narrows this gap by providing subclasses of UIKit components that respond to key commands.
+KeyboardKit is designed to integrate with the UIKit focus system when available, and it provides similar arrow and tab key navigation on OS versions where the focus system is not available. 
 
 ## Features
 
-- [Keyboard cell selection when the UIKit focus system is not available](/Features.md#cell-selection) (collection views, table views)
-- [Keyboard navigation](/Features.md#navigation) (split views, navigation controllers, tab bars, modals)
+- [Keyboard navigation without the focus system](/Features.md#keyboard-navigation-without-the-focus-system) (navigate with arrow keys and tab key)
+- [Additional navigation commands](/Features.md#additional-navigation-commands) (dismiss modals, change tabs, go back)
+- [Collection view and table view commands](/Features.md#collection-view-and-table-view-commands) (reorder, delete, select all)
 - [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end)
 - [Key equivalents for bar buttons](Features.md#key-equivalents-for-buttons) (navigation bars, toolbars)
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
@@ -19,9 +20,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
 
 ## Requirements
 
-KeyboardKit supports iOS 12.0 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported. The latest Xcode 12.x is required.
-
-⚠️ Xcode 13 (iOS 15 SDK) should not be used yet because the new UIKit focus system takes precedence over key commands, which means arrow keys will not work with KeyboardKit. Work is in progress integrating with the focus system. If you want a quick fix for arrow keys not working in table views and collection views when using the iOS 15 SDK, please use the `xcode13` branch.
+Xcode 13 is required. KeyboardKit supports iOS 12 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported.
 
 Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
