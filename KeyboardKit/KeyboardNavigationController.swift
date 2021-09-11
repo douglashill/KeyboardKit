@@ -2,17 +2,19 @@
 
 import UIKit
 
-/// A navigation controller that supports using a hardware keyboard to navigate back using command + left
-/// (or right for right-to-left layout) and triggering the actions of the bar button items in the navigation
-/// bar and toolbar. Bar button items must be instances of `KeyboardBarButtonItem` to support this, even for
-/// system items (because otherwise there is no way to know the system item after initialisation).
+/// A navigation controller that supports using a hardware keyboard to navigate back using ⌘ + `[` or
+/// ⌘ + ← (mirrored for right-to-left layouts) and triggering the actions of the bar button items in
+/// the navigation bar and toolbar.
 ///
-/// From iOS 15, `UINavigationController` itself provides a cmd-`[` key command to go back, but
+/// Bar button items must be instances of `KeyboardBarButtonItem` to support keyboard equivalents, even
+/// for system items (because otherwise there is no way to know the system item after initialisation).
+///
+/// From iOS 15, `UINavigationController` itself provides a ⌘  + `[` key command to go back, but
 /// the UIKit implementation doesn’t correctly handle nested navigation controllers which is common
 /// when `UISplitViewController` collapses. Therefore `KeyboardNavigationController` will remove
 /// this key command from the superclass and adds in its own commands.
 ///
-/// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
+/// The concept for this class was originally developed for [PSPDFKit]( https://pspdfkit.com/ ).
 open class KeyboardNavigationController: UINavigationController {
 
     open override var canBecomeFirstResponder: Bool {

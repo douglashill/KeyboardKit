@@ -7,7 +7,7 @@ import UIKit
 /// To use this subclass of `UIApplication`, pass it as the third argument of `UIApplicationMain`. This can either
 /// be placed at the top level of a file named `main.swift` like this:
 ///
-/// ```
+/// ```swift
 /// UIApplicationMain(
 ///     CommandLine.argc,
 ///     CommandLine.unsafeArgv,
@@ -18,7 +18,7 @@ import UIKit
 ///
 /// Or in any Swift file by using `@main`. For example, like this:
 ///
-/// ```
+/// ```swift
 /// @main extension KeyboardApplication {
 ///     static func main() {
 ///         UIApplicationMain(

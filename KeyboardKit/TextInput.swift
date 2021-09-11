@@ -1,5 +1,5 @@
 // Douglas Hill, November 2019
-// Some concepts implemented in this file were originally developed for PSPDFKit: <https://pspdfkit.com>
+// Some concepts implemented in this file were originally developed for PSPDFKit: <https://pspdfkit.com/>
 
 import UIKit
 

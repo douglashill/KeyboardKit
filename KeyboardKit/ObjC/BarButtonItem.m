@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation KBDBarButtonItem
+@implementation _KBDBarButtonItem
 
 - (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(nullable id)target action:(nullable SEL)action {
     self = [super initWithBarButtonSystemItem:systemItem target:target action:action];

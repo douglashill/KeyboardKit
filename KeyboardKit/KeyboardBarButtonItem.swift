@@ -11,20 +11,20 @@ import UIKit
 /// The key command is used automatically when the bar button items is used in the navigation bar or toolbar
 /// of a `KeyboardNavigationController`.
 ///
-/// Sets default key equivalents for most system items.
+/// Default key equivalents are provided for most system items.
 ///
 /// Key commands use nil-targeted actions so the first object on the responder chain responding to
 /// the selector will handle it. This means the action might be received by a different object if
 /// the bar button item uses an explicit target.
 ///
-/// Bar button items that use `primaryAction` (a `UIAction`) are not supported because `UIAction` does not provide access to its `handler`.
+/// Bar button items that use `primaryAction` (a `UIAction`) aren’t supported because `UIAction` doesn’t provide access to its `handler`.
 ///
-/// Bar button items that use `menu` (a `UIMenu`) are not supported because the menu would not be accessible with a keyboard.
-/// Instead since `UIKeyCommand` is a menu element it makes more sense to create the menu contents using `UIKeyCommand` and
-/// also expose these same command objects in an override of `keyCommands`.
+/// Bar button items that use `menu` (a `UIMenu`) aren’t supported because `UIMenu` can’t be shown programmatically. Instead
+/// since `UIKeyCommand` is a menu element it makes more sense to create the menu contents using `UIKeyCommand` and also
+/// expose these same command objects in an override of `keyCommands` on the view controller that owns this bar button item.
 ///
-/// The concept for this class was originally developed for PSPDFKit: <https://pspdfkit.com>
-open class KeyboardBarButtonItem: KBDBarButtonItem {
+/// The concept for this class was originally developed for [PSPDFKit]( https://pspdfkit.com/ ).
+open class KeyboardBarButtonItem: _KBDBarButtonItem {
 
     /// The character and the modifier flags corresponding to the keys that must be pressed to trigger this bar button item’s action from a keyboard.
     open var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)?
@@ -88,7 +88,7 @@ open class KeyboardBarButtonItem: KBDBarButtonItem {
     open override var menu: UIMenu? {
         didSet {
             if menu != nil {
-                NSLog("[KeyboardKit] Warning: Setting the menu of a KeyboardBarButtonItem. The menu will not be accessible from a keyboard. The recommend design is to use a UIKeyCommand for each item in the menu and expose these same commands via an override of keyCommands.");
+                NSLog("[KeyboardKit] Warning: Setting the menu of a KeyboardBarButtonItem. The menu will not be accessible from a keyboard. The recommend design is to use a UIKeyCommand for each item in the menu and expose these same commands via an override of keyCommands in the view controller that provides this bar button item.");
             }
         }
     }

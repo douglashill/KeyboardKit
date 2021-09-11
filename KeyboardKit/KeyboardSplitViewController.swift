@@ -529,8 +529,8 @@ private protocol IntermediateDelegateOwner: NSObjectProtocol {
 
 // MARK: -
 
-/// The delegate of a `UISplitViewController` can conform to `KeyboardSplitViewControllerDelegate` in
-/// addition to `UISplitViewControllerDelegate` to receive a callback when the focused column changes.
+/// A split view controller’s `delegate` can conform to this protocol to receive callbacks when the
+/// focused column changes.
 @available(iOS 14.0, *)
 public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
     /// Called after the `focusedColumn` has changed.
