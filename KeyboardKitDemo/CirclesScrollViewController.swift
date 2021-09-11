@@ -20,8 +20,8 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemGroupedBackground
-        contentView.backgroundColor = .secondarySystemGroupedBackground
+        view.backgroundColor = .systemBackground
+        contentView.backgroundColor = .systemBackground
 
         scrollView.addSubview(contentView)
 
@@ -32,9 +32,6 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
         scrollView.accessibilityIdentifier = "circles scroll view"
 
         navigationItem.largeTitleDisplayMode = .never
-
-        // Disable the navigation bar background disappearing when scrolling to the top because that looks bad in this case.
-        navigationController!.navigationBar.scrollEdgeAppearance = navigationController!.navigationBar.standardAppearance
     }
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
