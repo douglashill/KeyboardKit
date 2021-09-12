@@ -22,16 +22,16 @@ open class KeyboardNavigationController: UINavigationController {
     }
 
     private lazy var leftToRightBackKeyCommands = [
-        UIKeyCommand((.command, .leftArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
-        UIKeyCommand((.command, "["), action: #selector(kbd_goBackFromKeyCommand)),
+        UIKeyCommand((.command, "["), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
+        UIKeyCommand((.command, .leftArrow), action: #selector(kbd_goBackFromKeyCommand)),
     ]
 
     private lazy var rightToLeftBackKeyCommands = [
         // Note that on iOS 14 and earlier the system will incorrectly show this in the discoverability HUD as a leftwards
         // pointing arrow. The discoverability HUD mirrors the arrow keys it displays when in a right-to-left layout, but
         // the inputs on the actual events received are not mirrored. This was reported as FB8963593 and resolved in iOS 15.
-        UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
-        UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand)),
+        UIKeyCommand((.command, "]"), action: #selector(kbd_goBackFromKeyCommand), title: localisedString(.navigation_back)),
+        UIKeyCommand((.command, .rightArrow), action: #selector(kbd_goBackFromKeyCommand)),
     ]
 
     private var backKeyCommands: [UIKeyCommand] {
