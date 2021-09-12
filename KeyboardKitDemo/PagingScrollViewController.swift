@@ -32,15 +32,15 @@ class PagingScrollViewController: FirstResponderViewController {
         return label
     }
 
-    override func loadView() {
-        view = scrollView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        scrollView.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .systemGroupedBackground
+
+        view.addSubview(scrollView)
+
         scrollView.isPagingEnabled = true
+        scrollView.clipsToBounds = false // Show content in unsafe areas on the sides.
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.accessibilityIdentifier = "paging scroll view"
@@ -49,25 +49,20 @@ class PagingScrollViewController: FirstResponderViewController {
             scrollView.addSubview(view)
         }
 
-        // Even though this scroll view doesn’t scroll vertically the navigation bar background would still
-        // disappear when pulling down. Fix this by making the navigation bar background always transparent.
-        navigationController!.navigationBar.standardAppearance.configureWithTransparentBackground()
-
         updateColours()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        scrollView.contentSize = CGSize(width: CGFloat(views.count) * scrollView.bounds.width, height: scrollView.bounds.height)
+        scrollView.frame = view.bounds.inset(by: view.safeAreaInsets)
+        let pageSize = scrollView.bounds.size
+        scrollView.contentSize = CGSize(width: CGFloat(views.count) * pageSize.width, height: pageSize.height)
 
-        let safeBounds = scrollView.bounds.inset(by: scrollView.safeAreaInsets)
-
-        // TODO: Not bothering with side safe area insets here. Would need to put the whole paging scroll view inside the safe area so it pages the right distance.
         var x: CGFloat = 0
         for view in views {
-            view.frame = CGRect(x: x, y: safeBounds.minY, width: scrollView.bounds.width, height: safeBounds.height)
-            x += scrollView.bounds.width
+            view.frame = CGRect(origin: CGPoint(x: x, y: 0), size: pageSize)
+            x += pageSize.width
         }
     }
 
@@ -83,5 +78,9 @@ class PagingScrollViewController: FirstResponderViewController {
         for view in views {
             view.layer.borderColor = UIColor.label.cgColor
         }
+    }
+
+    override var kd_preferredFirstResponderInHierarchy: UIResponder? {
+        presentedViewController ?? scrollView
     }
 }
