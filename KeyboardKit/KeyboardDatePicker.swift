@@ -87,22 +87,17 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     private lazy var adjustmentCommands: [UIKeyCommand] = [
-        UIKeyCommand(.leftArrow, action: #selector(kbd_adjustDate)),
-        UIKeyCommand(.rightArrow, action: #selector(kbd_adjustDate)),
-        UIKeyCommand(.upArrow, action: #selector(kbd_adjustDate)),
-        UIKeyCommand(.downArrow, action: #selector(kbd_adjustDate)),
-        UIKeyCommand((.alternate, .leftArrow), action: #selector(kbd_adjustDate)),
-        UIKeyCommand((.alternate, .rightArrow), action: #selector(kbd_adjustDate)),
-        UIKeyCommand((.alternate, .upArrow), action: #selector(kbd_adjustDate)),
-        UIKeyCommand((.alternate, .downArrow), action: #selector(kbd_adjustDate)),
-        UIKeyCommand((.command, "t"), action: #selector(kbd_adjustDate)),
-    ].map {
-        if #available(iOS 15.0, *) {
-            // KeyboardDatePicker defines its own focus group so arrow keys wouldn’t do anything in the focus system anyway.
-            $0.wantsPriorityOverSystemBehavior = true
-        }
-        return $0
-    }
+        // Want priority over focus system because KeyboardDatePicker defines its own focus group so arrow keys wouldn’t do anything in the focus system anyway.
+        UIKeyCommand(.leftArrow,                action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand(.rightArrow,               action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand(.upArrow,                  action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand(.downArrow,                action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand((.alternate, .leftArrow),  action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand((.alternate, .rightArrow), action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand((.alternate, .upArrow),    action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand((.alternate, .downArrow),  action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
+        UIKeyCommand((.command, "t"),           action: #selector(kbd_adjustDate)),
+    ]
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []

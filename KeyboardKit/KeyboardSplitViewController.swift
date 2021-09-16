@@ -255,10 +255,10 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
         UIKeyCommand((.shift, .tab), action: #selector(moveFocusInTrailingDirectionWithWrapping)),
     ]
     private lazy var rightArrowKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(.rightArrow, action: #selector(moveFocusRight)),
+        UIKeyCommand(.rightArrow, action: #selector(moveFocusRight), allowsAutomaticMirroring: false),
     ]
     private lazy var leftArrowKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(.leftArrow, action: #selector(moveFocusLeft)),
+        UIKeyCommand(.leftArrow, action: #selector(moveFocusLeft), allowsAutomaticMirroring: false),
     ]
     private lazy var dismissTemporaryColumnKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(.escape, action: #selector(dismissTemporaryColumn)),

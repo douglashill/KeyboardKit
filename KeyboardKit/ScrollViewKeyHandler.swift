@@ -36,24 +36,14 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
     private lazy var arrowKeyScrollingCommands: [UIKeyCommand] = [String.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         [UIKeyModifierFlags(), .alternate, .command].map { modifierFlags in
-            let command = UIKeyCommand(input: input, modifierFlags: modifierFlags, action: scrollAction)
-            if #available(iOS 15.0, *) {
-                command.wantsPriorityOverSystemBehavior = true
-                command.allowsAutomaticMirroring = false
-            }
-            return command
+            UIKeyCommand((modifierFlags, input), action: scrollAction, wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false)
         }
     }
 
     private lazy var spaceBarScrollingCommands: [UIKeyCommand] = [
-        UIKeyCommand(.space, action: scrollAction),
-        UIKeyCommand((.shift, .space), action: scrollAction),
-    ].map {
-        if #available(iOS 15.0, *) {
-            $0.wantsPriorityOverSystemBehavior = true
-        }
-        return $0
-    }
+        UIKeyCommand(.space, action: scrollAction, wantsPriorityOverSystemBehavior: true),
+        UIKeyCommand((.shift, .space), action: scrollAction, wantsPriorityOverSystemBehavior: true),
+    ]
 
     private lazy var pageUpDownHomeEndScrollingCommands: [UIKeyCommand] = [
         UIKeyCommand(.pageUp, action: scrollAction),

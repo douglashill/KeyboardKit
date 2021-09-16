@@ -57,15 +57,7 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
             }
         }()
 
-        let command = UIKeyCommand(keyEquivalent, action: action, title: title)
-
-        if #available(iOS 15.0, *) {
-            command.wantsPriorityOverSystemBehavior = keyCommandWantsPriorityOverSystemBehavior
-            command.allowsAutomaticLocalization = keyCommandAllowsAutomaticLocalization
-            command.allowsAutomaticMirroring = keyCommandAllowsAutomaticMirroring
-        }
-
-        return command
+        return UIKeyCommand(keyEquivalent, action: action, title: title, wantsPriorityOverSystemBehavior: keyCommandWantsPriorityOverSystemBehavior, allowsAutomaticLocalization: keyCommandAllowsAutomaticLocalization, allowsAutomaticMirroring: keyCommandAllowsAutomaticMirroring)
     }
 
     /// For KeyboardKit internal use.

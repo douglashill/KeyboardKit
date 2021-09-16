@@ -83,7 +83,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     private lazy var changeSelectionKeyCommands: [UIKeyCommand] = [.upArrow, .downArrow, .leftArrow, .rightArrow].flatMap { input -> [UIKeyCommand] in
         // TODO: Add .shift and [.alternate, .shift] here to support extending multiple selection.
         [UIKeyModifierFlags(), .alternate].map { modifierFlags in
-            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand))
+            UIKeyCommand((modifierFlags, input), action: #selector(updateSelectionFromKeyCommand), allowsAutomaticMirroring: false)
         }
     }
 
