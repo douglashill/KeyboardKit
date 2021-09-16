@@ -97,10 +97,10 @@ class SelectableCollectionKeyHandler: InjectableResponder {
     ]
 
     private lazy var moveKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(([.alternate, .command], .upArrow), action: #selector(kbd_move), title: localisedString(.collection_moveUp)),
-        UIKeyCommand(([.alternate, .command], .downArrow), action: #selector(kbd_move), title: localisedString(.collection_moveDown)),
-        UIKeyCommand(([.alternate, .command], .leftArrow), action: #selector(kbd_move), title: localisedString(.collection_moveLeft)),
-        UIKeyCommand(([.alternate, .command], .rightArrow), action: #selector(kbd_move), title: localisedString(.collection_moveRight)),
+        UIKeyCommand(([.alternate, .command], .upArrow),    action: #selector(kbd_move), title: localisedString(.collection_moveUp),    allowsAutomaticMirroring: false),
+        UIKeyCommand(([.alternate, .command], .downArrow),  action: #selector(kbd_move), title: localisedString(.collection_moveDown),  allowsAutomaticMirroring: false),
+        UIKeyCommand(([.alternate, .command], .leftArrow),  action: #selector(kbd_move), title: localisedString(.collection_moveLeft),  allowsAutomaticMirroring: false),
+        UIKeyCommand(([.alternate, .command], .rightArrow), action: #selector(kbd_move), title: localisedString(.collection_moveRight), allowsAutomaticMirroring: false),
     ]
 
     override var keyCommands: [UIKeyCommand]? {
