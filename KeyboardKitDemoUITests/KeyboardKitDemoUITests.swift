@@ -16,8 +16,12 @@ class KeyboardKitDemoUITests: XCTestCase {
         // Reported as FB8936487 - Should be possible to test hardware keyboard input on iOS/iPadOS.
         // On Mac it doesn’t seem to matter which element you call typeText on so I’m just using the app element.
 
-        XCTAssertTrue(app.tables.element.exists)
-        app.typeText(.downArrow)
+        // This test expects the focus system so won’t work on Catalina. Must use Big Sur or later.
+
+        XCTAssertTrue(app.tables.element.waitForExistence(timeout: 30))
+        app.typeText(.downArrow) // This just primes the focus system.
+        XCTAssertTrue(app.tables.element.exists) // Nothing should have changed.
+        app.typeText(.downArrow) // This should actually move the focus down by one item.
         XCTAssertTrue(app.collectionViews["list collection view"].exists)
         app.typeText(.downArrow)
         XCTAssertTrue(app.collectionViews["compositional layout collection view"].exists)
@@ -27,7 +31,7 @@ class KeyboardKitDemoUITests: XCTestCase {
         XCTAssertTrue(app.scrollViews["circles scroll view"].exists)
         app.typeText(.downArrow)
         XCTAssertTrue(app.scrollViews["paging scroll view"].exists)
-        app.typeText(.rightArrow)
+        app.typeText(.tab)
         app.typeText(.upArrow)
         XCTAssertTrue(app.scrollViews["paging scroll view"].exists, "Up arrow should have done nothing. It should not have been handled by the sidebar.")
     }
