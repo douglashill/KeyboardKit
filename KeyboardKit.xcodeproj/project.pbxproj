@@ -419,6 +419,7 @@
 		A53AE0062375AAAE00B07957 /* KeyboardKit */ = {
 			isa = PBXGroup;
 			children = (
+				A5D2DD0326EC9AA4000C5D18 /* Documentation.docc */,
 				A53AE01623786CD000B07957 /* KeyboardTableView.swift */,
 				A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */,
 				A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */,
@@ -448,7 +449,6 @@
 				A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */,
 				A53AE0082375AAAE00B07957 /* Info.plist */,
 				A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */,
-				A5D2DD0326EC9AA4000C5D18 /* Documentation.docc */,
 			);
 			path = KeyboardKit;
 			sourceTree = "<group>";

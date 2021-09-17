@@ -23,7 +23,7 @@ let package = Package(
             name: "KeyboardKit",
             dependencies: ["KeyboardKitObjC"],
             path: "KeyboardKit",
-            exclude: ["Info.plist", "ObjC", "UpdateLocalisedStringKeys.swift", "KeyboardSplitViewController.md"]
+            exclude: ["Info.plist", "ObjC", "UpdateLocalisedStringKeys.swift", "Documentation.docc"]
         ),
         .testTarget(
             name: "KeyboardKitTests",
