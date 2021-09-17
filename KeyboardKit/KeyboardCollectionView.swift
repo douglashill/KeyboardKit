@@ -58,10 +58,12 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
     }
 
     private func sharedInit() {
+#if iOS_15_SDK
         if #available(iOS 15.0, *) {
             allowsFocus = true
             remembersLastFocusedIndexPath = true
         }
+#endif
     }
 
     open override var canBecomeFirstResponder: Bool {
@@ -114,11 +116,13 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
 
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+#if iOS_15_SDK
         if #available(iOS 15.0, *) {
             collectionView.allowsFocus = true
             collectionView.remembersLastFocusedIndexPath = true
         }
+#endif
     }
 }
 

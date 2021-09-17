@@ -16,11 +16,13 @@ extension UIKeyCommand {
             self.init(input: keys.input, modifierFlags: keys.modifierFlags, action: action)
         }
 
+#if iOS_15_SDK
         if #available(iOS 15.0, *)  {
             self.wantsPriorityOverSystemBehavior = wantsPriorityOverSystemBehavior
             self.allowsAutomaticLocalization = allowsAutomaticLocalization
             self.allowsAutomaticMirroring = allowsAutomaticMirroring
         }
+#endif
     }
 
     /// Shorthand for when there are no modifier keys.

@@ -58,6 +58,8 @@ open class KeyboardDatePicker: UIDatePicker {
     /// Backing store for `customFocusEffect` because stored properties can’t have availability conditions.
     private var customFocusEffectStorage: NSObject??
 
+#if iOS_15_SDK
+
     /// Backing property for if `focusEffect` is changed from its default.
     ///
     /// This is deliberately double optional:
@@ -85,6 +87,8 @@ open class KeyboardDatePicker: UIDatePicker {
             customFocusEffect = .some(newValue)
         }
     }
+
+#endif
 
     private lazy var adjustmentCommands: [UIKeyCommand] = [
         // Want priority over focus system because KeyboardDatePicker defines its own focus group so arrow keys wouldn’t do anything in the focus system anyway.
