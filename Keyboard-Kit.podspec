@@ -16,7 +16,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
                        DESC
 
     spec.source = { :git => 'https://github.com/douglashill/KeyboardKit.git', :tag => spec.version.to_s }
-    spec.swift_version = '5.0'
+    spec.swift_version = '5.5'
     spec.ios.deployment_target  = '12.0'
     spec.source_files = 'KeyboardKit/**/*.{h,m,swift}'
     spec.public_header_files = [
