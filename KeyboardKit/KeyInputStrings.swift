@@ -5,7 +5,7 @@ import UIKit
 /// Convenience strings for the `input` of a `UIKeyCommand`.
 extension String {
     static let delete: String = {
-#if iOS_15_SDK
+#if !targetEnvironment(macCatalyst)
         if #available(iOS 15.0, *) {
             return UIKeyCommand.inputDelete
         }

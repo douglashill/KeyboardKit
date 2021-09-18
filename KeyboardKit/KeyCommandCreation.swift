@@ -16,7 +16,7 @@ extension UIKeyCommand {
             self.init(input: keys.input, modifierFlags: keys.modifierFlags, action: action)
         }
 
-#if iOS_15_SDK
+#if !targetEnvironment(macCatalyst)
         if #available(iOS 15.0, *)  {
             self.wantsPriorityOverSystemBehavior = wantsPriorityOverSystemBehavior
             self.allowsAutomaticLocalization = allowsAutomaticLocalization

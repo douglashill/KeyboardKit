@@ -37,7 +37,7 @@ protocol SelectableCollection: UIFocusEnvironment {
     var allowsMultipleSelectionDuringEditing_: Bool { get }
     var isEditing_: Bool { get }
 
-#if iOS_15_SDK
+#if !targetEnvironment(macCatalyst)
     @available(iOS 15.0, *) var allowsFocus: Bool { get }
     @available(iOS 15.0, *) var allowsFocusDuringEditing: Bool { get }
 #endif
@@ -260,7 +260,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 extension SelectableCollection {
     var isKeyboardScrollingEnabled: Bool {
         if UIFocusSystem(for: self) != nil {
-#if iOS_15_SDK
+#if !targetEnvironment(macCatalyst)
             if #available(iOS 15.0, *) {
                 return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
             }

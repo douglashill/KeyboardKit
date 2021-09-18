@@ -58,7 +58,7 @@ open class KeyboardDatePicker: UIDatePicker {
     /// Backing store for `customFocusEffect` because stored properties can’t have availability conditions.
     private var customFocusEffectStorage: NSObject??
 
-#if iOS_15_SDK
+#if !targetEnvironment(macCatalyst)
 
     /// Backing property for if `focusEffect` is changed from its default.
     ///
