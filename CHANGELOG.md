@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 5.0.0
     - Xcode 13 is now required.
     - Adds integration with the UIKit focus system where it’s available.
         - When the focus system is available, KeyboardKit will no longer provide key commands for tab navigation in split views and arrow key navigation in collection views and table views. The focus system is in some ways less capable than KeyboardKit’s implementation, but it provides other significant advantages. Please see [Features.md](/Features.md#keyboard-navigation-without-the-focus-system) for more details about the pros of cons of each.
