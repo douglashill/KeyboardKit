@@ -5,14 +5,14 @@ Pod::Spec.new do |spec|
     spec.license = { :type => 'MIT', :file => 'License.txt' }
     spec.homepage = 'https://github.com/douglashill/KeyboardKit'
     spec.authors = { 'Douglas Hill' => 'https://twitter.com/qdoug' }
-    spec.summary = 'A framework that makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.'
+    spec.summary = 'The easiest way to add comprehensive hardware keyboard control to an iPad, iPhone, or Mac Catalyst app.'
 
     spec.description = <<-DESC
-KeyboardKit makes it easy to add hardware keyboard control to iOS and Mac Catalyst apps.
+The easiest way to add comprehensive hardware keyboard control to an iPad, iPhone, or Mac Catalyst app.
 
 Keyboard control is a standard expectation of Mac apps. It’s important on iOS too because a hardware keyboard improves speed and ergonomics, which makes an iPad an even more powerful productivity machine.
 
-Apps created with AppKit tend to have better support for keyboard control compared to UIKit-based apps. I believe the principal reason for this is that most AppKit components respond to key input out of the box, while most UIKit components do not. KeyboardKit aims to narrow this gap by providing subclasses of UIKit components that respond to key commands.
+KeyboardKit is designed to integrate with the UIKit focus system when available, and it provides similar arrow and tab key navigation on OS versions where the focus system is not available.
                        DESC
 
     spec.source = { :git => 'https://github.com/douglashill/KeyboardKit.git', :tag => spec.version.to_s }
@@ -27,7 +27,7 @@ Apps created with AppKit tend to have better support for keyboard control compar
       'KeyboardKit/Info.plist',
       'KeyboardKit/ObjC/ResponderChainDebugging.m',
       'KeyboardKit/UpdateLocalisedStringKeys.swift',
-      'KeyboardKit/KeyboardSplitViewController.md'
+      'KeyboardKit/Documentation.docc'
     ]
     spec.resources = "KeyboardKit/Localised/*.lproj"
 
