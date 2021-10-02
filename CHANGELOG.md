@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- 5.0.1
+    - Fixes a potential crash when selecting or moving items in a collection view. This might occur if the collection view is hidden.
 - 5.0.0
     - Xcode 13 is now required.
     - Adds integration with the UIKit focus system where it’s available.
