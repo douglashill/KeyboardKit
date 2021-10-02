@@ -225,6 +225,9 @@ extension UICollectionView: SelectableCollection {
         // TODO: The use of frame likely gives incorrect results if there are transforms.
 
         guard let layoutAttributes = collectionViewLayout.layoutAttributesForItem(at: indexPath) else {
+            // This might occur if the collection view is hidden when added to view hierarchy.
+            // This is suspicious, but given how this method is used, returning fullyVisible
+            // is the safest option. See https://github.com/douglashill/KeyboardKit/pull/20
             return .fullyVisible
         }
 	
