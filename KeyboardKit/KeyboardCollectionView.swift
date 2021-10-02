@@ -224,8 +224,10 @@ extension UICollectionView: SelectableCollection {
 
         // TODO: The use of frame likely gives incorrect results if there are transforms.
 
-        // Note the force unwrapping. Not sure why this is nullable.
-        let layoutAttributes = collectionViewLayout.layoutAttributesForItem(at: indexPath)!
+        guard let layoutAttributes = collectionViewLayout.layoutAttributesForItem(at: indexPath) else {
+            return .fullyVisible
+        }
+	
         if bounds.inset(by: adjustedContentInset).contains(layoutAttributes.frame) {
             return .fullyVisible
         }
