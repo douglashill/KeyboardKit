@@ -42,6 +42,27 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         super.next
     }
 
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        case #selector(kbd_define), #selector(kbd_useSelectionForFind):
+            if let selectedTextRange = selectedTextRange, let selectedText = text(in: selectedTextRange) {
+                return selectedText.isEmpty == false
+            } else {
+                return false
+            }
+        case #selector(kbd_findNext), #selector(kbd_findPrevious):
+            if let findPasteboardString = findPasteboard.string {
+                return findPasteboardString.isEmpty == false
+            } else {
+                return false
+            }
+        case #selector(kbd_jumpToSelection):
+            return selectedTextRange != nil
+        default:
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+
     @objc func kbd_define(_ sender: UIKeyCommand) {
         // An attempt was made to use UIKit’s private showServiceForText API to get the superior Look Up UI that they don’t expose publicly but I couldn’t make it work.
 
