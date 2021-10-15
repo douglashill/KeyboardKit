@@ -4,14 +4,7 @@ import UIKit
 
 /// Convenience strings for the `input` of a `UIKeyCommand`.
 extension String {
-    static let delete: String = {
-#if !targetEnvironment(macCatalyst)
-        if #available(iOS 15.0, *) {
-            return UIKeyCommand.inputDelete
-        }
-#endif
-        return "\u{8}" // This is the backspace ASCII control character.
-    }()
+    static let delete: String = { if #available(iOS 15.0, *) { return UIKeyCommand.inputDelete } else { return "\u{8}" } }() // This is the backspace ASCII control character.
     static let returnOrEnter = "\r" // Unfortunately there is no way to distinguish between return and enter with only the input string. You need UIKeyboardHIDUsage for that.
     static let space = " "
     static let tab = "\t"

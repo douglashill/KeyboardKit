@@ -37,10 +37,8 @@ protocol SelectableCollection: UIFocusEnvironment {
     var allowsMultipleSelectionDuringEditing_: Bool { get }
     var isEditing_: Bool { get }
 
-#if !targetEnvironment(macCatalyst)
     @available(iOS 15.0, *) var allowsFocus: Bool { get }
     @available(iOS 15.0, *) var allowsFocusDuringEditing: Bool { get }
-#endif
 
     /// Optional because the delegate might not implement the method so the default value is not repeated.
     var shouldAllowEmptySelection: Bool? { get }
@@ -271,13 +269,12 @@ class SelectableCollectionKeyHandler: InjectableResponder {
 extension SelectableCollection {
     var isKeyboardScrollingEnabled: Bool {
         if UIFocusSystem(for: self) != nil {
-#if !targetEnvironment(macCatalyst)
             if #available(iOS 15.0, *) {
                 return (isEditing_ ? allowsFocusDuringEditing : allowsFocus) == false
+            } else {
+                // There’s no simple property to disable focus on Big Sur so just assume focus will be enabled.
+                return false
             }
-#endif
-            // There’s no simple property to disable focus on Big Sur so just assume focus will be enabled.
-            return false
         } else {
             return shouldAllowSelection == false
         }

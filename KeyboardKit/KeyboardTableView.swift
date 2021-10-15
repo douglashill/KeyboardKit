@@ -53,12 +53,10 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
     }
 
     private func sharedInit() {
-#if !targetEnvironment(macCatalyst)
         if #available(iOS 15.0, *) {
             allowsFocus = true
             remembersLastFocusedIndexPath = true
         }
-#endif
     }
 
     open override var canBecomeFirstResponder: Bool {
@@ -109,12 +107,10 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-#if !targetEnvironment(macCatalyst)
         if #available(iOS 15.0, *) {
             tableView.allowsFocus = true
             tableView.remembersLastFocusedIndexPath = true
         }
-#endif
     }
 }
 
