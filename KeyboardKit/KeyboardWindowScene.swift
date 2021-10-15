@@ -11,6 +11,9 @@ open class KeyboardWindowScene: UIWindowScene {
         true
     }
 
+    // The Close and cycle window key commands are added by the system on Catalyst.
+#if !targetEnvironment(macCatalyst)
+
     private lazy var cycleWindowsCommand = UIKeyCommand((.command, "`"), action: #selector(kbd_cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle))
     // Leave cmd + W for closing a tab or modal within a window. Mac uses cmd + shift + W for close window when there are tabs.
     private lazy var closeCommand = UIKeyCommand(([.command, .shift], "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
@@ -64,7 +67,11 @@ open class KeyboardWindowScene: UIWindowScene {
     @objc func kbd_closeWindowScene(_ sender: UIKeyCommand) {
         UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
     }
+
+    #endif
 }
+
+#if !targetEnvironment(macCatalyst)
 
 @available(iOS 13.0, *)
 private extension UIApplication {
@@ -79,3 +86,6 @@ private extension UIApplication {
         }
     }
 }
+
+
+#endif

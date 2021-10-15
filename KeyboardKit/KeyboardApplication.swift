@@ -36,13 +36,17 @@ open class KeyboardApplication: UIApplication {
         true
     }
 
-    /// Whether a key command should be provided that opens the Settings app.
+    /// Whether a key command should be provided on iOS that opens the app’s settings in the Settings app.
     ///
     /// Defaults to true if the app has a `Settings.bundle` resource and false otherwise.
     ///
     /// Don’t do this if the app does not have any settings or permissions it asks for.
-    /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.
+    ///
+    /// This property has no effect on Mac Catalyst because the system handles adding a Preferences menu item if a `Settings.bundle` exists.
     open var canOpenSettings = Bundle.main.url(forResource: "Settings", withExtension: "bundle") != nil
+
+    // The New and Preferences key commands are added by the system on Catalyst.
+#if !targetEnvironment(macCatalyst)
 
     // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
     @available(iOS 13.0, *)
@@ -71,4 +75,6 @@ open class KeyboardApplication: UIApplication {
     @objc func kbd_openSettings(_ sender: UIKeyCommand) {
         open(URL(string: UIApplication.openSettingsURLString)!)
     }
+
+#endif
 }
