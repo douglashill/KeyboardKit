@@ -56,6 +56,7 @@
 		A5D20F3E23787DA80057A8EE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F3D23787DA80057A8EE /* main.swift */; };
 		A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D20F43237E9AE90057A8EE /* KeyboardScrollView.swift */; };
 		A5D2DD0426EC9AA4000C5D18 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = A5D2DD0326EC9AA4000C5D18 /* Documentation.docc */; };
+		A5D2DD4126F0819F000C5D18 /* ResponderChainDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */; };
 		A5D8C55823A392A600733DD4 /* KeyboardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55723A392A600733DD4 /* KeyboardWindow.swift */; };
 		A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */; };
 		A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */; };
@@ -869,6 +870,7 @@
 				A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
 				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
+				A5D2DD4126F0819F000C5D18 /* ResponderChainDebugging.m in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,
 				A5E538A5239B0596004A2EE2 /* KeyboardWindowScene.swift in Sources */,
 				A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */,

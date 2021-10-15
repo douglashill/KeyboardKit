@@ -1,5 +1,7 @@
 // Douglas Hill, December 2019
 
+#if DEBUG
+
 #import <UIKit/UIKit.h>
 
 /*
@@ -63,3 +65,5 @@ static void print(NSString *message) {
 }
 
 @end
+
+#endif
