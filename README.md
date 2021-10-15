@@ -16,6 +16,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
 - [Keyboard window management](Features.md#window-management) (open, close, cycle)
 - [Keyboard date picker](Features.md#date-picker) (change day, week, month or year)
+- [Main menu and discoverability HUD](Features.md#main-menu-and-discoverability-hud) (group commands under File, Edit, View etc.)
 - [Discoverability titles in 39 localisations](Features.md#localisation)
 
 ## Requirements

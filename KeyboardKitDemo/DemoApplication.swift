@@ -14,7 +14,7 @@ import MBProgressHUD
 /// An application that can show all key inputs in a HUD overlay, which is useful for making demo videos.
 class DemoApplication: KeyboardApplication {
 
-    #if ENABLE_KEY_INPUT_HUD
+#if ENABLE_KEY_INPUT_HUD
     override func sendEvent(_ event: UIEvent) {
         super.sendEvent(event)
 
@@ -87,5 +87,5 @@ class DemoApplication: KeyboardApplication {
 
         hud.hide(animated: true, afterDelay: 0.7)
     }
-    #endif
+#endif
 }

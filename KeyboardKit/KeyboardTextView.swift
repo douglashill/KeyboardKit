@@ -5,22 +5,55 @@ import UIKit
 /// A text view that supports hardware keyboard commands to use the selection for find, find previous/next, and jump to the selection.
 open class KeyboardTextView: UITextView, ResponderChainInjection {
 
-    private lazy var selectionActionKeyCommands: [UIKeyCommand] = {
-        var commands: [UIKeyCommand]
-        // The system provides Look Up on Catalyst so we don’t need to provide our own command.
-        #if targetEnvironment(macCatalyst)
-        commands = []
-        #else
-        commands = [UIKeyCommand(([.command, .control], "d"), action: #selector(kbd_define), title: localisedString(.text_define))]
-        #endif
-        commands += [
-            UIKeyCommand((.command, "g"), action: #selector(kbd_findNext), title: localisedString(.find_next)),
-            UIKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous)),
-            UIKeyCommand((.command, "e"), action: #selector(kbd_useSelectionForFind), title: localisedString(.find_useSelection)),
-            UIKeyCommand((.command, "j"), action: #selector(kbd_jumpToSelection), title: localisedString(.find_jump)),
-        ]
-        return commands
-    }()
+#if !targetEnvironment(macCatalyst)
+    /// A key command that enables users to show a dictionary definition of a selected word.
+    ///
+    /// Title: Define
+    ///
+    /// Input: ⌃⌘D
+    ///
+    /// The UI shown by the system Look Up menu is not accessibility using public API, so this
+    /// Define command uses the less capable `UIReferenceLibraryViewController` instead.
+    ///
+    /// The system provides Look Up on Mac Catalyst so we don’t need to provide our own command.
+    public static let defineKeyCommand = DiscoverableKeyCommand(([.command, .control], "d"), action: #selector(kbd_define), title: localisedString(.text_define))
+#endif
+
+    /// A key command that enables users to select and show the next range of text matching the last call to “Use Selection for Find”.
+    ///
+    /// Title: Find Next
+    ///
+    /// Input: ⌘G
+    ///
+    /// Recommended location in main menu: Edit > Find
+    public static let findNextKeyCommand = DiscoverableKeyCommand((.command, "g"), action: #selector(kbd_findNext), title: localisedString(.find_next))
+
+    /// A key command that enables users to select and show the previous range of text matching the last call to “Use Selection for Find”.
+    ///
+    /// Title: Find Previous
+    ///
+    /// Input: ⇧⌘G
+    ///
+    /// Recommended location in main menu: Edit > Find
+    public static let findPreviousKeyCommand = DiscoverableKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous))
+
+    /// A key command that enables users to mark text to be searched for using “Find Next” and “Find Previous”.
+    ///
+    /// Title: Use Selection for Find
+    ///
+    /// Input: ⌘E
+    ///
+    /// Recommended location in main menu: Edit > Find
+    public static let useSelectionForFindKeyCommand = DiscoverableKeyCommand((.command, "e"), action: #selector(kbd_useSelectionForFind), title: localisedString(.find_useSelection))
+
+    /// A key command that enables users to scroll to show the insertion point or selected text.
+    ///
+    /// Title: Jump to Selection
+    ///
+    /// Input: ⌘J
+    ///
+    /// Recommended location in main menu: Edit > Find
+    public static let jumpToSelectionKeyCommand = DiscoverableKeyCommand((.command, "j"), action: #selector(kbd_jumpToSelection), title: localisedString(.find_jump))
 
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 
@@ -28,7 +61,17 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         var commands = super.keyCommands ?? []
 
         if isSelectable {
-            commands += selectionActionKeyCommands
+#if !targetEnvironment(macCatalyst)
+            if Self.defineKeyCommand.shouldBeIncludedInResponderChainKeyCommands {
+                commands.append(Self.defineKeyCommand)
+            }
+#endif
+            commands += [
+                Self.findNextKeyCommand,
+                Self.findPreviousKeyCommand,
+                Self.useSelectionForFindKeyCommand,
+                Self.jumpToSelectionKeyCommand
+            ].filter { $0.shouldBeIncludedInResponderChainKeyCommands }
         }
 
         return commands

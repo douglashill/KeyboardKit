@@ -48,20 +48,40 @@ open class KeyboardApplication: UIApplication {
     // The New and Preferences key commands are added by the system on Catalyst.
 #if !targetEnvironment(macCatalyst)
 
-    // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
+    /// A key command that enables users to create a new app window.
+    ///
+    /// Title: New Window
+    ///
+    /// Input: ⌥⌘N
+    ///
+    /// Recommended location in main menu: File
+    ///
+    /// Using ⌥⌘N matches Mail on the Mac’s command for New Viewer Window and leaves ⌘N available for compose or making new documents.
+    ///
+    /// This command is not available on Mac because the system provides a ⌘N command to open a new window.
     @available(iOS 13.0, *)
-    private lazy var newWindowKeyCommand = UIKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
-    private lazy var openSettingsKeyCommand = UIKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
+    public static let newWindowKeyCommand = DiscoverableKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
+
+    /// A key command that enables users to open the app’s settings in the Settings app.
+    ///
+    /// Title: Settings
+    ///
+    /// Input: ⌘,
+    ///
+    /// Recommended location in main menu: Application
+    ///
+    /// This command is not available on Mac because the system provides a ⌘, command to open the app’s Preferences window.
+    public static let settingsKeyCommand = DiscoverableKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if #available(iOS 13, *), supportsMultipleScenes {
-            commands.append(newWindowKeyCommand)
+        if #available(iOS 13, *), Self.newWindowKeyCommand.shouldBeIncludedInResponderChainKeyCommands && supportsMultipleScenes {
+            commands.append(Self.newWindowKeyCommand)
         }
 
-        if canOpenSettings {
-            commands.append(openSettingsKeyCommand)
+        if Self.settingsKeyCommand.shouldBeIncludedInResponderChainKeyCommands && canOpenSettings {
+            commands.append(Self.settingsKeyCommand)
         }
 
         return commands

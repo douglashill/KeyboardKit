@@ -70,6 +70,69 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
         true
     }
 
+    // TODO: These are always showing as disabled on Monterey (Mac on iOS 15) even though the actual
+    // key inputs work fine. These show up correctly in the discoverability HUD on iPad on iOS 15.
+
+    /// A key command that enables users to reorder a collection view or table view by moving the focused or selected item up.
+    ///
+    /// Title: Move Up
+    ///
+    /// Input: ⌥⌘↑
+    ///
+    /// This command is available with `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView` and `KeyboardCollectionViewController`.
+    ///
+    /// The collection view or table view data source must implement the move callbacks.
+    ///
+    /// This functionality is not supported when using a diffable data source.
+    ///
+    /// Moving acts on the focused item when `UIFocusSystem` is available or on the selected item otherwise.
+    public static let moveUpKeyCommand    = SelectableCollectionKeyHandler.moveUpKeyCommand
+
+    /// A key command that enables users to reorder a collection view or table view by moving the focused or selected item down.
+    ///
+    /// Title: Move Down
+    ///
+    /// Input: ⌥⌘↓
+    ///
+    /// This command is available with `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView` and `KeyboardCollectionViewController`.
+    ///
+    /// The collection view or table view data source must implement the move callbacks.
+    ///
+    /// This functionality is not supported when using a diffable data source.
+    ///
+    /// Moving acts on the focused item when `UIFocusSystem` is available or on the selected item otherwise.
+    public static let moveDownKeyCommand  = SelectableCollectionKeyHandler.moveDownKeyCommand
+
+    /// A key command that enables users to reorder a collection view by moving the focused or selected item left.
+    ///
+    /// Title: Move Left
+    ///
+    /// Input: ⌥⌘←
+    ///
+    /// This command is available with `KeyboardCollectionView` and `KeyboardCollectionViewController`.
+    ///
+    /// The collection view data source must implement the move callbacks.
+    ///
+    /// This functionality is not supported when using a diffable data source.
+    ///
+    /// Moving acts on the focused item when `UIFocusSystem` is available or on the selected item otherwise.
+    public static let moveLeftKeyCommand  = SelectableCollectionKeyHandler.moveLeftKeyCommand
+
+    /// A key command that enables users to reorder a collection view by moving the focused or selected item right.
+    ///
+    /// Title: Move Right
+    ///
+    /// Input: ⌥⌘→
+    ///
+    /// This command is available with `KeyboardCollectionView` and `KeyboardCollectionViewController`.
+    ///
+    /// The collection view data source must implement the move callbacks.
+    ///
+    /// This functionality is not supported when using a diffable data source.
+    ///
+    /// Moving acts on the focused item when `UIFocusSystem` is available or on the selected item otherwise.
+    public static let moveRightKeyCommand = SelectableCollectionKeyHandler.moveRightKeyCommand
+
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: self, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: self, owner: self)
 

@@ -45,18 +45,18 @@ KeyboardKit provides support for navigating in navigation controllers and more.
 | --------------------------------------------- | --------- | ------------------------------ | -------------------------------------------------------------------------------------------------- |
 | Dismiss any sheet or popover                  | esc, ⌘W   | `KeyboardWindow`               | This respects `isModalInPresentation`.                                                             |
 | Select tab                                    | ⌘ number  | `KeyboardTabBarController`     | The delegate will receive `shouldSelect` and `didSelect` callbacks. The More tab is not supported. |
-| Go back                                       | ⌘`[`, ⌘←  | `KeyboardNavigationController` | Mirrored for right-to-left. UIKit provides this on iOS 15, but Keyboard does this back to iOS 12.  |
+| Go back                                       | ⌘`[`, ⌘←  | `KeyboardNavigationController` | Mirrored for right-to-left. UIKit has this on iOS 15, but KeyboardKit does this back to iOS 12.    |
 | Hide overlaid column or show displaced column | esc       | `KeyboardSplitViewController`  | Requires a split view created with a style on iOS 14 or later.                                     |
 
 ## Collection view and table view commands
 
 Items can be reordered with the keyboard in collection views and table views. Deletion is supported only in table views.
 
-| Feature                                                        | Key input | Available with                                                                                                   | Notes                                                                                                                                                                             |
-| -------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Move focused or selected row up, down, left or right (reorder) | ⌥⌘ arrow  | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. Acts on the focused row when `UIFocusSystem` is available or on the selected row otherwise. |
-| Delete focused or selected rows                                | delete    | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. Acts on the focused rows when `UIFocusSystem` is available or on selected rows otherwise.   |
-| Select all                                                     | ⌘A        | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                                                                                                                   |
+| Feature                                                      | Key input | Available with                                                                                                   | Notes                                                                                                                                                                              |
+| ------------------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Move focused/selected item up, down, left or right (reorder) | ⌥⌘ arrow  | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` | Data source must implement move callbacks. Not supported with a diffable data source. Acts on the focused item when `UIFocusSystem` is available or on the selected row otherwise. |
+| Delete focused or selected rows                              | delete    | `KeyboardTableView`, `KeyboardTableViewController`                                                               | Table view delegate must implement `tableView:commitEditingStyle:forRowAtIndexPath:`. Acts on the focused rows when `UIFocusSystem` is available or on selected rows otherwise.    |
+| Select all                                                   | ⌘A        | `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` |                                                                                                                                                                                    |
 
 ## Scrolling and zooming
 
@@ -131,6 +131,16 @@ Key commands for working with windows are provided for iPad. These are not neede
 | Change month | ⌥←, ⌥→    | Inputs are mirrored for right-to-left layouts. |
 | Change year  | ⌥↑, ⌥↓    |                                                |
 | Go to today  | ⌘T        |                                                |
+
+## Main menu and discoverability HUD
+
+Key commands from KeyboardKit can be shown grouped under File, Edit, View etc. in the keyboard discoverability HUD on iPad or in the menu bar on Mac. Since the main menu is global state shared across the whole app, KeyboardKit takes a mostly hands off approach and lets your app set up the menu how you like. By default, all key commands will be provided by KeyboardKit through overrides of the `keyCommands` property of `UIResponder`. This means these commands will be shown in the discoverability HUD on iPad in the application section and will not be shown at all in the menu bar on Mac.
+
+Commands from KeyboardKit with titles shown to the user (discoverable commands) are available as static properties on various KeyboardKit classes so that these commands can be added to the main menu using `UIMenuBuilder` For example, `KeyboardScrollView` has a static `zoomInKeyCommand` property. To add this command to the main menu, override `buildMenu(with:)` in your app or app delegate and add this key command using the usual `UIMenuBuilder` API.
+
+Since key commands should be exposed to the system either using an override of `keyCommands` or with `UIMenuBuilder`, the commands from KeyboardKit have a `shouldBeIncludedInResponderChainKeyCommands` property that should be set to false on each command you add to the main menu.
+
+For more details, see `DiscoverableKeyCommand`. For an example, see the implementation of `buildMenu(with:)` in `AppDelegate` in the KeyboardKit demo app.
 
 ## Localisation
 

@@ -3,6 +3,7 @@
 import UIKit
 import KeyboardKit
 
+/// Sets up the KeyboardKit demo app user interface.
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: KeyboardWindow?
 

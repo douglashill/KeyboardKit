@@ -98,12 +98,17 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         UIKeyCommand(.escape, action: #selector(clearSelection)),
     ]
 
-    private lazy var moveKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(([.alternate, .command], .upArrow),    action: #selector(kbd_move), title: localisedString(.collection_moveUp),    allowsAutomaticMirroring: false),
-        UIKeyCommand(([.alternate, .command], .downArrow),  action: #selector(kbd_move), title: localisedString(.collection_moveDown),  allowsAutomaticMirroring: false),
-        UIKeyCommand(([.alternate, .command], .leftArrow),  action: #selector(kbd_move), title: localisedString(.collection_moveLeft),  allowsAutomaticMirroring: false),
-        UIKeyCommand(([.alternate, .command], .rightArrow), action: #selector(kbd_move), title: localisedString(.collection_moveRight), allowsAutomaticMirroring: false),
+    static let moveKeyCommands: [DiscoverableKeyCommand] = [
+        moveUpKeyCommand,
+        moveDownKeyCommand,
+        moveLeftKeyCommand,
+        moveRightKeyCommand,
     ]
+
+    static let moveUpKeyCommand    = DiscoverableKeyCommand(([.alternate, .command], .upArrow),    action: #selector(kbd_moveUp),    title: localisedString(.collection_moveUp),    allowsAutomaticMirroring: false)
+    static let moveDownKeyCommand  = DiscoverableKeyCommand(([.alternate, .command], .downArrow),  action: #selector(kbd_moveDown),  title: localisedString(.collection_moveDown),  allowsAutomaticMirroring: false)
+    static let moveLeftKeyCommand  = DiscoverableKeyCommand(([.alternate, .command], .leftArrow),  action: #selector(kbd_moveLeft),  title: localisedString(.collection_moveLeft),  allowsAutomaticMirroring: false)
+    static let moveRightKeyCommand = DiscoverableKeyCommand(([.alternate, .command], .rightArrow), action: #selector(kbd_moveRight), title: localisedString(.collection_moveRight), allowsAutomaticMirroring: false)
 
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -139,7 +144,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
             }
 
             if collection.shouldAllowMoving {
-                commands += moveKeyCommands
+                commands += Self.moveKeyCommands.filter { $0.shouldBeIncludedInResponderChainKeyCommands }
             }
         }
 
@@ -165,7 +170,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         case #selector(activateSelection):
             return collection.indexPathsForFocusedOrSelectedItems.count == 1 && isInResponderChain
 
-        case #selector(kbd_move):
+        case #selector(kbd_moveUp), #selector(kbd_moveDown), #selector(kbd_moveLeft), #selector(kbd_moveRight):
             guard isInResponderChain, let keyCommand = sender as? UIKeyCommand, collection.shouldAllowMoving else {
                 return false
             }
@@ -236,7 +241,13 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         collection.activateSelection(at: indexPathForSingleSelectedItem)
     }
 
-    @objc private func kbd_move(_ sender: UIKeyCommand) {
+    // Selectors must be unique in UIMenuBuilder, hence this awkward indirection.
+    @objc private func kbd_moveUp(_ sender: UIKeyCommand) { self.move(sender) }
+    @objc private func kbd_moveDown(_ sender: UIKeyCommand) { self.move(sender) }
+    @objc private func kbd_moveLeft(_ sender: UIKeyCommand) { self.move(sender) }
+    @objc private func kbd_moveRight(_ sender: UIKeyCommand) { self.move(sender) }
+
+    private func move(_ sender: UIKeyCommand) {
         let source = collection.indexPathsForFocusedOrSelectedItems[0]
 
         guard let destination = destinationIndexPathForMovingItem(at: source, keyCommand: sender) else {

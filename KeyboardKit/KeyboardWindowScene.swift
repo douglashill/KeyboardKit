@@ -15,8 +15,19 @@ open class KeyboardWindowScene: UIWindowScene {
 #if !targetEnvironment(macCatalyst)
 
     private lazy var cycleWindowsCommand = UIKeyCommand((.command, "`"), action: #selector(kbd_cycleFocusBetweenVisibleWindowScenes), title: localisedString(.window_cycle))
-    // Leave cmd + W for closing a tab or modal within a window. Mac uses cmd + shift + W for close window when there are tabs.
-    private lazy var closeCommand = UIKeyCommand(([.command, .shift], "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
+
+    /// A key command that enables users to close an app window.
+    ///
+    /// Title: Close Window
+    ///
+    /// Input: ⇧⌘W
+    ///
+    /// Recommended location in main menu: File
+    ///
+    /// This command is not available on Mac because the system provides a ⌘W command to close a window.
+    ///
+    /// ⇧⌘W was chosen to leave ⌘W for closing a tab or modal within a window. This matches the Mac when a window has tabs.
+    public static let closeWindowKeyCommand = DiscoverableKeyCommand(([.command, .shift], "W"), action: #selector(kbd_closeWindowScene), title: localisedString(.window_close))
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
@@ -28,7 +39,9 @@ open class KeyboardWindowScene: UIWindowScene {
                 commands.append(cycleWindowsCommand)
             }
 
-            commands.append(closeCommand)
+            if Self.closeWindowKeyCommand.shouldBeIncludedInResponderChainKeyCommands {
+                commands.append(Self.closeWindowKeyCommand)
+            }
         }
 
         return commands
@@ -36,7 +49,7 @@ open class KeyboardWindowScene: UIWindowScene {
 
     /// Cycles the key window through the visible window scenes. Expects there to be one window per window scene.
     /// Does nothing if the windows can’t be looked up.
-    @objc func kbd_cycleFocusBetweenVisibleWindowScenes(_ sender: UIKeyCommand) {
+    @objc private func kbd_cycleFocusBetweenVisibleWindowScenes(_ sender: UIKeyCommand) {
         // It would be good if this method worked across all sessions, not just visible window scenes.
         // However requestSceneSessionActivation is not appropriate because is breaks the app spaces the user has set up.
 
@@ -64,7 +77,7 @@ open class KeyboardWindowScene: UIWindowScene {
         foregroundWindowScenes[nextKeyWindowIndex].windows.first?.makeKey()
     }
 
-    @objc func kbd_closeWindowScene(_ sender: UIKeyCommand) {
+    @objc private func kbd_closeWindowScene(_ sender: UIKeyCommand) {
         UIApplication.shared.requestSceneSessionDestruction(session, options: nil, errorHandler: nil)
     }
 

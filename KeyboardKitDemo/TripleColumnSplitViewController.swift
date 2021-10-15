@@ -8,7 +8,7 @@ import KeyboardKit
 /// This class also demonstrates one possible way to show the focused column visually to the user:
 /// by showing the title in the navigation controller for the focused column darker than the titles
 /// in the other columns.
-class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate {
+class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate, DismissModalActionPerformer {
     private let innerSplitViewController: KeyboardSplitViewController
 
     // The primary and supplementary would ideally use the sidebar and sidebarPlain styles.
@@ -49,7 +49,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         supplementaryList.delegate = self
         secondaryList.delegate = self
 
-        secondaryList.navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dismissSelf))
+        secondaryList.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
 
         updateListData()
 
@@ -60,7 +60,7 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         NotificationCenter.default.addObserver(self, selector: #selector(updateTitleTextAttributes), name: firstResponderDidChangeNotification, object: nil)
     }
 
-    @objc private func dismissSelf() {
+    func dismissModalViewController() {
         dismiss(animated: true)
     }
 

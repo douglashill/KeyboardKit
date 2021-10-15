@@ -1,6 +1,7 @@
 # KeyboardKit change log
 
 - Next
+    - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or the main menu on Mac using `UIMenuBuilder`.
     - Changes the default value of the `canOpenSettings` property of `KeyboardApplication` to true if the app provides a `Settings.bundle` resource.
     - Removes unnecessary commands on Mac Catalyst to open Preferences, open a new window, close a window, and cycle the active window. These are all provided by the system on Mac Catalyst.
     - Improves conditions for when text view key commands can be performed.

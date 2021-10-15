@@ -17,7 +17,7 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         view = tableView
     }
 
-    var bookmarksBarButtonItem: KeyboardBarButtonItem?
+    var bookmarksBarButtonItem: UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,9 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         // The keyboard equivalents for these buttons won’t work if the sidebar is first responder
         // because this table view’s navigation controller won’t be on the responder chain.
 
-        bookmarksBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showBookmarks))
+        bookmarksBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showBookmarks))
 
-        let testItem = KeyboardBarButtonItem(title: "Alert", style: .plain, target: self, action: #selector(testAction))
-        testItem.keyEquivalent = ([.command, .alternate], "t")
+        let testItem = UIBarButtonItem(title: "Alert", style: .plain, target: self, action: #selector(testAction))
         navigationItem.rightBarButtonItems = [editButtonItem, testItem, bookmarksBarButtonItem!]
 
         tableView.dataSource = self
@@ -98,13 +97,13 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         tableView.setEditing(editing, animated: animated)
     }
 
-    @objc private func testAction(_ sender: Any?) {
+    @objc func testAction(_ sender: Any?) {
         let alert = UIAlertController(title: "This is a test", message: "You can show this alert either by tapping the bar button or by pressing command + option + T while the table view is focused.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
     }
 
-    @objc private func showBookmarks(_ sender: Any?) {
+    @objc func showBookmarks(_ sender: Any?) {
         let bookmarksViewController = BookmarksViewController()
         let navigationController = KeyboardNavigationController(rootViewController: bookmarksViewController)
         navigationController.modalPresentationStyle = .popover
@@ -148,7 +147,7 @@ class BookmarksViewController: FirstResponderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
 
         view.backgroundColor = .systemBackground
     }
@@ -161,7 +160,7 @@ class BookmarksViewController: FirstResponderViewController {
         }
     }
 
-    @objc private func saveBookmarks(_ sender: Any?) {
+    @objc func saveBookmarks(_ sender: Any?) {
         presentingViewController?.dismiss(animated: true)
     }
 }

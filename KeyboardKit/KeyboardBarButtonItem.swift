@@ -11,6 +11,11 @@ import UIKit
 /// The key command is used automatically when the bar button items is used in the navigation bar or toolbar
 /// of a `KeyboardNavigationController`.
 ///
+/// ⚠️ The dynamic nature of providing key commands using `KeyboardBarButtonItem` is a not a good match for the more static
+/// design of `UIMenuBuilder`. All key commands for bar button items will be exposed using `KeyboardNavigationController`’s
+/// override of `keyCommands` and will therefore appear under the application menu on iPad and not at all on Mac.
+/// Adding your key commands using the menu builder yourself is recommend instead of using `KeyboardBarButtonItem`.
+///
 /// Default key equivalents are provided for most system items.
 ///
 /// Key commands use nil-targeted actions so the first object on the responder chain responding to

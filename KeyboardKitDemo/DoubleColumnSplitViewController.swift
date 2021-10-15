@@ -3,8 +3,12 @@
 import UIKit
 import KeyboardKit
 
+@objc protocol DismissModalActionPerformer {
+    func dismissModalViewController()
+}
+
 /// Shows an array of content views in a sidebar in regular widths, collapsing to using a navigation stack in compact widths.
-class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate {
+class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDelegate, KeyboardSplitViewControllerDelegate, DismissModalActionPerformer {
     private let innerSplitViewController: KeyboardSplitViewController
     private let sidebar: SidebarViewController
     private let primaryNavigationController: KeyboardNavigationController
@@ -31,7 +35,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         innerSplitViewController.delegate = self
         sidebar.delegate = self
 
-        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modals", menu: UIMenu(title: "", children: modalExampleKeyCommands))
+        sidebar.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Modals", menu: UIMenu(title: "", children: Self.modalExampleKeyCommands))
 
         addChild(innerSplitViewController)
         innerSplitViewController.didMove(toParent: self)
@@ -53,22 +57,17 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         }
     }
 
-    override var keyCommands: [UIKeyCommand]? {
-        var commands = super.keyCommands ?? []
-
-        commands += modalExampleKeyCommands
-
-        return commands
-    }
-
-    private let modalExampleKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(title: "Triple Column Split", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
-        UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
+    static let modalExampleKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: .command, discoverabilityTitle: "Show 3 Column Split"),
+        UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control], discoverabilityTitle: "Show Tab Bar"),
     ]
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(showTripleColumn) || action == #selector(showTabs) {
             return presentedViewController == nil
+        }
+        if action == #selector(dismissModalViewController) {
+            return presentedViewController is KeyboardTabBarController
         }
         return super.canPerformAction(action, withSender: sender)
     }
@@ -89,7 +88,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         ]
 
         for viewController in viewControllers {
-            viewController.navigationItem.rightBarButtonItem = KeyboardBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dismissModalTabBarController))
+            viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
         }
 
         let tabViewController = KeyboardTabBarController()
@@ -105,7 +104,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         self.present(tabViewController, animated: true)
     }
 
-    @objc private func dismissModalTabBarController() {
+    func dismissModalViewController() {
         precondition(presentedViewController is KeyboardTabBarController)
         dismiss(animated: true)
     }

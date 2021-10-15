@@ -65,6 +65,17 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         true
     }
 
+    /// A key command that enables the user to delete the focused or selected rows.
+    ///
+    /// Title: Delete
+    ///
+    /// Input: ⌫ (no modifiers)
+    ///
+    /// Recommended location in main menu: Edit
+    ///
+    /// Note that this doesn’t use the `delete(_:)` standard edit action since that command has no key equivalent.
+    public static let deleteKeyCommand = DiscoverableKeyCommand(.delete, action: #selector(TableViewKeyHandler.kbd_deleteSelectedRows), title: localisedString(.delete))
+
     private lazy var keyHandler = TableViewKeyHandler(tableView: self, owner: self)
 
     open override var next: UIResponder? {
@@ -168,13 +179,11 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         }
     }
 
-    private lazy var deleteCommand = UIKeyCommand(.delete, action: #selector(kbd_deleteSelectedRows), title: localisedString(.delete))
-
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if tableView.canDeleteFocusOrSelectedRows {
-            commands.append(deleteCommand)
+        if KeyboardTableView.deleteKeyCommand.shouldBeIncludedInResponderChainKeyCommands && tableView.canDeleteFocusOrSelectedRows {
+            commands.append(KeyboardTableView.deleteKeyCommand)
         }
 
         return commands
