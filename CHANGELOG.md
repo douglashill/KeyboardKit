@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Changes the default value of the `canOpenSettings` property of `KeyboardApplication` to true if the app provides a `Settings.bundle` resource.
 - 5.0.1
     - Fixes a potential crash when selecting or moving items in a collection view. This might occur if the collection view is hidden.
 - 5.0.0

@@ -36,10 +36,13 @@ open class KeyboardApplication: UIApplication {
         true
     }
 
-    /// Set this to true to add a key command that opens the settings app.
+    /// Whether a key command should be provided that opens the Settings app.
+    ///
+    /// Defaults to true if the app has a `Settings.bundle` resource and false otherwise.
+    ///
     /// Don’t do this if the app does not have any settings or permissions it asks for.
     /// Don’t use this on Mac Catalyst. Use the main menu there and say Preferences.
-    open var canOpenSettings = false
+    open var canOpenSettings = Bundle.main.url(forResource: "Settings", withExtension: "bundle") != nil
 
     // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
     @available(iOS 13.0, *)
