@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 6.0.0
     - Xcode 13.1 is now required.
     - Adds support for macOS 12 Monterey.
     - Restores demo app key commands on iOS 14 and lower. (This was a regression in 5.1.0.)
