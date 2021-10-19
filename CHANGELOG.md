@@ -1,14 +1,19 @@
 # KeyboardKit change log
 
+- Next
+    - Xcode 13.1 is now required.
+    - Adds support for macOS 12 Monterey.
 - 5.1.0
-    - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or the main menu on Mac using `UIMenuBuilder`.
+    - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or menu bar on Mac using `UIMenuBuilder` via many new public `DiscoverableKeyCommand` properties. 
+    - Adds demonstrating setting up the main menu in demo app’s `AppDelegate`.
     - Changes the default value of the `canOpenSettings` property of `KeyboardApplication` to true if the app provides a `Settings.bundle` resource.
     - Removes unnecessary commands on Mac Catalyst to open Preferences, open a new window, close a window, and cycle the active window. These are all provided by the system on Mac Catalyst.
     - Improves conditions for when text view key commands can be performed.
 - 5.0.1
     - Fixes a potential crash when selecting or moving items in a collection view. This might occur if the collection view is hidden.
 - 5.0.0
-    - Xcode 13 is now required.
+    - Xcode 13 is now required.
+    - Adds support for iOS 15.
     - Adds integration with the UIKit focus system where it’s available.
         - When the focus system is available, KeyboardKit will no longer provide key commands for tab navigation in split views and arrow key navigation in collection views and table views. The focus system is in some ways less capable than KeyboardKit’s implementation, but it provides other significant advantages. Please see [Features.md](/Features.md#keyboard-navigation-without-the-focus-system) for more details about the pros of cons of each.
         - First responder management should no longer be necessary when a focus system is available. The demo app has been updated to show this.
@@ -43,13 +48,14 @@
     - Fixes the Back command being available incorrectly when the responder chain contains both a `KeyboardNavigationController` and another `UINavigationController` that is not a `KeyboardNavigationController`. Code style has been improved in other places to avoid this sort of thing happening again.
     - Fixes `KeyboardSplitViewController` disabling collapsing into the `compact` column.
 - 4.0.0
-    - Xcode 12.2 is now required.
+    - Xcode 12.2 is now required.
     - Add support for Mac Catalyst in the demo app (optimised for Mac).
     - Fixes the UIKit focus system interfering with selection on Mac Catalyst.
 - 3.0.2
     - Works around a UIKit issue where responders in the primary column of a `UISplitViewController` could unexpectedly provide key commands when the first responder is in the secondary column.
-- 3.0.0 / 3.0.1 — Read more in the blog post: [What’s New in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
-    - Xcode 12 is now required.
+- 3.0.0 / 3.0.1 — Read more in the blog post: [What’s New in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
+    - Xcode 12 is now required.
+    - Adds support for iOS 14.
     - Increases the deployment target from iOS 11 to iOS 12.
     - The demo app now requires iOS 14.
     - Adds `KeyboardSplitViewController` to help moving first responder status between columns in a split view.
@@ -61,7 +67,7 @@
     - Adds an example showing `UICollectionViewCompositionalLayout` with nested groups.
     - Adds an example showing a triple column split view (available as a modal).
 - 2.1.0
-    - Resolves project settings warnings with Xcode 12.
+    - Resolves project settings warnings with Xcode 12.
     - Adds support for selection wrapping in any `UICollectionViewLayout`.
     - Adds selecting the last item initially with `UICollectionViewCompositionalLayout` when pressing the up arrow with vertical scrolling or the trailing arrow with a horizontal scrolling.
     - Fixes selection in collection views not working as expected when there are supplementary views, decoration views, cells with an alpha of zero, or items for which the delegate returns false to `collectionView(_:shouldHighlightItemAt:)`. This issue affected  `UICollectionLayoutListConfiguration`.
@@ -70,7 +76,7 @@
 - 2.0.1
     - Adds support for Swift Packager Manager.
 - 2.0.0
-    - Xcode 11.4 is now required.
+    - Xcode 11.4 is now required.
     - KeyboardKit scroll views will no longer send their delegate `scrollViewDidEndScrollingAnimation(_:)` after keyboard-driven animations end. Instead, the scroll view’s delegate can conform to `KeyboardScrollingDelegate` to receive callbacks when keyboard-driven scrolling animations start or finish.
 - 1.2.1
     - Changes Page Up and Page Down to semantic directions so they will scroll horizontally in a scroll view that can only scroll horizontally.
