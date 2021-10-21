@@ -25,9 +25,22 @@ class TableViewController: FirstResponderViewController, UITableViewDataSource, 
         // The keyboard equivalents for these buttons won’t work if the sidebar is first responder
         // because this table view’s navigation controller won’t be on the responder chain.
 
-        bookmarksBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(showBookmarks))
+        let barButtonItemClass: UIBarButtonItem.Type
+        if #available(iOS 15.0, *) {
+            // The demo app statically adds key command equivalents for these buttons using `UIMenuBuilder` in `AppDelegate`.
+            barButtonItemClass = UIBarButtonItem.self
+        } else {
+            // Let KeyboardKit dynamically provide key command equivalents for these buttons by using KeyboardKit’s subclass.
+            barButtonItemClass = KeyboardBarButtonItem.self
+        }
 
-        let testItem = UIBarButtonItem(title: "Alert", style: .plain, target: self, action: #selector(testAction))
+        bookmarksBarButtonItem = barButtonItemClass.init(barButtonSystemItem: .bookmarks, target: self, action: #selector(showBookmarks))
+
+        let testItem = barButtonItemClass.init(title: "Alert", style: .plain, target: self, action: #selector(testAction))
+        if let keyboardTestItem = testItem as? KeyboardBarButtonItem {
+            keyboardTestItem.keyEquivalent = ([.command, .alternate], "t")
+        }
+
         navigationItem.rightBarButtonItems = [editButtonItem, testItem, bookmarksBarButtonItem!]
 
         tableView.dataSource = self
@@ -147,7 +160,16 @@ class BookmarksViewController: FirstResponderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
+        let barButtonItemClass: UIBarButtonItem.Type
+        if #available(iOS 15.0, *) {
+            // The demo app statically adds a key command equivalent for this button using `UIMenuBuilder` in `AppDelegate`.
+            barButtonItemClass = UIBarButtonItem.self
+        } else {
+            // Let KeyboardKit dynamically provide a key command equivalent for this button by using KeyboardKit’s subclass.
+            barButtonItemClass = KeyboardBarButtonItem.self
+        }
+
+        navigationItem.rightBarButtonItem = barButtonItemClass.init(barButtonSystemItem: .save, target: nil, action: #selector(saveBookmarks))
 
         view.backgroundColor = .systemBackground
     }

@@ -3,6 +3,7 @@
 - Next
     - Xcode 13.1 is now required.
     - Adds support for macOS 12 Monterey.
+    - Restores demo app key commands on iOS 14 and lower. (This was a regression in 5.1.0.)
 - 5.1.0
     - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or menu bar on Mac using `UIMenuBuilder` via many new public `DiscoverableKeyCommand` properties. 
     - Adds demonstrating setting up the main menu in demo app’s `AppDelegate`.

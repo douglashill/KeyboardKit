@@ -68,10 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try builder.removeMenu(.toolbar)
 
             let barButtonItemKeyCommands: [UIKeyCommand] = [
-                UIKeyCommand(title: "Done", action: #selector(DismissModalActionPerformer.dismissModalViewController), input: "\r", modifierFlags: .command),
-                UIKeyCommand(title: "Show Bookmarks", action: #selector(TableViewController.showBookmarks), input: "b", modifierFlags: .command),
                 UIKeyCommand(title: "Show Alert", action: #selector(TableViewController.testAction), input: "t", modifierFlags: [.command, .alternate]),
+                UIKeyCommand(title: "Show Bookmarks", action: #selector(TableViewController.showBookmarks), input: "b", modifierFlags: .command),
                 UIKeyCommand(title: "Save Bookmarks", action: #selector(BookmarksViewController.saveBookmarks), input: "s", modifierFlags: .command),
+                UIKeyCommand(title: "Done", action: #selector(DismissModalActionPerformer.dismissModalViewController), input: "\r", modifierFlags: .command),
             ]
 
             try builder.insertChildren(DoubleColumnSplitViewController.modalExampleKeyCommands + barButtonItemKeyCommands, atEndOfTopLevelMenu: .view)

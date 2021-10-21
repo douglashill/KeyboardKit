@@ -57,9 +57,21 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         }
     }
 
+    override var keyCommands: [UIKeyCommand]? {
+        if #available(iOS 15.0, *) {
+            // The demo app statically adds `modalExampleKeyCommands` using `UIMenuBuilder` in `AppDelegate`.
+            return super.keyCommands
+        } else {
+            // Dynamically provide key command equivalents for these menu items.
+            var commands = super.keyCommands ?? []
+            commands += Self.modalExampleKeyCommands
+            return commands
+        }
+    }
+
     static let modalExampleKeyCommands: [UIKeyCommand] = [
-        UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: .command, discoverabilityTitle: "Show 3 Column Split"),
-        UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control], discoverabilityTitle: "Show Tab Bar"),
+        UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
+        UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
     ]
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -87,8 +99,17 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
             TextViewController(),
         ]
 
+        let barButtonItemClass: UIBarButtonItem.Type
+        if #available(iOS 15.0, *) {
+            // The demo app statically adds a key command equivalent for these buttons using `UIMenuBuilder` in `AppDelegate`.
+            barButtonItemClass = UIBarButtonItem.self
+        } else {
+            // Let KeyboardKit dynamically provide key command equivalents for these buttons by using KeyboardKit’s subclass.
+            barButtonItemClass = KeyboardBarButtonItem.self
+        }
+
         for viewController in viewControllers {
-            viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
+            viewController.navigationItem.rightBarButtonItem = barButtonItemClass.init(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
         }
 
         let tabViewController = KeyboardTabBarController()

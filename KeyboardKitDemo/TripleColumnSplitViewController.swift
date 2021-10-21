@@ -49,7 +49,16 @@ class TripleColumnSplitViewController: UIViewController, TripleColumnListViewCon
         supplementaryList.delegate = self
         secondaryList.delegate = self
 
-        secondaryList.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
+        let barButtonItemClass: UIBarButtonItem.Type
+        if #available(iOS 15.0, *) {
+            // The demo app statically adds a key command equivalent for this button using `UIMenuBuilder` in `AppDelegate`.
+            barButtonItemClass = UIBarButtonItem.self
+        } else {
+            // Let KeyboardKit dynamically provide a key command equivalent for this button by using KeyboardKit’s subclass.
+            barButtonItemClass = KeyboardBarButtonItem.self
+        }
+
+        secondaryList.navigationItem.rightBarButtonItem = barButtonItemClass.init(barButtonSystemItem: .done, target: nil, action: #selector(DismissModalActionPerformer.dismissModalViewController))
 
         updateListData()
 
