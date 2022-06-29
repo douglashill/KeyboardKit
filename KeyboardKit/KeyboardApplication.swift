@@ -43,7 +43,17 @@ open class KeyboardApplication: UIApplication {
 
     // Leave cmd + N for compose, or making new documents. Using cmd + opt + N matches Mail on the Mac’s command for New Viewer Window.
     @available(iOS 13.0, *)
-    private lazy var newWindowKeyCommand = UIKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
+    private var newWindowKeyCommand: UIKeyCommand {
+        _newWindowKeyCommand
+    }
+
+    private lazy var _newWindowKeyCommand: UIKeyCommand = {
+        guard #available(iOS 13, *) else {
+            fatalError("As of Xcode 14, “Stored properties cannot be marked potentially unavailable with '@available'”. Therefore we have this runtime error.")
+        }
+        return UIKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
+    }()
+
     private lazy var openSettingsKeyCommand = UIKeyCommand((.command, ","), action: #selector(kbd_openSettings), title: localisedString(.app_settings))
 
     open override var keyCommands: [UIKeyCommand]? {
