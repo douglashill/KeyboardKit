@@ -67,7 +67,7 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
 
     /// For KeyboardKit internal use.
     public override func wasInitialised(with systemItem: SystemItem) {
-        keyEquivalent = systemItem.keyEquivalent
+        keyEquivalent = systemItem.keyboardAction?.keyEquivalent
         self.systemItem = systemItem
         keyCommandAllowsAutomaticMirroring = systemItem.allowsAutomaticMirroring
     }
@@ -92,25 +92,23 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
 }
 
 private extension UIBarButtonItem.SystemItem {
-    var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String)? {
+    var keyboardAction: KeyboardAction? {
         switch self {
-        case .cancel:      return ([], .escape)
-        case .close:       return (.command, "w")
-        // Apparently "\u{3}" might work for enter (not return) but not quite. Shows up in the HUD with no key and I couldn’t get it to trigger. For now use cmd + return instead.
-        // Sources: https://forums.developer.apple.com/thread/119584 and https://stackoverflow.com/questions/56963348/uikeycommand-for-the-enter-key-on-mac-keyboards-numeric-keypad.
-        case .done:        return (.command, .returnOrEnter)
-        case .save:        return (.command, "s")
-        case .action:      return (.command, "i") // Safari uses this for Email This Page. Also indirectly recommended in https://developer.apple.com/wwdc20/10117.
-        case .edit:        return (.command, "e")
-        case .add:         return (.command, "n")
-        case .compose:     return (.command, "n")
-        case .reply:       return (.command, "r")
-        case .refresh:     return (.command, "r")
-        case .bookmarks:   return (.command, "b") // opt + cmd + B or shift + cmd + B might be better to be more like Safari.
-        case .search:      return (.command, "f")
-        case .trash:       return (.command, .delete)
-        case .rewind:      return (.command, .leftArrow)
-        case .fastForward: return (.command, .rightArrow)
+        case .cancel:      return .cancel
+        case .close:       return .close
+        case .done:        return .done
+        case .save:        return .save
+        case .action:      return .generic
+        case .edit:        return .edit
+        case .add:         return .new
+        case .compose:     return .new
+        case .reply:       return .reply
+        case .refresh:     return .refresh
+        case .bookmarks:   return .bookmarks
+        case .search:      return .search
+        case .trash:       return .delete
+        case .rewind:      return .rewind
+        case .fastForward: return .fastForward
         // More obscure items that are hard to pick a standard key equivalent for.
         case .organize:    return nil
         case .camera:      return nil
