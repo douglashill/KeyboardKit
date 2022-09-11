@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes adjustments to the date of `KeyboardDatePicker` within the same month being animated on iOS 16, which made it feel less responsive.
 - 6.0.0
     - Xcode 13.1 is now required.
     - Adds support for macOS 12 Monterey.

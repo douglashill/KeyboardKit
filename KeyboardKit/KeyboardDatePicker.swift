@@ -139,7 +139,11 @@ open class KeyboardDatePicker: UIDatePicker {
 
     @objc private func kbd_adjustDate(_ sender: UIKeyCommand) {
         if let targetDate = targetDateForKeyCommand(sender) {
-            setDate(targetDate, animated: true)
+            // We want the scrolling animation to be less disorienting, but don’t want any animation if no scrolling would occur so it feels fast.
+            // iOS 15 and earlier didn’t animate anything except scrolling so this logic isn’t actually needed on those older versions.
+            let eraYearMonth: Set<Calendar.Component> = [.era, .year, .month]
+            let isAnimated = calendar.dateComponents(eraYearMonth, from: date) != calendar.dateComponents(eraYearMonth, from: targetDate)
+            setDate(targetDate, animated: isAnimated)
         }
     }
 
