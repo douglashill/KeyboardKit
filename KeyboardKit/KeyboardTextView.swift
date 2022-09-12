@@ -21,6 +21,8 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     /// A key command that enables users to select and show the next range of text matching the last call to “Use Selection for Find”.
     ///
+    /// On iOS 16 and later, this command is only available in the view’s `keyCommands` if `isFindInteractionEnabled` is false. Setting `isFindInteractionEnabled` to true is recommended since it provides more comprehensive find functionality than KeyboardKit.
+    ///
     /// Title: Find Next
     ///
     /// Input: ⌘G
@@ -30,6 +32,8 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
 
     /// A key command that enables users to select and show the previous range of text matching the last call to “Use Selection for Find”.
     ///
+    /// On iOS 16 and later, this command is only available in the view’s `keyCommands` if `isFindInteractionEnabled` is false. Setting `isFindInteractionEnabled` to true is recommended since it provides more comprehensive find functionality than KeyboardKit.
+    ///
     /// Title: Find Previous
     ///
     /// Input: ⇧⌘G
@@ -38,6 +42,8 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     public static let findPreviousKeyCommand = DiscoverableKeyCommand(([.command, .shift], "g"), action: #selector(kbd_findPrevious), title: localisedString(.find_previous))
 
     /// A key command that enables users to mark text to be searched for using “Find Next” and “Find Previous”.
+    ///
+    /// On iOS 16 and later, this command is only available in the view’s `keyCommands` if `isFindInteractionEnabled` is false. Setting `isFindInteractionEnabled` to true is recommended since it provides more comprehensive find functionality than KeyboardKit.
     ///
     /// Title: Use Selection for Find
     ///
@@ -61,17 +67,25 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         var commands = super.keyCommands ?? []
 
         if isSelectable {
+            var additionalCommands: [DiscoverableKeyCommand] = []
+
 #if !targetEnvironment(macCatalyst)
-            if Self.defineKeyCommand.shouldBeIncludedInResponderChainKeyCommands {
-                commands.append(Self.defineKeyCommand)
-            }
+            additionalCommands.append(Self.defineKeyCommand)
+
 #endif
-            commands += [
-                Self.findNextKeyCommand,
-                Self.findPreviousKeyCommand,
-                Self.useSelectionForFindKeyCommand,
-                Self.jumpToSelectionKeyCommand
-            ].filter { $0.shouldBeIncludedInResponderChainKeyCommands }
+
+            if #available(iOS 16.0, *), isFindInteractionEnabled {
+                // The `UIFindInteraction` provides Find Next, Find Previous, and Use Selection for Find, so don’t add them.
+            } else {
+                additionalCommands.append(contentsOf: [
+                    Self.findNextKeyCommand,
+                    Self.findPreviousKeyCommand,
+                    Self.useSelectionForFindKeyCommand,
+                ])
+            }
+            additionalCommands.append(Self.jumpToSelectionKeyCommand)
+
+            commands.append(contentsOf: additionalCommands.filter { $0.shouldBeIncludedInResponderChainKeyCommands })
         }
 
         return commands

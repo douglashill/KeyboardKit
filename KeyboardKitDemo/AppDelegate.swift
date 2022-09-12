@@ -34,7 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try builder.removeMenu(.textSize)
 
             try builder.insertChildren([KeyboardScrollView.zoomInKeyCommand, KeyboardScrollView.zoomOutKeyCommand, KeyboardScrollView.actualSizeKeyCommand], atEndOfTopLevelMenu: .view)
-            try builder.insertSiblings([KeyboardTextView.findNextKeyCommand, KeyboardTextView.findPreviousKeyCommand, KeyboardTextView.useSelectionForFindKeyCommand, KeyboardTextView.jumpToSelectionKeyCommand], afterNonTopLevelMenu: .find)
+
+            // Most find commands are available through `UIFindInteraction` on iOS 16 and later so this KeyboardKit functionality is not needed. (And attempting to add these commands will fail as they will be duplicates.)
+            var findCommands: [UIKeyCommand] = [KeyboardTextView.jumpToSelectionKeyCommand]
+            if #unavailable(iOS 16.0) {
+                findCommands.insert(contentsOf: [KeyboardTextView.findNextKeyCommand, KeyboardTextView.findPreviousKeyCommand, KeyboardTextView.useSelectionForFindKeyCommand], at: 0)
+            }
+            try builder.insertSiblings(findCommands, afterNonTopLevelMenu: .find)
 
             try builder.insertChildren([
                 KeyboardScrollView.refreshKeyCommand,

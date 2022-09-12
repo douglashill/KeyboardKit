@@ -19,6 +19,10 @@ class TextViewController: FirstResponderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 16.0, *) {
+            textView.isFindInteractionEnabled = true
+        }
+
         textView.font = UIFont.preferredFont(forTextStyle: .title1)
 
         textView.text = """
