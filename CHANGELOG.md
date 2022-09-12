@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 7.0.0
     - Xcode 14 is now required.
     - Adds support for iOS 16.
     - Disables `KeyboardTextView`’s find commands when the text view’s built-in `UIFindInteraction` is enabled. 
