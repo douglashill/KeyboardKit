@@ -11,7 +11,7 @@ For iOS 15 on iPhone and iOS 12–14 on iPad, KeyboardKit helps replicate much
 - Jumping to the end is possible in collection views and table views by holding the option key. This is a powerful productivity accelerator.
 - Wrapping is possible in collection views and table views. The user can press up when at the top to jump to the bottom etc.
 - Split views can be navigated regardless of their display mode. If the user tries to move focus to a column that isn’t visible, that column will be shown automatically.
-- Arrow keys can be used to navigation across split view columns if these inputs are consumed by the column content view. Using arrow keys feels more fluid.
+- Arrow keys can be used to navigate across split view columns if these inputs aren’t consumed by the column content view. Using arrow keys feels more fluid.
 
 However the UIKit focus system has the major advantages of better system integration, removing the need for first responder management, and providing clear visual indication which element is focused. That’s why the focus system is used if its available.  
 
