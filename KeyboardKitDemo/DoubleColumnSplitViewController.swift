@@ -70,18 +70,23 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
     }
 
     static let modalExampleKeyCommands: [UIKeyCommand] = [
+        UIKeyCommand(title: "SwiftUI Example", action: #selector(showSwiftUIExample), input: "s", modifierFlags: [.command, .alternate]),
         UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
         UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
     ]
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(showTripleColumn) || action == #selector(showTabs) {
+        if action == #selector(showSwiftUIExample) || action == #selector(showTripleColumn) || action == #selector(showTabs) {
             return presentedViewController == nil
         }
         if action == #selector(dismissModalViewController) {
             return presentedViewController is KeyboardTabBarController
         }
         return super.canPerformAction(action, withSender: sender)
+    }
+
+    @objc private func showSwiftUIExample() {
+        self.present(swiftUIExampleViewController(), animated: true)
     }
 
     @objc private func showTripleColumn() {
