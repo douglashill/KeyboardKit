@@ -24,7 +24,7 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "trash")
                         }
-                        .keyboardShortcut(KeyboardAction.delete.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.delete)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -32,7 +32,7 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "arrow.clockwise")
                         }
-                        .keyboardShortcut(KeyboardAction.refresh.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.refresh)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -40,7 +40,7 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "book")
                         }
-                        .keyboardShortcut(KeyboardAction.bookmarks.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.bookmarks)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -48,7 +48,7 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "minus.magnifyingglass")
                         }
-                        .keyboardShortcut(KeyboardAction.zoomOut.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.zoomOut)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -56,7 +56,7 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "plus.magnifyingglass")
                         }
-                        .keyboardShortcut(KeyboardAction.zoomIn.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.zoomIn)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -64,13 +64,13 @@ struct ExampleView: View {
                         } label: {
                             Image(systemName: "square.and.pencil")
                         }
-                        .keyboardShortcut(KeyboardAction.new.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.new)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Save") {
                             message = "Saved!"
                         }
-                        .keyboardShortcut(KeyboardAction.save.keyboardShortcut)
+                        .keyboardShortcut(.KeyboardKit.save)
                     }
                 }
         }
