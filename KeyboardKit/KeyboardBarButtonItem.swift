@@ -98,7 +98,7 @@ private extension UIBarButtonItem.SystemItem {
         case .close:       return .close
         case .done:        return .done
         case .save:        return .save
-        case .action:      return .generic
+        case .action:      return .share
         case .edit:        return .edit
         case .add:         return .new
         case .compose:     return .new

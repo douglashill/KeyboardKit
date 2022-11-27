@@ -11,7 +11,8 @@ enum KeyboardAction {
     /// A save action, consisting of the 'S' key and the Command (⌘) modifier.
     case save
 
-    case generic
+    /// A save action, consisting of the 'I' key and the Command (⌘) modifier.
+    case share
 
     /// An edit action, consisting of the 'E' key and the Command (⌘) modifier.
     case edit
@@ -64,7 +65,7 @@ extension KeyboardAction {
         // Sources: https://forums.developer.apple.com/thread/119584 and https://stackoverflow.com/questions/56963348/uikeycommand-for-the-enter-key-on-mac-keyboards-numeric-keypad.
         case .done:             return (.command, .returnOrEnter)
         case .save:             return (.command, "s")
-        case .generic:          return (.command, "i") // Safari uses this for Email This Page. Also indirectly recommended in https://developer.apple.com/wwdc20/10117.
+        case .share:            return (.command, "i") // Safari uses this for Email This Page. Also indirectly recommended in https://developer.apple.com/wwdc20/10117.
         case .edit:             return (.command, "e")
         case .new:              return (.command, "n")
         case .reply:            return (.command, "r")
@@ -126,7 +127,8 @@ extension KeyboardShortcut.KeyboardKit {
     /// A keyboard shortcut for a save action, consisting of the 'S' key and the Command (⌘) modifier.
     public static let save = KeyboardAction.save.keyboardShortcut
 
-    public static let generic = KeyboardAction.generic.keyboardShortcut
+    /// A keyboard shortcut for showing the share sheet, consisting of the 'I' key and the Command (⌘) modifier.
+    public static let share = KeyboardAction.share.keyboardShortcut
 
     /// A keyboard shortcut for an edit action, consisting of the 'E' key and the Command (⌘) modifier.
     public static let edit = KeyboardAction.edit.keyboardShortcut
