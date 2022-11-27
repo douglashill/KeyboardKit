@@ -2,7 +2,7 @@ public enum KeyboardAction {
     /// An action to cancelling an in-progress task or dismiss a prompt, consisting of the Escape (⎋) key and no modifiers.
     case cancel
     
-    /// A close action, consisting of the Escape (⎋) key and no modifiers.
+    /// A close action, consisting of the 'W' key and the Command (⌘) modifier.
     case close
     
     /// A done action, consisting of the Return (↩) key and the Command (⌘) modifier.
