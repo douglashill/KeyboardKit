@@ -1,54 +1,54 @@
 public enum KeyboardAction {
     /// An action to cancelling an in-progress task or dismiss a prompt, consisting of the Escape (⎋) key and no modifiers.
     case cancel
-    
+
     /// A close action, consisting of the 'W' key and the Command (⌘) modifier.
     case close
-    
+
     /// A done action, consisting of the Return (↩) key and the Command (⌘) modifier.
     case done
-    
+
     /// A save action, consisting of the 'S' key and the Command (⌘) modifier.
     case save
-    
+
     case generic
-    
+
     /// An edit action, consisting of the 'E' key and the Command (⌘) modifier.
     case edit
-    
+
     /// A creation action, consisting of the 'N' key and the Command (⌘) modifier.
     case new
-    
+
     /// A reply action, consisting of the 'R' key and the Command (⌘) modifier.
     case reply
-    
+
     /// A refresh action, consisting of the 'R' key and the Command (⌘) modifier.
     case refresh
-    
+
     /// An action for viewing bookmarks, consisting of the 'B' key and the Command (⌘) modifier.
     case bookmarks
-    
+
     /// A search action, consisting of the 'F' key and the Command (⌘) modifier.
     case search
-    
+
     /// A deletion action, consisting of the Delete (⌫) key and the Command (⌘) modifier.
     case delete
-    
+
     /// An action for viewing content relating to the current day, consisting of the 'T' key and the Command (⌘) modifier.
     case today
-    
+
     /// A zoom-in action, consisting of the equals (=) key and the Command (⌘) modifier.
     case zoomIn
-    
+
     /// A zoom-out action, consisting of the minus (-) key and the Command (⌘) modifier.
     case zoomOut
-    
+
     /// An action to zoom content to its actual size, consisting of the 0 key and the Command (⌘) modifier.
     case zoomToActualSize
-    
+
     /// A rewind action, consisting of the left arrow (←) key and the Command (⌘) modifier.
     case rewind
-    
+
     /// A fast-forward action, consisting of the right arrow (→) key and the Command (⌘) modifier.
     case fastForward
 }
@@ -93,7 +93,7 @@ public extension KeyboardAction {
         let equivalent = keyEquivalent
         let keyEquivalent = KeyEquivalent(Character(equivalent.input))
         let modifiers = equivalent.modifierFlags.eventModifiers
-        
+
         switch self {
         case .cancel:
             return .cancelAction
@@ -101,7 +101,7 @@ public extension KeyboardAction {
             if #available(iOS 15.0, *) {
                 return .init(keyEquivalent, modifiers: modifiers, localization: .withoutMirroring)
             }
-            
+
             fallthrough
         default:
             return .init(keyEquivalent, modifiers: modifiers)
@@ -113,7 +113,7 @@ public extension KeyboardAction {
 private extension UIKeyModifierFlags {
     var eventModifiers: EventModifiers {
         var eventModifiers: EventModifiers = []
-        
+
         if self.contains(.command) {
             eventModifiers.insert(.command)
         }
@@ -129,7 +129,7 @@ private extension UIKeyModifierFlags {
         if self.contains(.alphaShift) {
             eventModifiers.insert(.capsLock)
         }
-        
+
         return eventModifiers
     }
 }
