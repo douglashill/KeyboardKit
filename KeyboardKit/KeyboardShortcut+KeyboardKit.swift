@@ -24,6 +24,10 @@ extension KeyboardShortcut.KeyboardKit {
     public static let share = KeyboardShortcut(keyboardInput: .share)
 
     /// A keyboard shortcut for an edit action, consisting of the 'E' key and the Command (⌘) modifier.
+    ///
+    /// This shortcut should not be used in contexts where text selection is possible, since this key combination should
+    /// be reserved for the “Use Selection for Find” action, which is supported by `UIFindInteraction` and `KeyboardTextView`.
+    /// In these contexts, using ⌥⌘E for Edit is recommend.
     public static let edit = KeyboardShortcut(keyboardInput: .edit)
 
     /// A keyboard shortcut for a creation action, consisting of the 'N' key and the Command (⌘) modifier.
@@ -38,7 +42,7 @@ extension KeyboardShortcut.KeyboardKit {
     /// A keyboard shortcut for an action for viewing bookmarks, consisting of the 'B' key and the Command (⌘) modifier.
     public static let bookmarks = KeyboardShortcut(keyboardInput: .bookmarks)
 
-    /// A keyboard shortcut for a search action, consisting of the 'F' key and the Command (⌘) modifier.
+    /// A keyboard shortcut for a search/find action, consisting of the 'F' key and the Command (⌘) modifier.
     public static let search = KeyboardShortcut(keyboardInput: .search)
 
     /// A keyboard shortcut for a deletion action, consisting of the Delete (⌫) key and the Command (⌘) modifier.
@@ -57,9 +61,13 @@ extension KeyboardShortcut.KeyboardKit {
     public static let zoomToActualSize = KeyboardShortcut(keyboardInput: .zoomToActualSize)
 
     /// A keyboard shortcut for a rewind action, consisting of the left arrow (←) key and the Command (⌘) modifier.
+    ///
+    /// This input is not flipped for right-to-left layouts.
     public static let rewind = KeyboardShortcut(keyboardInput: .rewind)
 
     /// A keyboard shortcut for a fast-forward action, consisting of the right arrow (→) key and the Command (⌘) modifier.
+    ///
+    /// This input is not flipped for right-to-left layouts.
     public static let fastForward = KeyboardShortcut(keyboardInput: .fastForward)
 }
 

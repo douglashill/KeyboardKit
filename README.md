@@ -12,7 +12,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
 - [Additional navigation commands](/Features.md#additional-navigation-commands) (dismiss modals, change tabs, go back)
 - [Collection view and table view commands](/Features.md#collection-view-and-table-view-commands) (reorder, delete, select all)
 - [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end)
-- [Key equivalents for bar buttons](Features.md#key-equivalents-for-buttons) (navigation bars, toolbars)
+- [Key equivalents for buttons](Features.md#key-equivalents-for-buttons) (SwiftUI buttons, UIKit bar button items)
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
 - [Keyboard window management](Features.md#window-management) (open, close, cycle)
 - [Keyboard date picker](Features.md#date-picker) (change day, week, month or year)
@@ -59,6 +59,8 @@ Import the framework:
 import KeyboardKit
 ```
 
+### UIKit
+
 Instead of creating or subclassing a UIKit class directly, use the subclasses from KeyboardKit instead. All KeyboardKit subclasses are named by changing `UI` to `Keyboard`. For example replace
 
 ```swift
@@ -87,6 +89,19 @@ tabBarController.viewControllers = [
 In order to receive key commands, an object must be on the [responder chain](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events).
 
 You can see more in the KeyboardKitDemo app, and each class includes API documentation in their Swift source file.
+
+### SwiftUI
+
+When using the `.keyboardShortcut` modifier on a `Button`, access semantically defined `KeyboardShortcut`s for common actions within the `.KeyboardKit` namespace: 
+
+```swift
+Button("Save") {
+    // Save something here in the button action
+}
+.keyboardShortcut(.KeyboardKit.save)
+```
+
+This adds the ability trigger the action of the button by pressing ⌘S.
 
 ## Customisation
 

@@ -1,5 +1,8 @@
 // Douglas Hill, December 2022
 
+/// Input required on a hardware keyboard (a combination of keys).
+///
+/// A keyboard command consists of input (this type) + action (code to run).
 struct KeyboardInput {
     let modifierFlags: UIKeyModifierFlags
     let character: String
