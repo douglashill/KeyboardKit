@@ -91,8 +91,9 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
     }
 }
 
+// TODO: Swap this to an initialiser?
 private extension UIBarButtonItem.SystemItem {
-    var keyboardAction: KeyboardAction? {
+    var keyboardAction: KeyboardInput? {
         switch self {
         case .cancel:      return .cancel
         case .close:       return .close
