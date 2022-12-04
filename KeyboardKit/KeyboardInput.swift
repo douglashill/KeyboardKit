@@ -3,19 +3,19 @@
 struct KeyboardInput {
     let modifierFlags: UIKeyModifierFlags
     let character: String
-    let shouldMirror: Bool
+    let allowsAutomaticMirroring: Bool
 
     // The default for mirroring doesn’t matter for most inputs since they’re not directional, but might as well match the UIKit and SwiftUI default.
 
-    init(_ modifierFlags: UIKeyModifierFlags, _ character: String, shouldMirror: Bool = true) {
+    init(_ modifierFlags: UIKeyModifierFlags, _ character: String, allowsAutomaticMirroring: Bool = true) {
         self.modifierFlags = modifierFlags
         self.character = character
-        self.shouldMirror = shouldMirror
+        self.allowsAutomaticMirroring = allowsAutomaticMirroring
     }
 
     /// Shorthand for when there are no modifier keys.
-    init(_ character: String, shouldMirror: Bool = true) {
-        self.init([], character, shouldMirror: shouldMirror)
+    init(_ character: String, allowsAutomaticMirroring: Bool = true) {
+        self.init([], character, allowsAutomaticMirroring: allowsAutomaticMirroring)
     }
 
     // TODO: Remove this temp compatibility helper
@@ -74,8 +74,8 @@ struct KeyboardInput {
     // Mirroring for these two is based on the assumption that these are being used for media playback, which typically progresses left-to-right even in right-to-left layouts.
 
     /// A rewind action, consisting of the left arrow (←) key and the Command (⌘) modifier.
-    static let rewind = KeyboardInput(.command, .leftArrow, shouldMirror: false)
+    static let rewind = KeyboardInput(.command, .leftArrow, allowsAutomaticMirroring: false)
 
     /// A fast-forward action, consisting of the right arrow (→) key and the Command (⌘) modifier.
-    static let fastForward = KeyboardInput(.command, .rightArrow, shouldMirror: false)
+    static let fastForward = KeyboardInput(.command, .rightArrow, allowsAutomaticMirroring: false)
 }

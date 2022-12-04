@@ -93,7 +93,7 @@ private extension KeyboardShortcut {
         let modifiers = EventModifiers(keyModifierFlags: keyboardInput.modifierFlags)
 
         if #available(iOS 15.0, *) {
-            self.init(characterKey, modifiers: modifiers, localization: keyboardInput.shouldMirror ? .automatic : .withoutMirroring)
+            self.init(characterKey, modifiers: modifiers, localization: keyboardInput.allowsAutomaticMirroring ? .automatic : .withoutMirroring)
         } else {
             self.init(characterKey, modifiers: modifiers)
         }

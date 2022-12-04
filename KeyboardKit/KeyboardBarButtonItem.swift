@@ -69,7 +69,7 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
     public override func wasInitialised(with systemItem: SystemItem) {
         if let keyboardInput = KeyboardInput(barButtonSystemItem: systemItem) {
             keyEquivalent = keyboardInput.keyEquivalent
-            keyCommandAllowsAutomaticMirroring = keyboardInput.shouldMirror
+            keyCommandAllowsAutomaticMirroring = keyboardInput.allowsAutomaticMirroring
         }
         self.systemItem = systemItem
     }
