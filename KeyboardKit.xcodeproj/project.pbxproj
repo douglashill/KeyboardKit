@@ -46,6 +46,7 @@
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
 		A590F5A2259A5C8F00781E5E /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */; };
 		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
+		A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */; };
 		A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59C182129238433007366F7 /* SwiftUIViewController.swift */; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
@@ -276,6 +277,7 @@
 		A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
+		A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+KeyboardKit.swift"; sourceTree = "<group>"; };
 		A59C182129238433007366F7 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -437,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D2DD0326EC9AA4000C5D18 /* Documentation.docc */,
+				A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */,
 				A53AE01623786CD000B07957 /* KeyboardTableView.swift */,
 				A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */,
 				A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */,
@@ -897,6 +900,7 @@
 				A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
+				A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */,
 				A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */,
 				A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */,
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
