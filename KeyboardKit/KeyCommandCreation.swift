@@ -3,7 +3,7 @@
 import UIKit
 
 extension UIKeyCommand {
-    /// Consistent API whether there is a title or not and on iOS 12 and 12.
+    /// Consistent API whether there is a title or not and on iOS 12 and 13+.
     /// Tuple means usage reads more nicely too.
     convenience init(_ keys: (modifierFlags: UIKeyModifierFlags, input: String), action: Selector, title: String? = nil, wantsPriorityOverSystemBehavior: Bool = false, allowsAutomaticLocalization: Bool = true, allowsAutomaticMirroring: Bool = true) {
         if let title = title {
