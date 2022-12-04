@@ -5,6 +5,8 @@ struct KeyboardInput {
     let character: String
     let shouldMirror: Bool
 
+    // The default for mirroring doesn’t matter for most inputs since they’re not directional, but might as well match the UIKit and SwiftUI default.
+
     init(_ modifierFlags: UIKeyModifierFlags, _ character: String, shouldMirror: Bool = true) {
         self.modifierFlags = modifierFlags
         self.character = character
@@ -68,6 +70,8 @@ struct KeyboardInput {
 
     /// An action to zoom content to its actual size, consisting of the 0 key and the Command (⌘) modifier.
     static let zoomToActualSize = KeyboardInput(.command, "0")
+
+    // Mirroring for these two is based on the assumption that these are being used for media playback, which typically progresses left-to-right even in right-to-left layouts.
 
     /// A rewind action, consisting of the left arrow (←) key and the Command (⌘) modifier.
     static let rewind = KeyboardInput(.command, .leftArrow, shouldMirror: false)
