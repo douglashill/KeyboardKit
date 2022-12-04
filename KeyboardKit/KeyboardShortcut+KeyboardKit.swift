@@ -12,99 +12,97 @@ extension KeyboardShortcut {
 @available(iOS 14.0, *)
 extension KeyboardShortcut.KeyboardKit {
     /// A keyboard shortcut for a close action, consisting of the 'W' key and the Command (⌘) modifier.
-    public static let close = KeyboardAction.close.keyboardShortcut
+    public static let close = KeyboardShortcut(keyboardAction: .close)
 
     /// A keyboard shortcut for a done action, consisting of the Return (↩) key and the Command (⌘) modifier.
-    public static let done = KeyboardAction.done.keyboardShortcut
+    public static let done = KeyboardShortcut(keyboardAction: .done)
 
     /// A keyboard shortcut for a save action, consisting of the 'S' key and the Command (⌘) modifier.
-    public static let save = KeyboardAction.save.keyboardShortcut
+    public static let save = KeyboardShortcut(keyboardAction: .save)
 
     /// A keyboard shortcut for showing the share sheet, consisting of the 'I' key and the Command (⌘) modifier.
-    public static let share = KeyboardAction.share.keyboardShortcut
+    public static let share = KeyboardShortcut(keyboardAction: .share)
 
     /// A keyboard shortcut for an edit action, consisting of the 'E' key and the Command (⌘) modifier.
-    public static let edit = KeyboardAction.edit.keyboardShortcut
+    public static let edit = KeyboardShortcut(keyboardAction: .edit)
 
     /// A keyboard shortcut for a creation action, consisting of the 'N' key and the Command (⌘) modifier.
-    public static let new = KeyboardAction.new.keyboardShortcut
+    public static let new = KeyboardShortcut(keyboardAction: .new)
 
     /// A keyboard shortcut for a reply action, consisting of the 'R' key and the Command (⌘) modifier.
-    public static let reply = KeyboardAction.reply.keyboardShortcut
+    public static let reply = KeyboardShortcut(keyboardAction: .reply)
 
     /// A keyboard shortcut for a refresh action, consisting of the 'R' key and the Command (⌘) modifier.
-    public static let refresh = KeyboardAction.refresh.keyboardShortcut
+    public static let refresh = KeyboardShortcut(keyboardAction: .refresh)
 
     /// A keyboard shortcut for an action for viewing bookmarks, consisting of the 'B' key and the Command (⌘) modifier.
-    public static let bookmarks = KeyboardAction.bookmarks.keyboardShortcut
+    public static let bookmarks = KeyboardShortcut(keyboardAction: .bookmarks)
 
     /// A keyboard shortcut for a search action, consisting of the 'F' key and the Command (⌘) modifier.
-    public static let search = KeyboardAction.search.keyboardShortcut
+    public static let search = KeyboardShortcut(keyboardAction: .search)
 
     /// A keyboard shortcut for a deletion action, consisting of the Delete (⌫) key and the Command (⌘) modifier.
-    public static let delete = KeyboardAction.delete.keyboardShortcut
+    public static let delete = KeyboardShortcut(keyboardAction: .delete)
 
     /// A keyboard shortcut for an action for viewing content relating to the current day, consisting of the 'T' key and the Command (⌘) modifier.
-    public static let today = KeyboardAction.today.keyboardShortcut
+    public static let today = KeyboardShortcut(keyboardAction: .today)
 
     /// A keyboard shortcut for a zoom-in action, consisting of the equals (=) key and the Command (⌘) modifier.
-    public static let zoomIn = KeyboardAction.zoomIn.keyboardShortcut
+    public static let zoomIn = KeyboardShortcut(keyboardAction: .zoomIn)
 
     /// A keyboard shortcut for a zoom-out action, consisting of the minus (-) key and the Command (⌘) modifier.
-    public static let zoomOut = KeyboardAction.zoomOut.keyboardShortcut
+    public static let zoomOut = KeyboardShortcut(keyboardAction: .zoomOut)
 
     /// A keyboard shortcut for an action to zoom content to its actual size, consisting of the 0 key and the Command (⌘) modifier.
-    public static let zoomToActualSize = KeyboardAction.zoomToActualSize.keyboardShortcut
+    public static let zoomToActualSize = KeyboardShortcut(keyboardAction: .zoomToActualSize)
 
     /// A keyboard shortcut for a rewind action, consisting of the left arrow (←) key and the Command (⌘) modifier.
-    public static let rewind = KeyboardAction.rewind.keyboardShortcut
+    public static let rewind = KeyboardShortcut(keyboardAction: .rewind)
 
     /// A keyboard shortcut for a fast-forward action, consisting of the right arrow (→) key and the Command (⌘) modifier.
-    public static let fastForward = KeyboardAction.fastForward.keyboardShortcut
+    public static let fastForward = KeyboardShortcut(keyboardAction: .fastForward)
 }
 
 @available(iOS 13.0, *)
-private extension UIKeyModifierFlags {
-    var eventModifiers: EventModifiers {
-        var eventModifiers: EventModifiers = []
+private extension EventModifiers {
+    init(keyModifierFlags: UIKeyModifierFlags) {
+        self = []
 
-        if self.contains(.command) {
-            eventModifiers.insert(.command)
+        if keyModifierFlags.contains(.command) {
+            self.insert(.command)
         }
-        if self.contains(.numericPad) {
-            eventModifiers.insert(.numericPad)
+        if keyModifierFlags.contains(.numericPad) {
+            self.insert(.numericPad)
         }
-        if self.contains(.shift) {
-            eventModifiers.insert(.shift)
+        if keyModifierFlags.contains(.shift) {
+            self.insert(.shift)
         }
-        if self.contains(.control) {
-            eventModifiers.insert(.control)
+        if keyModifierFlags.contains(.control) {
+            self.insert(.control)
         }
-        if self.contains(.alphaShift) {
-            eventModifiers.insert(.capsLock)
+        if keyModifierFlags.contains(.alphaShift) {
+            self.insert(.capsLock)
         }
-
-        return eventModifiers
     }
 }
 
 @available(iOS 14.0, *)
-private extension KeyboardAction {
-    var keyboardShortcut: KeyboardShortcut {
-        let equivalent = keyEquivalent
-        let keyEquivalent = KeyEquivalent(Character(equivalent.input))
-        let modifiers = equivalent.modifierFlags.eventModifiers
+private extension KeyboardShortcut {
+    init(keyboardAction: KeyboardAction) {
+        let equivalent = keyboardAction.keyEquivalent
+        let characterKey = KeyEquivalent(Character(equivalent.input))
+        let modifiers = EventModifiers(keyModifierFlags: equivalent.modifierFlags)
 
-        switch self {
+        switch keyboardAction {
         case .cancel:
-            return .cancelAction
+            self = .cancelAction
         case .rewind, .fastForward:
             if #available(iOS 15.0, *) {
-                return .init(keyEquivalent, modifiers: modifiers, localization: .withoutMirroring)
+                self.init(characterKey, modifiers: modifiers, localization: .withoutMirroring)
             }
             fallthrough
         default:
-            return .init(keyEquivalent, modifiers: modifiers)
+            self.init(characterKey, modifiers: modifiers)
         }
     }
 }
