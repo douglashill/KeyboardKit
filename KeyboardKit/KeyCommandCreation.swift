@@ -27,4 +27,8 @@ extension UIKeyCommand {
     convenience init(_ input: String, action: Selector, title: String? = nil, wantsPriorityOverSystemBehavior: Bool = false, allowsAutomaticLocalization: Bool = true, allowsAutomaticMirroring: Bool = true) {
         self.init(([], input), action: action, title: title, wantsPriorityOverSystemBehavior: wantsPriorityOverSystemBehavior, allowsAutomaticLocalization: allowsAutomaticLocalization, allowsAutomaticMirroring: allowsAutomaticMirroring)
     }
+
+    convenience init(keyboardInput: KeyboardInput, action: Selector, title: String? = nil, wantsPriorityOverSystemBehavior: Bool = false, allowsAutomaticLocalization: Bool = true) {
+        self.init((keyboardInput.modifierFlags, keyboardInput.character), action: action, title: title, wantsPriorityOverSystemBehavior: wantsPriorityOverSystemBehavior, allowsAutomaticLocalization: allowsAutomaticLocalization, allowsAutomaticMirroring: keyboardInput.allowsAutomaticMirroring)
+    }
 }

@@ -18,11 +18,6 @@ struct KeyboardInput {
         self.init([], character, allowsAutomaticMirroring: allowsAutomaticMirroring)
     }
 
-    // TODO: Remove this temp compatibility helper
-    var keyEquivalent: (modifierFlags: UIKeyModifierFlags, input: String) {
-        (modifierFlags, character)
-    }
-
     /// An action to cancelling an in-progress task or dismiss a prompt, consisting of the Escape (⎋) key and no modifiers.
     static let cancel = KeyboardInput([], .escape)
 

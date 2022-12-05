@@ -68,7 +68,7 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
     /// For KeyboardKit internal use.
     public override func wasInitialised(with systemItem: SystemItem) {
         if let keyboardInput = KeyboardInput(barButtonSystemItem: systemItem) {
-            keyEquivalent = keyboardInput.keyEquivalent
+            keyEquivalent = (keyboardInput.modifierFlags, keyboardInput.character)
             keyCommandAllowsAutomaticMirroring = keyboardInput.allowsAutomaticMirroring
         }
         self.systemItem = systemItem
