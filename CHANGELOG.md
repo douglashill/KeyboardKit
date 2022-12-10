@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 7.1.0
     - Adds common SwiftUI `KeyboardShortcut`s that can be used with the `.keyboardShortcut` modifier on a `Button`.  
 - 7.0.0
     - Xcode 14.0 or later is now required. (Xcode 14.1 or later for Mac Catalyst)
