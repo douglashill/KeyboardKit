@@ -67,9 +67,11 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
 
     /// For KeyboardKit internal use.
     public override func wasInitialised(with systemItem: SystemItem) {
-        keyEquivalent = systemItem.keyboardAction?.keyEquivalent
+        if let keyboardInput = KeyboardInput(barButtonSystemItem: systemItem) {
+            keyEquivalent = (keyboardInput.modifierFlags, keyboardInput.character)
+            keyCommandAllowsAutomaticMirroring = keyboardInput.allowsAutomaticMirroring
+        }
         self.systemItem = systemItem
-        keyCommandAllowsAutomaticMirroring = systemItem.allowsAutomaticMirroring
     }
 
     @available(iOS 14.0, *)
@@ -91,24 +93,24 @@ open class KeyboardBarButtonItem: _KBDBarButtonItem {
     }
 }
 
-private extension UIBarButtonItem.SystemItem {
-    var keyboardAction: KeyboardAction? {
-        switch self {
-        case .cancel:      return .cancel
-        case .close:       return .close
-        case .done:        return .done
-        case .save:        return .save
-        case .action:      return .generic
-        case .edit:        return .edit
-        case .add:         return .new
-        case .compose:     return .new
-        case .reply:       return .reply
-        case .refresh:     return .refresh
-        case .bookmarks:   return .bookmarks
-        case .search:      return .search
-        case .trash:       return .delete
-        case .rewind:      return .rewind
-        case .fastForward: return .fastForward
+private extension KeyboardInput {
+    init?(barButtonSystemItem: UIBarButtonItem.SystemItem) {
+        switch barButtonSystemItem {
+        case .cancel:      self = .cancel
+        case .close:       self = .close
+        case .done:        self = .done
+        case .save:        self = .save
+        case .action:      self = .share
+        case .edit:        self = .edit
+        case .add:         self = .new
+        case .compose:     self = .new
+        case .reply:       self = .reply
+        case .refresh:     self = .refresh
+        case .bookmarks:   self = .bookmarks
+        case .search:      self = .search
+        case .trash:       self = .delete
+        case .rewind:      self = .rewind
+        case .fastForward: self = .fastForward
         // More obscure items that are hard to pick a standard key equivalent for.
         case .organize:    return nil
         case .camera:      return nil
@@ -120,14 +122,9 @@ private extension UIBarButtonItem.SystemItem {
         case .undo, .redo, .flexibleSpace, .fixedSpace: fallthrough @unknown default: return nil
         }
     }
+}
 
-    var allowsAutomaticMirroring: Bool {
-        switch self {
-        case .rewind, .fastForward: return false // This is based on the assumption that these are being used for media playback, which typically progresses left-to-right even in right-to-left layouts.
-        default:                    return true  // This doesn’t matter since all these inputs aren’t mirrored anyway, but might as well match the UIKit default.
-        }
-    }
-
+private extension UIBarButtonItem.SystemItem {
     var titleLocalisedStringKey: LocalisedStringKey? {
         switch self {
         case .action: return .barButton_action

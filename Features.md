@@ -71,29 +71,34 @@ Scrolling and zooming commands provide feature parity with `NSScrollView` from A
 | Zoom out                                      | ⌘−                          | `KeyboardScrollView`                                                                                                                                       |                                                                                                                                                                                                    |
 | Zoom to actual size                           | ⌘0                          | `KeyboardScrollView`                                                                                                                                       |                                                                                                                                                                                                    |
 
-## Key equivalents for buttons
+## Key equivalents for buttons (SwiftUI and UIKit)
 
-The actions of bar button items can be activated from a keyboard by using `KeyboardNavigationController` and `KeyboardBarButtonItem` instead of `UINavigationController` and `UIBarButtonItem`. Most system items have key inputs set by default. Custom inputs can be set using the `keyEquivalent` property of `KeyboardBarButtonItem`.
+SwiftUI provides the `.keyboardShortcut` modifier to trigger the action of a `Button` from a keyboard. KeyboardKit extends this by providing semantically defined `KeyboardShortcut`s for common actions, which can be used with this modifier.
+
+In UIKit, the actions of bar button items can be activated from a keyboard by using `KeyboardNavigationController` and `KeyboardBarButtonItem` instead of `UINavigationController` and `UIBarButtonItem`. Most system items have key inputs set by default. Custom inputs can be set using the `keyEquivalent` property of `KeyboardBarButtonItem`.
 
 The refresh command (⌘R) is also available by setting up pull to refresh in the usual way with the `refreshControl` of a `KeyboardScrollView`, `KeyboardTableView`, `KeyboardTableViewController`, `KeyboardCollectionView`, `KeyboardCollectionViewController` or `KeyboardTextView`.
 
-| Feature      | Key input | `UIBarButtonItem.SystemItem` |
-| ------------ | --------- | ---------------------------- |
-| Delete       | ⌘ delete  | `.trash`                     |
-| Refresh      | ⌘R        | `.refresh`                   |
-| Reply        | ⌘R        | `.reply`                     |
-| Edit         | ⌘E        | `.edit`                      |
-| Cancel       | esc       | `.cancel`                    |
-| Done         | ⌘ return  | `.done`                      |
-| Close        | ⌘W        | `.close`                     |
-| Add          | ⌘N        | `.add`                       |
-| Compose      | ⌘N        | `.compose`                   |
-| Save         | ⌘S        | `.save`                      |
-| Share        | ⌘I        | `.action`                    |
-| Bookmarks    | ⌘B        | `.bookmarks`                 |
-| Search       | ⌘F        | `.search`                    |
-| Rewind       | ⌘←        | `.rewind`                    |
-| Fast forward | ⌘→        | `.fastForward`               |
+| Feature         | Key input | `KeyboardShortcut`              | `UIBarButtonItem.SystemItem` |
+| --------------- | --------- | ------------------------------- | ---------------------------- |
+| Delete          | ⌘ delete  | `.KeyboardKit.delete`           | `.trash`                     |
+| Refresh         | ⌘R        | `.KeyboardKit.refresh`          | `.refresh`                   |
+| Reply           | ⌘R        | `.KeyboardKit.reply`            | `.reply`                     |
+| Edit            | ⌘E        | `.KeyboardKit.edit`             | `.edit`                      |
+| Cancel          | esc       | `.cancelAction` (SwiftUI)       | `.cancel`                    |
+| Done            | ⌘ return  | `.KeyboardKit.done`             | `.done`                      |
+| Close           | ⌘W        | `.KeyboardKit.close`            | `.close`                     |
+| Add/Compose/New | ⌘N        | `.KeyboardKit.new`              | `.add`, `.compose`           |
+| Save            | ⌘S        | `.KeyboardKit.save`             | `.save`                      |
+| Share           | ⌘I        | `.KeyboardKit.share`            | `.action`                    |
+| Bookmarks       | ⌘B        | `.KeyboardKit.bookmarks`        | `.bookmarks`                 |
+| Search          | ⌘F        | `.KeyboardKit.search`           | `.search`                    |
+| Rewind          | ⌘←        | `.KeyboardKit.rewind`           | `.rewind`                    |
+| Fast forward    | ⌘→        | `.KeyboardKit.fastForward`      | `.fastForward`               |
+| Today           | ⌘T        | `.KeyboardKit.today`            | -                            |
+| Zoom In         | ⌘=        | `.KeyboardKit.zoomIn`           | -                            |
+| Zoom Out        | ⌘-        | `.KeyboardKit.zoomOut`          | -                            |
+| Actual Size     | ⌘0        | `.KeyboardKit.zoomToActualSize` | -                            |
 
 ## Advanced text navigation
 

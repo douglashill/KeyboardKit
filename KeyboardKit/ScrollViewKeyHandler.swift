@@ -54,9 +54,9 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
 
     private lazy var nonDiscoverableZoomingCommands: [UIKeyCommand] = [
         // This is the one users are expected to press. We don’t want to show = in the UI.
-        UIKeyCommand(KeyboardAction.zoomIn.keyEquivalent, action: #selector(kbd_zoomIn)),
+        UIKeyCommand(keyboardInput: .zoomIn, action: #selector(kbd_zoomIn)),
         // This is the one users are expected to press. This is a hyphen.
-        UIKeyCommand(KeyboardAction.zoomOut.keyEquivalent, action: #selector(kbd_zoomOut)),
+        UIKeyCommand(keyboardInput: .zoomOut, action: #selector(kbd_zoomOut)),
         // You can hold shift and press the =/+ key and it still zooms in, so match that for zooming out with the -/_ key.
         UIKeyCommand((.command, "_"), action: #selector(kbd_zoomOut)),
     ]
@@ -67,9 +67,9 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     // This is a minus sign, not a hyphen, to align nicely in the UI.
     static let zoomOutKeyCommand = DiscoverableKeyCommand((.command, "−"), action: #selector(kbd_zoomOut), title: localisedString(.scrollView_zoomOut))
 
-    static let actualSizeKeyCommand = DiscoverableKeyCommand(KeyboardAction.zoomToActualSize.keyEquivalent, action: #selector(kbd_resetZoom), title: localisedString(.scrollView_zoomReset))
+    static let actualSizeKeyCommand = DiscoverableKeyCommand(keyboardInput: .zoomToActualSize, action: #selector(kbd_resetZoom), title: localisedString(.scrollView_zoomReset))
 
-    static let refreshKeyCommand = DiscoverableKeyCommand(KeyboardAction.refresh.keyEquivalent, action: #selector(kbd_refresh), title: localisedString(.refresh))
+    static let refreshKeyCommand = DiscoverableKeyCommand(keyboardInput: .refresh, action: #selector(kbd_refresh), title: localisedString(.refresh))
 
     override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []

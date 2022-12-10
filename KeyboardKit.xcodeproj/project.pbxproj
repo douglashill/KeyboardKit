@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9646A54828B2664700A10272 /* KeyboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646A54728B2664700A10272 /* KeyboardAction.swift */; };
+		9646A54828B2664700A10272 /* KeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646A54728B2664700A10272 /* KeyboardInput.swift */; };
 		A521CE5424D61B5C00EBB34D /* CompositionalLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */; };
 		A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */; };
 		A53ADFF62375AA1700B07957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53ADFF52375AA1700B07957 /* Assets.xcassets */; };
@@ -46,6 +46,8 @@
 		A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */; };
 		A590F5A2259A5C8F00781E5E /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */; };
 		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
+		A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */; };
+		A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59C182129238433007366F7 /* SwiftUIViewController.swift */; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
 		A5B7C113242F9EA900B48595 /* ClassicDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C112242F9EA900B48595 /* ClassicDemoViewController.m */; };
@@ -147,7 +149,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9646A54728B2664700A10272 /* KeyboardAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAction.swift; sourceTree = "<group>"; };
+		9646A54728B2664700A10272 /* KeyboardInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInput.swift; sourceTree = "<group>"; };
 		A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutViewController.swift; sourceTree = "<group>"; };
 		A53ADFE92375AA1600B07957 /* KeyboardKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -275,6 +277,8 @@
 		A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		A59855012439CE6B008DB610 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
+		A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+KeyboardKit.swift"; sourceTree = "<group>"; };
+		A59C182129238433007366F7 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 				A5CEF29623982F9F0099A19D /* PagingScrollViewController.swift */,
 				A5E538C5239BFB85004A2EE2 /* TextViewController.swift */,
 				A590F5A1259A5C8F00781E5E /* DatePickerViewController.swift */,
+				A59C182129238433007366F7 /* SwiftUIViewController.swift */,
 				A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */,
 				A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */,
 				A55F22B8271B3BD500AFA55E /* MenuBuilder.swift */,
@@ -434,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D2DD0326EC9AA4000C5D18 /* Documentation.docc */,
+				A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */,
 				A53AE01623786CD000B07957 /* KeyboardTableView.swift */,
 				A53AE01523786CD000B07957 /* KeyboardCollectionView.swift */,
 				A5880D0223A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift */,
@@ -451,7 +457,7 @@
 				A57633BE259A62490063269A /* KeyboardDatePicker.swift */,
 				A5D8C55D23A4ED0F00733DD4 /* InjectableResponder.swift */,
 				A542D89B23A01DC8007E68C3 /* PointAnimator.swift */,
-				9646A54728B2664700A10272 /* KeyboardAction.swift */,
+				9646A54728B2664700A10272 /* KeyboardInput.swift */,
 				A554A9882700681E005A066F /* DiscoverableKeyCommand.swift */,
 				A53AE01223786CD000B07957 /* KeyCommandCreation.swift */,
 				A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */,
@@ -865,6 +871,7 @@
 				A55F22B9271B3BD500AFA55E /* MenuBuilder.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
+				A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
 				A55F8E86271C15B8001CC20E /* AppDelegate.swift in Sources */,
 				A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */,
@@ -893,12 +900,13 @@
 				A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */,
 				A5E538A6239B0596004A2EE2 /* KeyboardApplication.swift in Sources */,
 				A53AE01823786CD000B07957 /* KeyboardTabBarController.swift in Sources */,
+				A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */,
 				A5E3D37F24C4A768008C1FDB /* KeyboardSplitViewController.swift in Sources */,
 				A53AE01723786CD000B07957 /* KeyCommandCreation.swift in Sources */,
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
 				A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */,
-				9646A54828B2664700A10272 /* KeyboardAction.swift in Sources */,
+				9646A54828B2664700A10272 /* KeyboardInput.swift in Sources */,
 				A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */,
 				A554A9892700681E005A066F /* DiscoverableKeyCommand.swift in Sources */,
 				A5D2DD0426EC9AA4000C5D18 /* Documentation.docc in Sources */,
