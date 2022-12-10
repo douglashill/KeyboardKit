@@ -1,6 +1,5 @@
 // Douglas Hill, November 2022
 
-import UIKit
 import SwiftUI
 import KeyboardKit
 
@@ -8,7 +7,7 @@ func swiftUIExampleViewController() -> UIViewController {
     return UIHostingController(rootView: ExampleView())
 }
 
-struct ExampleView: View {
+private struct ExampleView: View {
 
     @State var message = "This example demonstrates using KeyboardKit and SwiftUI’s KeyboardShortcut to set up standard key equivalents for buttons."
 

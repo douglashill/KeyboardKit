@@ -16,11 +16,6 @@ struct KeyboardInput {
         self.allowsAutomaticMirroring = allowsAutomaticMirroring
     }
 
-    /// Shorthand for when there are no modifier keys.
-    init(_ character: String, allowsAutomaticMirroring: Bool = true) {
-        self.init([], character, allowsAutomaticMirroring: allowsAutomaticMirroring)
-    }
-
     /// An action to cancelling an in-progress task or dismiss a prompt, consisting of the Escape (⎋) key and no modifiers.
     static let cancel = KeyboardInput([], .escape)
 
@@ -33,7 +28,7 @@ struct KeyboardInput {
     /// A save action, consisting of the 'S' key and the Command (⌘) modifier.
     static let save = KeyboardInput(.command, "s")
 
-    /// A save action, consisting of the 'I' key and the Command (⌘) modifier.
+    /// An action that shows the share sheet, consisting of the 'I' key and the Command (⌘) modifier.
     static let share = KeyboardInput(.command, "i") // Safari uses this for Email This Page. Also indirectly recommended in https://developer.apple.com/wwdc20/10117.
 
     /// An edit action, consisting of the 'E' key and the Command (⌘) modifier.
