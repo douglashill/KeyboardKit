@@ -3,7 +3,7 @@
 - Next
     - Adds common SwiftUI `KeyboardShortcut`s that can be used with the `.keyboardShortcut` modifier on a `Button`.  
 - 7.0.0
-    - Xcode 14 is now required.
+    - Xcode 14.0 or later is now required. (Xcode 14.1 or later for Mac Catalyst)
     - Adds support for iOS 16.
     - Disables `KeyboardTextView`’s find commands when the text view’s built-in `UIFindInteraction` is enabled. 
     - Fixes adjustments to the date of `KeyboardDatePicker` within the same month being animated on iOS 16, which made it feel less responsive.
