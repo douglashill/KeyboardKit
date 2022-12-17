@@ -373,7 +373,6 @@ private extension UICollectionViewLayout {
     ///   - indexPath: The existing selected index path if there is one.
     ///   - rawDirection: The direction in which to move the selection. The value is the raw representation of a `NavigationDirection`.
     ///   - rawStep: The step by which to move the selection. The value is the raw representation of a `NavigationStep`.
-    ///   - keyHandler: The key handler. Provided to do index path operations like finding the first selectable index path.
     ///
     /// - Returns: The adjusted index path or nil if no appropriate index path exists.
     @objc func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int) -> IndexPath? {
@@ -385,59 +384,13 @@ private extension UICollectionViewLayout {
             let attributesOfOldSelection = layoutAttributesForItem(at: oldIndexPath)
         else {
             /*
-             It’s very layout-dependent what would make sense here. Important to not always return nil otherwise it would
-             be impossible to get started with arrow key navigation. Doing this spatially would mean looking for items
-             closest to an edge. This potentially means requesting all layout attributes (as in the case of pressing left
-             or right in a list). This could be expensive and not make sense to the user anyway.
+             There was no previous selection. Important to not return nil otherwise it would
+             be impossible to get started with arrow key navigation.
+
+             We have no idea so go to the first item.
+             A possible improvement would be to infer the scroll direction for custom layouts based on the
+             collectionViewContentSize and then branch like in the compositional layout override.
              */
-
-            /*
-             This behaviour is modified for compositional layout so that the initial selection is only created in the
-             scroll direction. I.e. so left/right arrows keys don’t make an initial selection in a list.
-
-             Ideally this method would be overridden by `UICollectionViewCompositionalLayout`. That class is only
-             available from iOS 13 while our deployment target is currently iOS 12, so the extension must be
-             marked with `@available(iOS 13.0, *)`. (I guess that’s just to be explicit. This could surely be
-             inferred.) However for some reason if the extension on `UICollectionViewCompositionalLayout` has an
-             `@available` restriction then we get this compiler error:
-
-             > Overriding 'kbd_indexPathFromIndexPath' must be as available as declaration it overrides
-
-             I don’t understand why that would be the case. Isn’t doing stuff like this the point of dynamic dispatch?
-             Rewriting all this index path moving code in Objective-C would be tedious because there are lots of switch
-             statements on tuples. So let’s just check for the specific subclass here instead of using overriding.
-             */
-
-            if let compositionalLayout = self as? UICollectionViewCompositionalLayout {
-                switch compositionalLayout.configuration.scrollDirection {
-                case .horizontal:
-                    switch (direction, collectionView!.effectiveUserInterfaceLayoutDirection) {
-                    case (.up, _), (.down, _):
-                        return nil
-                    case (.left, .leftToRight), (.right, .rightToLeft):
-                        return collectionView!.lastSelectableIndexPath
-                    case (.right, .leftToRight), (.left, .rightToLeft):
-                        return collectionView!.firstSelectableIndexPath
-                    @unknown default:
-                        break
-                    }
-                case .vertical:
-                    switch direction {
-                    case .left, .right:
-                        return nil
-                    case .up:
-                        return collectionView!.lastSelectableIndexPath
-                    case .down:
-                        return collectionView!.firstSelectableIndexPath
-                    }
-                @unknown default:
-                    break
-                }
-            }
-
-            // We have no idea so always go to the first item.
-            // A possible improvement would be to infer the scroll direction for custom layouts based on the
-            // collectionViewContentSize and then use the same branching as for compositional layout above.
             return collectionView!.firstSelectableIndexPath
         }
 
@@ -445,6 +398,7 @@ private extension UICollectionViewLayout {
             return newIndexPath
         }
 
+        // No items in the given direction means we’re at an end.
         switch step {
         case .end, .closestForMoving:
             // Already at end so can’t do any more.
@@ -452,7 +406,7 @@ private extension UICollectionViewLayout {
         case .closest:
             // Wrap around.
             let newIndexPath = indexPathBySearchingFromAttributes(attributesOfOldSelection, direction: direction.opposite, step: .end)
-            // If we wrapped around to the same object, return nil so we don’t steal this event without doing anything.
+            // If we wrapped around to the same object, return nil so we don’t steal this event without doing anything. E.g. left and right in a list.
             return newIndexPath == indexPath ? nil : newIndexPath
         }
     }
@@ -667,6 +621,47 @@ private extension UICollectionViewFlowLayout {
         case (.forwards, .closestForMoving):
             return collectionView!.indexPathToMoveToAfterIndexPath(indexPath!)
         }
+    }
+}
+
+private extension UICollectionViewCompositionalLayout {
+    /// Overridden so that the initial selection is only created in the scroll direction. I.e. so left/right arrows keys don’t make an initial selection in a list.
+    /// Also allows  the initial selection to be the last item instead of the first item.
+    override func kbd_indexPathFromIndexPath(_ indexPath: IndexPath?, inDirection rawDirection: Int, step rawStep: Int) -> IndexPath? {
+        let direction = NavigationDirection(rawValue: rawDirection)!
+
+        guard indexPath == nil else {
+            // Not an initial selection.
+            return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep)
+        }
+
+        switch configuration.scrollDirection {
+        case .horizontal:
+            switch (direction, collectionView!.effectiveUserInterfaceLayoutDirection) {
+            case (.up, _), (.down, _):
+                return nil
+            case (.left, .leftToRight), (.right, .rightToLeft):
+                return collectionView!.lastSelectableIndexPath
+            case (.right, .leftToRight), (.left, .rightToLeft):
+                return collectionView!.firstSelectableIndexPath
+            @unknown default:
+                break
+            }
+        case .vertical:
+            switch direction {
+            case .left, .right:
+                return nil
+            case .up:
+                return collectionView!.lastSelectableIndexPath
+            case .down:
+                return collectionView!.firstSelectableIndexPath
+            }
+        @unknown default:
+            break
+        }
+
+        // We should get warnings from the `@unknown default` if this starts happening.
+        return super.kbd_indexPathFromIndexPath(indexPath, inDirection: rawDirection, step: rawStep)
     }
 }
 
