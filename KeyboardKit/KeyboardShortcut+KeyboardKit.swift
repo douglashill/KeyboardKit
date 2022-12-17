@@ -1,6 +1,5 @@
 // Douglas Hill, December 2022
 
-#if canImport(SwiftUI)
 import SwiftUI
 
 @available(iOS 14.0, *)
@@ -71,7 +70,6 @@ extension KeyboardShortcut.KeyboardKit {
     public static let fastForward = KeyboardShortcut(keyboardInput: .fastForward)
 }
 
-@available(iOS 13.0, *)
 private extension EventModifiers {
     init(keyModifierFlags: UIKeyModifierFlags) {
         self = []
@@ -107,5 +105,3 @@ private extension KeyboardShortcut {
         }
     }
 }
-
-#endif

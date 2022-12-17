@@ -21,7 +21,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
 
 ## Requirements
 
-Xcode 14.1 or later is required. KeyboardKit supports iOS 12 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported.
+Xcode 14.1 or later is required. KeyboardKit supports iOS 13 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported.
 
 Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
 
@@ -40,8 +40,6 @@ Add KeyboardKit to an existing Xcode project as a package dependency:
 2. Drag `KeyboardKit.xcodeproj` into your Xcode project.
 3. Add the KeyboardKit target as a dependency of your target.
 4. Add `KeyboardKit.framework` as an embedded framework.
-
-This Swift package contains localised resources, so Swift 5.3 (Xcode 12) or later is required.
 
 Swift Package Manager requires the Swift and Objective-C sources to be separated into modules. The `KeyboardKitObjC` module is used internally by KeyboardKit and does not need to be imported explicitly by your app.
 

@@ -59,7 +59,6 @@ open class KeyboardApplication: UIApplication {
     /// Using ⌥⌘N matches Mail on the Mac’s command for New Viewer Window and leaves ⌘N available for compose or making new documents.
     ///
     /// This command is not available on Mac because the system provides a ⌘N command to open a new window.
-    @available(iOS 13.0, *)
     public static let newWindowKeyCommand = DiscoverableKeyCommand(([.command, .alternate], "N"), action: #selector(kbd_createNewWindowScene), title: localisedString(.app_newWindow))
 
     /// A key command that enables users to open the app’s settings in the Settings app.
@@ -76,7 +75,7 @@ open class KeyboardApplication: UIApplication {
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if #available(iOS 13, *), Self.newWindowKeyCommand.shouldBeIncludedInResponderChainKeyCommands && supportsMultipleScenes {
+        if Self.newWindowKeyCommand.shouldBeIncludedInResponderChainKeyCommands && supportsMultipleScenes {
             commands.append(Self.newWindowKeyCommand)
         }
 
@@ -87,7 +86,6 @@ open class KeyboardApplication: UIApplication {
         return commands
     }
 
-    @available(iOS 13.0, *)
     @objc func kbd_createNewWindowScene(_ sender: UIKeyCommand) {
         requestSceneSessionActivation(nil, userActivity: nil, options: nil, errorHandler: nil)
     }

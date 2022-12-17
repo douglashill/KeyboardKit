@@ -1,5 +1,9 @@
 # KeyboardKit change log
 
+- Next
+    - Increases the deployment target from iOS 12 to iOS 13.
+        - The following deprecated UIKit API are no longer respected: `isModalInPopover`, `popoverPresentationControllerShouldDismissPopover(_:)`, `popoverPresentationControllerDidDismissPopover(_:)`.
+        - KeyboardKit didn’t run correctly on iOS 12 since version 5.1.0.
 - 7.1.0
     - Adds common SwiftUI `KeyboardShortcut`s that can be used with the `.keyboardShortcut` modifier on a `Button`.  
 - 7.0.0

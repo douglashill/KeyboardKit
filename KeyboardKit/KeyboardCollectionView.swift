@@ -408,7 +408,7 @@ private extension UICollectionViewLayout {
              statements on tuples. So let’s just check for the specific subclass here instead of using overriding.
              */
 
-            if #available(iOS 13.0, *), let compositionalLayout = self as? UICollectionViewCompositionalLayout {
+            if let compositionalLayout = self as? UICollectionViewCompositionalLayout {
                 switch compositionalLayout.configuration.scrollDirection {
                 case .horizontal:
                     switch (direction, collectionView!.effectiveUserInterfaceLayoutDirection) {
@@ -490,8 +490,7 @@ private extension UICollectionViewLayout {
          */
         if flipsHorizontallyInOppositeLayoutDirection && collectionView!.effectiveUserInterfaceLayoutDirection != developmentLayoutDirection {
             resolvedDirection = resolvedDirection.flippedHorizontally
-        } else if #available(iOS 13.0, *),
-                  self is UICollectionViewCompositionalLayout,
+        } else if self is UICollectionViewCompositionalLayout,
                   developmentLayoutDirection == .leftToRight,
                   collectionView!.effectiveUserInterfaceLayoutDirection == .rightToLeft {
             resolvedDirection = resolvedDirection.flippedHorizontally

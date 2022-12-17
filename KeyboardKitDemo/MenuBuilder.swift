@@ -3,7 +3,6 @@
 import UIKit
 import KeyboardKit
 
-@available(iOS 13.0, *)
 enum MenuBuilderError: Error {
     /// The parent or sibling menu was not found when trying to insert menu elements.
     case menuNotFoundWhenInserting(menuElements: [UIMenuElement], reference: UIMenu.Identifier)
@@ -16,7 +15,6 @@ enum MenuBuilderError: Error {
 }
 
 /// An extension that sets `shouldBeIncludedInResponderChainKeyCommands` for key commands from KeyboardKit and adds error reporting to the UIKit API.
-@available(iOS 13.0, *)
 extension UIMenuBuilder {
 
     // If you try to insert a `displaysInline` sibling after a top-level menu, the inserted menu item don’t show up at all.
@@ -87,14 +85,12 @@ extension UIMenuBuilder {
 
 #if DEBUG
 
-@available(iOS 13.0, *)
 extension UIMenuElement {
     @objc func printRecursiveDescription(indent: String = "") {
         print("\(indent)\(self)")
     }
 }
 
-@available(iOS 13.0, *)
 extension UIMenu {
     override func printRecursiveDescription(indent: String = "") {
         print("\(indent)\(self.title.isEmpty ? "\(self.identifier.rawValue)" : self.title)")

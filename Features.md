@@ -6,7 +6,7 @@ KeyboardKit allows your users to use a hardware keyboard to perform the many act
 
 KeyboardKit is designed to be used alongside the UIKit focus system when it’s available, which is on iPad on iOS 15 and later, and on Mac on Big Sur and later.
 
-For iOS 15 on iPhone and iOS 12–14 on iPad, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers. KeyboardKit’s implementation of keyboard navigation has a few advantages over the focus system:
+For iOS 15 and later on iPhone and iOS 13–14 on iPad, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers. KeyboardKit’s implementation of keyboard navigation has a few advantages over the focus system:
 
 - Jumping to the end is possible in collection views and table views by holding the option key. This is a powerful productivity accelerator.
 - Wrapping is possible in collection views and table views. The user can press up when at the top to jump to the bottom etc.
@@ -45,7 +45,7 @@ KeyboardKit provides support for navigating in navigation controllers and more.
 | --------------------------------------------- | --------- | ------------------------------ | -------------------------------------------------------------------------------------------------- |
 | Dismiss any sheet or popover                  | esc, ⌘W   | `KeyboardWindow`               | This respects `isModalInPresentation`.                                                             |
 | Select tab                                    | ⌘ number  | `KeyboardTabBarController`     | The delegate will receive `shouldSelect` and `didSelect` callbacks. The More tab is not supported. |
-| Go back                                       | ⌘`[`, ⌘←  | `KeyboardNavigationController` | Mirrored for right-to-left. UIKit has this on iOS 15, but KeyboardKit does this back to iOS 12.    |
+| Go back                                       | ⌘`[`, ⌘←  | `KeyboardNavigationController` | Mirrored for right-to-left. UIKit has this on iOS 15, but KeyboardKit does this back to iOS 13.    |
 | Hide overlaid column or show displaced column | esc       | `KeyboardSplitViewController`  | Requires a split view created with a style on iOS 14 or later.                                     |
 
 ## Collection view and table view commands
@@ -102,7 +102,7 @@ The refresh command (⌘R) is also available by setting up pull to refresh in th
 
 ## Advanced text navigation
 
-`KeyboardTextView` provides keyboard access to quick navigation based on searching for text. These are all standard features of `NSTextView` from AppKit, and some Mac users find these commands are a huge productivity boost. On iOS 16 and later, `UITextView` provides a built-in UIFindInteraction that provides this functionality together with UI for entering a search term, so it’s recommended to use that instead. KeyboardKit’s find commands will be disabled if the text view’s `isFindInteractionEnabled` property is true.
+`KeyboardTextView` provides keyboard access to quick navigation based on searching for text. These are all standard features of `NSTextView` from AppKit, and some Mac users find these commands are a huge productivity boost. On iOS 16 and later, `UITextView` provides a built-in UIFindInteraction that provides this functionality together with UI for entering a search term, so it’s recommended to use that instead. KeyboardKit’s find commands will be disabled if the text view’s `isFindInteractionEnabled` property is true.
 
 Showing a definition of the selected word is also possible. There is no public API to access the functionality of the Look Up menu item, so this command uses the more limited `UIReferenceLibraryViewController`.
 
@@ -122,7 +122,7 @@ Key commands for working with windows are provided for iPad. These are not neede
 | -------------------- | --------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | New window           | ⌥⌘N       | `KeyboardApplication` | Keys chosen to leave ⌘N for compose or making new documents. This matches New Viewer Window in Mail on Mac.                                                                 |
 | Close window         | ⇧⌘W       | `KeyboardWindowScene` | Keys chosen to leave ⌘W for closing a tab or modal within a window. This matches the Mac when a window has tabs.                                                            |
-| Cycle focused window | ⌘\`       | `KeyboardWindowScene` | Changes the key window. The system provides this on iOS 15 and later.                                                                                                       |
+| Cycle focused window | ⌘\`       | `KeyboardWindowScene` | Changes the key window. The system provides this on iOS 15 and later.                                                                                                       |
 | Open Settings        | ⌘,        | `KeyboardApplication` | Opens the Settings app using `UIApplicationOpenSettingsURLString`. This is disabled by default because there is no automatic way to know if the app will show any settings. |
 
 ## Date picker

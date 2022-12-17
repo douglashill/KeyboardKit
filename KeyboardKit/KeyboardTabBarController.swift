@@ -54,7 +54,6 @@ open class KeyboardTabBarController: UITabBarController {
         return commands
     }
 
-    @available(iOS 13.0, *)
     open override func validate(_ command: UICommand) {
         guard NSStringFromSelector(command.action).hasPrefix("kbd_selectTabByNumberFromKeyCommand") else {
             return
