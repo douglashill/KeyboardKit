@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Siirrä vasemmalle";
 "collection_moveRight" = "Siirrä oikealle";
 "collection_moveUp" = "Siirrä ylös";
+"datePicker_goToToday" = "Siirry tähän päivään";
 "delete" = "Poista";
 "find_jump" = "Siirry valintaan";
 "find_next" = "Etsi seuraava";

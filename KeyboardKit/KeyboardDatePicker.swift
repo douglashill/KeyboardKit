@@ -86,6 +86,15 @@ open class KeyboardDatePicker: UIDatePicker {
         }
     }
 
+    /// A key command to show and select the current date in a date picker.
+    ///
+    /// Title: Go to Today
+    ///
+    /// Input: ⌘T
+    ///
+    /// Recommended location in main menu: View
+    public static let goToTodayKeyCommand = DiscoverableKeyCommand(keyboardInput: .today, action: #selector(kbd_goToToday), title: localisedString(.datePicker_goToToday))
+
     private lazy var adjustmentCommands: [UIKeyCommand] = [
         // Want priority over focus system because KeyboardDatePicker defines its own focus group so arrow keys wouldn’t do anything in the focus system anyway.
         UIKeyCommand(.leftArrow,                action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
@@ -96,14 +105,14 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand((.alternate, .rightArrow), action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
         UIKeyCommand((.alternate, .upArrow),    action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
         UIKeyCommand((.alternate, .downArrow),  action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
-        UIKeyCommand(keyboardInput: .today,     action: #selector(kbd_adjustDate)),
+        Self.goToTodayKeyCommand,
     ]
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if isInSupportedStyleAndMode {
-            commands += adjustmentCommands
+            commands += adjustmentCommands.filter { ($0 as? DiscoverableKeyCommand)?.shouldBeIncludedInResponderChainKeyCommands ?? true }
         }
 
         return commands
@@ -137,6 +146,9 @@ open class KeyboardDatePicker: UIDatePicker {
         return true
     }
 
+    // Selectors must be unique in UIMenuBuilder, hence this awkward indirection.
+    @objc private func kbd_goToToday(_ sender: UIKeyCommand) { self.kbd_adjustDate(sender) }
+
     @objc private func kbd_adjustDate(_ sender: UIKeyCommand) {
         if let targetDate = targetDateForKeyCommand(sender) {
             // We want the scrolling animation to be less disorienting, but don’t want any animation if no scrolling would occur so it feels fast.
@@ -148,8 +160,6 @@ open class KeyboardDatePicker: UIDatePicker {
     }
 
     private func targetDateForKeyCommand(_ keyCommand: UIKeyCommand) -> Date? {
-        precondition(keyCommand.action == #selector(kbd_adjustDate))
-
         if keyCommand.modifierFlags == .command && keyCommand.input == "t" {
             return Date()
         }

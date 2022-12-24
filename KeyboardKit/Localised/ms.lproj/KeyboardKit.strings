@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Alih ke Kiri";
 "collection_moveRight" = "Alih ke Kanan";
 "collection_moveUp" = "Alih ke Atas";
+"datePicker_goToToday" = "Lompat ke Hari Ini"; // Possible alternative: Pergi ke Hari Ini
 "delete" = "Padam";
 "find_jump" = "Lompat ke Pilihan";
 "find_next" = "Cari Seterusnya";

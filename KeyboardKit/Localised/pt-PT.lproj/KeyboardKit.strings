@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Para a esquerda";
 "collection_moveRight" = "Para a direita";
 "collection_moveUp" = "Para cima";
+"datePicker_goToToday" = "Ir para Hoje"; // Possible alternative: Ir para o dia de hoje
 "delete" = "Apagar";
 "find_jump" = "Ir para seleção";
 "find_next" = "Procurar seguinte";

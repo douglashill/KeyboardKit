@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Sposta a sinistra";
 "collection_moveRight" = "Sposta a destra";
 "collection_moveUp" = "Sposta in alto";
+"datePicker_goToToday" = "Vai a oggi";
 "delete" = "Elimina";
 "find_jump" = "Vai alla selezione";
 "find_next" = "Cerca successivo";

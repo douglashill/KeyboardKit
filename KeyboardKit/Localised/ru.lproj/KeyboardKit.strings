@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Переместить влево";
 "collection_moveRight" = "Переместить вправо";
 "collection_moveUp" = "Переместить вверх"; // Possible alternative: Переместить выше which is more like above than up.
+"datePicker_goToToday" = "Перейти на сегодня"; // Possible alternative: Показать сегодня
 "delete" = "Удалить";
 "find_jump" = "Перейти к выбранному тексту"; // This means ‘Go to selected text’, which has a clearer meaning than the English text. More common in Apple strings files: Перейти к выбранному (Go to selection).
 "find_next" = "Найти далее";

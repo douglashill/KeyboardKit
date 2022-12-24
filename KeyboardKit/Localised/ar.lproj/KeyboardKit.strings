@@ -26,6 +26,7 @@
 "collection_moveLeft" = "تحريك لليسار";
 "collection_moveRight" = "تحريك لليمين";
 "collection_moveUp" = "تحريك لأعلى";
+"datePicker_goToToday" = "انتقال إلى اليوم";
 "delete" = "حذف";
 "find_jump" = "انتقال سريع إلى التحديد";
 "find_next" = "بحث عن التالي";

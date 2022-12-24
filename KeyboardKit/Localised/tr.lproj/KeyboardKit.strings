@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Sola Taşı";
 "collection_moveRight" = "Sağa Taşı";
 "collection_moveUp" = "Yukarıya Taşı";
+"datePicker_goToToday" = "Bugüne Git";
 "delete" = "Sil";
 "find_jump" = "Seçime Git";
 "find_next" = "Sonrakini Bul";

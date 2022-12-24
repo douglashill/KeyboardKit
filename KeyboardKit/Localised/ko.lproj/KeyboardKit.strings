@@ -26,6 +26,7 @@
 "collection_moveLeft" = "왼쪽으로 이동";
 "collection_moveRight" = "오른쪽으로 이동";
 "collection_moveUp" = "위로 이동";
+"datePicker_goToToday" = "오늘로 이동";
 "delete" = "삭제";
 "find_jump" = "선택 부분으로 이동";
 "find_next" = "다음 찾기";

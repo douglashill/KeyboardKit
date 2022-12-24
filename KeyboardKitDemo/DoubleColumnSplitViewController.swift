@@ -71,7 +71,7 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
 
     static let modalExampleKeyCommands: [UIKeyCommand] = [
         UIKeyCommand(title: "SwiftUI Example", action: #selector(showSwiftUIExample), input: "s", modifierFlags: [.command, .alternate]),
-        UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: .command),
+        UIKeyCommand(title: "Triple Column Split View", action: #selector(showTripleColumn), input: "t", modifierFlags: [.command, .shift]),
         UIKeyCommand(title: "Tab Bar", action: #selector(showTabs), input: "t", modifierFlags: [.command, .control]),
     ]
 

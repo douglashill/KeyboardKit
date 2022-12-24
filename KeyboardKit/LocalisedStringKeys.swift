@@ -27,6 +27,7 @@ enum LocalisedStringKey: String {
     case collection_moveLeft
     case collection_moveRight
     case collection_moveUp
+    case datePicker_goToToday
     case delete
     case find_jump
     case find_next

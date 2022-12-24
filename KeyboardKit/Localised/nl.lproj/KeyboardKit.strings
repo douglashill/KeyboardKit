@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Verplaats naar links"; // Possible alternative: Ga naar links
 "collection_moveRight" = "Verplaats naar rechts"; // Possible alternative: Ga naar rechts
 "collection_moveUp" = "Verplaats naar boven";
+"datePicker_goToToday" = "Ga naar vandaag";
 "delete" = "Verwijder";
 "find_jump" = "Ga naar selectie";
 "find_next" = "Zoek volgende";

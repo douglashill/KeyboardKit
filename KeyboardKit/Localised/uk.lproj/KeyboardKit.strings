@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Перемістити вліво"; // All four of these could possibly use Переміститися instead of Перемістити.
 "collection_moveRight" = "Перемістити вправо";
 "collection_moveUp" = "Перемістити догори"; // Possible alternative: Перемістити[ся] вгору
+"datePicker_goToToday" = "Показати сьогодні"; // Possible alternatives: Показати сьогоднішню дату, Перейти до сьогоднішнього дня, Перейти до сьогодні
 "delete" = "Видалити";
 "find_jump" = "Перейти до виділеного";
 "find_next" = "Знайти наступне";

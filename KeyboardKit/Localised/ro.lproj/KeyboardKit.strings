@@ -30,6 +30,7 @@
 "collection_moveLeft" = "Mută la stânga";
 "collection_moveRight" = "Mută la dreapta";
 "collection_moveUp" = "Mută în sus";
+"datePicker_goToToday" = "Afișează ziua curentă"; // Possible alternatives: Du-te la azi, Sari la azi
 "delete" = "Șterge";
 "find_jump" = "Salt la selecție";
 "find_next" = "Găsește următorul";

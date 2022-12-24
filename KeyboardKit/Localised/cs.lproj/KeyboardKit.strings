@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Posunout doleva";
 "collection_moveRight" = "Posunout doprava";
 "collection_moveUp" = "Posunout nahoru";
+"datePicker_goToToday" = "Zobrazit dnešní den";
 "delete" = "Smazat";
 "find_jump" = "Zobrazit výběr";
 "find_next" = "Hledat další";

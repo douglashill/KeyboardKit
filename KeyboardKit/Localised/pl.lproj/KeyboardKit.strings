@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Przesuń w lewo";
 "collection_moveRight" = "Przesuń w prawo";
 "collection_moveUp" = "Przesuń w górę"; // Possible alternative: Przesuń do góry
+"datePicker_goToToday" = "Pokaż dzień dzisiejszy";
 "delete" = "Usuń";
 "find_jump" = "Przejdź do zaznaczenia";
 "find_next" = "Znajdź następne";

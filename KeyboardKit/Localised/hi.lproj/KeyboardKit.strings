@@ -26,6 +26,7 @@
 "collection_moveLeft" = "बाएँ ले जाएँ";
 "collection_moveRight" = "दाएँ ले जाएँ";
 "collection_moveUp" = "ऊपर ले जाएँ";
+"datePicker_goToToday" = "आज पर जाएँ";
 "delete" = "डिलीट करें";
 "find_jump" = "चयन पर जाएँ";
 "find_next" = "अगला ढूँढें";

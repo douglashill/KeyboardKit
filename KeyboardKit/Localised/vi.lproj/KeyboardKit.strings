@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Di chuyển sang trái";
 "collection_moveRight" = "Di chuyển sang phải";
 "collection_moveUp" = "Di chuyển lên";
+"datePicker_goToToday" = "Đi tới Hôm nay";
 "delete" = "Xóa";
 "find_jump" = "Chuyển đến lựa chọn";
 "find_next" = "Tìm mục tiếp theo";

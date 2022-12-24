@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Pindahkan ke Kiri";
 "collection_moveRight" = "Pindahkan ke Kanan";
 "collection_moveUp" = "Pindahkan ke Atas"; // Possible alternative: Gerakkan ke Atas
+"datePicker_goToToday" = "Lompat ke Hari Ini";
 "delete" = "Hapus";
 "find_jump" = "Lompat ke Pilihan";
 "find_next" = "Temukan Berikutnya";

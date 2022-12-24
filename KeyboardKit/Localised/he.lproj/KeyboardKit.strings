@@ -26,6 +26,7 @@
 "collection_moveLeft" = "עבור שמאלה";
 "collection_moveRight" = "עבור ימינה";
 "collection_moveUp" = "הזז מעלה";
+"datePicker_goToToday" = "עבור להיום";
 "delete" = "מחק";
 "find_jump" = "עבור אל הקטע הנבחר";
 "find_next" = "חפש את הבא";

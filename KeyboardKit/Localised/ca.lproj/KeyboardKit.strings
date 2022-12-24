@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Moure cap a l’esquerra";
 "collection_moveRight" = "Moure cap a la dreta";
 "collection_moveUp" = "Moure cap amunt";
+"datePicker_goToToday" = "Anar a avui";
 "delete" = "Eliminar";
 "find_jump" = "Anar a la selecció";
 "find_next" = "Buscar el següent";

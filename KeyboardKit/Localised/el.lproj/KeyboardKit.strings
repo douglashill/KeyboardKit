@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Μετακίνηση αριστερά";
 "collection_moveRight" = "Μετακίνηση δεξιά";
 "collection_moveUp" = "Μετακίνηση πάνω";
+"datePicker_goToToday" = "Μετάβαση στο σήμερα";
 "delete" = "Διαγραφή";
 "find_jump" = "Μετάβαση σε επιλογή";
 "find_next" = "Εύρεση επόμενου";

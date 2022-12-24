@@ -26,6 +26,7 @@
 "collection_moveLeft" = "左移";
 "collection_moveRight" = "右移";
 "collection_moveUp" = "上移";
+"datePicker_goToToday" = "前往今天";
 "delete" = "删除";
 "find_jump" = "跳到所选内容";
 "find_next" = "查找下一个";

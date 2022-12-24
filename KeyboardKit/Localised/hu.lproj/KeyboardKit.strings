@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Balra mozgatás";
 "collection_moveRight" = "Jobbra mozgatás";
 "collection_moveUp" = "Felfelé mozgatás";
+"datePicker_goToToday" = "Ugrás a mai napra";
 "delete" = "Törlés";
 "find_jump" = "Ugrás a kijelölésre";
 "find_next" = "Következő keresése";

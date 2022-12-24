@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Flytta åt vänster";
 "collection_moveRight" = "Flytta åt höger";
 "collection_moveUp" = "Flytta uppåt";
+"datePicker_goToToday" = "Gå till idag";
 "delete" = "Radera";
 "find_jump" = "Gå till markering";
 "find_next" = "Sök nästa";

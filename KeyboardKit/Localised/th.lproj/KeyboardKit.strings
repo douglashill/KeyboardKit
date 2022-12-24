@@ -26,6 +26,7 @@
 "collection_moveLeft" = "ย้ายไปทางซ้าย";
 "collection_moveRight" = "ย้ายไปทางขวา";
 "collection_moveUp" = "ย้ายขึ้น"; // Possible alternative: เลื่อนขึ้น
+"datePicker_goToToday" = "ไปยังวันนี้"; // Possible alternative: ข้ามไปที่วันนี้
 "delete" = "ลบ";
 "find_jump" = "ข้ามไปยังการเลือก";
 "find_next" = "ค้นหาถัดไป";

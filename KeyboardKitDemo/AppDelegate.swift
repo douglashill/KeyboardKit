@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // inconveniently disallows commands with the same inputs, even if they’re used in different contexts.
             try builder.removeMenu(.textSize)
 
+            try builder.insertChildren([KeyboardDatePicker.goToTodayKeyCommand], atEndOfTopLevelMenu: .view)
+
             try builder.insertChildren([KeyboardScrollView.zoomInKeyCommand, KeyboardScrollView.zoomOutKeyCommand, KeyboardScrollView.actualSizeKeyCommand], atEndOfTopLevelMenu: .view)
 
             // Most find commands are available through `UIFindInteraction` on iOS 16 and later so this KeyboardKit functionality is not needed. (And attempting to add these commands will fail as they will be duplicates.)

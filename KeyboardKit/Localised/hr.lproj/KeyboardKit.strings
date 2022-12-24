@@ -26,6 +26,7 @@
 "collection_moveLeft" = "Pomakni ulijevo";
 "collection_moveRight" = "Pomakni udesno";
 "collection_moveUp" = "Pomakni gore"; // Possible alternative: Premjesti gore
+"datePicker_goToToday" = "Idi na danas";
 "delete" = "Obriši";
 "find_jump" = "Idi na odabir";
 "find_next" = "Pronađi sljedeće";
