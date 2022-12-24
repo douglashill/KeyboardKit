@@ -96,7 +96,7 @@ open class KeyboardDatePicker: UIDatePicker {
         UIKeyCommand((.alternate, .rightArrow), action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
         UIKeyCommand((.alternate, .upArrow),    action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
         UIKeyCommand((.alternate, .downArrow),  action: #selector(kbd_adjustDate), wantsPriorityOverSystemBehavior: true, allowsAutomaticMirroring: false),
-        UIKeyCommand((.command, "t"),           action: #selector(kbd_adjustDate)),
+        UIKeyCommand(keyboardInput: .today,     action: #selector(kbd_adjustDate)),
     ]
 
     open override var keyCommands: [UIKeyCommand]? {
