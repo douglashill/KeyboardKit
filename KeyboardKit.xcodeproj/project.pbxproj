@@ -28,6 +28,8 @@
 		A542D89C23A01DC8007E68C3 /* PointAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A542D89B23A01DC8007E68C3 /* PointAnimator.swift */; };
 		A54EFB1023AADEB8001776A2 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54EFB0F23AADEB8001776A2 /* TextInput.swift */; };
 		A554A9892700681E005A066F /* DiscoverableKeyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A554A9882700681E005A066F /* DiscoverableKeyCommand.swift */; };
+		A55B8C09242564D2001E125A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B8C08242564D2001E125A /* MapViewController.swift */; };
+		A55B8C0B24256914001E125A /* KeyboardMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B8C0A24256914001E125A /* KeyboardMapView.swift */; };
 		A55D0B70244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */; };
 		A55D7AF223C1108300302D79 /* KeyboardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */; };
 		A55D7AF423C1108300302D79 /* KeyboardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AE0052375AAAE00B07957 /* KeyboardKit.framework */; };
@@ -177,6 +179,8 @@
 		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ResponderChainDebugging.m; path = ObjC/ResponderChainDebugging.m; sourceTree = "<group>"; };
 		A54EFB0F23AADEB8001776A2 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
 		A554A9882700681E005A066F /* DiscoverableKeyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverableKeyCommand.swift; sourceTree = "<group>"; };
+		A55B8C08242564D2001E125A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		A55B8C0A24256914001E125A /* KeyboardMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMapView.swift; sourceTree = "<group>"; };
 		A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardScrollingDelegate.swift; sourceTree = "<group>"; };
 		A55D3C03257AC57B00E5FE07 /* Features.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Features.md; sourceTree = "<group>"; };
 		A55D7AEF23C1108300302D79 /* KeyboardKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -428,6 +432,7 @@
 				A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */,
 				A55F22B8271B3BD500AFA55E /* MenuBuilder.swift */,
 				A582B00726F719F200E32E25 /* Settings.bundle */,
+				A55B8C08242564D2001E125A /* MapViewController.swift */,
 				A53ADFF52375AA1700B07957 /* Assets.xcassets */,
 				A53ADFF72375AA1700B07957 /* LaunchScreen.storyboard */,
 				A53ADFFA2375AA1700B07957 /* Info.plist */,
@@ -447,6 +452,7 @@
 				A55D0B6F244B1EFC00492BE7 /* KeyboardScrollingDelegate.swift */,
 				A5D8C55923A44BBC00733DD4 /* ScrollViewKeyHandler.swift */,
 				A5E538A9239BF644004A2EE2 /* KeyboardTextView.swift */,
+				A55B8C0A24256914001E125A /* KeyboardMapView.swift */,
 				A53AE01323786CD000B07957 /* KeyboardTabBarController.swift */,
 				A5E3D37E24C4A768008C1FDB /* KeyboardSplitViewController.swift */,
 				A56FFD522398718100E13773 /* KeyboardNavigationController.swift */,
@@ -876,6 +882,7 @@
 				A55F8E86271C15B8001CC20E /* AppDelegate.swift in Sources */,
 				A53AE02023786CDC00B07957 /* TableViewController.swift in Sources */,
 				A590F5A2259A5C8F00781E5E /* DatePickerViewController.swift in Sources */,
+				A55B8C09242564D2001E125A /* MapViewController.swift in Sources */,
 				A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */,
 				A5E3D37B24C39041008C1FDB /* SidebarViewController.swift in Sources */,
 				A5CEF29723982F9F0099A19D /* PagingScrollViewController.swift in Sources */,
@@ -890,6 +897,7 @@
 				A56FFD55239871A800E13773 /* KeyboardBarButtonItem.swift in Sources */,
 				A57633BF259A62490063269A /* KeyboardDatePicker.swift in Sources */,
 				A56FFD592398776C00E13773 /* BarButtonItem.m in Sources */,
+				A55B8C0B24256914001E125A /* KeyboardMapView.swift in Sources */,
 				A5880D0323A5A24200A6E4DF /* SelectableCollectionKeyHandler.swift in Sources */,
 				A5D2DD4126F0819F000C5D18 /* ResponderChainDebugging.m in Sources */,
 				A5D8C55A23A44BBC00733DD4 /* ScrollViewKeyHandler.swift in Sources */,
