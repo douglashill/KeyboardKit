@@ -30,8 +30,6 @@ class CirclesScrollViewController: FirstResponderViewController, UIScrollViewDel
         scrollView.minimumZoomScale = 0.5
         scrollView.contentSize = contentView.bounds.size
         scrollView.accessibilityIdentifier = "circles scroll view"
-
-        navigationItem.largeTitleDisplayMode = .never
     }
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

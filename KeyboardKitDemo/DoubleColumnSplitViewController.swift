@@ -26,6 +26,10 @@ class DoubleColumnSplitViewController: UIViewController, SidebarViewControllerDe
         contentViewControllers = viewControllers.map { KeyboardNavigationController(rootViewController: $0) }
         _selectedViewControllerIndex = initialSelectedIndex
 
+        for viewController in viewControllers {
+            viewController.navigationItem.largeTitleDisplayMode = .never
+        }
+
         sidebar = SidebarViewController(items: viewControllers.map { ($0.title!, $0.tabBarItem.image) })
         primaryNavigationController = KeyboardNavigationController(rootViewController: sidebar)
         innerSplitViewController.setViewController(primaryNavigationController, for: .primary)
