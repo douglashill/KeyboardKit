@@ -14,4 +14,24 @@ open class KeyboardMapView: MKMapView {
     open override var canBecomeFocused: Bool {
         true
     }
+
+    open override var keyCommands: [UIKeyCommand]? {
+        var commands = super.keyCommands ?? []
+
+        return commands
+    }
+
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        default:
+            return super.canPerformAction(action, withSender: sender)
+        }
+    }
+
+    /// Animates a modification to the camera specified by the given closure.
+    private func animateCamera(withAdjustment adjustment: (MKMapCamera) -> Void) {
+        let camera = self.camera.copy() as! MKMapCamera
+        adjustment(camera)
+        setCamera(camera, animated: true)
+    }
 }
