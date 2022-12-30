@@ -71,6 +71,18 @@ Scrolling and zooming commands provide feature parity with `NSScrollView` from A
 | Zoom out                                      | ⌘−                          | `KeyboardScrollView`                                                                                                                                       |                                                                                                                                                                                                    |
 | Zoom to actual size                           | ⌘0                          | `KeyboardScrollView`                                                                                                                                       |                                                                                                                                                                                                    |
 
+### Map view
+
+`MKMapView` has had built-in support for scrolling, zooming and rotating the map using a keyboard since iOS 15. However this functionality is unavailable unless you subclass `MKMapView` and override `canBecomeFirstResponder` and `canBecomeFocused` to return true. `KeyboardMapView` unlocks this functionality and adds two other useful commands.
+
+| Feature                       | Key input    | Notes                                             |
+| ----------------------------- | ------------ | ------------------------------------------------- |
+| Scroll map                    | arrow        | Unlocked from `MKMapView`.                        |
+| Zoom map                      | +, -, ⌥↑, ⌥↓ | Unlocked from `MKMapView`.                        |
+| Rotate map (change heading)   | ⌥←, ⌥→       | Unlocked from `MKMapView`.                        |
+| Snap to north (reset heading) | ⇧⌘↑          | Available if `isRotateEnabled` is true.           |
+| Go to current location        | ⌘L           | Available if `showsUserLocation` is true.         |
+
 ## Key equivalents for buttons (SwiftUI and UIKit)
 
 SwiftUI provides the `.keyboardShortcut` modifier to trigger the action of a `Button` from a keyboard. KeyboardKit extends this by providing semantically defined `KeyboardShortcut`s for common actions, which can be used with this modifier.

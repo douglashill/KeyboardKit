@@ -32,6 +32,8 @@
 "find_next" = "अगला ढूँढें";
 "find_previous" = "पिछला ढूँढें";
 "find_useSelection" = "ढूँढने के लिए चयन का उपयोग करें";
+"map_goToUserLocation" = "वर्तमान स्थान पर जाएँ";
+"map_resetHeading" = "उत्तर की ओर स्नैप करें";
 "navigation_back" = "वापस";
 "refresh" = "रीफ़्रेश करें";
 "scrollView_zoomIn" = "ज़ूम इन करें";

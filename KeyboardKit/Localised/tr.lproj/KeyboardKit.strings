@@ -32,6 +32,8 @@
 "find_next" = "Sonrakini Bul";
 "find_previous" = "Öncekini Bul";
 "find_useSelection" = "Bul İçin Seçimi Kullan";
+"map_goToUserLocation" = "Şu Anki Konuma Git";
+"map_resetHeading" = "Kuzeye Hizala";
 "navigation_back" = "Geri";
 "refresh" = "Yenile";
 "scrollView_zoomIn" = "Büyüt";

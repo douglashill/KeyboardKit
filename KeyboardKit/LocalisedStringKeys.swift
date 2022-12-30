@@ -33,6 +33,8 @@ enum LocalisedStringKey: String {
     case find_next
     case find_previous
     case find_useSelection
+    case map_goToUserLocation
+    case map_resetHeading
     case navigation_back
     case refresh
     case scrollView_zoomIn

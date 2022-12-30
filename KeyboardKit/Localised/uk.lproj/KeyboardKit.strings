@@ -32,6 +32,8 @@
 "find_next" = "Знайти наступне";
 "find_previous" = "Знайти попереднє";
 "find_useSelection" = "Використати виділене для пошуку";
+"map_goToUserLocation" = "Перейти до поточного місця";
+"map_resetHeading" = "Орієнтувати на північ";
 "navigation_back" = "Назад";
 "refresh" = "Оновити";
 "scrollView_zoomIn" = "Наблизити";

@@ -32,6 +32,8 @@
 "find_next" = "Найти далее";
 "find_previous" = "Найти ранее";
 "find_useSelection" = "Найти выбранное";
+"map_goToUserLocation" = "Перейти к текущей геопозиции";
+"map_resetHeading" = "Привязать к северу";
 "navigation_back" = "Назад";
 "refresh" = "Обновить";
 "scrollView_zoomIn" = "Увеличить";

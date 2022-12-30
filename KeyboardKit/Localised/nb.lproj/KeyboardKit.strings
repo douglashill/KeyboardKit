@@ -32,6 +32,8 @@
 "find_next" = "Finn neste";
 "find_previous" = "Finn forrige";
 "find_useSelection" = "Bruk markering til søk";
+"map_goToUserLocation" = "Gå til nåværende posisjon";
+"map_resetHeading" = "Orienter mot nord";
 "navigation_back" = "Tilbake";
 "refresh" = "Oppdater";
 "scrollView_zoomIn" = "Zoom inn";

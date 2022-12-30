@@ -32,6 +32,8 @@
 "find_next" = "חפש את הבא";
 "find_previous" = "חפש את הקודם";
 "find_useSelection" = "השתמש במלל הנבחר לחיפוש";
+"map_goToUserLocation" = "עבור למיקום הנוכחי";
+"map_resetHeading" = "הצמד לצפון";
 "navigation_back" = "הקודם";
 "refresh" = "רענן";
 "scrollView_zoomIn" = "הגדל";

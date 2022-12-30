@@ -32,6 +32,8 @@
 "find_next" = "Zoek volgende";
 "find_previous" = "Zoek vorige";
 "find_useSelection" = "Gebruik selectie voor zoekactie";
+"map_goToUserLocation" = "Ga naar huidige locatie";
+"map_resetHeading" = "Spring naar noorden";
 "navigation_back" = "Vorige";
 "refresh" = "Vernieuw";
 "scrollView_zoomIn" = "Zoom in";

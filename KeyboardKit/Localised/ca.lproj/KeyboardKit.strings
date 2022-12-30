@@ -32,6 +32,8 @@
 "find_next" = "Buscar el següent";
 "find_previous" = "Buscar l’anterior";
 "find_useSelection" = "Utilitzar la selecció per buscar";
+"map_goToUserLocation" = "Anar a la ubicació actual";
+"map_resetHeading" = "Ajustar al nord";
 "navigation_back" = "Enrere";
 "refresh" = "Actualitzar";
 "scrollView_zoomIn" = "Apropar";

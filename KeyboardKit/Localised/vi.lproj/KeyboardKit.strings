@@ -32,6 +32,8 @@
 "find_next" = "Tìm mục tiếp theo";
 "find_previous" = "Tìm mục trước";
 "find_useSelection" = "Sử dụng lựa chọn để tìm";
+"map_goToUserLocation" = "Đi tới vị trí hiện tại";
+"map_resetHeading" = "Chuyển nhanh hướng Bắc";
 "navigation_back" = "Quay lại";
 "refresh" = "Làm mới";
 "scrollView_zoomIn" = "Phóng to";

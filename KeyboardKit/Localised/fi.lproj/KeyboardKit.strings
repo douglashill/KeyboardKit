@@ -32,6 +32,8 @@
 "find_next" = "Etsi seuraava";
 "find_previous" = "Etsi edellinen";
 "find_useSelection" = "Käytä valintaa etsinnässä";
+"map_goToUserLocation" = "Siirry nykyiseen sijaintiin";
+"map_resetHeading" = "Kohdista pohjoiseen";
 "navigation_back" = "Edellinen"; // Matches navigation controller button text. More common in Apple strings files: Takaisin
 "refresh" = "Päivitä";
 "scrollView_zoomIn" = "Lähennä";
