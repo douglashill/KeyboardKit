@@ -26,7 +26,7 @@ open class KeyboardMapView: MKMapView {
     /// Input: ⇧⌘↑
     ///
     /// Recommended location in main menu: View
-    public static let resetHeadingKeyCommand = DiscoverableKeyCommand(([.shift, .command], .upArrow), action: #selector(kbd_resetHeading), title: "Snap to North")
+    public static let resetHeadingKeyCommand = DiscoverableKeyCommand(([.shift, .command], .upArrow), action: #selector(kbd_resetHeading), title: localisedString(.map_resetHeading))
 
     /// A key command that shows the user’s current location on a map.
     ///
@@ -37,7 +37,7 @@ open class KeyboardMapView: MKMapView {
     /// Input: ⌘L
     ///
     /// Recommended location in main menu: View
-    public static let goToUserLocationKeyCommand = DiscoverableKeyCommand((.command, "l"), action: #selector(kbd_goToUserLocation), title: "Go to Current Location")
+    public static let goToUserLocationKeyCommand = DiscoverableKeyCommand((.command, "l"), action: #selector(kbd_goToUserLocation), title: localisedString(.map_goToUserLocation))
 
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []

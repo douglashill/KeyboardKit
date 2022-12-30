@@ -32,6 +32,8 @@
 "find_next" = "Következő keresése";
 "find_previous" = "Előző keresése";
 "find_useSelection" = "A kijelölés használata kereséshez"; // This matches TextEdit. More common in Apple strings files: Kijelölés használata a kereséshez
+"map_goToUserLocation" = "Ugrás a jelenlegi helyzetre";
+"map_resetHeading" = "Illesztés északhoz";
 "navigation_back" = "Vissza";
 "refresh" = "Frissítés";
 "scrollView_zoomIn" = "Nagyítás";

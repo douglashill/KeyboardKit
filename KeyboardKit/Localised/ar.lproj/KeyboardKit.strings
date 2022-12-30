@@ -32,6 +32,8 @@
 "find_next" = "بحث عن التالي";
 "find_previous" = "بحث عن السابق";
 "find_useSelection" = "استخدام التحديد للبحث";
+"map_goToUserLocation" = "انتقال إلى الموقع الحالي";
+"map_resetHeading" = "انطباق إلى الشمال";
 "navigation_back" = "رجوع";
 "refresh" = "تحديث";
 "scrollView_zoomIn" = "تكبير";

@@ -32,6 +32,8 @@
 "find_next" = "Εύρεση επόμενου";
 "find_previous" = "Εύρεση προηγούμενου";
 "find_useSelection" = "Χρήση επιλογής για εύρεση";
+"map_goToUserLocation" = "Μετάβαση στην τρέχουσα τοποθεσία";
+"map_resetHeading" = "Συγκράτηση στον Βορρά";
 "navigation_back" = "Πίσω";
 "refresh" = "Ανανέωση";
 "scrollView_zoomIn" = "Μεγέθυνση";

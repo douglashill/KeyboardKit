@@ -32,6 +32,8 @@
 "find_next" = "Hledat další";
 "find_previous" = "Hledat předchozí";
 "find_useSelection" = "Hledat výběr";
+"map_goToUserLocation" = "Přejít na aktuální polohu";
+"map_resetHeading" = "Orientovat na sever";
 "navigation_back" = "Zpět";
 "refresh" = "Obnovit"; // Possible alternative: Aktualizovat
 "scrollView_zoomIn" = "Zvětšit";

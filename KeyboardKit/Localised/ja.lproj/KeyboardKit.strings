@@ -32,6 +32,8 @@
 "find_next" = "次を検索";
 "find_previous" = "前を検索";
 "find_useSelection" = "選択部分を検索に使用";
+"map_goToUserLocation" = "現在地に移動";
+"map_resetHeading" = "北を上にする";
 "navigation_back" = "戻る";
 "refresh" = "更新";
 "scrollView_zoomIn" = "拡大";

@@ -32,6 +32,8 @@
 "find_next" = "Pronađi sljedeće";
 "find_previous" = "Pronađi prethodno";
 "find_useSelection" = "Koristi odabir za pretraživanje";
+"map_goToUserLocation" = "Idi na trenutačnu lokaciju";
+"map_resetHeading" = "Podesi na sjever";
 "navigation_back" = "Natrag";
 "refresh" = "Osvježi";
 "scrollView_zoomIn" = "Uvećaj";

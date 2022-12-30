@@ -32,6 +32,8 @@
 "find_next" = "Temukan Berikutnya";
 "find_previous" = "Temukan Sebelumnya";
 "find_useSelection" = "Gunakan Pilihan untuk Temukan";
+"map_goToUserLocation" = "Ke Lokasi Saat Ini";
+"map_resetHeading" = "Posisikan ke Utara";
 "navigation_back" = "Kembali";
 "refresh" = "Segarkan";
 "scrollView_zoomIn" = "Perbesar";

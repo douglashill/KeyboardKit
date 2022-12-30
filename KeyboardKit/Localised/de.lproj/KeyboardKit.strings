@@ -32,6 +32,8 @@
 "find_next" = "Weitersuchen (vorwärts)";
 "find_previous" = "Weitersuchen (rückwärts)";
 "find_useSelection" = "Auswahl für Suche übernehmen";
+"map_goToUserLocation" = "Zum aktuellen Ort";
+"map_resetHeading" = "Nordausrichtung";
 "navigation_back" = "Zurück";
 "refresh" = "Aktualisieren";
 "scrollView_zoomIn" = "Vergrößern";

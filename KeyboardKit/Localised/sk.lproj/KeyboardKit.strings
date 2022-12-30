@@ -32,6 +32,8 @@
 "find_next" = "Nájsť ďalšie";
 "find_previous" = "Nájsť predošlé";
 "find_useSelection" = "Použiť výber pri hľadaní";
+"map_goToUserLocation" = "Prejsť na aktuálnu polohu";
+"map_resetHeading" = "Fixovať sever";
 "navigation_back" = "Naspäť"; // Matches navigation controller button text. More common in Apple strings files: Späť
 "refresh" = "Osviežiť";
 "scrollView_zoomIn" = "Zväčšiť"; // This is most common in Apple strings files and seems to have a more appropriate meaning than the alternative Priblížiť (from Apple’s WebBrowser glossary file).

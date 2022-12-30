@@ -36,6 +36,8 @@
 "find_next" = "Găsește următorul";
 "find_previous" = "Găsește anteriorul";
 "find_useSelection" = "Găsește selecția";
+"map_goToUserLocation" = "Accesează localizarea actuală";
+"map_resetHeading" = "Aliniază la nord";
 "navigation_back" = "Înapoi";
 "refresh" = "Reîmprospătare"; // More common in Apple strings files: Actualizeazăs
 "scrollView_zoomIn" = "Zoom înainte";

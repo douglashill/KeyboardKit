@@ -32,6 +32,8 @@
 "find_next" = "Find Next";
 "find_previous" = "Find Previous";
 "find_useSelection" = "Use Selection for Find";
+"map_goToUserLocation" = "Go to Current Location";
+"map_resetHeading" = "Snap to North";
 "navigation_back" = "Back";
 "refresh" = "Refresh";
 "scrollView_zoomIn" = "Zoom In";

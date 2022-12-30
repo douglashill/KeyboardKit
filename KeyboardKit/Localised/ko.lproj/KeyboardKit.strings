@@ -32,6 +32,8 @@
 "find_next" = "다음 찾기";
 "find_previous" = "이전 찾기";
 "find_useSelection" = "선택 부분으로 찾기";
+"map_goToUserLocation" = "현재 위치로 이동";
+"map_resetHeading" = "북쪽으로 방향 잡기";
 "navigation_back" = "뒤로";
 "refresh" = "새로 고침";
 "scrollView_zoomIn" = "확대";

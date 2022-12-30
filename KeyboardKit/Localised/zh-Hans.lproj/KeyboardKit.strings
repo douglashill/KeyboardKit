@@ -32,6 +32,8 @@
 "find_next" = "查找下一个";
 "find_previous" = "查找上一个";
 "find_useSelection" = "查找所选内容";
+"map_goToUserLocation" = "前往当前位置";
+"map_resetHeading" = "固定往北";
 "navigation_back" = "返回";
 "refresh" = "刷新";
 "scrollView_zoomIn" = "放大";

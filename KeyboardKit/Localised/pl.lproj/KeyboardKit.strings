@@ -32,6 +32,8 @@
 "find_next" = "Znajdź następne";
 "find_previous" = "Znajdź poprzednie";
 "find_useSelection" = "Szukaj zaznaczonego tekstu";
+"map_goToUserLocation" = "Przejdź do bieżącego położenia";
+"map_resetHeading" = "Przyciągaj do północy";
 "navigation_back" = "Wróć";
 "refresh" = "Odśwież";
 "scrollView_zoomIn" = "Powiększ";
