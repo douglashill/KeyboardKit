@@ -24,11 +24,24 @@ open class KeyboardMapView: MKMapView {
     /// Recommended location in main menu: View
     public static let resetHeadingKeyCommand = DiscoverableKeyCommand(([.shift, .command], .upArrow), action: #selector(kbd_resetHeading), title: "Snap to North")
 
+    /// A key command that shows the user’s current location on a map.
+    ///
+    /// Title: Go to Current Location
+    ///
+    /// Input: ⌘L
+    ///
+    /// Recommended location in main menu: View
+    public static let goToUserLocationKeyCommand = DiscoverableKeyCommand((.command, "l"), action: #selector(kbd_goToUserLocation), title: "Go to Current Location")
+
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if Self.resetHeadingKeyCommand.shouldBeIncludedInResponderChainKeyCommands && canResetHeading {
             commands.append(Self.resetHeadingKeyCommand)
+        }
+
+        if Self.goToUserLocationKeyCommand.shouldBeIncludedInResponderChainKeyCommands && canGoToUserLocation {
+            commands.append(Self.goToUserLocationKeyCommand)
         }
 
         return commands
@@ -38,6 +51,8 @@ open class KeyboardMapView: MKMapView {
         switch action {
         case #selector(kbd_resetHeading):
             return canResetHeading
+        case #selector(kbd_goToUserLocation):
+            return canGoToUserLocation
         default:
             return super.canPerformAction(action, withSender: sender)
         }
@@ -50,6 +65,20 @@ open class KeyboardMapView: MKMapView {
     @objc private func kbd_resetHeading(_ sender: UIKeyCommand) {
         animateCamera {
             $0.heading = 0
+        }
+    }
+
+    private var canGoToUserLocation: Bool {
+        showsUserLocation && userLocation.location != nil
+    }
+
+    @objc func kbd_goToUserLocation(_ sender: UIKeyCommand) {
+        guard let target = userLocation.location else {
+            return
+        }
+
+        animateCamera {
+            $0.centerCoordinate = target.coordinate
         }
     }
 

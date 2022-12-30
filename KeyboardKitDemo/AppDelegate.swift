@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 KeyboardScrollView.refreshKeyCommand,
                 KeyboardNavigationController.backKeyCommand,
                 KeyboardMapView.resetHeadingKeyCommand,
+                KeyboardMapView.goToUserLocationKeyCommand,
             ], atEndOfTopLevelMenu: .view)
 
 #if !targetEnvironment(macCatalyst)
