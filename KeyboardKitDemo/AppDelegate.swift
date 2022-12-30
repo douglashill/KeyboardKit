@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try builder.insertChildren([
                 KeyboardScrollView.refreshKeyCommand,
                 KeyboardNavigationController.backKeyCommand,
+                KeyboardMapView.resetHeadingKeyCommand,
             ], atEndOfTopLevelMenu: .view)
 
 #if !targetEnvironment(macCatalyst)
