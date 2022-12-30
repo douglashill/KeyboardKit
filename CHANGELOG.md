@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 8.1.0
     - Adds `KeyboardMapView` to let users scroll, zoom and rotate maps using a keyboard.
 - 8.0.0
     - Increases the deployment target from iOS 12 to iOS 13.
