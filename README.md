@@ -118,7 +118,7 @@ KeyboardKit is a project from [Douglas Hill](https://douglashill.co/) with the k
 
 ## Contributing
 
-I’d love to have help on this project. For small changes please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls), for larger changes please [open an issue](https://github.com/douglashill/KeyboardKit/issues) first to discuss what you’d like to see.
+I’d love to have help on this project. For small changes please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls); for larger changes please [open an issue](https://github.com/douglashill/KeyboardKit/issues) first to discuss what you’d like to see.
 
 Tests are not required for new functionality, but fixed regressions should have automated tests. Use `KeyboardKitTests` for unit tests that don’t need views or a responder chain. Use `KeyboardKitDemoUITests` for integration tests that can be reproduced in the demo app. This only works on Mac Catalyst currently because iOS does not allow simulating hardware keyboard input. Use `KeyboardKitUITests` for any test cases between, which is probably most cases.
 
