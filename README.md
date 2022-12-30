@@ -11,7 +11,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
 - [Keyboard navigation without the focus system](/Features.md#keyboard-navigation-without-the-focus-system) (navigate with arrow keys and tab key)
 - [Additional navigation commands](/Features.md#additional-navigation-commands) (dismiss modals, change tabs, go back)
 - [Collection view and table view commands](/Features.md#collection-view-and-table-view-commands) (reorder, delete, select all)
-- [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end)
+- [Keyboard scrolling and zooming](/Features.md#scrolling-and-zooming) (including page up, page down, home, end — and map views)
 - [Key equivalents for buttons](Features.md#key-equivalents-for-buttons) (SwiftUI buttons, UIKit bar button items)
 - [Advanced text navigation](Features.md#advanced-text-navigation) (find next/previous, define)
 - [Keyboard window management](Features.md#window-management) (open, close, cycle)

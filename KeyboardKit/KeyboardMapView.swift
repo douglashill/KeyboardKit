@@ -4,7 +4,9 @@ import MapKit
 
 /// A map view that supports hardware keyboard commands to scroll and zoom.
 ///
-/// This relies on system support that was added in iOS 15.
+/// This relies on system support that was added in iOS 15 to scroll the map (arrow keys), zoom in and out (+/- or opt up/down), and rotate (opt left/right).
+///
+/// This subclass adds key commands to reset the rotation (heading) so north if at the top and to show the user’s current location.
 open class KeyboardMapView: MKMapView {
 
     open override var canBecomeFirstResponder: Bool {
@@ -17,6 +19,8 @@ open class KeyboardMapView: MKMapView {
 
     /// A key command that sets the heading of a map so north is at the top.
     ///
+    /// Available if `isRotateEnabled` is true.
+    ///
     /// Title: Snap to North
     ///
     /// Input: ⇧⌘↑
@@ -25,6 +29,8 @@ open class KeyboardMapView: MKMapView {
     public static let resetHeadingKeyCommand = DiscoverableKeyCommand(([.shift, .command], .upArrow), action: #selector(kbd_resetHeading), title: "Snap to North")
 
     /// A key command that shows the user’s current location on a map.
+    ///
+    /// Available if `showsUserLocation` is true.
     ///
     /// Title: Go to Current Location
     ///

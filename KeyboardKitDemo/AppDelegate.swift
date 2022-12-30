@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Remove the Bigger/Smaller commands since we want those inputs for Zoom In and Zoom Out and the menu builder
             // inconveniently disallows commands with the same inputs, even if they’re used in different contexts.
             // A downside of removing this is that for some reason this stops cmd - zooming out with MKMapView.
-            // You can still zoom out with - (no modifier) or opt down arrow so this will have to be enough.
+x            // You can still zoom out with - (no modifier) or opt down arrow so this will have to be enough.
             try builder.removeMenu(.textSize)
 
             try builder.insertChildren([KeyboardDatePicker.goToTodayKeyCommand], atEndOfTopLevelMenu: .view)

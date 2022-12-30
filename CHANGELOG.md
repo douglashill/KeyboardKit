@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Adds `KeyboardMapView` to let users scroll, zoom and rotate maps using a keyboard.
 - 8.0.0
     - Increases the deployment target from iOS 12 to iOS 13.
         - The following deprecated UIKit APIs are no longer respected: `isModalInPopover`, `popoverPresentationControllerShouldDismissPopover(_:)`, `popoverPresentationControllerDidDismissPopover(_:)`.
