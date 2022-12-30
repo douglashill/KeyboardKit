@@ -6,7 +6,7 @@ import MapKit
 ///
 /// This relies on system support that was added in iOS 15 to scroll the map (arrow keys), zoom in and out (+/- or opt up/down), and rotate (opt left/right).
 ///
-/// This subclass adds key commands to reset the rotation (heading) so north if at the top and to show the user’s current location.
+/// This subclass adds key commands to reset the rotation (heading) so north is at the top and to show the user’s current location.
 open class KeyboardMapView: MKMapView {
 
     open override var canBecomeFirstResponder: Bool {
