@@ -4,7 +4,7 @@ The easiest way to add comprehensive hardware keyboard control to an iPad, iPhon
 
 Keyboard control is a standard expectation of Mac apps. It’s important on iOS too because a hardware keyboard improves speed and ergonomics, which makes an iPad an even more powerful productivity machine.
 
-KeyboardKit is designed to integrate with the UIKit focus system when available, and it provides similar arrow and tab key navigation on OS versions where the focus system is not available. 
+KeyboardKit is designed to integrate with the UIKit focus system when available (iPad with iOS 15+, macOS 11+), and it provides similar arrow and tab key navigation on OS versions where the focus system is not available (iPhone, iPad with iOS 13–14, macOS 10.15).
 
 ## Features
 
@@ -23,23 +23,22 @@ KeyboardKit is designed to integrate with the UIKit focus system when available,
 
 Xcode 14.1 or later is required. KeyboardKit supports iOS 13 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported.
 
-Both Swift and Objective-C apps are supported. Since KeyboardKit is implemented in Swift, it’s not possible subclass KeyboardKit classes from Objective-C. However all other features of KeyboardKit are available to Objective-C apps.
-
 ## Installation
 
 ### Swift Package Manager
 
 Add KeyboardKit to an existing Xcode project as a package dependency:
 
-1. From the File menu, select Swift Packages › Add Package Dependency…
-2. Enter "https://github.com/douglashill/KeyboardKit" into the package repository URL text field.
+1. Navigate to your project settings and then the Package Dependencies tab.
+2. Click the + button. 
+2. Enter https://github.com/douglashill/KeyboardKit into the search or package URL field.
 
 ### Direct
 
 1. Clone this repository.
 2. Drag `KeyboardKit.xcodeproj` into your Xcode project.
 3. Add the KeyboardKit target as a dependency of your target.
-4. Add `KeyboardKit.framework` as an embedded framework.
+4. Add `KeyboardKit.framework` to your target as an embedded framework.
 
 Swift Package Manager requires the Swift and Objective-C sources to be separated into modules. The `KeyboardKitObjC` module is used internally by KeyboardKit and does not need to be imported explicitly by your app.
 
@@ -101,10 +100,6 @@ Button("Save") {
 
 This adds the ability trigger the action of the button by pressing ⌘S.
 
-## Customisation
-
-The public API is currently kept minimal so components are easy to drop in. If there is something you’d like to be able to customise in KeyboardKit, please [open an issue](https://github.com/douglashill/KeyboardKit/issues) to discuss. You could also consider directly integrating the source code and modify it as needed.
-
 ## Learn more
 
 - Conference talk: [*Keyboard control in UIKit apps* at iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933)
@@ -114,7 +109,7 @@ The public API is currently kept minimal so components are easy to drop in. If t
 
 ## Credits
 
-KeyboardKit is a project from [Douglas Hill](https://douglashill.co/) with the kind help of [contributors](https://github.com/douglashill/KeyboardKit/graphs/contributors). Some concepts were originally developed for [PSPDFKit](https://pspdfkit.com/) and reimplemented in Swift for KeyboardKit. I use KeyboardKit in my [reading app](https://douglashill.co/reading-app/).
+KeyboardKit is a project from [Douglas Hill](https://douglashill.co/) with the generous help of [contributors](https://github.com/douglashill/KeyboardKit/graphs/contributors). Some concepts were originally developed for [PSPDFKit](https://pspdfkit.com/) and reimplemented in Swift for KeyboardKit. I use KeyboardKit in my [reading app](https://douglashill.co/reading-app/).
 
 ## Contributing
 

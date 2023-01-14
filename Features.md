@@ -4,9 +4,9 @@ KeyboardKit allows your users to use a hardware keyboard to perform the many act
 
 ## Keyboard navigation without the focus system
 
-KeyboardKit is designed to be used alongside the UIKit focus system when it’s available, which is on iPad on iOS 15 and later, and on Mac on Big Sur and later.
+KeyboardKit is designed to be used alongside the UIKit focus system when it’s available, which is on iPad on iOS 15 and later, and on Mac on macOS 11 Big Sur and later.
 
-For iOS 15 and later on iPhone and iOS 13–14 on iPad, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers. KeyboardKit’s implementation of keyboard navigation has a few advantages over the focus system:
+For iPhone and iOS 13–14 on iPad, KeyboardKit helps replicate much of what the focus system offers with arrow key selection in table views and collection views and tab navigation across columns in split view controllers. KeyboardKit’s implementation of keyboard navigation has a few advantages over the focus system:
 
 - Jumping to the end is possible in collection views and table views by holding the option key. This is a powerful productivity accelerator.
 - Wrapping is possible in collection views and table views. The user can press up when at the top to jump to the bottom etc.
