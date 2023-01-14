@@ -268,7 +268,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         _contentOffsetAnimatorStorage = animator
 
         animator.stepCallback = { [weak self] point in
-            guard let self = self else { return }
+            guard let self else { return }
             if self.scrollView.isTracking {
                 self.contentOffsetAnimator.cancelAnimation()
             } else {
@@ -277,7 +277,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
         }
 
         animator.endCallback = { [weak self] isFinished in
-            guard let self = self else { return }
+            guard let self else { return }
             self.keyboardScrollingDelegate?.didEndKeyboardScrollingAnimation(inScrollView: self.scrollView, isFinished: isFinished)
         }
 

@@ -312,7 +312,7 @@ extension UITableView: SelectableCollection {
     }
 
     var shouldAllowMoving: Bool {
-        guard let dataSource = dataSource else {
+        guard let dataSource else {
             return false
         }
         // Diff-able data sources are not supported. See the comment in the implementation of shouldAllowMoving for UICollectionView.

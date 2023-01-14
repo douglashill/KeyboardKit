@@ -6,7 +6,7 @@ extension UIKeyCommand {
     /// Consistent API whether there is a title or not.
     /// Tuple means usage reads more nicely too.
     convenience init(_ keys: (modifierFlags: UIKeyModifierFlags, input: String), action: Selector, title: String? = nil, wantsPriorityOverSystemBehavior: Bool = false, allowsAutomaticLocalization: Bool = true, allowsAutomaticMirroring: Bool = true) {
-        if let title = title {
+        if let title {
             self.init(title: title, action: action, input: keys.input, modifierFlags: keys.modifierFlags)
         } else {
             self.init(input: keys.input, modifierFlags: keys.modifierFlags, action: action)

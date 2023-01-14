@@ -98,7 +98,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
     }
 
     func collectionViewShouldClearSelectionUsingKeyboard(_ collectionView: UICollectionView) -> Bool {
-        if let delegate = delegate {
+        if let delegate {
             return delegate.shouldRequireSelectionInSidebarViewController(self) == false
         } else {
             return true

@@ -306,7 +306,7 @@ extension UICollectionView: SelectableCollection {
     }
 
     var shouldAllowMoving: Bool {
-        guard let dataSource = dataSource else {
+        guard let dataSource else {
             return false
         }
         /*

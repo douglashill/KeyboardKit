@@ -56,7 +56,7 @@ extension UIKeyCommand {
     /// loss. This is resolved in iOS 15 with the addition of wantsPriorityOverSystemBehavior, which defaults to false.
     /// This method is not needed on iOS 15 and later.
     var doesConflictWithTextInput: Bool {
-        guard let input = input else {
+        guard let input else {
             // No input means no conflicts. But no way to press the key either.
             return false
         }

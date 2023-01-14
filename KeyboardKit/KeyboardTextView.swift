@@ -162,7 +162,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     private func findNext(isBackwards: Bool) {
         // Possible improved implementation: use a substring and localizedStandardRange.
 
-        guard let textToFind = findPasteboard.string, let selectedTextRange = selectedTextRange else {
+        guard let textToFind = findPasteboard.string, let selectedTextRange else {
             return
         }
 
@@ -202,7 +202,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
     private func jumpToSelection() {
         // scrollRangeToVisible(selectedRange) does not consider insets so use different API.
 
-        guard let selectedTextRange = selectedTextRange else {
+        guard let selectedTextRange else {
             return
         }
 

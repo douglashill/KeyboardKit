@@ -59,7 +59,7 @@ open class KeyboardNavigationController: UINavigationController {
     open override var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
-        if let topViewController = topViewController {
+        if let topViewController {
             let navigationItem = topViewController.navigationItem
             var additionalCommands: [UIKeyCommand] = []
 

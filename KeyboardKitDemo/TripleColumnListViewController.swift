@@ -16,7 +16,7 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
     /// The data displayed by the list as an array of the text for each item.
     var items: [String] = [] {
         didSet {
-            if let dataSource = dataSource {
+            if let dataSource {
                 reloadDataWithDataSource(dataSource)
             }
         }
