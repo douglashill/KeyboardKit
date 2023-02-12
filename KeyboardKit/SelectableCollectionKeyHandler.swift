@@ -220,7 +220,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
         }
 
         for section in 0 ..< collection.numberOfSections {
-            for item in  0 ..< collection.numberOfItems(inSection: section) {
+            for item in 0 ..< collection.numberOfItems(inSection: section) {
                 collection.selectItem(at: IndexPath(item: item, section: section), animated: false, scrollPosition: [])
             }
         }

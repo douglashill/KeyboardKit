@@ -17,7 +17,7 @@
 "barButton_play" = "Reproduciraj"; // This matches the iOS TV and Music apps. Possible alternative to match the bar button accessibility label: Reprodukcija
 "barButton_redo" = "Ponovi";
 "barButton_reply" = "Odgovori";
-"barButton_rewind" = "Pretraži unatrag"; // Unlike with  fast-forward, in this case this verb from is more common than Pretraživanje unatrag (noun form).
+"barButton_rewind" = "Pretraži unatrag"; // Unlike with fast-forward, in this case this verb from is more common than Pretraživanje unatrag (noun form).
 "barButton_save" = "Spremi";
 "barButton_search" = "Traži";
 "barButton_stop" = "Zaustavi";
