@@ -3,8 +3,12 @@
 import UIKit
 
 /// A scroll view that supports scrolling and zooming using a hardware keyboard.
+///
 /// Behaviour is modelled on `NSScrollView`.
 /// Supports arrow keys, ⌥ + arrow keys, ⌘ + arrow keys, space bar, page up, page down, home and end.
+///
+/// From iOS 17, `UIScrollView` has partial built-in support for keyboard scrolling. This is
+/// disabled in KeyboardKit classes because KeyboardKit’s support is more comprehensive.
 open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
 
     /// A key command that enables users to enlarge content in a scroll view.

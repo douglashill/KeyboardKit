@@ -27,6 +27,17 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     ///   - owner: The object that owns the key handler and can provide it with a next responder.
     init(scrollView: UIScrollView, owner: ResponderChainInjection) {
         self.scrollView = scrollView
+#if canImport(SwiftData)
+        if #available(iOS 17.0, *) {
+            // As of iOS 17.0 beta 7, the system implementation of keyboard scrolling doesn’t support
+            // paging or nested scroll views, is harder to debug, and is unreliable. (It only works if
+            // you put the demo app in a compact width and then back into a regular width.)
+            // It would be nice to switch to the system scrolling because it’s continuous as you hold
+            // the key down and bounces at the ends, although it doesn’t support changing direction
+            // or going diagonally.
+            scrollView.allowsKeyboardScrolling = false
+        }
+#endif
         super.init(owner: owner)
     }
 
