@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 8.2.0
     - Adds support for iOS 17 and Xcode 15. Xcode 14 is still supported.
 - 8.1.0
     - Adds `KeyboardMapView` to let users scroll, zoom and rotate maps using a keyboard.
