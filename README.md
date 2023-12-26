@@ -42,11 +42,9 @@ Add KeyboardKit to an existing Xcode project as a package dependency:
 
 Swift Package Manager requires the Swift and Objective-C sources to be separated into modules. The `KeyboardKitObjC` module is used internally by KeyboardKit and does not need to be imported explicitly by your app.
 
-### CocoaPods
+### CocoaPods (legacy)
 
-[KeyboardKit is available on CocoaPods](https://cocoapods.org/pods/Keyboard-Kit) as `Keyboard-Kit`.
-
-Please [open a pull request](https://github.com/douglashill/KeyboardKit/pulls) if you notice any integration problems.
+Up until version 8.2.0, [KeyboardKit was available on CocoaPods](https://cocoapods.org/pods/Keyboard-Kit) as `Keyboard-Kit`. Please use Swift Package Manager or direct installation instead.
 
 ## Usage
 

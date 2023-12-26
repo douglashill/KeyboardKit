@@ -188,7 +188,6 @@
 		A55D7AEF23C1108300302D79 /* KeyboardKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A55D7AF123C1108300302D79 /* KeyboardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKitTests.swift; sourceTree = "<group>"; };
 		A55D7AF323C1108300302D79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Keyboard-Kit.podspec"; sourceTree = "<group>"; };
 		A55F22B8271B3BD500AFA55E /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
 		A55F8E85271C15B8001CC20E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5666C5324DECCBE00524C23 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -384,7 +383,6 @@
 				A59855012439CE6B008DB610 /* CHANGELOG.md */,
 				A55D3C03257AC57B00E5FE07 /* Features.md */,
 				A5693A3B24B232A000F82CB6 /* Package.swift */,
-				A55D7AFB23C26A1500302D79 /* Keyboard-Kit.podspec */,
 				A53AE0062375AAAE00B07957 /* KeyboardKit */,
 				A53ADFEB2375AA1600B07957 /* KeyboardKitDemo */,
 				A5B7C10A242F9EA900B48595 /* KeyboardKitClassicDemo */,
