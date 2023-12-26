@@ -172,5 +172,5 @@ Full list of localisations: Arabic, Catalan, Chinese (Hong Kong), Chinese (Simpl
 ## Clean implementation
 
 - App Store approved
-- No data collection
+- No data collection (includes a completely empty privacy manifest)
 - No use of private API, swizzling or associated objects

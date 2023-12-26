@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9646A54828B2664700A10272 /* KeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9646A54728B2664700A10272 /* KeyboardInput.swift */; };
+		A516DFA62B3B5B2700921B80 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A516DFA52B3B5B2700921B80 /* PrivacyInfo.xcprivacy */; };
 		A521CE5424D61B5C00EBB34D /* CompositionalLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */; };
 		A53ADFEF2375AA1600B07957 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */; };
 		A53ADFF62375AA1700B07957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53ADFF52375AA1700B07957 /* Assets.xcassets */; };
@@ -152,6 +153,7 @@
 
 /* Begin PBXFileReference section */
 		9646A54728B2664700A10272 /* KeyboardInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInput.swift; sourceTree = "<group>"; };
+		A516DFA52B3B5B2700921B80 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A521CE5324D61B5C00EBB34D /* CompositionalLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutViewController.swift; sourceTree = "<group>"; };
 		A53ADFE92375AA1600B07957 /* KeyboardKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
 				A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */,
 				A53AE0082375AAAE00B07957 /* Info.plist */,
+				A516DFA52B3B5B2700921B80 /* PrivacyInfo.xcprivacy */,
 				A5E5389A239B036F004A2EE2 /* UpdateLocalisedStringKeys.swift */,
 			);
 			path = KeyboardKit;
@@ -792,6 +795,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A516DFA62B3B5B2700921B80 /* PrivacyInfo.xcprivacy in Resources */,
 				A5E5389F239B0387004A2EE2 /* KeyboardKit.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
