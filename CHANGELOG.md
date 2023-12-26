@@ -2,6 +2,7 @@
 
 - Next
     - Adds a (completely empty) [privacy manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files).
+    - Fixes build with Swift Package Manager. 
 - 8.2.0
     - Adds support for iOS 17 and Xcode 15. Xcode 14 is still supported.
 - 8.1.0

@@ -1,5 +1,7 @@
 // Douglas Hill, December 2022
 
+import UIKit
+
 /// Input required on a hardware keyboard (a combination of keys).
 ///
 /// A keyboard command consists of input (this type) + action (code to run).
