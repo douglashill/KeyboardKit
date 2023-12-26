@@ -1,6 +1,6 @@
 # KeyboardKit change log
 
-- Next
+- 8.3.0
     - Adds a (completely empty) [privacy manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files).
     - Fixes build with Swift Package Manager. 
 - 8.2.0
