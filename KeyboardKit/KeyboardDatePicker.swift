@@ -122,7 +122,7 @@ open class KeyboardDatePicker: UIDatePicker {
         switch (datePickerStyle, datePickerMode) {
         case (.inline, .date), (.inline, .dateAndTime):
             return true
-        case (.inline, .time), (.inline, .countDownTimer), (.wheels, _), (.compact, _), (.automatic, _): fallthrough @unknown default:
+        case (.inline, .time), (.inline, .countDownTimer), (.inline, .yearAndMonth), (.wheels, _), (.compact, _), (.automatic, _): fallthrough @unknown default:
             return false
         }
     }
