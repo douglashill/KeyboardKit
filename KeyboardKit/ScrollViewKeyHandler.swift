@@ -164,7 +164,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     // MARK: - Scroll view delegate interception
 
     /// The delegate external to KeyboardKit.
-    weak var externalDelegate: UIScrollViewDelegate?
+    nonisolated(unsafe) weak var externalDelegate: UIScrollViewDelegate?
 
     private var keyboardScrollingDelegate: KeyboardScrollingDelegate? {
         (enableScrollViewDelegateInterception ? externalDelegate : scrollView.delegate) as? KeyboardScrollingDelegate

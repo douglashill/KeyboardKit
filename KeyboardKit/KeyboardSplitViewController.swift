@@ -502,7 +502,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
     private class IntermediateDelegate: NSObject, UISplitViewControllerDelegate {
 
         /// The delegate external to KeyboardKit.
-        weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
+        nonisolated(unsafe) weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
 
         /// The object that owns this intermediate delegate.
         unowned var owner: IntermediateDelegateOwner
