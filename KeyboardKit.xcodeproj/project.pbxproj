@@ -178,7 +178,7 @@
 		A53F2D37264FD9840008B5BE /* ScrollingLimitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingLimitsTests.swift; sourceTree = "<group>"; };
 		A53F2D39264FD9840008B5BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A542D89B23A01DC8007E68C3 /* PointAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointAnimator.swift; sourceTree = "<group>"; };
-		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ResponderChainDebugging.m; path = ObjC/ResponderChainDebugging.m; sourceTree = "<group>"; };
+		A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResponderChainDebugging.m; sourceTree = "<group>"; };
 		A54EFB0F23AADEB8001776A2 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
 		A554A9882700681E005A066F /* DiscoverableKeyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverableKeyCommand.swift; sourceTree = "<group>"; };
 		A55B8C08242564D2001E125A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		A56A4D64250E34A500A55939 /* TripleColumnListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnListViewController.swift; sourceTree = "<group>"; };
 		A56FFD522398718100E13773 /* KeyboardNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNavigationController.swift; sourceTree = "<group>"; };
 		A56FFD54239871A800E13773 /* KeyboardBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarButtonItem.swift; sourceTree = "<group>"; };
-		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BarButtonItem.h; path = ObjC/BarButtonItem.h; sourceTree = "<group>"; };
-		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BarButtonItem.m; path = ObjC/BarButtonItem.m; sourceTree = "<group>"; };
+		A56FFD562398776C00E13773 /* BarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarButtonItem.h; sourceTree = "<group>"; };
+		A56FFD572398776C00E13773 /* BarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarButtonItem.m; sourceTree = "<group>"; };
 		A56FFD5A2398778400E13773 /* KeyboardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardKit.h; sourceTree = "<group>"; };
 		A5745D2E25BC1F9C000265DF /* DemoApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApplication.swift; sourceTree = "<group>"; };
 		A57633BE259A62490063269A /* KeyboardDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDatePicker.swift; sourceTree = "<group>"; };
@@ -469,9 +469,7 @@
 				A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */,
 				A54EFB0F23AADEB8001776A2 /* TextInput.swift */,
 				A56FFD5A2398778400E13773 /* KeyboardKit.h */,
-				A56FFD562398776C00E13773 /* BarButtonItem.h */,
-				A56FFD572398776C00E13773 /* BarButtonItem.m */,
-				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
+				A59E51D42C67BDFE00D9ECED /* ObjC */,
 				A5E53897239B036F004A2EE2 /* LocalisedStrings.swift */,
 				A5E53899239B036F004A2EE2 /* LocalisedStringKeys.swift */,
 				A5E538A1239B0387004A2EE2 /* KeyboardKit.strings */,
@@ -509,6 +507,16 @@
 				A55D7AF323C1108300302D79 /* Info.plist */,
 			);
 			path = KeyboardKitTests;
+			sourceTree = "<group>";
+		};
+		A59E51D42C67BDFE00D9ECED /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				A56FFD562398776C00E13773 /* BarButtonItem.h */,
+				A56FFD572398776C00E13773 /* BarButtonItem.m */,
+				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
+			);
+			path = ObjC;
 			sourceTree = "<group>";
 		};
 		A5B7C10A242F9EA900B48595 /* KeyboardKitClassicDemo */ = {
