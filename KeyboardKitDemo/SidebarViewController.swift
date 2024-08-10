@@ -109,7 +109,7 @@ class SidebarViewController: FirstResponderViewController, UICollectionViewDataS
 // MARK: -
 
 /// An object to assist with managing the selection in a sidebar.
-protocol SidebarViewControllerDelegate: NSObjectProtocol {
+@MainActor protocol SidebarViewControllerDelegate: NSObjectProtocol {
     /// Called when the selected item in the sidebar changes using arrow keys.
     func didShowSelectionAtIndex(_ index: Int, inSidebarViewController sidebarViewController: SidebarViewController)
 

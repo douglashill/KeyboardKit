@@ -3,7 +3,7 @@
 import SwiftUI
 import KeyboardKit
 
-func swiftUIExampleViewController() -> UIViewController {
+@MainActor func swiftUIExampleViewController() -> UIViewController {
     return UIHostingController(rootView: ExampleView())
 }
 

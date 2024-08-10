@@ -9,7 +9,7 @@ extension KeyboardShortcut {
 }
 
 @available(iOS 14.0, *)
-extension KeyboardShortcut.KeyboardKit {
+@MainActor extension KeyboardShortcut.KeyboardKit {
     /// A keyboard shortcut for a close action, consisting of the 'W' key and the Command (⌘) modifier.
     public static let close = KeyboardShortcut(keyboardInput: .close)
 

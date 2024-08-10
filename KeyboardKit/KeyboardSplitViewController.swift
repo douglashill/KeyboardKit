@@ -577,7 +577,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
 // MARK: -
 
 @available(iOS 14.0, *)
-private protocol IntermediateDelegateOwner: NSObjectProtocol {
+@MainActor private protocol IntermediateDelegateOwner: NSObjectProtocol {
     func validateFocusedColumnAfterDisplayStateChange()
     var focusedColumn: UISplitViewController.Column? { get }
 }
