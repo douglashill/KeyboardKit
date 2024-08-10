@@ -5,7 +5,7 @@ import UIKit
 /// Input required on a hardware keyboard (a combination of keys).
 ///
 /// A keyboard command consists of input (this type) + action (code to run).
-@MainActor struct KeyboardInput {
+struct KeyboardInput: Sendable {
     let modifierFlags: UIKeyModifierFlags
     let character: String
     let allowsAutomaticMirroring: Bool

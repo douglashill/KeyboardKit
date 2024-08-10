@@ -52,6 +52,8 @@
 		A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */; };
 		A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59C182129238433007366F7 /* SwiftUIViewController.swift */; };
 		A59E51D32C67B4F300D9ECED /* InitialiserClearingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */; };
+		A59E51D72C67BE9A00D9ECED /* KeyInputStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */; };
+		A59E51D82C67BE9A00D9ECED /* KeyInputStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
 		A5B7C113242F9EA900B48595 /* ClassicDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C112242F9EA900B48595 /* ClassicDemoViewController.m */; };
@@ -286,6 +288,8 @@
 		A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+KeyboardKit.swift"; sourceTree = "<group>"; };
 		A59C182129238433007366F7 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
 		A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialiserClearingViewController.swift; sourceTree = "<group>"; };
+		A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyInputStrings.h; sourceTree = "<group>"; };
+		A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyInputStrings.m; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -517,6 +521,8 @@
 			children = (
 				A56FFD562398776C00E13773 /* BarButtonItem.h */,
 				A56FFD572398776C00E13773 /* BarButtonItem.m */,
+				A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */,
+				A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */,
 				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
 			);
 			path = ObjC;
@@ -553,6 +559,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A59E51D82C67BE9A00D9ECED /* KeyInputStrings.h in Headers */,
 				A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */,
 				A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */,
 			);
@@ -929,6 +936,7 @@
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
 				A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */,
+				A59E51D72C67BE9A00D9ECED /* KeyInputStrings.m in Sources */,
 				9646A54828B2664700A10272 /* KeyboardInput.swift in Sources */,
 				A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */,
 				A554A9892700681E005A066F /* DiscoverableKeyCommand.swift in Sources */,
