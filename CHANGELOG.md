@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- 9.0.1
+    - Fixes build with Swift Package Manager.
 - 9.0.0
     - Xcode 15.3 or later is now required.
     - Increases the macOS deployment target (for Mac Catalyst) from macOS 10.15 Catalina to macOS 11 Big Sur.
