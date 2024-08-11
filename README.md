@@ -100,9 +100,11 @@ This adds the ability trigger the action of the button by pressing ⌘S.
 
 ## Learn more
 
+- [The creation of KeyboardKit](https://douglashill.co/status/1201265719788392448/)
 - Conference talk: [*Keyboard control in UIKit apps* at iOS Conf SG 2020](https://engineers.sg/video/full-keyboard-control-in-uikit-apps-ios-conf-sg-2020--3933)
 - Podcast discussion: [iPhreaks episode 297](https://devchat.tv/iphreaks/ips-297-keyboard-controls-with-douglas-hill/)
-- Blog post: [What’s New in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
+- [What’s new in KeyboardKit for iOS 14?](https://douglashill.co/whats-new-in-keyboardkit-for-ios-14/)
+- [Migrating KeyboardKit to Swift 6 language mode](https://douglashill.co/keyboardkit-swift-6/).
 - [Change log](/CHANGELOG.md)
 
 ## Credits
