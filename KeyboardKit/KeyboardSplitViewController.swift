@@ -502,7 +502,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
     private class IntermediateDelegate: NSObject, UISplitViewControllerDelegate {
 
         /// The delegate external to KeyboardKit.
-        weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
+        nonisolated(unsafe) weak var externalDelegate: (UISplitViewControllerDelegate & NSObjectProtocol)?
 
         /// The object that owns this intermediate delegate.
         unowned var owner: IntermediateDelegateOwner
@@ -577,7 +577,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
 // MARK: -
 
 @available(iOS 14.0, *)
-private protocol IntermediateDelegateOwner: NSObjectProtocol {
+@MainActor private protocol IntermediateDelegateOwner: NSObjectProtocol {
     func validateFocusedColumnAfterDisplayStateChange()
     var focusedColumn: UISplitViewController.Column? { get }
 }

@@ -2,7 +2,7 @@
 
 import UIKit
 
-protocol ResponderChainInjection: NSObjectProtocol {
+@MainActor protocol ResponderChainInjection: NSObjectProtocol {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder?
 }
 

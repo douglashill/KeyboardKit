@@ -164,7 +164,7 @@ class ScrollViewKeyHandler: InjectableResponder, UIScrollViewDelegate {
     // MARK: - Scroll view delegate interception
 
     /// The delegate external to KeyboardKit.
-    weak var externalDelegate: UIScrollViewDelegate?
+    nonisolated(unsafe) weak var externalDelegate: UIScrollViewDelegate?
 
     private var keyboardScrollingDelegate: KeyboardScrollingDelegate? {
         (enableScrollViewDelegateInterception ? externalDelegate : scrollView.delegate) as? KeyboardScrollingDelegate
@@ -511,7 +511,7 @@ private enum Direction {
 }
 
 /// Returns the direction in which to scroll due to input from a key command.
-private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
+@MainActor private func directionFromKeyCommand(_ keyCommand: UIKeyCommand) -> Direction? {
     switch keyCommand.input ?? "" {
 
     case .upArrow: return .up
@@ -541,7 +541,7 @@ private enum ScrollStep {
 }
 
 /// Returns the distance to scroll due to input from a key command.
-private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand, isPaging: Bool) -> ScrollStep? {
+@MainActor private func scrollStepFromKeyCommand(_ keyCommand: UIKeyCommand, isPaging: Bool) -> ScrollStep? {
     switch keyCommand.input ?? "" {
 
     case .upArrow, .downArrow, .leftArrow, .rightArrow:

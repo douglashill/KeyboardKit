@@ -16,10 +16,11 @@ class KeyboardKitDemoUITests: XCTestCase {
         // Reported as FB8936487 - Should be possible to test hardware keyboard input on iOS/iPadOS.
         // On Mac it doesn’t seem to matter which element you call typeText on so I’m just using the app element.
 
-        // This test expects the focus system so won’t work on Catalina. Must use Big Sur or later.
+        // This test expects the focus system so won’t work on macOS 10.15 Catalina. Must use macOS 11 Big Sur or later.
 
         XCTAssertTrue(app.tables.element.waitForExistence(timeout: 30))
         app.typeText(.downArrow) // This just primes the focus system.
+        app.typeText(.tab) // Move focus to the sidebar. This was not needed on macOS 11 but is needed on macOS 14. Not sure where in between this became necessary. Ideally this would be conditional.
         XCTAssertTrue(app.tables.element.exists) // Nothing should have changed.
         app.typeText(.downArrow) // This should actually move the focus down by one item.
         XCTAssertTrue(app.collectionViews["list collection view"].exists)

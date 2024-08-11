@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,6 +51,9 @@
 		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
 		A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */; };
 		A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59C182129238433007366F7 /* SwiftUIViewController.swift */; };
+		A59E51D32C67B4F300D9ECED /* InitialiserClearingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */; };
+		A59E51D72C67BE9A00D9ECED /* KeyInputStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */; };
+		A59E51D82C67BE9A00D9ECED /* KeyInputStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
 		A5B7C10D242F9EA900B48595 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C10C242F9EA900B48595 /* AppDelegate.m */; };
 		A5B7C113242F9EA900B48595 /* ClassicDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B7C112242F9EA900B48595 /* ClassicDemoViewController.m */; };
@@ -284,6 +287,9 @@
 		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
 		A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+KeyboardKit.swift"; sourceTree = "<group>"; };
 		A59C182129238433007366F7 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
+		A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialiserClearingViewController.swift; sourceTree = "<group>"; };
+		A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyInputStrings.h; sourceTree = "<group>"; };
+		A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyInputStrings.m; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
 		A5B7C109242F9EA900B48595 /* KeyboardKitClassicDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardKitClassicDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B7C10B242F9EA900B48595 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -418,6 +424,7 @@
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */,
 				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
+				A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */,
 				A53AE01C23786CDC00B07957 /* TableViewController.swift */,
 				A5666C5324DECCBE00524C23 /* ListViewController.swift */,
@@ -514,6 +521,8 @@
 			children = (
 				A56FFD562398776C00E13773 /* BarButtonItem.h */,
 				A56FFD572398776C00E13773 /* BarButtonItem.m */,
+				A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */,
+				A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */,
 				A54D2DFA23B7921C0090A11B /* ResponderChainDebugging.m */,
 			);
 			path = ObjC;
@@ -550,6 +559,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A59E51D82C67BE9A00D9ECED /* KeyInputStrings.h in Headers */,
 				A56FFD5B2398779000E13773 /* KeyboardKit.h in Headers */,
 				A56FFD582398776C00E13773 /* BarButtonItem.h in Headers */,
 			);
@@ -693,6 +703,7 @@
 		A53ADFE12375AA1600B07957 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = KBD;
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1200;
@@ -887,6 +898,7 @@
 				A55F22B9271B3BD500AFA55E /* MenuBuilder.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
+				A59E51D32C67B4F300D9ECED /* InitialiserClearingViewController.swift in Sources */,
 				A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
 				A55F8E86271C15B8001CC20E /* AppDelegate.swift in Sources */,
@@ -924,6 +936,7 @@
 				A5D8C55E23A4ED0F00733DD4 /* InjectableResponder.swift in Sources */,
 				A5E538AA239BF644004A2EE2 /* KeyboardTextView.swift in Sources */,
 				A5D20F44237E9AE90057A8EE /* KeyboardScrollView.swift in Sources */,
+				A59E51D72C67BE9A00D9ECED /* KeyInputStrings.m in Sources */,
 				9646A54828B2664700A10272 /* KeyboardInput.swift in Sources */,
 				A53AE01A23786CD000B07957 /* KeyboardCollectionView.swift in Sources */,
 				A554A9892700681E005A066F /* DiscoverableKeyCommand.swift in Sources */,
@@ -1130,6 +1143,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1165,6 +1179,7 @@
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1180,14 +1195,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1196,6 +1211,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1231,6 +1247,7 @@
 				DEVELOPMENT_TEAM = 3A8QT46Z78;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1240,13 +1257,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1255,7 +1272,6 @@
 		A53ADFFE2375AA1700B07957 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KeyboardKitDemo/KeyboardKitDemo.entitlements;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
@@ -1274,7 +1290,6 @@
 		A53ADFFF2375AA1700B07957 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KeyboardKitDemo/KeyboardKitDemo.entitlements;
 				INFOPLIST_FILE = KeyboardKitDemo/Info.plist;
@@ -1294,12 +1309,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = KeyboardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1307,6 +1324,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1320,12 +1338,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = KeyboardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1333,6 +1353,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1347,7 +1368,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				INFOPLIST_FILE = KeyboardKitUITestsHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1363,7 +1383,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				INFOPLIST_FILE = KeyboardKitUITestsHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1378,7 +1397,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = KeyboardKitUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1395,7 +1413,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = KeyboardKitUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1438,7 +1455,6 @@
 		A5B7C11F242F9EAB00B48595 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KeyboardKitClassicDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1453,7 +1469,6 @@
 		A5B7C120242F9EAB00B48595 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KeyboardKitClassicDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1475,7 +1490,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKitDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = KeyboardKitDemo;
@@ -1492,7 +1506,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.douglashill.KeyboardKitDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = KeyboardKitDemo;

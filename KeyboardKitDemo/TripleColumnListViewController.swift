@@ -118,6 +118,6 @@ class TripleColumnListViewController: FirstResponderViewController, KeyboardColl
 // MARK: -
 
 /// An object to be notified of selection changes in a list.
-protocol TripleColumnListViewControllerDelegate: NSObjectProtocol {
+@MainActor protocol TripleColumnListViewControllerDelegate: NSObjectProtocol {
     func didChangeSelectedItemsInListViewController(_ listViewController: TripleColumnListViewController, isExplicitActivation: Bool)
 }

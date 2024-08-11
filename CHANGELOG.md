@@ -1,5 +1,9 @@
 # KeyboardKit change log
 
+- Next
+    - Xcode 15.3 or later is now required.
+    - Increases the macOS deployment target (for Mac Catalyst) from macOS 10.15 Catalina to macOS 11 Big Sur.
+    - Adds support for iOS 18 and Xcode 16.
 - 8.3.0
     - Adds a (completely empty) [privacy manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files).
     - Fixes build with Swift Package Manager. 

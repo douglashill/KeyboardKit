@@ -3,7 +3,7 @@
 import UIKit
 import KeyboardKit
 
-@objc protocol DismissModalActionPerformer {
+@MainActor @objc protocol DismissModalActionPerformer {
     func dismissModalViewController()
 }
 
