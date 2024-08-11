@@ -1,5 +1,9 @@
 // Douglas Hill, December 2019
 
+#if SWIFT_PACKAGE
+import KeyboardKitObjC
+#endif
+
 import UIKit
 
 /// Convenience strings for the `input` of a `UIKeyCommand`.
