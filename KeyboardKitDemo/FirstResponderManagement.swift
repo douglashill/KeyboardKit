@@ -7,10 +7,12 @@ import KeyboardKit
 let firstResponderDidChangeNotification = Notification.Name("KBDFirstResponderDidChange")
 
 /// An abstract view controller that updates first responder when it appears.
-class FirstResponderViewController: InitialiserClearingViewController {
+class FirstResponderViewController: UIViewController {
     init() {
-        super.init(onMainActor: ())
+        super.init(nibName: nil, bundle: nil)
     }
+
+    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
     var windowIWasIn: UIWindow?
 

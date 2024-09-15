@@ -8,7 +8,7 @@ import KeyboardKit
 /// This class also demonstrates one possible way to show the focused column visually to the user:
 /// by showing the title in the navigation controller for the focused column darker than the titles
 /// in the other columns.
-class TripleColumnSplitViewController: InitialiserClearingViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate, DismissModalActionPerformer {
+class TripleColumnSplitViewController: UIViewController, TripleColumnListViewControllerDelegate, KeyboardSplitViewControllerDelegate, DismissModalActionPerformer {
     private let innerSplitViewController: KeyboardSplitViewController
 
     // The primary and supplementary would ideally use the sidebar and sidebarPlain styles.
@@ -29,6 +29,7 @@ class TripleColumnSplitViewController: InitialiserClearingViewController, Triple
     private let secondaryNavigationController: KeyboardNavigationController
 
     @available(*, unavailable) override var splitViewController: UISplitViewController? { nil }
+    @available(*, unavailable) required init?(coder: NSCoder) { preconditionFailure() }
 
     init() {
         innerSplitViewController = KeyboardSplitViewController(style: .tripleColumn)
@@ -41,7 +42,7 @@ class TripleColumnSplitViewController: InitialiserClearingViewController, Triple
         innerSplitViewController.setViewController(supplementaryNavigationController, for: .supplementary)
         innerSplitViewController.setViewController(secondaryNavigationController, for: .secondary)
 
-        super.init(onMainActor: ())
+        super.init(nibName: nil, bundle: nil)
 
         innerSplitViewController.delegate = self
         primaryList.delegate = self

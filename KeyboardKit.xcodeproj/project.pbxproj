@@ -51,7 +51,6 @@
 		A59AAEC724EA681E00160C60 /* TripleColumnSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */; };
 		A59AB263293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */; };
 		A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59C182129238433007366F7 /* SwiftUIViewController.swift */; };
-		A59E51D32C67B4F300D9ECED /* InitialiserClearingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */; };
 		A59E51D72C67BE9A00D9ECED /* KeyInputStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */; };
 		A59E51D82C67BE9A00D9ECED /* KeyInputStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5A1667D23B0461E00E5C3FD /* KeyInputStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */; };
@@ -287,7 +286,6 @@
 		A59AAEC624EA681E00160C60 /* TripleColumnSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleColumnSplitViewController.swift; sourceTree = "<group>"; };
 		A59AB262293D2510009D3BFB /* KeyboardShortcut+KeyboardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+KeyboardKit.swift"; sourceTree = "<group>"; };
 		A59C182129238433007366F7 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
-		A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialiserClearingViewController.swift; sourceTree = "<group>"; };
 		A59E51D52C67BE9A00D9ECED /* KeyInputStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyInputStrings.h; sourceTree = "<group>"; };
 		A59E51D62C67BE9A00D9ECED /* KeyInputStrings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyInputStrings.m; sourceTree = "<group>"; };
 		A5A1667C23B0461E00E5C3FD /* KeyInputStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInputStrings.swift; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 				A53ADFEE2375AA1600B07957 /* SceneDelegate.swift */,
 				A5E3D37724C39041008C1FDB /* DoubleColumnSplitViewController.swift */,
 				A5E3D37824C39041008C1FDB /* SidebarViewController.swift */,
-				A59E51D22C67B4F300D9ECED /* InitialiserClearingViewController.swift */,
 				A53EA62A239F04E80065C8EB /* FirstResponderManagement.swift */,
 				A53AE01C23786CDC00B07957 /* TableViewController.swift */,
 				A5666C5324DECCBE00524C23 /* ListViewController.swift */,
@@ -898,7 +895,6 @@
 				A55F22B9271B3BD500AFA55E /* MenuBuilder.swift in Sources */,
 				A5CDD2192394396D00EFF38A /* CirclesScrollViewController.swift in Sources */,
 				A5E538C6239BFB85004A2EE2 /* TextViewController.swift in Sources */,
-				A59E51D32C67B4F300D9ECED /* InitialiserClearingViewController.swift in Sources */,
 				A59C182229238433007366F7 /* SwiftUIViewController.swift in Sources */,
 				A53EA62B239F04E80065C8EB /* FirstResponderManagement.swift in Sources */,
 				A55F8E86271C15B8001CC20E /* AppDelegate.swift in Sources */,
