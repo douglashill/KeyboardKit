@@ -1,7 +1,5 @@
 # KeyboardKit change log
 
-- Next
-    - Xcode 16.0 or later is now required.
 - 9.0.2
     - Fixes a deprecation warning when building on macOS 15.
 - 9.0.1
