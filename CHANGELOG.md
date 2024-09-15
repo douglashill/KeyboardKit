@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- 9.0.3
+    - Adds support for building with complete strict concurrency checking with Swift 5 language mode.
 - 9.0.2
     - Fixes a deprecation warning when building on macOS 15.
 - 9.0.1
@@ -8,9 +10,10 @@
     - Xcode 15.3 or later is now required.
     - Increases the macOS deployment target (for Mac Catalyst) from macOS 10.15 Catalina to macOS 11 Big Sur.
     - Adds support for iOS 18 and Xcode 16.
+    - Adds support for building with Swift 6 language mode.
 - 8.3.0
     - Adds a (completely empty) [privacy manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files).
-    - Fixes build with Swift Package Manager. 
+    - Fixes build with Swift Package Manager.
 - 8.2.0
     - Adds support for iOS 17 and Xcode 15. Xcode 14 is still supported.
 - 8.1.0
@@ -19,20 +22,20 @@
     - Increases the deployment target from iOS 12 to iOS 13.
         - The following deprecated UIKit APIs are no longer respected: `isModalInPopover`, `popoverPresentationControllerShouldDismissPopover(_:)`, `popoverPresentationControllerDidDismissPopover(_:)`.
         - KeyboardKit didn’t run correctly on iOS 12 since version 5.1.0.
-    - Adds a localised title (shown in the discoverability HUD) for `KeyboardDatePicker`’s Go to Today command, which is now available as `KeyboardDatePicker.goToTodayKeyCommand`. 
+    - Adds a localised title (shown in the discoverability HUD) for `KeyboardDatePicker`’s Go to Today command, which is now available as `KeyboardDatePicker.goToTodayKeyCommand`.
 - 7.1.0
     - Adds common SwiftUI `KeyboardShortcut`s that can be used with the `.keyboardShortcut` modifier on a `Button`.  
 - 7.0.0
     - Xcode 14.0 or later is now required. (Xcode 14.1 or later for Mac Catalyst)
     - Adds support for iOS 16.
-    - Disables `KeyboardTextView`’s find commands when the text view’s built-in `UIFindInteraction` is enabled. 
+    - Disables `KeyboardTextView`’s find commands when the text view’s built-in `UIFindInteraction` is enabled.
     - Fixes adjustments to the date of `KeyboardDatePicker` within the same month being animated on iOS 16, which made it feel less responsive.
 - 6.0.0
     - Xcode 13.1 is now required.
     - Adds support for macOS 12 Monterey.
     - Restores demo app key commands on iOS 14 and lower. (This was a regression in 5.1.0.)
 - 5.1.0
-    - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or menu bar on Mac using `UIMenuBuilder` via many new public `DiscoverableKeyCommand` properties. 
+    - Adds support for including key commands from KeyboardKit in the discoverability HUD on iPad or menu bar on Mac using `UIMenuBuilder` via many new public `DiscoverableKeyCommand` properties.
     - Adds demonstrating setting up the main menu in demo app’s `AppDelegate`.
     - Changes the default value of the `canOpenSettings` property of `KeyboardApplication` to true if the app provides a `Settings.bundle` resource.
     - Removes unnecessary commands on Mac Catalyst to open Preferences, open a new window, close a window, and cycle the active window. These are all provided by the system on Mac Catalyst.
@@ -49,7 +52,7 @@
         - `KeyboardDatePicker` uses a `UIFocusHaloEffect` by default to show a halo when focused.
         - Moving items in a table view or collection view and deleting items in a table view will act on the focused item instead of the selected item.
     - Adds the `KeyboardBarButtonItem` properties `keyCommandWantsPriorityOverSystemBehavior`, `keyCommandAllowsAutomaticLocalization` and `keyCommandAllowsAutomaticMirroring` to forward to iOS 15’s new properties on the bar button item’s `UIKeyCommand`.
-    - `KeyboardWindow` no longer allows the window to become the first responder, which increases the length of the responder chain at scene connection. 
+    - `KeyboardWindow` no longer allows the window to become the first responder, which increases the length of the responder chain at scene connection.
     - Fixes key commands for rewind and fast-forward not being possible due to the commands for going back taking precedence even when unavailable.
 - 4.4.1
     - Fixes keyboard scrolling sometimes being allowed when content should not be scrollable due to content insets.
