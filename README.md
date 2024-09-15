@@ -21,7 +21,7 @@ KeyboardKit is designed to integrate with the UIKit focus system when available 
 
 ## Requirements
 
-Xcode 14.1 or later is required. KeyboardKit supports iOS 13 onwards on iPad, iPhone and Mac Catalyst (both scaled and optimised). tvOS is not supported.
+Xcode 14.1 or later is required. KeyboardKit supports iOS 13 onwards on iPad and iPhone and macOS 11 onwards with Mac Catalyst (both scaled and optimised). tvOS is not supported. The framework builds for visionOS, but this platform has not been tested.
 
 ## Installation
 
