@@ -587,7 +587,7 @@ open class KeyboardSplitViewController: UISplitViewController, IntermediateDeleg
 /// A split view controller’s `delegate` can conform to this protocol to receive callbacks when the
 /// focused column changes.
 @available(iOS 14.0, *)
-public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
+@MainActor public protocol KeyboardSplitViewControllerDelegate: UISplitViewControllerDelegate {
     /// Called after the `focusedColumn` has changed.
     ///
     /// This happens if the user uses keyboard input to change the focused column,

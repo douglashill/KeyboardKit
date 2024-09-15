@@ -190,7 +190,7 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
 /// This can be used with either `KeyboardCollectionView` or `KeyboardCollectionViewController`.
 ///
 /// When selection is activated with return or space, the regular delegate method `collectionView(_:didSelectItemAt:)` is called.
-public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
+@MainActor public protocol KeyboardCollectionViewDelegate: UICollectionViewDelegate {
     /// Called when a keyboard is used to change the selected items.
     ///
     /// This happens in response to arrow keys, escape and ⌘A.

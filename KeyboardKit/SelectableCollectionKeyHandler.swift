@@ -26,7 +26,7 @@ enum NavigationStep: Int {
 /// An object that uses cells to display a collection of items separated into sections, where each item/cell can be selected.
 ///
 /// This is an abstraction over `UICollectionView` and `UITableView`.
-protocol SelectableCollection: UIFocusEnvironment {
+@MainActor protocol SelectableCollection: UIFocusEnvironment {
 
     var numberOfSections: Int { get }
     func numberOfItems(inSection: Int) -> Int
