@@ -29,7 +29,7 @@ enum LocalisedStringKey: String {
 
 """
 
-let oldContents = try? String(contentsOf: outputSwiftFile)
+let oldContents = try? String(contentsOf: outputSwiftFile, encoding: .utf8)
 if contents != oldContents {
     try! contents.write(to: outputSwiftFile, atomically: false, encoding: .utf8)
 }

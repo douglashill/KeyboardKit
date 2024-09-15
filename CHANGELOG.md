@@ -1,5 +1,7 @@
 # KeyboardKit change log
 
+- Next
+    - Fixes a deprecation warning when building on macOS 15.
 - 9.0.1
     - Fixes build with Swift Package Manager.
 - 9.0.0
